@@ -1,0 +1,120 @@
+package zzbcar.cckj.com.nzzb.view.fragment;
+
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.view.activity.MyCarActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AboutUsActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AccountBindActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BreakRuleActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarIdentifiActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HelpCenterActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.InviteFriendsActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PreCarFriendIdentifiActivity;
+
+/**
+ * Created by Admin on 2017/10/31.
+ */
+
+public class MineFragment extends BaseFragment implements View.OnClickListener {
+
+
+    private RelativeLayout rl_my_card;
+    private RelativeLayout rl_my_address;
+    private RelativeLayout rl_my_account_bind;
+    private RelativeLayout rl_my_break_rules;
+    private RelativeLayout rl_my_invite_friends;
+    private RelativeLayout rl_my_help_center;
+    private RelativeLayout rl_my_about_us;
+    private TextView tv_minfragment_car_identifi;
+    private ImageView iv_mine_fragment_carowener_recruit;
+    private AlertDialog dialog;
+
+    @Override
+    public View initView(LayoutInflater inflater) {
+        View view = View.inflate(mActivity, R.layout.fragment_mine, null);
+
+        return view;
+    }
+
+    @Override
+    protected void initFindViewById(View view) {
+        rl_my_card = (RelativeLayout)view.findViewById(R.id.rl_my_card);
+        rl_my_address = (RelativeLayout)view.findViewById(R.id.rl_my_address);
+        rl_my_account_bind = (RelativeLayout)view.findViewById(R.id.rl_my_account_bind);
+        rl_my_break_rules = (RelativeLayout)view.findViewById(R.id.rl_my_break_rules);
+        rl_my_invite_friends = (RelativeLayout)view.findViewById(R.id.rl_my_invite_friends);
+        rl_my_help_center = (RelativeLayout)view.findViewById(R.id.rl_my_help_center);
+        rl_my_about_us = (RelativeLayout)view.findViewById(R.id.rl_my_about_us);
+        tv_minfragment_car_identifi = (TextView)view.findViewById(R.id.tv_minfragment_car_identifi);
+        iv_mine_fragment_carowener_recruit = view.findViewById(R.id.iv_mine_fragment_carowener_recruit);
+
+
+    }
+
+    @Override
+    public void initData() {
+        rl_my_card.setOnClickListener(this);
+        rl_my_address.setOnClickListener(this);
+        rl_my_account_bind.setOnClickListener(this);
+        rl_my_break_rules.setOnClickListener(this);
+        rl_my_invite_friends.setOnClickListener(this);
+        rl_my_help_center.setOnClickListener(this);
+        rl_my_about_us.setOnClickListener(this);
+        tv_minfragment_car_identifi.setOnClickListener(this);
+        iv_mine_fragment_carowener_recruit.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = null;
+        switch (view.getId()) {
+            case R.id.rl_my_card:
+                intent = new Intent(mActivity, MyCarActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_my_address:
+                intent = new Intent(mActivity, CommonAddressActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_my_account_bind:
+                intent = new Intent(mActivity, AccountBindActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_my_break_rules:
+                intent = new Intent(mActivity, BreakRuleActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_my_invite_friends:
+                intent = new Intent(mActivity, InviteFriendsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_my_help_center:
+                intent = new Intent(mActivity, HelpCenterActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rl_my_about_us:
+                intent = new Intent(mActivity, AboutUsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_minfragment_car_identifi:
+                intent=new Intent(mActivity,CarIdentifiActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.iv_mine_fragment_carowener_recruit:
+               intent=new Intent(mActivity,PreCarFriendIdentifiActivity.class);
+               startActivity(intent);
+
+        }
+
+    }
+
+}

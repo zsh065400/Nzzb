@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\button_red_pressed.9.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\button_red_pressed.9.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\tab_discovery_h.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\tab_discovery_h.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_keyboard_arrow_left_black_36dp.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\ic_keyboard_arrow_left_black_36dp.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\button_red_normal.9.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\button_red_normal.9.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\search_frame.9.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\search_frame.9.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\tab_order_h.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\tab_order_h.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\tab_personal_h.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\tab_personal_h.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\tab_order_n.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\tab_order_n.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\tab_home_h.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\tab_home_h.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\ic_chevron_right_black_36dp.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\ic_chevron_right_black_36dp.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\tab_personal_n.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\tab_personal_n.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\tab_discovery_n.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\tab_discovery_n.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi\\tab_home_n.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\drawable-hdpi\\tab_home_n.png"
+    }
+]

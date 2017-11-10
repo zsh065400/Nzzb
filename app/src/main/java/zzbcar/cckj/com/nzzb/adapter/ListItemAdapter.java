@@ -1,0 +1,51 @@
+package zzbcar.cckj.com.nzzb.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import java.util.List;
+
+import zzbcar.cckj.com.nzzb.R;
+
+/**
+ * Created by Admin on 2017/11/7.
+ */
+
+public class ListItemAdapter extends RecyclerView.Adapter{
+    private List<String> mDatas;
+    private Context mContext;
+
+    /*应根据不同的数据进行动态适配*/
+    public ListItemAdapter(List<String> datas, Context context) {
+        mDatas = datas;
+        mContext = context;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(mContext).inflate(R.layout.cardview, parent, false);
+        return new MyViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        /*在此处设置数据内容*/
+    }
+
+    @Override
+    public int getItemCount() {
+//        return mDatas.size();
+        return 10;
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        public MyViewHolder(View itemView) {
+
+            super(itemView);
+        }
+    }
+}

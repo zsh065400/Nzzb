@@ -1,0 +1,498 @@
+[
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media_custom.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\notification_template_media_custom.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\listview_header.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\18ba1c8b700f365f316bdc09fc5c99ca94aee703\\output\\res\\layout\\listview_header.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_page_month_day.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_page_month_day.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_text_input_password_icon.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_text_input_password_icon.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_time.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\notification_template_part_time.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_car_details.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_car_details.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_alert_dialog_button_bar_material.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_subheader.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_navigation_item_subheader.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\break_rule_doing.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\break_rule_doing.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\aa.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\aa.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_header.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_navigation_item_header.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_proceed.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_proceed.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_screen_simple.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_about_us.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_about_us.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_view_list_nav_layout.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_no_oeder.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_no_oeder.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\cardview.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\cardview.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_checkbox.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_cancel.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_cancel.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_select_time.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_select_time.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\gridview_item.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\gridview_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_help_center.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_help_center.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\notification_template_media.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_item_layout.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\layout_become_carfrienf.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\layout_become_carfrienf.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_find.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_find.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_identicar_complete.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_identicar_complete.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_account_bind.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_account_bind.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\pull_to_refresh_head.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\18ba1c8b700f365f316bdc09fc5c99ca94aee703\\output\\res\\layout\\pull_to_refresh_head.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_nodone_fragment.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_nodone_fragment.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_menu_item_action_area.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_menu_item_action_area.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_snackbar_include.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_layout_snackbar_include.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\car_series_item.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\car_series_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_sheet_dialog.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_bottom_sheet_dialog.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_car_detail.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_car_detail.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_cancel_item.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_cancel_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\common_line_view.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\common_line_view.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_week.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_week.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\vp_item.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\vp_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_set_address.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_set_address.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu_item.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_navigation_menu_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_text.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_layout_tab_text.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_car_details_date_and_money.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_car_details_date_and_money.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_sure_car.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_sure_car.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\add_common_address.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\add_common_address.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines_media.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\notification_template_lines_media.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\findcar_default_item.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\findcar_default_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_snackbar.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_layout_snackbar.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_complete_item.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_complete_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\gridview.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\gridview.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_guide.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_guide.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_car_identifi1.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_car_identifi1.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_doing_fragment.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_doing_fragment.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_my_car.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_my_car.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\listview_footer.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\18ba1c8b700f365f316bdc09fc5c99ca94aee703\\output\\res\\layout\\listview_footer.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_home.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_title_material.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_alert_dialog_title_material.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_mine.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_mine.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_married_rent.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_married_rent.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_complete.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_complete.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_content_include.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_screen_content_include.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_back_car.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_back_car.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_splsh.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_splsh.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_singlechoice_material.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_common_address.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_common_address.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_proceed_item.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_proceed_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_unproceed.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_unproceed.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_break_rule.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_break_rule.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_icon.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_layout_tab_icon.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view_list_item.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\car_friend_identifi.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\car_friend_identifi.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_navigation_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_test.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_test.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_home_bak.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_home_bak.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_material.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_car_details_good_things.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_car_details_good_things.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_day.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_day.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_journey.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\fragment_journey.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_pay.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_pay.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_dar_details_order_datails.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_dar_details_order_datails.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_divider.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_divider.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\searchview.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\searchview.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_page_calendar_price.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_page_calendar_price.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_lunbo.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_lunbo.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_invite_friends.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_invite_friends.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_car_details_self_find_car.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_car_details_self_find_car.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\self_rentcar_popupwindow.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\self_rentcar_popupwindow.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_car_identifi2.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_car_identifi2.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\break_rule_complete.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\break_rule_complete.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_layout.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_rent.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_rent.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_toolbar.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\item_send_rec_car.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\item_send_rec_car.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_separator.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_navigation_item_separator.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\3058686721e1a502f445b0d71bbc28296a060982\\output\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\umeng_socialize_oauth_dialog.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\umeng_socialize_oauth_dialog.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_navigation_item.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_bottom_navigation_item.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu.xml",
+        "source": "C:\\Users\\Admin\\.android\\build-cache\\bcfaf4ff68d3dd2800729411bc0b861d84740de8\\output\\res\\layout\\design_navigation_menu.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_login.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_title.xml",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\layout\\activity_title.xml"
+    }
+]

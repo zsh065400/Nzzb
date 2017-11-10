@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\first.jpeg",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-hdpi\\first.jpeg"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\four.jpg",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-hdpi\\four.jpg"
+    }
+]

@@ -1,0 +1,82 @@
+[
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_close.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\ic_close.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\wxpay.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\wxpay.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\yselect.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\yselect.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_guide3.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\icon_guide3.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\location_icon.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\location_icon.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\noselect.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\noselect.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_search.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\ic_search.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_share.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\icon_share.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_search_clear.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\ic_search_clear.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_guide4.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\icon_guide4.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\down_arr.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\down_arr.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_guide1.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\icon_guide1.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_guide2.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\icon_guide2.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\carowner_recruit.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\carowner_recruit.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_launcher_round.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_launcher.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\arrow_right.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\arrow_right.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\ic_locate.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\ic_locate.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\icon_service_1.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\icon_service_1.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi\\zhifubao.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xhdpi\\zhifubao.png"
+    }
+]

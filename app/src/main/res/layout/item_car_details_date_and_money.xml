@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:showIn="@layout/activity_car_details">
+
+    <LinearLayout
+        android:id="@+id/ll_sunday"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_date_time_sunday"
+            android:gravity="center_horizontal"
+            android:text="18"
+            android:textColor="#1d1c1c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_date_money_sunday"
+            android:textColor="#bf3030"
+            android:gravity="center_horizontal"
+            android:text="¥180"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_monday"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_date_money_sunday"
+            android:gravity="center_horizontal"
+            android:text="19"
+            android:textColor="#1d1c1c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_date_money_moday"
+            android:textSize="12sp"
+            android:textColor="#d70d0d"
+            android:gravity="center_horizontal"
+            android:text="¥180"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_tuesday"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_date_time_tuesday"
+            android:gravity="center_horizontal"
+            android:text="20"
+            android:textColor="#1d1c1c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_date_money_tuesday"
+            android:textSize="12sp"
+            android:textColor="#d70d0d"
+            android:gravity="center_horizontal"
+            android:text="¥180"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_wednesday"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_date_time_wednesday"
+            android:gravity="center_horizontal"
+            android:text="21"
+            android:textColor="#1d1c1c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_date_money_wednesday"
+            android:textColor="#d70d0d"
+            android:gravity="center_horizontal"
+            android:text="¥180"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_thursday"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_date_time_thursday"
+            android:gravity="center_horizontal"
+            android:text="22"
+            android:textColor="#1d1c1c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_date_money_thursday"
+            android:textColor="#d70d0d"
+            android:gravity="center_horizontal"
+            android:text="¥180"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_friday"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_date_time_friday"
+            android:gravity="center_horizontal"
+            android:text="23"
+            android:textColor="#1d1c1c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_date_money_friday"
+            android:textColor="#d70d0d"
+            android:gravity="center_horizontal"
+            android:text="¥180"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_saturday"
+        android:gravity="center_horizontal"
+        android:layout_width="0dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_date_time_saturday"
+            android:gravity="center_horizontal"
+            android:text="24"
+            android:textColor="#1d1c1c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_date_money_saturday"
+            android:textColor="#d70d0d"
+            android:gravity="center_horizontal"
+            android:text="¥180"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

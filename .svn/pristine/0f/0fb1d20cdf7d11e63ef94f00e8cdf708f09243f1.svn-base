@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\libs\umeng_social_tool.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="87ef211d4ef0c257c7d040fbaa411832330eb9aa">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\2\umeng_social_tool_964d926b0506530576a51dcef6a091d83042b8f7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_daf25551b075c227162df36c0582a9713629cd95\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\libs\umeng_social_net.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="9a2fc3d30ce3cb03014a373b1d5c8b5795334271">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\2\umeng_social_net_0a8be3795f05dfd41033e977cc6384d4e7297a1d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\libs\alipaySdk-20170922.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="7a534fa553c844a7ef3475eada45f5a81a170f88">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\2\alipaySdk-20170922_102b14b2027d52be21b879053d11f108b2c412b6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\libs\wechat-sdk-android-with-mta-1.1.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="379056fcb09a02bd0db722be359695ad88beb04d">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\2\wechat-sdk-android-with-mta-1.1.6_d74cec9bd6d89cf9e247b3cb6dc7d5a4fa0b2806\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\libs\libammsdk.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="e8db000948e58e4ef6b7a1a54e92e7040e7037d5">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\2\libammsdk_4853c8c998dcede2ceee184a7d741314fd587868\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\libs\open_sdk_r5788_lite.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="5080e3fb4b011f5f376e1d04870cd84480be02c3">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\2\open_sdk_r5788_lite_fce57a309faa28b03874b24414807db7b9d766af\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\libs\umeng_social_api.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="b680704ac08a1203f713be45e7c95653bb7497fe">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\2\umeng_social_api_6abd20502f644d0ef8e42608de4834b6d185c0c8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\libs\SocialSDK_Sina_Full.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="a32269ba6afbf41eba8a8f5503a99b7abd660ec4">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\2\SocialSDK_Sina_Full_850363f1013c49d2de8ba83d4094bf4c23d49a65\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\libs\SocialSDK_QQ_Full.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="d9815661bf1947608ec87c3434fb3f114c06ff0d">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\2\SocialSDK_QQ_Full_3eba1cc6f9f46021cbae70be6077af28ff56826d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="55f75ba19c17d976d52ec5b4149db153920f4d65">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_fe34513452e8f6df17ae6cbcca9b98d96ddfd3ce\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\libs\SocialSDK_WeiXin_Full.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="5e19745719071783aefb3748c1b5bafb19c86bd1">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\2\SocialSDK_WeiXin_Full_77a2b2df88ae54e8a59945ab15a2cd3a23bccc96\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\Nzzb\app\libs\weiboSDKCore.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="4c5cf981016b3c7d42b18f45950d5060b4d72763">
+        <dex dex="F:\Nzzb\app\build\intermediates\transforms\dex\debug\folders\1000\2\weiboSDKCore_46045fbcb34a1ba39cb3bf34bad42043af05e754\classes.dex" />
+    </item>
+
+</items>

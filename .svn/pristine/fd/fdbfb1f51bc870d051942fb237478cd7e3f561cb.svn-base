@@ -1,0 +1,103 @@
+package zzbcar.cckj.com.nzzb.view.fragment;
+
+
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
+
+import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.base.MyApplication;
+import zzbcar.cckj.com.nzzb.utils.OkManager;
+import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
+import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PayActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelecTimeActivity;
+
+/**
+ * Created by Admin on 2017/10/31.
+ */
+
+public class HomeFragment extends BaseFragment implements View.OnClickListener {
+
+
+    private RadioButton rb_homefragment_self_rent;
+    private RadioButton rb_homefragment_business_rent;
+    private RadioButton rb_homefragment_married_rent;
+    private Button bt_select_time;
+    private Button bt_login;
+    private Button bt_rent;
+    private Button gradient;
+    private Button bt_order_pay;
+    private OkManager manager;
+
+    @Override
+    public View initView(LayoutInflater inflater) {
+        View view = View.inflate(mActivity, R.layout.fragment_home, null);
+        return view;
+    }
+
+    @Override
+    protected void initFindViewById(View view) {
+
+        rb_homefragment_self_rent = (RadioButton)view.findViewById(R.id.rb_homefragment_self_rent);
+        rb_homefragment_business_rent = (RadioButton)view.findViewById(R.id.rb_homefragment_business_rent);
+        rb_homefragment_married_rent = (RadioButton)view.findViewById(R.id.rb_homefragment_married_rent);
+        bt_select_time = view.findViewById(R.id.bt_select_time);
+        bt_login = view.findViewById(R.id.bt_login);
+        bt_order_pay = view.findViewById(R.id.bt_order_pay);
+
+
+
+
+    }
+
+
+
+
+    @Override
+    public void initData() {
+        rb_homefragment_self_rent.setOnClickListener(this);
+        rb_homefragment_business_rent.setOnClickListener(this);
+        rb_homefragment_married_rent.setOnClickListener(this);
+        bt_select_time.setOnClickListener(this);
+        bt_login.setOnClickListener(this);
+        bt_order_pay.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent=null;
+        switch (view.getId()){
+            case R.id.rb_homefragment_self_rent :
+                intent=new Intent(MyApplication.getContext(), RentActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rb_homefragment_business_rent :
+                intent=new Intent(MyApplication.getContext(), RentActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.rb_homefragment_married_rent :
+                intent=new Intent(MyApplication.getContext(), MarriedActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.bt_select_time:
+                intent=new Intent(MyApplication.getContext(),SelecTimeActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.bt_login:
+                intent=new Intent(MyApplication.getContext(),LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.bt_order_pay:
+                intent=new Intent(MyApplication.getContext(),PayActivity.class);
+                startActivity(intent);
+                break;
+
+        }
+
+    }
+}

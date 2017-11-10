@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/become_driver">
+
+    
+    <Button
+        android:id="@+id/bt_mine_fragment_becomedriver"
+        android:textSize="18sp"
+        android:textColor="@color/Zzb_BG"
+        android:background="@color/tab_color"
+        android:text="成为车主"
+        android:layout_centerHorizontal="true"
+       android:layout_alignParentBottom="true"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

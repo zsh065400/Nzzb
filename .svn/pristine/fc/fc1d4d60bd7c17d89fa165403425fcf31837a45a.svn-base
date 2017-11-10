@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\arrow_right.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-mdpi\\arrow_right.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\ic_launcher_round.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\ic_launcher.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\location_icon.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-mdpi\\location_icon.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\carowner_recruit.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-mdpi\\carowner_recruit.png"
+    }
+]

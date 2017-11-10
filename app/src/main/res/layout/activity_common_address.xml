@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fl_common_address_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true">
+
+
+    <include layout="@layout/activity_title"
+        />
+
+
+    <ImageView
+        android:background="#eeeeee"
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+
+
+</LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_commom_address_add"
+        android:gravity="center"
+        android:textColor="@color/Zzb_BG"
+        android:textSize="22sp"
+        android:text="+添加新地址"
+        android:background="#ff4048"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="66dp" />
+
+</RelativeLayout>
+
+
+</FrameLayout>

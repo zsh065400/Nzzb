@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="divider">#ffd2d2d2</color>
+    <color name="halfblack">#5d5d5d</color>
+    <color name="tab_selected">#ffcc00</color>
+    <color name="Zzb_BG">#FFFEFEFE</color>
+    <color name="car_model">#58a9f5</color>
+    <color name="translucent">#00000000</color>
+    <color name="line_color">#f00</color>
+    <color name="sure">#ff4049</color>
+    <color name="colorText">#4D4D4D</color>
+    <color name="tab_color">#ff4049</color>
+    <color name="global_bg">#F28D01</color>
+    <color name="txt_lvl_2">@color/light_black</color>
+    <color name="light_black">#333333</color>
+    <color name="txt_lvl_3">#7F7F7F</color>
+</resources>

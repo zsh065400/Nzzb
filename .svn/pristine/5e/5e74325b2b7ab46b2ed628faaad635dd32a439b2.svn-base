@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\become_driver.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xxxhdpi\\become_driver.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\location_icon.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xxxhdpi\\location_icon.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\ic_launcher.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\carowner_recruit.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xxxhdpi\\carowner_recruit.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\ic_launcher_round.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "F:\\Nzzb\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\arrow_right.png",
+        "source": "F:\\Nzzb\\app\\src\\main\\res\\mipmap-xxxhdpi\\arrow_right.png"
+    }
+]
