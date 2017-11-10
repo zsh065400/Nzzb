@@ -16,12 +16,12 @@ public class HelpCenterActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
 
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
         new TitleBuilder(this).setTitleText("帮助中心").setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

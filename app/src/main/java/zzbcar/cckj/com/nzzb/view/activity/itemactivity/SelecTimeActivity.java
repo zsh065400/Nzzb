@@ -43,7 +43,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
         tv_get_car_time = (TextView) findViewById(R.id.tv_get_car_time);
         tv_back_car_time = (TextView) findViewById(R.id.tv_back_car_time);
         iv_swicth = (ImageView) findViewById(R.id.iv_swicth);
@@ -55,7 +55,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
         ll_get_car.setOnClickListener(this);
         ll_back_car.setOnClickListener(this);
         ll_get_car.setEnabled(false);

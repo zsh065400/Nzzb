@@ -21,14 +21,14 @@ public class CommonAddressActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
 
         tv_commom_address_add = (TextView) findViewById(R.id.tv_commom_address_add);
 
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
         new TitleBuilder(this).setTitleText("常用地址").setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

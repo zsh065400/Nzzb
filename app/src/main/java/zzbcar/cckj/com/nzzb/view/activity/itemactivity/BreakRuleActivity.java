@@ -31,7 +31,7 @@ public class BreakRuleActivity extends BaseActivity implements TabLayout.OnTabSe
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
         tablayout_break_rule = (TabLayout) findViewById(R.id.tablayout_break_rule);
         break_rule_view_pager = (ViewPager) findViewById(R.id.break_rule_view_pager);
         //设置TabLayout标签的显示方式
@@ -45,7 +45,7 @@ public class BreakRuleActivity extends BaseActivity implements TabLayout.OnTabSe
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
         new TitleBuilder(this).setTitleText("违章专区").setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

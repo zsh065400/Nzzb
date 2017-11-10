@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -25,7 +26,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- *
  * Date: 2016-03-07
  * Time: 21:45
  */
@@ -82,7 +82,7 @@ public class OkHttpUtil {
      */
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
-    public static void postPNG(String url, Map<String, Object> params, File file, String cookie , Callback callback) throws IOException {
+    public static void postPNG(String url, Map<String, Object> params, File file, String cookie, Callback callback) throws IOException {
         Request request = new Request.Builder().url(url).
                 post(getBuilder(params, new FormBody.Builder()).build()).
                 post(RequestBody.create(MEDIA_TYPE_PNG, file)).
@@ -97,7 +97,7 @@ public class OkHttpUtil {
      * text/x-markdown; charset=utf-8
      */
     public static void upLoadFile(String url, File file, String fileName, Callback callback) throws IOException {
-        RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream") , file);
+        RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
        /* RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file" , fileName , fileBody)
@@ -105,6 +105,7 @@ public class OkHttpUtil {
         Request request = new Request.Builder().url(url).post(fileBody).build();
         mClient.newCall(request).enqueue(callback);
     }
+
     /**
      * 装载formBody
      *
@@ -139,7 +140,7 @@ public class OkHttpUtil {
         return builder;
     }
 
-    public static void download(String url, Callback Callback) throws IOException{
+    public static void download(String url, Callback Callback) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -149,6 +150,7 @@ public class OkHttpUtil {
 
     /**
      * 加载网络图片
+     *
      * @param url
      * @param view
      * @throws IOException
@@ -162,16 +164,16 @@ public class OkHttpUtil {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response!=null && response.code()==200){
+                if (response != null && response.code() == 200) {
                     InputStream is = response.body().byteStream();
                     final Bitmap bitmap = BitmapFactory.decodeStream(is);
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (view instanceof ImageView && bitmap!=null) {
+                            if (view instanceof ImageView && bitmap != null) {
                                 ImageView iv = (ImageView) view;
                                 iv.setImageBitmap(bitmap);
-                            }else if (view instanceof MyImageView){
+                            } else if (view instanceof MyImageView) {
                                 MyImageView iv = (MyImageView) view;
                                 iv.setImageBitmap(bitmap);
                             }
@@ -184,9 +186,36 @@ public class OkHttpUtil {
 
     public static String getResult(Response response) throws IOException {
 
-        if (response!=null && !"null".equals(response) && response.code() == 200)
+        if (response != null && !"null".equals(response) && response.code() == 200)
             return response.body().string();
         return null;
+    }
+
+    public static final String obtainGetUrl(String root, String... params) {
+        if (params.length % 2 != 0)
+            throw new RuntimeException("GET请求参数必须为成对出现");
+        Map<String, String> real = new HashMap<>();
+        for (int i = 0; i < params.length; i += 2) {
+            real.put(params[i], params[i + 1]);
+        }
+        return obtainGetUrl(root, real);
+    }
+
+    /*拼接Get请求参数*/
+    public static final String obtainGetUrl(String root, Map<String, String> params) {
+        if (root != null && params.size() > 0) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(root).append("?");
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+            }
+            //删除最后一个&号
+            sb.deleteCharAt(sb.lastIndexOf("&"));
+            System.out.println(sb.toString());
+            return sb.toString();
+        } else {
+            return root;
+        }
     }
 }
 

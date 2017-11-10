@@ -22,7 +22,7 @@ public class PreCarFriendIdentifiActivity extends BaseActivity implements View.O
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
         bt_mine_fragment_becomedriver = (Button)findViewById(R.id.bt_mine_fragment_becomedriver);
 
 
@@ -30,7 +30,7 @@ public class PreCarFriendIdentifiActivity extends BaseActivity implements View.O
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
         bt_mine_fragment_becomedriver.setOnClickListener(this);
 
 

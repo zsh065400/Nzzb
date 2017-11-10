@@ -20,7 +20,7 @@ public class InviteFriendsActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
         new ShareAction(InviteFriendsActivity.this)
                 .withText("hello")
                 .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN)
@@ -31,7 +31,7 @@ public class InviteFriendsActivity extends BaseActivity {
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
 
     }
     private UMShareListener shareListener = new UMShareListener() {

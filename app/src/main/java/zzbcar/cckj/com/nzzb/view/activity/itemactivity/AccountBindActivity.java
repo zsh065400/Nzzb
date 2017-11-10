@@ -12,12 +12,12 @@ public class AccountBindActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
 
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
 
     }
 

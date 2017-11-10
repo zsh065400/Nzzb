@@ -10,7 +10,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.HomeVpAdapter;
-import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.bean.LunbobBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
@@ -47,23 +46,23 @@ public class LunboActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
 
     }
 
     @Override
-    protected void initData() {
-     initViewPager();
+    protected void initDatas() {
+        initViewPager();
 
     }
 
     private void initViewPager() {
-      manager.asyncJsonByURL(Constant.HOME_LUNBO_URL, new OkManager.Func1() {
-          @Override
-          public void onResponse(String result) {
-              parseLunBoData(result);
-          }
-      });
+        manager.asyncJsonByURL(Constant.HOME_LUNBO_URL, new OkManager.Func1() {
+            @Override
+            public void onResponse(String result) {
+                parseLunBoData(result);
+            }
+        });
 
 
     }
@@ -73,8 +72,8 @@ public class LunboActivity extends BaseActivity {
 
         mlunbo = GsonUtil.parseJsonWithGson(result, LunbobBean.class);
         List<LunbobBean.DataBean> data = mlunbo.getData();
-        if (mVpAdapter==null) {
-            mVpAdapter = new HomeVpAdapter(MyApplication.getContext(),data);
+        if (mVpAdapter == null) {
+            mVpAdapter = new HomeVpAdapter(this, data);
 
         }
         vpHomefragmentLunbo.setAdapter(mVpAdapter);
@@ -83,15 +82,12 @@ public class LunboActivity extends BaseActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-
-
 
 
 }

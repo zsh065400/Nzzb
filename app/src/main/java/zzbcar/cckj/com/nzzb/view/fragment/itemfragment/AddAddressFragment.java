@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import zzbcar.cckj.com.nzzb.R;
-import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
 
@@ -15,7 +14,7 @@ import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
 public class AddAddressFragment extends BaseFragment {
     @Override
     public View initView(LayoutInflater inflater) {
-        View view = View.inflate(MyApplication.getContext(), R.layout.add_common_address, null);
+        View view = View.inflate(getContext(), R.layout.add_common_address, null);
 
         return view;
     }

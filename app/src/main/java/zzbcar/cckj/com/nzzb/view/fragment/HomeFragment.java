@@ -14,7 +14,6 @@ import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.MyGoodExperenceAdapter;
-import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.utils.Gradient;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
@@ -130,24 +129,24 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.rb_homefragment_self_rent:
-                intent = new Intent(MyApplication.getContext(), RentActivity.class);
+                intent = new Intent(getContext(), RentActivity.class);
                 startActivity(intent);
                 break;
             case R.id.rb_homefragment_business_rent:
-                intent = new Intent(MyApplication.getContext(), RentActivity.class);
+                intent = new Intent(getContext(), RentActivity.class);
                 startActivity(intent);
                 break;
             case R.id.rb_homefragment_married_rent:
-                intent = new Intent(MyApplication.getContext(), MarriedActivity.class);
+                intent = new Intent(getContext(), MarriedActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.bt_login:
-                intent = new Intent(MyApplication.getContext(), LoginActivity.class);
+                intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
                 break;
             case R.id.bt_order_pay:
-                intent = new Intent(MyApplication.getContext(), PayActivity.class);
+                intent = new Intent(getContext(), PayActivity.class);
                 startActivity(intent);
                 break;
 

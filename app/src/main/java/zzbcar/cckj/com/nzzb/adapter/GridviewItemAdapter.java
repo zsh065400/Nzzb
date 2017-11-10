@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
-import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.bean.BrandCarBean;
 
 public class GridviewItemAdapter extends BaseAdapter {
@@ -59,7 +58,7 @@ public class GridviewItemAdapter extends BaseAdapter {
 
     private void initializeViews(BrandCarBean.DataBean object, ViewHolder holder) {
         //TODO implement
-        Picasso.with(MyApplication.getContext()).load(object.getLogo()).into(holder.ivGridBrandItem);
+        Picasso.with(context).load(object.getLogo()).into(holder.ivGridBrandItem);
     }
 
     protected class ViewHolder {

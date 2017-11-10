@@ -40,7 +40,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
         bt_identicar_nest = (Button) findViewById(R.id.bt_identicar_nest);
         iv_identificar_idcar_up = (ImageView) findViewById(R.id.iv_identificar_idcar_up);
         iv_identificar_idcar_down = (ImageView) findViewById(R.id.iv_identificar_idcar_down);
@@ -49,7 +49,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
         bt_identicar_nest.setOnClickListener(this);
         iv_identificar_idcar_down.setOnClickListener(this);
         iv_identificar_idcar_up.setOnClickListener(this);

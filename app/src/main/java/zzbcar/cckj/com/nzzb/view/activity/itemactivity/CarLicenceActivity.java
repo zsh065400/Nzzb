@@ -22,14 +22,14 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
         bt_licence_car_nest = (Button) findViewById(R.id.bt_licence_car_nest);
 
 
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
         bt_licence_car_nest.setOnClickListener(this);
         new TitleBuilder(this).setTitleText("车友认证").setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
             @Override

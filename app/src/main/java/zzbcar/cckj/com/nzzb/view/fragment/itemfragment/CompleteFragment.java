@@ -7,7 +7,6 @@ import android.view.View;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.CompleteFragmentAdapter;
-import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
 
 /**
@@ -33,7 +32,7 @@ public class CompleteFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(MyApplication.getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         completeFragmentAdapter = new CompleteFragmentAdapter();
         recyclerView.setAdapter(completeFragmentAdapter);
 

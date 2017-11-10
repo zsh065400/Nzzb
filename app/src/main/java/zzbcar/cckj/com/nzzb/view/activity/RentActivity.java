@@ -13,7 +13,6 @@ import java.util.List;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.CarBrandAdapter;
 import zzbcar.cckj.com.nzzb.adapter.CarSeriesItemAdapter;
-import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.base.PopWindow;
 import zzbcar.cckj.com.nzzb.bean.CarBean;
 import zzbcar.cckj.com.nzzb.bean.CarSeriesBean;
@@ -48,7 +47,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
         ll_brand = (LinearLayout) findViewById(R.id.ll_brand);
         ll_whole_brand = (LinearLayout) findViewById(R.id.ll_whole_brand);
         ll_price = (LinearLayout) findViewById(R.id.ll_price);
@@ -67,7 +66,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
         ll_brand.setOnClickListener(this);
         ll_time_pick.setOnClickListener(this);
         ll_address.setOnClickListener(this);
@@ -112,14 +111,14 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Intent intent=null;
+        Intent intent = null;
         switch (view.getId()) {
             case R.id.ll_brand:
-                if(ll_time_pick.getVisibility()==View.VISIBLE||ll_type_pick.getVisibility()==View.VISIBLE){
-                    IsBrandShow=true;
+                if (ll_time_pick.getVisibility() == View.VISIBLE || ll_type_pick.getVisibility() == View.VISIBLE) {
+                    IsBrandShow = true;
                 }
-                if(IsBrandShow){
-                    IsBrandShow =!IsBrandShow;
+                if (IsBrandShow) {
+                    IsBrandShow = !IsBrandShow;
                     ll_whole_brand.setVisibility(View.VISIBLE);
                     ll_time_pick.setVisibility(View.INVISIBLE);
                     ll_type_pick.setVisibility(View.INVISIBLE);
@@ -134,9 +133,9 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
                         }
                     });
-                }else {
+                } else {
                     ll_whole_brand.setVisibility(View.INVISIBLE);
-                    IsBrandShow =!IsBrandShow;
+                    IsBrandShow = !IsBrandShow;
                 }
 
                 break;
@@ -180,14 +179,14 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case R.id.ll_address:
-                intent  = new Intent(MyApplication.getContext(), SetAddressActivity.class);
+                intent = new Intent(this, SetAddressActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_type_pick:
 
                 break;
             case R.id.ll_self_activity_selelct_time:
-                intent=new Intent(this, SelecTimeActivity.class);
+                intent = new Intent(this, SelecTimeActivity.class);
                 startActivity(intent);
                 break;
         }

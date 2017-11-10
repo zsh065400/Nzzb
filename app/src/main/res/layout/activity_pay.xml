@@ -4,159 +4,185 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="45dp">
+
             <ImageView
                 android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:src="@mipmap/delete_img"/>
+
             <TextView
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:textSize="19sp"
-                android:textColor="#5e5d5d"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="选择支付方式"/>
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="选择支付方式"
+                android:textColor="#5e5d5d"
+                android:textSize="19sp"/>
         </RelativeLayout>
-        <include layout="@layout/item_divider" />
+
+        <include layout="@layout/item_divider"/>
+
         <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_time"
-                android:layout_marginTop="20dp"
-                android:textColor="#807d7d"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="支付剩余时间"/>
+                android:layout_marginTop="20dp"
+                android:text="支付剩余时间"
+                android:textColor="#807d7d"/>
+
             <TextView
                 android:id="@+id/tv_time_remain"
-                android:layout_alignBottom="@+id/tv_time_remain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#464646"
-                android:layout_marginTop="8dp"
-                android:textSize="26sp"
+                android:layout_alignBottom="@+id/tv_time_remain"
                 android:layout_marginBottom="20dp"
-                android:text="29:59"/>
+                android:layout_marginTop="8dp"
+                android:text="29:59"
+                android:textColor="#464646"
+                android:textSize="26sp"/>
         </LinearLayout>
-        <include layout="@layout/item_divider" />
+
+        <include layout="@layout/item_divider"/>
+
         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="15dp">
+
             <TextView
-                android:textSize="16sp"
-                android:textColor="#494747"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="租车费用："/>
+                android:text="租车费用："
+                android:textColor="#494747"
+                android:textSize="16sp"/>
+
             <TextView
                 android:id="@+id/tv_rend_car_money"
-                android:textSize="16sp"
-                android:textColor="#d40b0b"
-                android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¥ 8000"/>
+                android:layout_alignParentRight="true"
+                android:text="¥ 8000"
+                android:textColor="#d40b0b"
+                android:textSize="16sp"/>
         </RelativeLayout>
+
         <LinearLayout
-            android:background="#e9e6e6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#e9e6e6">
+
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
-                android:textSize="16sp"
-                android:layout_marginBottom="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="选择支付方式"/>
+                android:text="选择支付方式"
+                android:textSize="16sp"/>
         </LinearLayout>
 
-        <include layout="@layout/item_divider" />
+        <include layout="@layout/item_divider"/>
+
         <RelativeLayout
             android:id="@+id/rl_alipay"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
+
             <ImageView
-                android:layout_marginLeft="15dp"
-                android:layout_centerVertical="true"
                 android:id="@+id/alipay_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/zhifubao"/>
-            <TextView
-                android:layout_marginLeft="15dp"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/zhifubao"/>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
                 android:layout_toRightOf="@+id/alipay_icon"
                 android:text="支付宝支付"
-                android:textSize="16sp"
+                android:textSize="16sp"/>
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView" />
-            <ImageView
-                android:layout_marginRight="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
                 android:src="@mipmap/noselect"/>
 
         </RelativeLayout>
-        <include layout="@layout/item_divider" />
+
+        <include layout="@layout/item_divider"/>
+
         <RelativeLayout
             android:id="@+id/rl_wxpay"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp">
+
             <ImageView
-                android:layout_marginLeft="15dp"
-                android:layout_centerVertical="true"
                 android:id="@+id/wxpay_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/wxpay"/>
-            <TextView
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/wxpay_icon"
-                android:text="微信支付"
-                android:textSize="16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:layout_marginRight="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
+                android:src="@mipmap/wxpay"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/wxpay_icon"
+                android:text="微信支付"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
                 android:src="@drawable/yes_or_no_selelct_pay"/>
         </RelativeLayout>
-        <include layout="@layout/item_divider" />
+
+        <include layout="@layout/item_divider"/>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_sure_pay"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -169,6 +195,6 @@
             android:paddingTop="15dp"
             android:text="确认支付"
             android:textColor="#fff"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
     </LinearLayout>
 </RelativeLayout>

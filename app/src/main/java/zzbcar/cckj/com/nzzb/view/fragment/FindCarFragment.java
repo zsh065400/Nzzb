@@ -15,7 +15,6 @@ import zzbcar.cckj.com.nzzb.adapter.FindcarDefaultItemAdapter;
 import zzbcar.cckj.com.nzzb.adapter.GridItemAdapter;
 import zzbcar.cckj.com.nzzb.adapter.GridPagerAdapter;
 import zzbcar.cckj.com.nzzb.adapter.ListItemAdapter;
-import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.base.SpaceSize;
 import zzbcar.cckj.com.nzzb.base.SpacesItemDecoration;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
@@ -43,7 +42,7 @@ public class FindCarFragment extends BaseFragment {
     protected void initFindViewById(View view) {
 //        gv_findcarfragment_defaut = view.findViewById(R.id.gv_findcarfragment_defaut);
         vp_grid_items = view.findViewById(R.id.vp_grid_items);
-        final GridItemAdapter itemAdapter = new GridItemAdapter(MyApplication.getContext(), null);
+        final GridItemAdapter itemAdapter = new GridItemAdapter(getContext(), null);
         GridView gridView1 = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
         gridView1.setAdapter(itemAdapter);
         GridView gridView2 = (GridView)mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
@@ -90,7 +89,7 @@ public class FindCarFragment extends BaseFragment {
     }
 
 //    @Override
-//    public void initData() {
+//    public void initDatas() {
 //
 //        //默认汽车
 //        manager.asyncJsonByURL(Constant.CAR_DEFAULT_URL, new OkManager.Func1() {

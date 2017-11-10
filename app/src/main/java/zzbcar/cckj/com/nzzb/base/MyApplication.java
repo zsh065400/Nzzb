@@ -1,10 +1,17 @@
 package zzbcar.cckj.com.nzzb.base;
 
 import android.app.Application;
-import android.content.Context;
 
+import com.lzy.okgo.OkGo;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import zzbcar.cckj.com.nzzb.utils.Constant;
 
 /**
  * Created by Admin on 2017/11/5.
@@ -12,35 +19,45 @@ import com.umeng.socialize.UMShareAPI;
 
 public class MyApplication extends Application {
 
-    private static Context context;
-    public static Context getContext()
-    {
+    private static IWXAPI SWXAPI;
+    private static MyApplication SINSTANCE;
 
-        return context;
+    public static MyApplication getMyApplicaiton() {
+        return SINSTANCE;
     }
 
-
-    private static MyApplication instance;
-
-    public static MyApplication getInstance() {
-
-        return instance;
+    public static IWXAPI getWxApi() {
+        return SWXAPI;
     }
+
+    public static void setWxApi(IWXAPI api) {
+        SWXAPI = api;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        context=this;
+        SINSTANCE = this;
         UMShareAPI.get(this);
+        Config.DEBUG = true;
+        initOkGo();
 //        api.registerApp(Constant.WEIXIN_APP_ID);
 //        PayReq req = new PayReq();
 ////....拼接req参数
 //        api.sendReq(req);// 调用支付
     }
 
-    {
+    private void initOkGo() {
+        OkGo.getInstance().init(this);
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.readTimeout(Constant.TIME_OUT, TimeUnit.SECONDS);
+        OkGo.getInstance().setOkHttpClient(builder.build());
+    }
 
-        PlatformConfig.setWeixin("wxad1065edbfa4ed3a", "70943f855a89703a47c1a35c9ee07b05");
-        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
-        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
+    {
+        PlatformConfig.setWeixin(Constant.WEIXIN_APP_ID, Constant.WEIXIN_APP_SECRET);
+        PlatformConfig.setQQZone(Constant.QQZONE_APP_ID, Constant.QQZONE_APP_KEY);
+        PlatformConfig.setSinaWeibo(Constant.SINA_APP_KEY,
+                Constant.SINA_APP_SERCET, Constant.SINA_APP_URL);
     }
 }

@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import zzbcar.cckj.com.nzzb.R;
-import zzbcar.cckj.com.nzzb.base.MyApplication;
 
 /**
  * Created by Admin on 2017/11/6.
@@ -17,7 +16,7 @@ public class CompleteFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view = View.inflate(MyApplication.getContext(), R.layout.fragment_complete_item, null);
+        view = View.inflate(parent.getContext(), R.layout.fragment_complete_item, null);
         return new NoDoneViewHolder(view);
     }
 

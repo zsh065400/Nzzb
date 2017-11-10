@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import zzbcar.cckj.com.nzzb.R;
-import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
 
 /**
@@ -14,7 +13,7 @@ import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
 public class BreakRulCompleteFragment extends BaseFragment {
     @Override
     public View initView(LayoutInflater inflater) {
-        View view = View.inflate(MyApplication.getContext(), R.layout.break_rule_complete, null);
+        View view = View.inflate(getContext(), R.layout.break_rule_complete, null);
         return view;
     }
 

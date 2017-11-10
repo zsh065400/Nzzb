@@ -7,7 +7,6 @@ import android.view.View;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.CancelFragmentAdapter;
-import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
 
 /**
@@ -32,7 +31,7 @@ public class CancelFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(MyApplication.getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         cancelFragmentAdapter = new CancelFragmentAdapter();
         recyclerView.setAdapter(cancelFragmentAdapter);
     }

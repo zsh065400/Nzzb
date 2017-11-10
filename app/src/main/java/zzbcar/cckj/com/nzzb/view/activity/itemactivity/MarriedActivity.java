@@ -21,13 +21,13 @@ public class MarriedActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
         bt_connection_us = (Button) findViewById(R.id.bt_connection_us);
 
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
         bt_connection_us.setOnClickListener(this);
 
     }

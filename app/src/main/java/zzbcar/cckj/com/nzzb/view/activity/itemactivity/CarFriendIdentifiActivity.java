@@ -20,13 +20,13 @@ public class CarFriendIdentifiActivity extends BaseActivity implements View.OnCl
     }
 
     @Override
-    protected void initView() {
+    protected void initViews() {
         bt_carfriend_identifi_commit = (Button) findViewById(R.id.bt_carfriend_identifi_commit);
 
     }
 
     @Override
-    protected void initData() {
+    protected void initDatas() {
         bt_carfriend_identifi_commit.setOnClickListener(this);
         new TitleBuilder(this).setTitleText("填写信息").setRightIco(R.mipmap.call_service).setRightIcoListening(new View.OnClickListener() {
             @Override
