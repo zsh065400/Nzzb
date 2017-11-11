@@ -1,6 +1,7 @@
 package zzbcar.cckj.com.nzzb.view.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,6 +45,30 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onDestroy();
         mContext = null;
         mResources = null;
+    }
+
+    protected void toActivity(Class<?> target) {
+        toActivity(target, null);
+    }
+
+    protected void toActivity(Class<?> target, Bundle bundle) {
+        final Intent intent = new Intent(mContext, target);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+    }
+
+    protected void toActivityWithResult(Class<?> target, int requestCode) {
+        toActivityWithResult(target, null, requestCode);
+    }
+
+    protected void toActivityWithResult(Class<?> target, Bundle bundle, int requestCode) {
+        final Intent intent = new Intent(mContext, target);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
     }
 
     /**

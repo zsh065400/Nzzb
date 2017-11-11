@@ -27,6 +27,9 @@ public class Constant {
     /*获取短信验证码*/
     public static final String API_GET_CODE = SERVE_URL + "zzb/app/member/login";
 
+    /*下单*/
+    public static final String API_ADD_ORDER = SERVE_URL + "/app/order/doOrder";
+
     public static final String HOME_LUNBO_URL = SERVE_URL + "zzb/app/common/marquee";
     //品牌
     public static final String CAR_BRAND_URL = SERVE_URL + "zzb/app/car/brand";

@@ -3,7 +3,6 @@ package zzbcar.cckj.com.nzzb.view.fragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -30,26 +29,12 @@ public class JourneyFragment extends BaseFragment implements TabLayout.OnTabSele
     private MyViewPagerAdapter viewPagerAdapter;
 
     @Override
-    public View initView(LayoutInflater inflater) {
-        View view = View.inflate(mActivity, R.layout.fragment_journey, null);
-        return view;
+    public int getLayoutId() {
+        return  R.layout.fragment_journey;
     }
 
     @Override
-    protected void initFindViewById(View view) {
-        journet_tab_layou = (TabLayout)view.findViewById(R.id.journet_tab_layou);
-        journey_view_pager = (ViewPager)view.findViewById(R.id.journey_view_pager);
-        //设置TabLayout标签的显示方式
-        journet_tab_layou.setTabMode(TabLayout.MODE_FIXED);
-        //循环注入标签
-        for (String tab:titles){
-            journet_tab_layou.addTab(journet_tab_layou.newTab().setText(tab));
-        }
-
-    }
-
-    @Override
-    public void initData() {
+    public void initDatas() {
         //设置TabLayout点击事件
         journet_tab_layou.setOnTabSelectedListener(this);
         fragments.add(new UnProceedFragment());
@@ -60,6 +45,18 @@ public class JourneyFragment extends BaseFragment implements TabLayout.OnTabSele
         journey_view_pager.setAdapter(viewPagerAdapter);
         journet_tab_layou.setupWithViewPager(journey_view_pager);
 
+    }
+
+    @Override
+    public void initViews(View view) {
+        journet_tab_layou = (TabLayout)view.findViewById(R.id.journet_tab_layou);
+        journey_view_pager = (ViewPager)view.findViewById(R.id.journey_view_pager);
+        //设置TabLayout标签的显示方式
+        journet_tab_layou.setTabMode(TabLayout.MODE_FIXED);
+        //循环注入标签
+        for (String tab:titles){
+            journet_tab_layou.addTab(journet_tab_layou.newTab().setText(tab));
+        }
     }
 
     @Override

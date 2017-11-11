@@ -2,7 +2,6 @@ package zzbcar.cckj.com.nzzb.view.fragment.itemfragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import zzbcar.cckj.com.nzzb.R;
@@ -20,22 +19,21 @@ public class ProceedFragment extends BaseFragment {
     private ProceedFragmentAdapter proceedFragmentAdapter;
 
     @Override
-    public View initView(LayoutInflater inflater) {
-        View view = View.inflate(mActivity, R.layout.fragment_proceed, null);
-        return view;
+    public int getLayoutId() {
+        return R.layout.fragment_proceed;
     }
 
     @Override
-    protected void initFindViewById(View view) {
-        recyclerView = (RecyclerView)view.findViewById(R.id.rv_process_fragment_doing);
-
-    }
-
-    @Override
-    public void initData() {
+    public void initDatas() {
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity,LinearLayoutManager.VERTICAL,false));
         proceedFragmentAdapter = new ProceedFragmentAdapter();
         recyclerView.setAdapter(proceedFragmentAdapter);
+    }
+
+    @Override
+    public void initViews(View view) {
+        recyclerView = (RecyclerView)view.findViewById(R.id.rv_process_fragment_doing);
+
     }
 }
 

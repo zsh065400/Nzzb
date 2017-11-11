@@ -41,6 +41,7 @@ public class MainActivity extends BaseActivity {
         rb_find_car = (RadioButton) findViewById(R.id.rb_find_car);
         rb_journey = (RadioButton) findViewById(R.id.rb_journey);
         rb_mine = (RadioButton) findViewById(R.id.rb_mine);
+        rgMain.check(R.id.rb_home);
     }
 
     @Override

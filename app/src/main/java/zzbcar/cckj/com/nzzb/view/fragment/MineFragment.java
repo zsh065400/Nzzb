@@ -11,7 +11,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -32,8 +31,6 @@ import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HelpCenterActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.InviteFriendsActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PreCarFriendIdentifiActivity;
-
-import static zzbcar.cckj.com.nzzb.R.id.iv_identificar_idcar_up;
 
 /**
  * Created by Admin on 2017/10/31.
@@ -58,31 +55,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private static final int PHOTO_REQUEST_CUT = 3;
 
     File tempFile = new File(Environment.getExternalStorageDirectory(),getPhotoFileName());
-    @Override
-    public View initView(LayoutInflater inflater) {
-        View view = View.inflate(mActivity, R.layout.fragment_mine, null);
 
-        return view;
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_mine;
     }
 
     @Override
-    protected void initFindViewById(View view) {
-        rl_my_card = (RelativeLayout)view.findViewById(R.id.rl_my_card);
-        rl_my_address = (RelativeLayout)view.findViewById(R.id.rl_my_address);
-        rl_my_account_bind = (RelativeLayout)view.findViewById(R.id.rl_my_account_bind);
-        rl_my_break_rules = (RelativeLayout)view.findViewById(R.id.rl_my_break_rules);
-        rl_my_invite_friends = (RelativeLayout)view.findViewById(R.id.rl_my_invite_friends);
-        rl_my_help_center = (RelativeLayout)view.findViewById(R.id.rl_my_help_center);
-        rl_my_about_us = (RelativeLayout)view.findViewById(R.id.rl_my_about_us);
-        tv_minfragment_car_identifi = (TextView)view.findViewById(R.id.tv_minfragment_car_identifi);
-        iv_mine_fragment_carowener_recruit = view.findViewById(R.id.iv_mine_fragment_carowener_recruit);
-        iv_minfragment_head_pic = view.findViewById(R.id.iv_minfragment_head_pic);
-
-
-    }
-
-    @Override
-    public void initData() {
+    public void initDatas() {
         rl_my_card.setOnClickListener(this);
         rl_my_address.setOnClickListener(this);
         rl_my_account_bind.setOnClickListener(this);
@@ -94,6 +74,20 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         iv_mine_fragment_carowener_recruit.setOnClickListener(this);
         iv_minfragment_head_pic.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void initViews(View view) {
+        rl_my_card = (RelativeLayout)view.findViewById(R.id.rl_my_card);
+        rl_my_address = (RelativeLayout)view.findViewById(R.id.rl_my_address);
+        rl_my_account_bind = (RelativeLayout)view.findViewById(R.id.rl_my_account_bind);
+        rl_my_break_rules = (RelativeLayout)view.findViewById(R.id.rl_my_break_rules);
+        rl_my_invite_friends = (RelativeLayout)view.findViewById(R.id.rl_my_invite_friends);
+        rl_my_help_center = (RelativeLayout)view.findViewById(R.id.rl_my_help_center);
+        rl_my_about_us = (RelativeLayout)view.findViewById(R.id.rl_my_about_us);
+        tv_minfragment_car_identifi = (TextView)view.findViewById(R.id.tv_minfragment_car_identifi);
+        iv_mine_fragment_carowener_recruit = view.findViewById(R.id.iv_mine_fragment_carowener_recruit);
+        iv_minfragment_head_pic = view.findViewById(R.id.iv_minfragment_head_pic);
     }
 
     @Override

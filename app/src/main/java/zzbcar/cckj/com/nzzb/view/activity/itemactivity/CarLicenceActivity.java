@@ -7,7 +7,6 @@ import android.widget.Button;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
-import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.IdentiCompleteActivity;
 
 public class CarLicenceActivity extends BaseActivity implements View.OnClickListener {
 

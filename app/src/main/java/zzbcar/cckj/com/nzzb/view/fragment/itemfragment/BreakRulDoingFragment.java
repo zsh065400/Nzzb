@@ -1,6 +1,5 @@
 package zzbcar.cckj.com.nzzb.view.fragment.itemfragment;
 
-import android.view.LayoutInflater;
 import android.view.View;
 
 import zzbcar.cckj.com.nzzb.R;
@@ -11,19 +10,19 @@ import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
  */
 
 public class BreakRulDoingFragment extends BaseFragment {
+
     @Override
-    public View initView(LayoutInflater inflater) {
-        View view = View.inflate(getContext(), R.layout.break_rule_doing, null);
-        return view;
+    public int getLayoutId() {
+        return R.layout.break_rule_doing;
     }
 
     @Override
-    protected void initFindViewById(View view) {
+    public void initDatas() {
 
     }
 
     @Override
-    public void initData() {
+    public void initViews(View view) {
 
     }
 }

@@ -3,7 +3,6 @@ package zzbcar.cckj.com.nzzb.view.fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridView;
 
@@ -26,31 +25,35 @@ import zzbcar.cckj.com.nzzb.view.customview.ViewPagerIndicator;
 
 public class FindCarFragment extends BaseFragment {
 
-//    private GridView gv_findcarfragment_defaut;
+    //    private GridView gv_findcarfragment_defaut;
 //    private GridView gv_findcarfragment_carbrand;
-    private OkManager manager=new OkManager();
+    private OkManager manager = new OkManager();
     private FindcarDefaultItemAdapter adapter;
     private ViewPager vp_grid_items;
 
     @Override
-    public View initView(LayoutInflater inflater) {
-        View view = View.inflate(mActivity, R.layout.fragment_find, null);
-        return view;
+    public int getLayoutId() {
+        return R.layout.fragment_find;
     }
 
     @Override
-    protected void initFindViewById(View view) {
+    public void initDatas() {
+
+    }
+
+    @Override
+    public void initViews(View view) {
 //        gv_findcarfragment_defaut = view.findViewById(R.id.gv_findcarfragment_defaut);
         vp_grid_items = view.findViewById(R.id.vp_grid_items);
         final GridItemAdapter itemAdapter = new GridItemAdapter(getContext(), null);
         GridView gridView1 = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
         gridView1.setAdapter(itemAdapter);
-        GridView gridView2 = (GridView)mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
+        GridView gridView2 = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
         gridView2.setAdapter(itemAdapter);
         List<View> views = new ArrayList<>();
         views.add(gridView1);
         views.add(gridView2);
-        vp_grid_items.setAdapter(new GridPagerAdapter(views) );
+        vp_grid_items.setAdapter(new GridPagerAdapter(views));
 
         //下部上下滑动布局
         RecyclerView rvListItems = view.findViewById(R.id.rv_list_items);
@@ -60,7 +63,7 @@ public class FindCarFragment extends BaseFragment {
         rvListItems.setAdapter(new ListItemAdapter(null, mActivity));
 
         //滑动圆点
-       final  ViewPagerIndicator indicator = view.findViewById(R.id.indicator);
+        final ViewPagerIndicator indicator = view.findViewById(R.id.indicator);
         //滑动监听
         vp_grid_items.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -78,14 +81,6 @@ public class FindCarFragment extends BaseFragment {
 
             }
         });
-
-
-    }
-
-    @Override
-    public void initData() {
-
-
     }
 
 //    @Override
@@ -102,7 +97,6 @@ public class FindCarFragment extends BaseFragment {
 //    }
 
 
-
 //    private void parseData(String result) {
 //        SearchCarDefaultBean bean = GsonUtil.parseJsonWithGson(result, SearchCarDefaultBean.class);
 //        List<SearchCarDefaultBean.DataBean> dataList = bean.getData();
@@ -113,7 +107,7 @@ public class FindCarFragment extends BaseFragment {
 //    }
 
     @Override
-    protected void initEvent() {
+    protected void initListeners() {
 
     }
 

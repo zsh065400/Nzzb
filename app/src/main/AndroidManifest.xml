@@ -136,7 +136,7 @@
                   android:screenOrientation="portrait"
             />
         <activity android:name=".view.activity.itemactivity.CarLicenceActivity" />
-        <activity android:name=".view.fragment.itemfragment.IdentiCompleteActivity" />
+        <activity android:name=".view.activity.itemactivity.IdentiCompleteActivity" />
         <activity android:name=".view.activity.itemactivity.CarFriendIdentifiActivity" />
         <activity android:name=".view.activity.itemactivity.SelecTimeActivity" />
         <activity android:name=".view.activity.LoginActivity"/>

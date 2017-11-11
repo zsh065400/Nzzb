@@ -2,7 +2,6 @@ package zzbcar.cckj.com.nzzb.view.fragment.itemfragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import zzbcar.cckj.com.nzzb.R;
@@ -19,20 +18,19 @@ public class CancelFragment extends BaseFragment {
     private CancelFragmentAdapter cancelFragmentAdapter;
 
     @Override
-    public View initView(LayoutInflater inflater) {
-        view = View.inflate(mActivity, R.layout.fragment_cancel, null);
-        return view;
+    public int getLayoutId() {
+        return R.layout.fragment_cancel;
     }
 
     @Override
-    protected void initFindViewById(View view) {
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_cancel_fragment_cancel);
-    }
-
-    @Override
-    public void initData() {
+    public void initDatas() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         cancelFragmentAdapter = new CancelFragmentAdapter();
         recyclerView.setAdapter(cancelFragmentAdapter);
+    }
+
+    @Override
+    public void initViews(View view) {
+
     }
 }

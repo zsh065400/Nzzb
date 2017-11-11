@@ -60,3 +60,25 @@
 #okio
 -dontwarn okio.**
 -keep class okio.**{*;}
+#pay
+#pay_library
+-dontwarn io.github.mayubao.pay_library.**
+-keep class io.github.mayubao.pay_library.** {*;}
+
+#wechat pay
+-dontwarn com.tencent.**
+-keep class com.tencent.** {*;}
+
+
+#alipay
+-dontwarn com.alipay.**
+-keep class com.alipay.** {*;}
+
+-dontwarn  com.ta.utdid2.**
+-keep class com.ta.utdid2.** {*;}
+
+-dontwarn  com.ut.device.**
+-keep class com.ut.device.** {*;}
+
+-dontwarn  org.json.alipay.**
+-keep class corg.json.alipay.** {*;}

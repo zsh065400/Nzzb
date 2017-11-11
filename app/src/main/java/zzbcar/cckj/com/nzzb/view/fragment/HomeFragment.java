@@ -3,19 +3,23 @@ package zzbcar.cckj.com.nzzb.view.fragment;
 
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.RadioButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import me.relex.circleindicator.CircleIndicator;
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.adapter.GridPagerAdapter;
 import zzbcar.cckj.com.nzzb.adapter.MyGoodExperenceAdapter;
-import zzbcar.cckj.com.nzzb.utils.Gradient;
-import zzbcar.cckj.com.nzzb.utils.OkManager;
+import zzbcar.cckj.com.nzzb.adapter.main.CarTypeAdapter;
+import zzbcar.cckj.com.nzzb.adapter.main.CarTypeItemAdapter;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
@@ -28,57 +32,87 @@ import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PayActivity;
 
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
+    @BindView(R.id.tv_location)
+    TextView tvLocation;
 
-    private RadioButton rb_homefragment_self_rent;
-    private RadioButton rb_homefragment_business_rent;
-    private RadioButton rb_homefragment_married_rent;
-    private Button bt_select_time;
-    private Button bt_login;
-    private Button bt_rent;
+    @BindView(R.id.iv_service)
+    ImageView ivService;
 
-    private Button bt_order_pay;
-    private OkManager manager;
-    private Gradient gradient;
-    private ViewPager vp_homefragment_good_experence;
-    private ViewPager vp_homefragment_fresh_car_type;
+    @BindView(R.id.tv_self)
+    TextView tvSelf;
 
-    @Override
-    public View initView(LayoutInflater inflater) {
-        View view = View.inflate(mActivity, R.layout.fragment_home, null);
-        return view;
+    @BindView(R.id.tv_business)
+    TextView tvBusiness;
+
+    @BindView(R.id.tv_wedding)
+    TextView tvWedding;
+
+    @BindView(R.id.linear_notify)
+    View linearDetail;
+
+    @BindView(R.id.tv_chaozhi_all)
+    TextView tvChaozhiAll;
+
+    @BindView(R.id.tv_xinxian_all)
+    TextView tvXinxianAll;
+
+    @BindView(R.id.tv_chexing_all)
+    TextView tvChexingAll;
+
+    @BindView(R.id.vp_chaozhi)
+    ViewPager vpChaozhi;
+
+    @BindView(R.id.vp_chexing_list)
+    ViewPager vpChexingList;
+
+    @BindView(R.id.rv_xinxian)
+    RecyclerView rvXinxian;
+
+    @BindView(R.id.rv_chexing)
+    RecyclerView rvChexing;
+
+    @BindView(R.id.indicator)
+    CircleIndicator indicator;
+
+    private void initCarTypeList() {
+        final CarTypeItemAdapter itemAdapter = new CarTypeItemAdapter(getContext(), null);
+        GridView gridView1 = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
+        gridView1.setAdapter(itemAdapter);
+        GridView gridView2 = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
+        gridView2.setAdapter(itemAdapter);
+        List<View> views = new ArrayList<>();
+        views.add(gridView1);
+        views.add(gridView2);
+        vpChexingList.setAdapter(new GridPagerAdapter(views));
+
+        indicator.setViewPager(vpChexingList);
     }
 
-    @Override
-    protected void initFindViewById(View view) {
-
-        rb_homefragment_self_rent = (RadioButton) view.findViewById(R.id.rb_homefragment_self_rent);
-        rb_homefragment_business_rent = (RadioButton) view.findViewById(R.id.rb_homefragment_business_rent);
-        rb_homefragment_married_rent = (RadioButton) view.findViewById(R.id.rb_homefragment_married_rent);
-        gradient = (Gradient) view.findViewById(R.id.gradient);
-        vp_homefragment_good_experence = (ViewPager) view.findViewById(R.id.vp_homefragment_good_experence);
-        vp_homefragment_fresh_car_type = (ViewPager) view.findViewById(R.id.vp_homefragment_fresh_car_type);
-
-        bt_login = view.findViewById(R.id.bt_login);
-        bt_order_pay = view.findViewById(R.id.bt_order_pay);
-        initGradient();
-        initGoodExperence();
-        initFreshCarType();
-
+    /*车型专区*/
+    private void initCarType() {
+        rvChexing.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
+        final ArrayList datas = new ArrayList();
+        datas.add(1);
+        datas.add(1);
+        datas.add(1);
+        datas.add(1);
+        rvChexing.setAdapter(new CarTypeAdapter(mActivity, datas));
     }
 
+    /*新鲜车型*/
     private void initFreshCarType() {
-        List<Integer> list = new ArrayList<>();
-        list.add(R.drawable.p001);
-        list.add(R.drawable.p002);
-        list.add(R.drawable.p003);
-        list.add(R.drawable.p004);
-        list.add(R.drawable.p005);
-        MyGoodExperenceAdapter myGoodExperenceAdapter = new MyGoodExperenceAdapter(mActivity, list);
-        vp_homefragment_fresh_car_type.setAdapter(myGoodExperenceAdapter);
-        vp_homefragment_fresh_car_type.setPageTransformer(false, new ScaleTransformer());
-        vp_homefragment_fresh_car_type.setOffscreenPageLimit(5);
+        rvXinxian.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
+        final ArrayList datas = new ArrayList();
+        datas.add(1);
+        datas.add(1);
+        datas.add(1);
+        datas.add(1);
+        rvXinxian.setAdapter(new CarTypeAdapter(mActivity, datas));
+
+
     }
 
+    /*超值体验*/
     private void initGoodExperence() {
         List<Integer> list = new ArrayList<>();
         list.add(R.drawable.p001);
@@ -87,70 +121,65 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         list.add(R.drawable.p004);
         list.add(R.drawable.p005);
         MyGoodExperenceAdapter myGoodExperenceAdapter = new MyGoodExperenceAdapter(mActivity, list);
-        vp_homefragment_good_experence.setAdapter(myGoodExperenceAdapter);
-        vp_homefragment_good_experence.setPageTransformer(false, new ScaleTransformer());
-        vp_homefragment_good_experence.setOffscreenPageLimit(5);
-
-    }
-
-    private void initGradient() {
-        //创建imageview
-        ImageView imageView = new ImageView(mActivity);
-        imageView.setImageResource(R.mipmap.image1);
-        ImageView imageView2 = new ImageView(mActivity);
-        imageView2.setImageResource(R.mipmap.image2);
-        ImageView imageView3 = new ImageView(mActivity);
-        imageView3.setImageResource(R.mipmap.image3);
-        ImageView imageView4 = new ImageView(mActivity);
-        imageView4.setImageResource(R.mipmap.image4);
-        List<ImageView> list = new ArrayList<>();
-        list.add(imageView);
-        list.add(imageView2);
-        list.add(imageView3);
-        list.add(imageView4);
-        //设置图片即可
-        gradient.setImageViews(list);
+        vpChaozhi.setAdapter(myGoodExperenceAdapter);
+        vpChaozhi.setPageTransformer(false, new ScaleTransformer());
+        vpChaozhi.setOffscreenPageLimit(5);
     }
 
 
     @Override
-    public void initData() {
-        rb_homefragment_self_rent.setOnClickListener(this);
-        rb_homefragment_business_rent.setOnClickListener(this);
-        rb_homefragment_married_rent.setOnClickListener(this);
+    public int getLayoutId() {
+        return R.layout.fragment_home_new;
+    }
 
-        bt_login.setOnClickListener(this);
-        bt_order_pay.setOnClickListener(this);
+    @Override
+    public void initDatas() {
 
+    }
+
+    @Override
+    public void initViews(View view) {
+        initGoodExperence();
+        initFreshCarType();
+        initCarTypeList();
+        initCarType();
+    }
+
+
+    @Override
+    protected void initListeners() {
+        tvSelf.setOnClickListener(this);
+        tvBusiness.setOnClickListener(this);
+        tvWedding.setOnClickListener(this);
+        tvXinxianAll.setOnClickListener(this);
+        tvChaozhiAll.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
-            case R.id.rb_homefragment_self_rent:
+            case R.id.tv_self:
                 intent = new Intent(getContext(), RentActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.rb_homefragment_business_rent:
+            case R.id.tv_business:
                 intent = new Intent(getContext(), RentActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.rb_homefragment_married_rent:
+            case R.id.tv_wedding:
                 intent = new Intent(getContext(), MarriedActivity.class);
                 startActivity(intent);
                 break;
 
-            case R.id.bt_login:
+            case R.id.tv_xinxian_all://暂时替代
                 intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.bt_order_pay:
+            case R.id.tv_chaozhi_all://暂时替代
                 intent = new Intent(getContext(), PayActivity.class);
                 startActivity(intent);
                 break;
-
         }
-
     }
 }

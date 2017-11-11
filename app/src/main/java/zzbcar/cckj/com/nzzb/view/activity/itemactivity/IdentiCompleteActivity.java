@@ -1,4 +1,4 @@
-package zzbcar.cckj.com.nzzb.view.fragment.itemfragment;
+package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;

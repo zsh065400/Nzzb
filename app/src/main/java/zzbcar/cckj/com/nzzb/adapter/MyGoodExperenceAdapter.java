@@ -16,32 +16,33 @@ import zzbcar.cckj.com.nzzb.R;
  */
 
 public class MyGoodExperenceAdapter extends PagerAdapter {
-    private Context context;
-    private List<Integer> list;
+    private Context mContext;
+    private List<Integer> mDatas;
 
     private LayoutInflater inflater;
     private ImageView iv_good_experence_item;
 
     public MyGoodExperenceAdapter(Context context, List<Integer> list) {
-        this.context = context;
-        this.list = list;
+        this.mContext = context;
+        this.mDatas = list;
         inflater = LayoutInflater.from(context);
     }
 
-    @Override    public int getCount() {
-        return list.size();
+    @Override
+    public int getCount() {
+        return mDatas.size();
     }
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view==object;
+        return view == object;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view = inflater.inflate(R.layout.good_experence_item, container, false);
-        iv_good_experence_item = (ImageView) view.findViewById(R.id.iv_good_experence_item);
-        iv_good_experence_item.setImageResource(list.get(position));
+        iv_good_experence_item = (ImageView) view.findViewById(R.id.iv_chaozhi_pic);
+        iv_good_experence_item.setImageResource(mDatas.get(position));
         iv_good_experence_item.setScaleType(ImageView.ScaleType.CENTER_CROP);
         container.addView(view);
         return view;

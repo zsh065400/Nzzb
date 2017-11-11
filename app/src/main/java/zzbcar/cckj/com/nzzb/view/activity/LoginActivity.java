@@ -179,12 +179,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             req.scope = "snsapi_userinfo";
             //自定义信息
             req.state = "wechat_sdk_demo_test";
-            //获取用户信息
-//            mShareAPI.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.WEIXIN, authListener);
-            //授权登录
-            mShareAPI.doOauthVerify(LoginActivity.this, SHARE_MEDIA.WEIXIN, authListener);
             //向微信发送请求
-//            mWxApi.sendReq(req);
+            mWxApi.sendReq(req);
+            //授权登录
+//            mShareAPI.doOauthVerify(LoginActivity.this, SHARE_MEDIA.WEIXIN, authListener);
+            //获取用户信息
+            mShareAPI.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.WEIXIN, authListener);
         } else {
             Toast.makeText(this, "用户未安装微信", Toast.LENGTH_SHORT).show();
         }

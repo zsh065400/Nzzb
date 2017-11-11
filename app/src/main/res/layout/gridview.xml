@@ -4,7 +4,6 @@
           android:layout_height="match_parent"
           android:gravity="center"
           android:horizontalSpacing="5dp"
-          android:verticalSpacing="8dp"
-          android:numColumns="4">
+          android:numColumns="5">
 
 </GridView>
