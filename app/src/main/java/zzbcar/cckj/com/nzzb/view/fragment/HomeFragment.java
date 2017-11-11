@@ -5,10 +5,15 @@ import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +25,9 @@ import zzbcar.cckj.com.nzzb.adapter.GridPagerAdapter;
 import zzbcar.cckj.com.nzzb.adapter.MyGoodExperenceAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.CarTypeAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.CarTypeItemAdapter;
+import zzbcar.cckj.com.nzzb.bean.MainPageBean;
+import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
@@ -73,8 +81,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @BindView(R.id.indicator)
     CircleIndicator indicator;
+    private List<MainPageBean.DataBean.ActivityBean> activityDatas;
+    private List<MainPageBean.DataBean.NewCarListBean> newCarDatas;
+    private List<MainPageBean.DataBean.BrandBean> brandDatas;
+    private List<MainPageBean.DataBean.CarListBean> carDatas;
+    private List<MainPageBean.DataBean.MarqueeBean> marqueeDatas;
 
-    private void initCarTypeList() {
+    /**汽车类型
+     * @param brandDatas*/
+    private void initCarTypeList(List<MainPageBean.DataBean.BrandBean> brandDatas) {
         final CarTypeItemAdapter itemAdapter = new CarTypeItemAdapter(getContext(), null);
         GridView gridView1 = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
         gridView1.setAdapter(itemAdapter);
@@ -88,8 +103,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         indicator.setViewPager(vpChexingList);
     }
 
-    /*车型专区*/
-    private void initCarType() {
+    /**车型专区
+     * @param carDatas*/
+    private void initCarType(List<MainPageBean.DataBean.CarListBean> carDatas) {
         rvChexing.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
         final ArrayList datas = new ArrayList();
         datas.add(1);
@@ -99,8 +115,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         rvChexing.setAdapter(new CarTypeAdapter(mActivity, datas));
     }
 
-    /*新鲜车型*/
-    private void initFreshCarType() {
+    /**新鲜车型
+     * @param newCarDatas*/
+    private void initFreshCarType(List<MainPageBean.DataBean.NewCarListBean> newCarDatas) {
         rvXinxian.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
         final ArrayList datas = new ArrayList();
         datas.add(1);
@@ -108,12 +125,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         datas.add(1);
         datas.add(1);
         rvXinxian.setAdapter(new CarTypeAdapter(mActivity, datas));
-
-
     }
 
-    /*超值体验*/
-    private void initGoodExperence() {
+    /**超值体验
+     * @param activityDatas*/
+    private void initGoodExperence(List<MainPageBean.DataBean.ActivityBean> activityDatas) {
         List<Integer> list = new ArrayList<>();
         list.add(R.drawable.p001);
         list.add(R.drawable.p002);
@@ -134,15 +150,37 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initDatas() {
+        OkGo.<String>get(Constant.API_MAIN_PAGE).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                /*此处应加判断，不应直接使用*/
+                final MainPageBean pageBean = GsonUtil.parseJsonWithGson(response.body(), MainPageBean.class);
+                final MainPageBean.DataBean data = pageBean.getData();
+                marqueeDatas = data.getMarquee();
+                /*超值*/
+                activityDatas = data.getActivity();
+                /*新鲜*/
+                newCarDatas = data.getNewCarList();
+                /*品牌*/
+                brandDatas = data.getBrand();
+                /*车辆*/
+                carDatas = data.getCarList();
+            }
 
+            @Override
+            public void onError(Response<String> response) {
+                super.onError(response);
+                Log.e(TAG, ": " + response.getException().getLocalizedMessage());
+            }
+        });
     }
 
     @Override
     public void initViews(View view) {
-        initGoodExperence();
-        initFreshCarType();
-        initCarTypeList();
-        initCarType();
+        initGoodExperence(activityDatas);
+        initFreshCarType(newCarDatas);
+        initCarTypeList(brandDatas);
+        initCarType(carDatas);
     }
 
 

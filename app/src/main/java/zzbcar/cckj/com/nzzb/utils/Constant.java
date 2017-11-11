@@ -30,6 +30,8 @@ public class Constant {
     /*下单*/
     public static final String API_ADD_ORDER = SERVE_URL + "/app/order/doOrder";
 
+    /*主页*/
+    public static final String API_MAIN_PAGE = SERVE_URL + "/zzb/app/compound/mainpage";
     public static final String HOME_LUNBO_URL = SERVE_URL + "zzb/app/common/marquee";
     //品牌
     public static final String CAR_BRAND_URL = SERVE_URL + "zzb/app/car/brand";

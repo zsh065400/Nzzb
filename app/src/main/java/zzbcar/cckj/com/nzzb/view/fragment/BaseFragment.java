@@ -17,6 +17,8 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseFragment extends Fragment {
+    protected final String TAG = getClass().getSimpleName();
+
     public FragmentActivity mActivity;
 
     @Override

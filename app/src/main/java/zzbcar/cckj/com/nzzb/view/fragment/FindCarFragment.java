@@ -3,21 +3,29 @@ package zzbcar.cckj.com.nzzb.view.fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import me.relex.circleindicator.CircleIndicator;
 import zzbcar.cckj.com.nzzb.R;
-import zzbcar.cckj.com.nzzb.adapter.FindcarDefaultItemAdapter;
 import zzbcar.cckj.com.nzzb.adapter.GridItemAdapter;
 import zzbcar.cckj.com.nzzb.adapter.GridPagerAdapter;
 import zzbcar.cckj.com.nzzb.adapter.ListItemAdapter;
 import zzbcar.cckj.com.nzzb.base.SpaceSize;
 import zzbcar.cckj.com.nzzb.base.SpacesItemDecoration;
+import zzbcar.cckj.com.nzzb.bean.BrandCarBean;
+import zzbcar.cckj.com.nzzb.bean.CarDefaultBean;
+import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.GsonUtil;
+import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
-import zzbcar.cckj.com.nzzb.view.customview.ViewPagerIndicator;
 
 /**
  * Created by Admin on 2017/10/31.
@@ -25,11 +33,19 @@ import zzbcar.cckj.com.nzzb.view.customview.ViewPagerIndicator;
 
 public class FindCarFragment extends BaseFragment {
 
-    //    private GridView gv_findcarfragment_defaut;
-//    private GridView gv_findcarfragment_carbrand;
     private OkManager manager = new OkManager();
-    private FindcarDefaultItemAdapter adapter;
-    private ViewPager vp_grid_items;
+
+    private List<CarDefaultBean.DataBean> carList = new ArrayList<>();
+    private List<BrandCarBean.DataBean> brandList = new ArrayList<>();
+
+    @BindView(R.id.vp_grid_items)
+    ViewPager vp_grid_items;
+
+    @BindView(R.id.rv_list_items)
+    RecyclerView rvListItems;
+
+    @BindView(R.id.indicator)
+    CircleIndicator indicator;
 
     @Override
     public int getLayoutId() {
@@ -37,79 +53,69 @@ public class FindCarFragment extends BaseFragment {
     }
 
     @Override
-    public void initDatas() {
-
+    public void initViews(View view) {
+        //下部滑动
+        rvListItems.setLayoutManager(new GridLayoutManager(mActivity, 2, GridLayoutManager.VERTICAL, false));
+        rvListItems.addItemDecoration(new SpacesItemDecoration(new SpaceSize(25, 10, 10, 10)));
+        rvListItems.setNestedScrollingEnabled(false);
     }
 
-    @Override
-    public void initViews(View view) {
-//        gv_findcarfragment_defaut = view.findViewById(R.id.gv_findcarfragment_defaut);
-        vp_grid_items = view.findViewById(R.id.vp_grid_items);
-        final GridItemAdapter itemAdapter = new GridItemAdapter(getContext(), null);
-        GridView gridView1 = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
-        gridView1.setAdapter(itemAdapter);
-        GridView gridView2 = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
-        gridView2.setAdapter(itemAdapter);
-        List<View> views = new ArrayList<>();
-        views.add(gridView1);
-        views.add(gridView2);
-        vp_grid_items.setAdapter(new GridPagerAdapter(views));
-
-        //下部上下滑动布局
-        RecyclerView rvListItems = view.findViewById(R.id.rv_list_items);
-        rvListItems.setLayoutManager(new GridLayoutManager(mActivity, 2, GridLayoutManager.VERTICAL, false));
-        rvListItems.addItemDecoration(new SpacesItemDecoration(new SpaceSize(10, 10, 10, 10)));
-        rvListItems.setNestedScrollingEnabled(false);
-        rvListItems.setAdapter(new ListItemAdapter(null, mActivity));
-
-        //滑动圆点
-        final ViewPagerIndicator indicator = view.findViewById(R.id.indicator);
-        //滑动监听
-        vp_grid_items.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    /**
+     * 获得汽车品牌
+     */
+    private void getCarBrandData() {
+        manager.asyncJsonObjectByURL(Constant.CAR_BRAND_URL, new OkManager.Fun4() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                indicator.setOffset(position, positionOffset);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public void onResponse(JSONObject jsonObject) {
+                Log.i("TAG", "onResponse: ====s=======>" + jsonObject.toString());
+                BrandCarBean brandCarBean = GsonUtil.parseJsonWithGson(String.valueOf(jsonObject), BrandCarBean.class);
+                brandList.addAll(brandCarBean.getData());
+                initCarBrand();
             }
         });
     }
 
-//    @Override
-//    public void initDatas() {
-//
-//        //默认汽车
-//        manager.asyncJsonByURL(Constant.CAR_DEFAULT_URL, new OkManager.Func1() {
-//            @Override
-//            public void onResponse(String result) {
-//                parseData(result);
-//
-//            }
-//        });
-//    }
+    private void initCarBrand() {
+        List<List<BrandCarBean.DataBean>> split = ListUtils.split(brandList, 10);
+        List<View> gridViews = new ArrayList<>();
+        for (List<BrandCarBean.DataBean> dataBeans : split) {
+            GridItemAdapter itemAdapter = new GridItemAdapter(mActivity, dataBeans);
+            GridView gridView = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
+            gridView.setAdapter(itemAdapter);
+            gridViews.add(gridView);
+        }
+        vp_grid_items.setAdapter(new GridPagerAdapter(gridViews));
+        /*同步指示器*/
+        indicator.setViewPager(vp_grid_items);
+    }
 
 
-//    private void parseData(String result) {
-//        SearchCarDefaultBean bean = GsonUtil.parseJsonWithGson(result, SearchCarDefaultBean.class);
-//        List<SearchCarDefaultBean.DataBean> dataList = bean.getData();
-//        gv_findcarfragment_defaut.setAdapter(new FindcarDefaultItemAdapter(dataList,mActivity));
-//
-//
-//
-//    }
+    private void startTask() {
+        manager.asyncJsonByURL(Constant.CAR_DEFAULT_URL, new OkManager.Func1() {
+            @Override
+            public void onResponse(String result) {
+                parseDefaultCarBean(result);
+            }
+        });
+    }
+
+    private void parseDefaultCarBean(String result) {
+        CarDefaultBean carDefaultBean = GsonUtil.parseJsonWithGson(result, CarDefaultBean.class);
+        carList = carDefaultBean.getData();
+
+        final ListItemAdapter adapter = new ListItemAdapter(carList, mActivity);
+        rvListItems.setAdapter(adapter);
+    }
+
+    @Override
+    public void initDatas() {
+        startTask();
+        getCarBrandData();
+    }
 
     @Override
     protected void initListeners() {
 
     }
-
 
 }
