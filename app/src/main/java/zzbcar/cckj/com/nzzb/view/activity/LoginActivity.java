@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
@@ -174,13 +173,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void loginWX() {
         if (mWxApi != null && mWxApi.isWXAppInstalled()) {
-            SendAuth.Req req = new SendAuth.Req();
+//            SendAuth.Req req = new SendAuth.Req();
 
-            req.scope = "snsapi_userinfo";
+//            req.scope = "snsapi_userinfo";
             //自定义信息
-            req.state = "wechat_sdk_demo_test";
+//            req.state = "zzbcar";
             //向微信发送请求
-            mWxApi.sendReq(req);
+//            mWxApi.sendReq(req);
             //授权登录
 //            mShareAPI.doOauthVerify(LoginActivity.this, SHARE_MEDIA.WEIXIN, authListener);
             //获取用户信息
@@ -191,8 +190,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void loginQQ() {
-        mTencent = Tencent.createInstance("1106313801", MyApplication.getMyApplicaiton());
-        mTencent.login(LoginActivity.this, "all", new BaseUiListener());
+        mShareAPI.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, authListener);
+//        mTencent = Tencent.createInstance("1106313801", MyApplication.getMyApplicaiton());
+//        mTencent.login(LoginActivity.this, "all", new BaseUiListener());
     }
 
     /**
@@ -242,11 +242,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
          * @desc 授权成功的回调
          */
         @Override
-        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+        public void onComplete(SHARE_MEDIA platform, int action, final Map<String, String> data) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(mContext, "登录成功", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "登录成功，昵称：" + data.get("screen_name"), Toast.LENGTH_LONG).show();
                 }
             });
         }

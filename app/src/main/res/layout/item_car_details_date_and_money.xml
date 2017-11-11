@@ -45,7 +45,7 @@
         android:layout_weight="1">
 
         <TextView
-            android:id="@+id/tv_date_money_sunday"
+            android:id="@+id/tv_date_money_monday"
             android:gravity="center_horizontal"
             android:text="19"
             android:textColor="#1d1c1c"

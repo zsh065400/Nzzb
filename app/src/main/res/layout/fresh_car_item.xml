@@ -4,9 +4,9 @@
     android:layout_width="180dp"
     android:layout_height="180dp"
     android:layout_margin="5dp"
-    android:gravity="center"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
+    android:gravity="center"
     android:orientation="vertical">
 
     <ImageView
@@ -17,6 +17,7 @@
         android:src="@drawable/p001"/>
 
     <TextView
+        android:id="@+id/iv_fresh_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
@@ -27,6 +28,7 @@
         android:textSize="13dp"/>
 
     <TextView
+        android:id="@+id/iv_fresh_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left|center_horizontal"

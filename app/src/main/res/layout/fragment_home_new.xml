@@ -16,8 +16,15 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="270dp"
-            android:background="@drawable/main_new_bac"
+            android:background="#000000"
             android:fitsSystemWindows="true">
+
+            <zzbcar.cckj.com.nzzb.view.customview.Gradient
+                android:id="@+id/gradient"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:background="@drawable/main_new_bac"
+                android:fitsSystemWindows="true"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -107,14 +114,23 @@
             android:paddingRight="20dp"
             android:paddingTop="10dp">
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:drawableLeft="@drawable/main_news"
-                android:drawablePadding="6dp"
-                android:gravity="center"
-                android:text="至尊宝共享豪车上线了！"
-                android:textColor="#191919"/>
+                android:scaleType="centerInside"
+                android:src="@drawable/main_news"/>
+
+            <com.sunfusheng.marqueeview.MarqueeView
+                android:id="@+id/marqueeView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                app:mvAnimDuration="2500"
+                app:mvDirection="bottom_to_top"
+                app:mvInterval="3000"
+                app:mvSingleLine="true"
+                app:mvTextColor="#191919"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -223,8 +239,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#f7f7f7"/>
+            android:layout_height="5dp"
+            android:background="#ebebeb"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -260,8 +276,8 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_chexing_list"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="20dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:clipChildren="true"

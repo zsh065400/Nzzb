@@ -18,15 +18,15 @@ import zzbcar.cckj.com.nzzb.bean.MainPageBean;
  * Created on 2017/11/11 14:59.
  */
 
-public class CarTypeAdapter extends BaseRecycleViewAdapter<MainPageBean.DataBean.CarListBean> {
+public class NewCarAdapter extends BaseRecycleViewAdapter<MainPageBean.DataBean.NewCarListBean> {
 
 
-    public CarTypeAdapter(Context context, List datas) {
+    public NewCarAdapter(Context context, List datas) {
         super(context, datas);
     }
 
     @Override
-    protected void convert(MyViewHolder holder, int position, MainPageBean.DataBean.CarListBean newCarListBean) {
+    protected void convert(MyViewHolder holder, int position, MainPageBean.DataBean.NewCarListBean newCarListBean) {
         holder.setText(R.id.iv_fresh_name, newCarListBean.getCarName());
         holder.setText(R.id.iv_fresh_price, "￥" + newCarListBean.getPrice());
         ImageView pic = holder.getView(R.id.iv_fresh_pic);

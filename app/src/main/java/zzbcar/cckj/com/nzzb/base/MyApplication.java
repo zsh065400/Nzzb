@@ -1,6 +1,6 @@
 package zzbcar.cckj.com.nzzb.base;
 
-import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.lzy.okgo.OkGo;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -17,7 +17,7 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
  * Created by Admin on 2017/11/5.
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
 
     private static IWXAPI SWXAPI;
     private static MyApplication SINSTANCE;

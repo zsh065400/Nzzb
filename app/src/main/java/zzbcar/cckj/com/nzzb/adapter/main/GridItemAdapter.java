@@ -1,4 +1,4 @@
-package zzbcar.cckj.com.nzzb.adapter;
+package zzbcar.cckj.com.nzzb.adapter.main;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
-import zzbcar.cckj.com.nzzb.bean.BrandCarBean;
+import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 
 /**
  * gridview适配器
@@ -23,11 +23,11 @@ import zzbcar.cckj.com.nzzb.bean.BrandCarBean;
 
 public class GridItemAdapter extends BaseAdapter {
     private Context mContext;
-    private List<BrandCarBean.DataBean> mViews;
+    private List<MainPageBean.DataBean.BrandBean> mViews;
 
     /*自定义GridAdapter*/
 
-    public GridItemAdapter(Context mContext, List<BrandCarBean.DataBean> mViews) {
+    public GridItemAdapter(Context mContext, List<MainPageBean.DataBean.BrandBean> mViews) {
         this.mContext = mContext;
         this.mViews = mViews;
     }
@@ -56,7 +56,9 @@ public class GridItemAdapter extends BaseAdapter {
         MyViewHolder mv;
         if (convertView == null) {
             mv = new MyViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.gridview_item, parent, false);
+            convertView =
+                    LayoutInflater.from(mContext)
+                            .inflate(R.layout.gridview_item, parent, false);
             mv.iv_grid_brand_item = convertView.findViewById(R.id.iv_grid_brand_item);
             convertView.setTag(mv);
         } else {

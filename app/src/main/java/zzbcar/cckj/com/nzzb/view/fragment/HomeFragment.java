@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.squareup.picasso.Picasso;
+import com.sunfusheng.marqueeview.MarqueeView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +26,18 @@ import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.GridPagerAdapter;
 import zzbcar.cckj.com.nzzb.adapter.MyGoodExperenceAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.CarTypeAdapter;
-import zzbcar.cckj.com.nzzb.adapter.main.CarTypeItemAdapter;
+import zzbcar.cckj.com.nzzb.adapter.main.GridItemAdapter;
+import zzbcar.cckj.com.nzzb.adapter.main.NewCarAdapter;
 import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
+import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PayActivity;
+import zzbcar.cckj.com.nzzb.view.customview.Gradient;
 
 /**
  * Created by Admin on 2017/10/31.
@@ -81,62 +86,82 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @BindView(R.id.indicator)
     CircleIndicator indicator;
+
+    @BindView(R.id.marqueeView)
+    MarqueeView marqueeView;
+
+    @BindView(R.id.gradient)
+    Gradient gradient;
+
     private List<MainPageBean.DataBean.ActivityBean> activityDatas;
     private List<MainPageBean.DataBean.NewCarListBean> newCarDatas;
     private List<MainPageBean.DataBean.BrandBean> brandDatas;
     private List<MainPageBean.DataBean.CarListBean> carDatas;
     private List<MainPageBean.DataBean.MarqueeBean> marqueeDatas;
 
-    /**汽车类型
-     * @param brandDatas*/
-    private void initCarTypeList(List<MainPageBean.DataBean.BrandBean> brandDatas) {
-        final CarTypeItemAdapter itemAdapter = new CarTypeItemAdapter(getContext(), null);
-        GridView gridView1 = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
-        gridView1.setAdapter(itemAdapter);
-        GridView gridView2 = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
-        gridView2.setAdapter(itemAdapter);
-        List<View> views = new ArrayList<>();
-        views.add(gridView1);
-        views.add(gridView2);
-        vpChexingList.setAdapter(new GridPagerAdapter(views));
+    private void initMarquee(List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
+        List<String> marqueeText = new ArrayList<>();
+        List<ImageView> marqueeImage = new ArrayList<>();
+        for (MainPageBean.DataBean.MarqueeBean bean : marqueeDatas) {
+            marqueeText.add(bean.getTitle());
+            ImageView imageView = new ImageView(mActivity);
+            Picasso.with(mActivity).load(bean.getPicUrl())
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
+                    .fit()
+                    .into(imageView);
+            marqueeImage.add(imageView);
+        }
+        marqueeView.startWithList(marqueeText);
+        gradient.setImageViews(marqueeImage);
+    }
 
+    /**
+     * 汽车类型
+     *
+     * @param brandDatas
+     */
+    private void initCarTypeList(List<MainPageBean.DataBean.BrandBean> brandDatas) {
+        List<List<MainPageBean.DataBean.BrandBean>> split = ListUtils.split(brandDatas, 5);
+        List<View> gridViews = new ArrayList<>();
+        for (List<MainPageBean.DataBean.BrandBean> dataBeans : split) {
+            GridItemAdapter itemAdapter = new GridItemAdapter(mActivity, dataBeans);
+            GridView gridView = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
+            gridView.setAdapter(itemAdapter);
+            gridViews.add(gridView);
+        }
+        vpChexingList.setAdapter(new GridPagerAdapter(gridViews));
+        /*同步指示器*/
         indicator.setViewPager(vpChexingList);
     }
 
-    /**车型专区
-     * @param carDatas*/
+    /**
+     * 车型专区
+     *
+     * @param carDatas
+     */
     private void initCarType(List<MainPageBean.DataBean.CarListBean> carDatas) {
         rvChexing.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
-        final ArrayList datas = new ArrayList();
-        datas.add(1);
-        datas.add(1);
-        datas.add(1);
-        datas.add(1);
-        rvChexing.setAdapter(new CarTypeAdapter(mActivity, datas));
+        rvChexing.setAdapter(new CarTypeAdapter(mActivity, carDatas));
     }
 
-    /**新鲜车型
-     * @param newCarDatas*/
+    /**
+     * 新鲜车型
+     *
+     * @param newCarDatas
+     */
     private void initFreshCarType(List<MainPageBean.DataBean.NewCarListBean> newCarDatas) {
         rvXinxian.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
-        final ArrayList datas = new ArrayList();
-        datas.add(1);
-        datas.add(1);
-        datas.add(1);
-        datas.add(1);
-        rvXinxian.setAdapter(new CarTypeAdapter(mActivity, datas));
+        rvXinxian.setAdapter(new NewCarAdapter(mActivity, newCarDatas));
     }
 
-    /**超值体验
-     * @param activityDatas*/
+    /**
+     * 超值体验
+     *
+     * @param activityDatas
+     */
     private void initGoodExperence(List<MainPageBean.DataBean.ActivityBean> activityDatas) {
-        List<Integer> list = new ArrayList<>();
-        list.add(R.drawable.p001);
-        list.add(R.drawable.p002);
-        list.add(R.drawable.p003);
-        list.add(R.drawable.p004);
-        list.add(R.drawable.p005);
-        MyGoodExperenceAdapter myGoodExperenceAdapter = new MyGoodExperenceAdapter(mActivity, list);
+        MyGoodExperenceAdapter myGoodExperenceAdapter = new MyGoodExperenceAdapter(mActivity, activityDatas);
         vpChaozhi.setAdapter(myGoodExperenceAdapter);
         vpChaozhi.setPageTransformer(false, new ScaleTransformer());
         vpChaozhi.setOffscreenPageLimit(5);
@@ -165,6 +190,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 brandDatas = data.getBrand();
                 /*车辆*/
                 carDatas = data.getCarList();
+                initGoodExperence(activityDatas);
+                initFreshCarType(newCarDatas);
+                initCarTypeList(brandDatas);
+                initCarType(carDatas);
+                initMarquee(marqueeDatas);
             }
 
             @Override
@@ -177,10 +207,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initViews(View view) {
-        initGoodExperence(activityDatas);
-        initFreshCarType(newCarDatas);
-        initCarTypeList(brandDatas);
-        initCarType(carDatas);
+
     }
 
 

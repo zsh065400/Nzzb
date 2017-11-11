@@ -20,9 +20,9 @@ import java.util.List;
 abstract public class BaseRecycleViewAdapter<T> extends
         RecyclerView.Adapter<BaseRecycleViewAdapter.MyViewHolder> {
 
-    private Context mContext;
-    private List<T> mDatas;
-    private OnItemClickListener mClickListener;
+    protected Context mContext;
+    protected List<T> mDatas;
+    protected OnItemClickListener mClickListener;
 
     public BaseRecycleViewAdapter(Context context, List<T> datas) {
         mContext = context;

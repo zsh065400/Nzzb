@@ -26,7 +26,7 @@ public class Gradient extends RelativeLayout {
     private int couot;
     private int currentIndex;//当前的页面
     private LinearLayout linearLayout;
-    private long time=5000;//动画间隔时间
+    private long time=2500;//动画间隔时间
     public Animation zoomOutAwayAnim;
     public Animation zoomOutNearAnim;
     private int size;

@@ -6,10 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 
 /**
  * Created by Admin on 2017/11/9.
@@ -17,12 +21,11 @@ import zzbcar.cckj.com.nzzb.R;
 
 public class MyGoodExperenceAdapter extends PagerAdapter {
     private Context mContext;
-    private List<Integer> mDatas;
+    private List<MainPageBean.DataBean.ActivityBean> mDatas;
 
     private LayoutInflater inflater;
-    private ImageView iv_good_experence_item;
 
-    public MyGoodExperenceAdapter(Context context, List<Integer> list) {
+    public MyGoodExperenceAdapter(Context context, List<MainPageBean.DataBean.ActivityBean> list) {
         this.mContext = context;
         this.mDatas = list;
         inflater = LayoutInflater.from(context);
@@ -40,10 +43,19 @@ public class MyGoodExperenceAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        View view = inflater.inflate(R.layout.good_experence_item, container, false);
-        iv_good_experence_item = (ImageView) view.findViewById(R.id.iv_chaozhi_pic);
-        iv_good_experence_item.setImageResource(mDatas.get(position));
-        iv_good_experence_item.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        final View view = inflater.inflate(R.layout.good_experence_item, container, false);
+        final MainPageBean.DataBean.ActivityBean bean = mDatas.get(position);
+
+        ImageView pic = (ImageView) view.findViewById(R.id.iv_chaozhi_pic);
+        TextView name = (TextView) view.findViewById(R.id.tv_chaozhi_name);
+        TextView price = (TextView) view.findViewById(R.id.tv_chaozhi_price);
+        Picasso.with(mContext).load(bean.getPicUrl())
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .fit()
+                .into(pic);
+        name.setText(bean.getCarName());
+        price.setText(bean.getPrice()+"");
         container.addView(view);
         return view;
     }
