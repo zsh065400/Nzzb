@@ -35,6 +35,7 @@ import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PayActivity;
 import zzbcar.cckj.com.nzzb.view.customview.Gradient;
@@ -218,6 +219,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tvWedding.setOnClickListener(this);
         tvXinxianAll.setOnClickListener(this);
         tvChaozhiAll.setOnClickListener(this);
+        tvChexingAll.setOnClickListener(this);
     }
 
     @Override
@@ -225,25 +227,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.tv_self:
-                intent = new Intent(getContext(), RentActivity.class);
+                intent = new Intent(mActivity, RentActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_business:
-                intent = new Intent(getContext(), RentActivity.class);
+                intent = new Intent(mActivity, RentActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_wedding:
-                intent = new Intent(getContext(), MarriedActivity.class);
+                intent = new Intent(mActivity, MarriedActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.tv_xinxian_all://暂时替代
-                intent = new Intent(getContext(), LoginActivity.class);
+                intent = new Intent(mActivity, LoginActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_chaozhi_all://暂时替代
-                intent = new Intent(getContext(), PayActivity.class);
+                intent = new Intent(mActivity, PayActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.tv_chexing_all:
+                intent = new Intent(mActivity, CarListActivity.class);
+//                new Bundle().putSerializable();
                 break;
         }
     }

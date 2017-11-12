@@ -95,7 +95,7 @@ public class MainPageBean implements Serializable {
             this.newCarList = newCarList;
         }
 
-        public static class ActivityBean {
+        public static class ActivityBean implements Serializable {
             /**
              * carId : 4
              * carName : 兰博基尼Huracan
@@ -181,7 +181,7 @@ public class MainPageBean implements Serializable {
             }
         }
 
-        public static class MarqueeBean {
+        public static class MarqueeBean implements Serializable {
             /**
              * content : http://app.zzbcar.com/marquee/00000a-20171103102015.htm
              * id : 10
@@ -237,7 +237,7 @@ public class MainPageBean implements Serializable {
             }
         }
 
-        public static class CarListBean {
+        public static class CarListBean implements Serializable{
             /**
              * addr : 杭州市庆春路58号
              * age : 5
@@ -543,7 +543,7 @@ public class MainPageBean implements Serializable {
             }
         }
 
-        public static class MessageBean {
+        public static class MessageBean implements Serializable {
             /**
              * content : http://app.zzbcar.com/message/000023-20171103102402.htm
              * id : 35
@@ -609,7 +609,7 @@ public class MainPageBean implements Serializable {
             }
         }
 
-        public static class BrandBean {
+        public static class BrandBean implements Serializable {
             /**
              * id : 18
              * logo : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/brand/Audi.png
@@ -665,7 +665,7 @@ public class MainPageBean implements Serializable {
             }
         }
 
-        public static class NewCarListBean {
+        public static class NewCarListBean implements Serializable {
             /**
              * addr : 浙江省杭州市滨江区网商路
              * age : 321

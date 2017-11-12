@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="zzbcar.cckj.com.nzzb">
+<manifest package="zzbcar.cckj.com.nzzb"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
@@ -24,67 +24,66 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.activity.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <!--三方集成-->
-        <!--新浪-->
+        <!-- 三方集成 -->
+        <!-- 新浪 -->
         <activity
             android:name="com.umeng.socialize.media.WBShareCallBackActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:exported="false"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
-        <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+        <activity
+            android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:windowSoftInputMode="adjustResize">
-
         </activity>
         <activity
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
             android:launchMode="singleTask"
-            android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
 
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
 
-
-        <!--QQ-->
+        <!-- QQ -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
 
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.VIEW" />-->
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-                <!--<category android:name="android.intent.category.BROWSABLE" />-->
-                <!--<data android:scheme="tencent100424468" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
+            <!-- <data android:scheme="tencent100424468" /> -->
+            <!-- </intent-filter> -->
 
         </activity>
-<!--微信登陆-->
+        <!-- 微信登陆 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:screenOrientation="portrait" />
-        <!--微信支付-->
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <!-- 微信支付 -->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:launchMode="singleTop"/>
 
-        <!--支付宝支付-->
+        <!-- 支付宝支付 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -98,19 +97,17 @@
             android:screenOrientation="behind">
         </activity>
 
-
-<!--友盟appk-->
+        <!-- 友盟appk -->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="561cae6ae0f55abd990035bf" >
+            android:value="561cae6ae0f55abd990035bf">
         </meta-data>
-
 
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".view.activity.SplshActivity">
 
             <!-- <intent-filter> -->
@@ -120,31 +117,32 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".view.activity.GuideActivity" />
-        <activity android:name=".view.activity.TestActivity"></activity>
+        <activity android:name=".view.activity.GuideActivity"/>
+        <activity android:name=".view.activity.TestActivity"/>
         <activity android:name=".view.activity.LunboActivity">
         </activity>
-        <activity android:name=".view.activity.MyCarActivity" />
-        <activity android:name=".view.activity.itemactivity.CommonAddressActivity" />
-        <activity android:name=".view.activity.itemactivity.AccountBindActivity" />
-        <activity android:name=".view.activity.itemactivity.BreakRuleActivity" />
-        <activity android:name=".view.activity.itemactivity.InviteFriendsActivity" />
-        <activity android:name=".view.activity.itemactivity.HelpCenterActivity" />
-        <activity android:name=".view.activity.itemactivity.AboutUsActivity" />
-
-        <activity android:name=".view.activity.itemactivity.CarIdentifiActivity"
-                  android:screenOrientation="portrait"
-            />
-        <activity android:name=".view.activity.itemactivity.CarLicenceActivity" />
-        <activity android:name=".view.activity.itemactivity.IdentiCompleteActivity" />
-        <activity android:name=".view.activity.itemactivity.CarFriendIdentifiActivity" />
-        <activity android:name=".view.activity.itemactivity.SelecTimeActivity" />
+        <activity android:name=".view.activity.MyCarActivity"/>
+        <activity android:name=".view.activity.itemactivity.CommonAddressActivity"/>
+        <activity android:name=".view.activity.itemactivity.AccountBindActivity"/>
+        <activity android:name=".view.activity.itemactivity.BreakRuleActivity"/>
+        <activity android:name=".view.activity.itemactivity.InviteFriendsActivity"/>
+        <activity android:name=".view.activity.itemactivity.HelpCenterActivity"/>
+        <activity android:name=".view.activity.itemactivity.AboutUsActivity"/>
+        <activity
+            android:name=".view.activity.itemactivity.CarIdentifiActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.itemactivity.CarLicenceActivity"/>
+        <activity android:name=".view.activity.itemactivity.IdentiCompleteActivity"/>
+        <activity android:name=".view.activity.itemactivity.CarFriendIdentifiActivity"/>
+        <activity android:name=".view.activity.itemactivity.SelecTimeActivity"/>
         <activity android:name=".view.activity.LoginActivity"/>
         <activity android:name=".view.activity.itemactivity.PreCarFriendIdentifiActivity"/>
         <activity android:name=".view.activity.itemactivity.SetAddressActivity"/>
         <activity android:name=".view.activity.RentActivity"/>
         <activity android:name=".view.activity.itemactivity.PayActivity"/>
         <activity android:name=".view.activity.itemactivity.MarriedActivity"/>
+        <activity android:name=".view.activity.itemactivity.CarListActivity">
+        </activity>
     </application>
 
 </manifest>
