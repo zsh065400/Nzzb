@@ -62,7 +62,7 @@ public class PayActivity extends BaseActivity {
     private final int ALI_PAY = 1;
     private OrderBean.DataBean payInfo;
 
-    private void doWxPap() {
+    private void doWxPay() {
         /*测试订单*/
         final String url = OkHttpUtil.obtainGetUrl(Constant.API_ORDER_PAY,
                 "payWay", "2",
@@ -71,10 +71,14 @@ public class PayActivity extends BaseActivity {
         OkGo.<String>get(url).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                final WxPayInfoBean wxPayInfoBean = GsonUtil.parseJsonWithGson(response.body(), WxPayInfoBean.class);
-                final WxPayInfoBean.DataBean data = wxPayInfoBean.getData();
-                System.out.println(data);
-                excuteRealWxPay(data);
+                final String body = response.body();
+                final WxPayInfoBean wxPayInfoBean = GsonUtil.parseJsonWithGson(body, WxPayInfoBean.class);
+                if (wxPayInfoBean.getErrno() == 0) {
+                    // TODO: 2017/11/13 微信支付金额不能过小
+                    final WxPayInfoBean.DataBean data = wxPayInfoBean.getData();
+                    System.out.println(data);
+                    excuteRealWxPay(data);
+                } else asyncShowToast(wxPayInfoBean.getMessage());
             }
         });
     }
@@ -103,9 +107,11 @@ public class PayActivity extends BaseActivity {
             @Override
             public void onSuccess(Response<String> response) {
                 final AliPayInfoBean aliPayInfoBean = GsonUtil.parseJsonWithGson(response.body(), AliPayInfoBean.class);
-                final String orderInfo = aliPayInfoBean.getData();
-                System.out.println(orderInfo);
-                excuteRealALiPay(orderInfo);
+                if (aliPayInfoBean.getErrno() == 0) {
+                    final String orderInfo = aliPayInfoBean.getData();
+                    System.out.println(orderInfo);
+                    excuteRealALiPay(orderInfo);
+                } else asyncShowToast(aliPayInfoBean.getMessage());
             }
         });
     }
@@ -149,7 +155,7 @@ public class PayActivity extends BaseActivity {
         mWxPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doWxPap();
+                doWxPay();
             }
         });
         initTime();
