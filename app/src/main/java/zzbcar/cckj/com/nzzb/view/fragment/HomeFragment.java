@@ -1,16 +1,25 @@
 package zzbcar.cckj.com.nzzb.view.fragment;
 
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
@@ -22,6 +31,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import me.relex.circleindicator.CircleIndicator;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.GridPagerAdapter;
 import zzbcar.cckj.com.nzzb.adapter.MyGoodExperenceAdapter;
@@ -32,6 +46,7 @@ import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ListUtils;
+import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
@@ -44,6 +59,7 @@ import zzbcar.cckj.com.nzzb.view.customview.Gradient;
  * Created by Admin on 2017/10/31.
  */
 
+@RuntimePermissions
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @BindView(R.id.tv_location)
@@ -99,6 +115,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private List<MainPageBean.DataBean.BrandBean> brandDatas;
     private List<MainPageBean.DataBean.CarListBean> carDatas;
     private List<MainPageBean.DataBean.MarqueeBean> marqueeDatas;
+    private LocationClient mLocationClient;
+    private MyBDLocationListener bdLocationListener;
 
     private void initMarquee(List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
         List<String> marqueeText = new ArrayList<>();
@@ -204,6 +222,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 Log.e(TAG, ": " + response.getException().getLocalizedMessage());
             }
         });
+        initLocation();
+    }
+    @TargetApi(Build.VERSION_CODES.M)
+    private void initLocation() {
+        HomeFragmentPermissionsDispatcher.showLocationWithPermissionCheck(this);
     }
 
     @Override
@@ -253,4 +276,100 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
+
+    @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
+    void showLocation() {
+        String lastLocation = SPUtils.getString(mActivity, Constant.SP_LAST_LOCATION, "");
+
+        if (!TextUtils.isEmpty(lastLocation)) {
+            tvLocation.setText(lastLocation);
+        }
+        mLocationClient = new LocationClient(mActivity.getApplicationContext());
+        //声明LocationClient类
+        bdLocationListener = new MyBDLocationListener();
+        mLocationClient.registerLocationListener(bdLocationListener);
+        //注册监听函数
+        LocationClientOption option = new LocationClientOption();
+        int span = 1000;
+        option.setIsNeedAddress(true);
+        option.setScanSpan(span);
+        option.setOpenGps(true);
+        mLocationClient.setLocOption(option);
+        mLocationClient.start();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        HomeFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @OnShowRationale({Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
+    void showRationale(final PermissionRequest request) {
+    }
+
+    @OnPermissionDenied({Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
+    void permissionDenied() {
+    }
+    private class MyBDLocationListener implements BDLocationListener {
+        @Override
+        public void onReceiveLocation(final BDLocation bdLocation) {
+            mActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    int locType = bdLocation.getLocType();
+                    String error = "";
+                    switch (locType) {
+                        case 62:
+                        case 63:
+                            error = "定位失败，请检查网络";
+                            break;
+                        case 167:
+                            error = "定位失败，请检查权限";
+                            break;
+                    }
+                    if (!TextUtils.isEmpty(error)) {
+                        if (mLocationClient != null)
+                            mLocationClient.stop();
+                        return;
+                    }
+                    if (!TextUtils.isEmpty(bdLocation.getCity()) && tvLocation != null) {
+                        //判断本地定位和上次定位的不同，切换不同的城市
+                        String city = bdLocation.getCity();
+                        city = city.substring(0, city.length() - 1);
+                        tvLocation.setText(city);
+                        SPUtils.saveString(mActivity, Constant.SP_LAST_LOCATION, city);
+                    }
+                }
+            });
+        }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mLocationClient != null) {
+            mLocationClient.unRegisterLocationListener(bdLocationListener);
+        }
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mLocationClient != null) {
+            mLocationClient.stop();
+            mLocationClient.unRegisterLocationListener(bdLocationListener);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mLocationClient != null) {
+            mLocationClient.stop();
+            mLocationClient.unRegisterLocationListener(bdLocationListener);
+        }
+    }
+
 }

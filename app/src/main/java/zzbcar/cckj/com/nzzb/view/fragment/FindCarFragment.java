@@ -1,11 +1,18 @@
 package zzbcar.cckj.com.nzzb.view.fragment;
 
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -13,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.relex.circleindicator.CircleIndicator;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.GridItemAdapter;
@@ -26,6 +35,7 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
+import zzbcar.cckj.com.nzzb.utils.SPUtils;
 
 /**
  * Created by Admin on 2017/10/31.
@@ -33,6 +43,17 @@ import zzbcar.cckj.com.nzzb.utils.OkManager;
 
 public class FindCarFragment extends BaseFragment {
 
+    @BindView(R.id.tv_home_local_city)
+    TextView tvHomeLocalCity;
+    @BindView(R.id.ll_choose_city)
+    LinearLayout llChooseCity;
+    @BindView(R.id.et_home_search)
+    EditText etHomeSearch;
+    @BindView(R.id.ib_erweima)
+    ImageButton ibErweima;
+    @BindView(R.id.TopTitleBar)
+    LinearLayout TopTitleBar;
+    Unbinder unbinder;
     private OkManager manager = new OkManager();
 
     private List<CarDefaultBean.DataBean> carList = new ArrayList<>();
@@ -109,6 +130,8 @@ public class FindCarFragment extends BaseFragment {
 
     @Override
     public void initDatas() {
+        String lastCity = SPUtils.getString(mActivity, Constant.SP_LAST_LOCATION, "");
+        tvHomeLocalCity.setText(lastCity);
         startTask();
         getCarBrandData();
     }
@@ -118,4 +141,17 @@ public class FindCarFragment extends BaseFragment {
 
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }

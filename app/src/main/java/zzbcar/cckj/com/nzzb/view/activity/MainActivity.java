@@ -13,6 +13,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.fragment.FindCarFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.HomeFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.JourneyFragment;
@@ -79,6 +80,8 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-
-
+    @Override
+    public void setStatusBar() {
+        StatusBarUtil.setTransparentForImageView(this,null);
+    }
 }

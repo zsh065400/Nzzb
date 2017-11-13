@@ -42,6 +42,7 @@ public class Constant {
     public static final String CAR_DEFAULT_URL = SERVE_URL + "zzb/app/car/queryCarByCondition?pageNum=0&pageSize=10";
 
     public static final String SP_LOGIN = "login";
+    public static final String SP_LAST_LOCATION="last_location";
 
 }
 
