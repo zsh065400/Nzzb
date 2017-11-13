@@ -38,7 +38,7 @@
             android:layout_height="0dp"
             android:layout_weight="0.6">
             <TextView
-                android:id="@+id/tv_car_model"
+                android:id="@+id/tv_car_model_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"

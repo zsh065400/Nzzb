@@ -32,6 +32,9 @@ public class Constant {
 
     /*主页*/
     public static final String API_MAIN_PAGE = SERVE_URL + "/zzb/app/compound/mainpage";
+
+    /*查询车辆信息*/
+    public static final String API_CAR_DETAIL = SERVE_URL + "/zzb/app/car/queryCar";
     public static final String HOME_LUNBO_URL = SERVE_URL + "zzb/app/common/marquee";
     //品牌
     public static final String CAR_BRAND_URL = SERVE_URL + "zzb/app/car/brand";
