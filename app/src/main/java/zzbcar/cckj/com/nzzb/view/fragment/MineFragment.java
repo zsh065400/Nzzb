@@ -3,8 +3,6 @@ package zzbcar.cckj.com.nzzb.view.fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,9 +18,8 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import zzbcar.cckj.com.nzzb.R;
-import zzbcar.cckj.com.nzzb.view.activity.MyCarActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AboutUsActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AccountBindActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BreakRuleActivity;
@@ -31,6 +28,7 @@ import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HelpCenterActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.InviteFriendsActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PreCarFriendIdentifiActivity;
+import zzbcar.cckj.com.nzzb.view.customview.RoundImageView;
 
 /**
  * Created by Admin on 2017/10/31.
@@ -48,7 +46,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private RelativeLayout rl_my_about_us;
     private TextView tv_minfragment_car_identifi;
     private ImageView iv_mine_fragment_carowener_recruit;
-    private CircleImageView iv_minfragment_head_pic;
+    private RoundImageView iv_minfragment_head_pic;
     private AlertDialog dialog;
     private static final int PHOTO_REQUEST_TAKEPHOTO = 1;
     private static final int PHOTO_REQUEST_GALLERY = 2;
@@ -87,7 +85,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         rl_my_about_us = (RelativeLayout)view.findViewById(R.id.rl_my_about_us);
         tv_minfragment_car_identifi = (TextView)view.findViewById(R.id.tv_minfragment_car_identifi);
         iv_mine_fragment_carowener_recruit = view.findViewById(R.id.iv_mine_fragment_carowener_recruit);
-        iv_minfragment_head_pic = view.findViewById(R.id.iv_minfragment_head_pic);
+
+        iv_minfragment_head_pic = (RoundImageView)view.findViewById(R.id.iv_minfragment_head_pic);
+
+        iv_minfragment_head_pic =(RoundImageView) view.findViewById(R.id.iv_minfragment_head_pic);
+
     }
 
     @Override
@@ -193,10 +195,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
+
+
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", size);
-        intent.putExtra("outputY", size);
+//        intent.putExtra("outputX", size);
+//        intent.putExtra("outputY", size);
+        intent.putExtra("outputX", 250);
+        intent.putExtra("outputY", 250);
+
         intent.putExtra("return-data", true);
         Log.e("zoom", "begin1");
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
@@ -205,8 +212,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         Bundle bundle = picdata.getExtras();
         if (bundle != null) {
             Bitmap photo = bundle.getParcelable("data");
-            Drawable drawable = new BitmapDrawable(photo);
-            iv_minfragment_head_pic.setBackgroundDrawable(drawable);
+
+//            Drawable drawable = new BitmapDrawable(photo);
+            iv_minfragment_head_pic.setImageBitmap(photo);
         }
     }
     private String getPhotoFileName() {

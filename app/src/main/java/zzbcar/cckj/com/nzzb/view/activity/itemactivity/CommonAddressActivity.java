@@ -2,6 +2,7 @@ package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import zzbcar.cckj.com.nzzb.R;
@@ -13,6 +14,8 @@ public class CommonAddressActivity extends BaseActivity implements View.OnClickL
 
 
     private TextView tv_commom_address_add;
+    private TextView tv_add_newAddress_describe;
+    private ImageView iv_add_Address_un;
 
     @Override
     protected int getLayoutId() {
@@ -24,6 +27,8 @@ public class CommonAddressActivity extends BaseActivity implements View.OnClickL
     protected void initViews() {
 
         tv_commom_address_add = (TextView) findViewById(R.id.tv_commom_address_add);
+        tv_add_newAddress_describe = (TextView) findViewById(R.id.tv_add_newAddress_describe);
+        iv_add_Address_un = (ImageView) findViewById(R.id.iv_add_Address_un);
 
     }
 
@@ -46,6 +51,9 @@ public class CommonAddressActivity extends BaseActivity implements View.OnClickL
         switch (view.getId()){
             case R.id.tv_commom_address_add:
                 tv_commom_address_add.setVisibility(View.INVISIBLE);
+                tv_add_newAddress_describe.setVisibility(View.GONE);
+                iv_add_Address_un.setVisibility(View.GONE);
+
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fl_common_address_main,new AddAddressFragment());
                 transaction.commit();
