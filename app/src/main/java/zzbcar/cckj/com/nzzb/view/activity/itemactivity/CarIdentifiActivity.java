@@ -4,8 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -132,8 +130,8 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", size);
-        intent.putExtra("outputY", size);
+        intent.putExtra("outputX", 600);
+        intent.putExtra("outputY", 400);
         intent.putExtra("return-data", true);
         Log.e("zoom", "begin1");
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
@@ -142,8 +140,8 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         Bundle bundle = picdata.getExtras();
         if (bundle != null) {
             Bitmap photo = bundle.getParcelable("data");
-            Drawable drawable = new BitmapDrawable(photo);
-            iv_identificar_idcar_up.setBackgroundDrawable(drawable);
+
+            iv_identificar_idcar_up.setImageBitmap(photo);
         }
     }
 
