@@ -30,7 +30,7 @@ public class CarListAdapter extends BaseRecycleViewAdapter<MainPageBean.DataBean
         final String orderCount = bean.getOrderCount();
         /*收藏暂无*/
         holder.setText(R.id.tv_car_name, carName);
-        holder.setText(R.id.tv_car_address, addr);
+        holder.setText(R.id.tv_car_location, addr);
         holder.setText(R.id.tv_car_price, "￥" + price + "/天");
         holder.setText(R.id.tv_car_detail, String.format("接单%s次 收藏0次", orderCount));
         final ImageView imageView = holder.getView(R.id.iv_car_pic);

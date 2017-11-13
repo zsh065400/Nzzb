@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 /**
@@ -47,5 +48,10 @@ public class PreCarFriendIdentifiActivity extends BaseActivity implements View.O
                 break;
 
         }
+    }
+
+    @Override
+    public void setStatusBar() {
+        StatusBarUtil.setTransparentForImageView(this,null);
     }
 }

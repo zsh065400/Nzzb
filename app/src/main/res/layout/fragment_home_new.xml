@@ -3,28 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
-        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="270dp"
-            android:background="#000000"
-            android:fitsSystemWindows="true">
+            android:background="#000000">
 
             <zzbcar.cckj.com.nzzb.view.customview.Gradient
                 android:id="@+id/gradient"
                 android:layout_width="match_parent"
                 android:layout_height="270dp"
-                android:background="@drawable/main_new_bac"
-                android:fitsSystemWindows="true"/>
+                android:background="@drawable/main_new_bac" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

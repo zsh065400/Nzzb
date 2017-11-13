@@ -19,6 +19,7 @@ import zzbcar.cckj.com.nzzb.bean.CarSeriesBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelecTimeActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SetAddressActivity;
 
@@ -207,5 +208,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-
+    @Override
+    public void setStatusBar() {
+        StatusBarUtil.setTransparentForImageView(this,null);
+    }
 }

@@ -6,8 +6,10 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 
 /**
  * Created by Admin on 2017/10/31.
@@ -23,6 +25,7 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStatusBar();
         setContentView(getLayoutId());
 
         mContext = this;
@@ -33,6 +36,7 @@ public abstract class BaseActivity extends FragmentActivity {
         initListeners();
         initDatas();
     }
+
 
 
     @Override
@@ -71,6 +75,15 @@ public abstract class BaseActivity extends FragmentActivity {
         startActivityForResult(intent, requestCode);
     }
 
+    protected void asyncShowToast(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(mContext, text, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     /**
      * 初始化监听器
      */
@@ -91,6 +104,10 @@ public abstract class BaseActivity extends FragmentActivity {
      * 初始化数据
      */
     protected abstract void initDatas();
-
+    public  void setStatusBar(){
+        StatusBarUtil.setTranslucentForImageView(this,null);
+        StatusBarUtil.MIUISetStatusBarLightMode(this,true);
+        StatusBarUtil.FlymeSetStatusBarLightMode(this,true);
+    }
 
 }

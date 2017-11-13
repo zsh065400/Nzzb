@@ -9,9 +9,26 @@
 
     <include layout="@layout/default_line_1dp"/>
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"/>
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize">
+
+        <ImageView
+            android:src="@drawable/ic_keyboard_arrow_left_black_36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:text="全部车辆"
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_car_list"

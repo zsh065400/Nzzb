@@ -42,6 +42,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 Toast.makeText(mainActivity, "支付成功", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(mainActivity, "支付失败, 请重试!", Toast.LENGTH_SHORT).show();
+                // TODO: 2017/11/13 微信支付后有返回有白屏问题 
             }
         }
     }
