@@ -28,13 +28,17 @@ public class Constant {
     public static final String API_GET_CODE = SERVE_URL + "zzb/app/member/login";
 
     /*下单*/
-    public static final String API_ADD_ORDER = SERVE_URL + "/app/order/doOrder";
+    public static final String API_ADD_ORDER = SERVE_URL + "zzb/app/order/doOrder";
 
     /*主页*/
     public static final String API_MAIN_PAGE = SERVE_URL + "/zzb/app/compound/mainpage";
 
     /*查询车辆信息*/
     public static final String API_CAR_DETAIL = SERVE_URL + "/zzb/app/car/queryCar";
+
+    /*获取支付*/
+    public static final String API_ORDER_PAY = SERVE_URL + "/zzb/app/pay/request";
+
     public static final String HOME_LUNBO_URL = SERVE_URL + "zzb/app/common/marquee";
     //品牌
     public static final String CAR_BRAND_URL = SERVE_URL + "zzb/app/car/brand";
