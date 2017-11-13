@@ -39,7 +39,7 @@ public class CarDetailBean implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         private String addr;
         private int age;
         private int brand;

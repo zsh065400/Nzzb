@@ -141,8 +141,10 @@
         <activity android:name=".view.activity.RentActivity"/>
         <activity android:name=".view.activity.itemactivity.PayActivity"/>
         <activity android:name=".view.activity.itemactivity.MarriedActivity"/>
-        <activity android:name=".view.activity.itemactivity.CarListActivity" />
+        <activity android:name=".view.activity.itemactivity.CarListActivity"/>
         <activity android:name=".view.activity.itemactivity.CarDetailActivity"/>
+        <activity android:name=".view.activity.itemactivity.OrderConfirmActivity">
+        </activity>
     </application>
 
 </manifest>

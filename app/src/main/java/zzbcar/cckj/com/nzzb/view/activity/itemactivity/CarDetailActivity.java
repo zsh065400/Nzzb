@@ -1,5 +1,7 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
+import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +24,9 @@ import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
  */
 
 public class CarDetailActivity extends BaseActivity {
+
+    private CarDetailBean.DataBean carDetailBean;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_car_details;
@@ -42,10 +47,24 @@ public class CarDetailActivity extends BaseActivity {
     @BindView(R.id.tv_car_price)
     TextView tvCarPrice;
 
+    @BindView(R.id.tv_immediately_rent_car)
+    TextView tvCarRent;
 
     @Override
     protected void initViews() {
 
+    }
+
+    @Override
+    protected void initListeners() {
+        tvCarRent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("cardetail", carDetailBean);
+                toActivity(OrderConfirmActivity.class, bundle);
+            }
+        });
     }
 
     @Override
@@ -68,14 +87,14 @@ public class CarDetailActivity extends BaseActivity {
     }
 
     private void setViewInfo(CarDetailBean detailBean) {
-        final CarDetailBean.DataBean dataBean = detailBean.getData().get(0);
-        Picasso.with(mContext).load(dataBean.getPics())
+        carDetailBean = detailBean.getData().get(0);
+        Picasso.with(mContext).load(carDetailBean.getPics())
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(ivCarPic);
-        tvCarName.setText(dataBean.getCarName());
-        tvCarModelName.setText(dataBean.getModelName());
-        tvCarPrice.setText(dataBean.getPrice() + "");
-        tvCarAddr.setText(dataBean.getAddr());
+        tvCarName.setText(carDetailBean.getCarName());
+        tvCarModelName.setText(carDetailBean.getModelName());
+        tvCarPrice.setText(carDetailBean.getPrice() + "");
+        tvCarAddr.setText(carDetailBean.getAddr());
     }
 }
