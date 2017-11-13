@@ -29,7 +29,10 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     private ImageView iv_identificar_idcar_down;
     private static final int PHOTO_REQUEST_TAKEPHOTO = 1;
     private static final int PHOTO_REQUEST_GALLERY = 2;
-    private static final int PHOTO_REQUEST_CUT = 3;
+    private static final int PHOTO_REQUEST_IDCAR_UP= 3;
+    private static final int PHOTO_REQUEST_IDCAR_DOWN= 4;
+
+
 
     File tempFile = new File(Environment.getExternalStorageDirectory(),getPhotoFileName());
     @Override
@@ -67,6 +70,10 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.iv_identificar_idcar_up:
                showDialog();
+                break;
+
+            case R.id.iv_identificar_idcar_down:
+                showDialog();
                 break;
 
         }
@@ -110,19 +117,41 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
                 break;
 
             case PHOTO_REQUEST_GALLERY:
-                if (data != null)
+                if (data != null){
                     startPhotoZoom(data.getData(), 150);
+                }
+
                 break;
 
-            case PHOTO_REQUEST_CUT:
+            case PHOTO_REQUEST_IDCAR_UP:
                 Log.e("zoom", "begin2");
-                if (data != null)
-                    setPicToView(data);
+                if (data != null){
+                    setIdCarUPToView(data);
+                }
+
+                break;
+            case PHOTO_REQUEST_IDCAR_DOWN:
+
+                if (data != null){
+                    setIdCarDownToView(data);
+                }
+
                 break;
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private void setIdCarDownToView(Intent data) {
+        Bundle bundle = data.getExtras();
+        if (bundle != null) {
+            Bitmap photo = bundle.getParcelable("data");
+
+            iv_identificar_idcar_down.setImageBitmap(photo);
+
+        }
+    }
+
     private void startPhotoZoom(Uri uri, int size) {
         Log.e("zoom", "begin");
         Intent intent = new Intent("com.android.camera.action.CROP");
@@ -134,15 +163,19 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         intent.putExtra("outputY", 400);
         intent.putExtra("return-data", true);
         Log.e("zoom", "begin1");
-        startActivityForResult(intent, PHOTO_REQUEST_CUT);
+        startActivityForResult(intent, PHOTO_REQUEST_IDCAR_UP);
     }
-    private void setPicToView(Intent picdata) {
+    private void setIdCarUPToView(Intent picdata) {
         Bundle bundle = picdata.getExtras();
         if (bundle != null) {
             Bitmap photo = bundle.getParcelable("data");
 
             iv_identificar_idcar_up.setImageBitmap(photo);
+
+
         }
+        Bitmap photo2= bundle.getParcelable("data");
+        iv_identificar_idcar_down.setImageBitmap(photo2);
     }
 
     private  View.OnClickListener leftReturnListener=new View.OnClickListener() {

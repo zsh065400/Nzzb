@@ -16,13 +16,18 @@
 
     <application
         android:name=".base.MyApplication"
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.MainActivity">
+        <activity android:name=".view.activity.MainActivity"
+            android:launchMode="singleTop"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -121,7 +126,7 @@
         <activity android:name=".view.activity.TestActivity"/>
         <activity android:name=".view.activity.LunboActivity">
         </activity>
-        <activity android:name=".view.activity.MyCarActivity"/>
+        <activity android:name=".view.activity.itemactivity.MyCarActivity"/>
         <activity android:name=".view.activity.itemactivity.CommonAddressActivity"/>
         <activity android:name=".view.activity.itemactivity.AccountBindActivity"/>
         <activity android:name=".view.activity.itemactivity.BreakRuleActivity"/>
@@ -130,10 +135,13 @@
         <activity android:name=".view.activity.itemactivity.AboutUsActivity"/>
         <activity
             android:name=".view.activity.itemactivity.CarIdentifiActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.itemactivity.CarLicenceActivity"/>
+        <activity android:name=".view.activity.itemactivity.CarLicenceActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.itemactivity.IdentiCompleteActivity"/>
-        <activity android:name=".view.activity.itemactivity.CarFriendIdentifiActivity"/>
+        <activity android:name=".view.activity.itemactivity.CarFriendIdentifiActivity" />
         <activity android:name=".view.activity.itemactivity.SelecTimeActivity"/>
         <activity android:name=".view.activity.LoginActivity"/>
         <activity android:name=".view.activity.itemactivity.PreCarFriendIdentifiActivity"/>

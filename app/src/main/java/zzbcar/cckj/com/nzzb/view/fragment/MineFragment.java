@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import zzbcar.cckj.com.nzzb.R;
-import zzbcar.cckj.com.nzzb.view.activity.MyCarActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AboutUsActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AccountBindActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BreakRuleActivity;
@@ -85,7 +85,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         rl_my_about_us = (RelativeLayout)view.findViewById(R.id.rl_my_about_us);
         tv_minfragment_car_identifi = (TextView)view.findViewById(R.id.tv_minfragment_car_identifi);
         iv_mine_fragment_carowener_recruit = view.findViewById(R.id.iv_mine_fragment_carowener_recruit);
+
         iv_minfragment_head_pic = (RoundImageView)view.findViewById(R.id.iv_minfragment_head_pic);
+
+        iv_minfragment_head_pic =(RoundImageView) view.findViewById(R.id.iv_minfragment_head_pic);
+
     }
 
     @Override
@@ -191,10 +195,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 250);
-        intent.putExtra("aspectY", 250);
-        intent.putExtra("outputX", size);
-        intent.putExtra("outputY", size);
+
+
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+//        intent.putExtra("outputX", size);
+//        intent.putExtra("outputY", size);
+        intent.putExtra("outputX", 250);
+        intent.putExtra("outputY", 250);
+
         intent.putExtra("return-data", true);
         Log.e("zoom", "begin1");
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
@@ -203,6 +212,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         Bundle bundle = picdata.getExtras();
         if (bundle != null) {
             Bitmap photo = bundle.getParcelable("data");
+
+//            Drawable drawable = new BitmapDrawable(photo);
             iv_minfragment_head_pic.setImageBitmap(photo);
         }
     }
