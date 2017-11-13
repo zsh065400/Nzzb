@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
@@ -72,6 +73,15 @@ public abstract class BaseActivity extends FragmentActivity {
             intent.putExtras(bundle);
         }
         startActivityForResult(intent, requestCode);
+    }
+
+    protected void asyncShowToast(final String text) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(mContext, text, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**

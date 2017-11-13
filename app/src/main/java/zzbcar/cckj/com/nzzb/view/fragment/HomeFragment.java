@@ -26,6 +26,7 @@ import com.lzy.okgo.model.Response;
 import com.squareup.picasso.Picasso;
 import com.sunfusheng.marqueeview.MarqueeView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -251,30 +252,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.tv_self:
                 intent = new Intent(mActivity, RentActivity.class);
-                startActivity(intent);
                 break;
             case R.id.tv_business:
                 intent = new Intent(mActivity, RentActivity.class);
-                startActivity(intent);
                 break;
             case R.id.tv_wedding:
                 intent = new Intent(mActivity, MarriedActivity.class);
-                startActivity(intent);
                 break;
 
             case R.id.tv_xinxian_all://暂时替代
                 intent = new Intent(mActivity, LoginActivity.class);
-                startActivity(intent);
                 break;
             case R.id.tv_chaozhi_all://暂时替代
                 intent = new Intent(mActivity, PayActivity.class);
-                startActivity(intent);
                 break;
             case R.id.tv_chexing_all:
                 intent = new Intent(mActivity, CarListActivity.class);
-//                new Bundle().putSerializable();
+                intent.putExtra("carlist", (Serializable) carDatas);
                 break;
         }
+        startActivity(intent);
     }
 
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION,
