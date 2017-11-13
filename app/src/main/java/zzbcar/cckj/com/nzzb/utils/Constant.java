@@ -19,6 +19,7 @@ public class Constant {
     public static final String SINA_APP_URL = "http://sns.whalecloud.com";
 
     /****************接口首页*********************/
+    /****************Test*********************/
     public static final String SERVE_URL = "http://www.zzbcar.com/";
 
     /*登录*/
