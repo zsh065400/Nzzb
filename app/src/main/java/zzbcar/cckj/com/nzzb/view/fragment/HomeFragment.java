@@ -199,6 +199,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onSuccess(Response<String> response) {
                 /*此处应加判断，不应直接使用*/
+                System.out.println(response.body());
                 final MainPageBean pageBean = GsonUtil.parseJsonWithGson(response.body(), MainPageBean.class);
                 final MainPageBean.DataBean data = pageBean.getData();
                 marqueeDatas = data.getMarquee();

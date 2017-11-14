@@ -134,7 +134,7 @@ public class OrderConfirmActivity extends BaseActivity {
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         Date now = new Date();
         if (next) {
-            return sdf.format(new Date(now.getTime() + 600000));
+            return sdf.format(new Date(now.getTime() + 86400000));
         } else {
             return sdf.format(new Date(now.getTime() + 300000));
         }

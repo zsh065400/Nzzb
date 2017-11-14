@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import butterknife.BindView;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.CancelFragmentAdapter;
 import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
@@ -13,7 +14,8 @@ import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
  */
 
 public class CancelFragment extends BaseFragment {
-    private RecyclerView recyclerView;
+    @BindView(R.id.rv_cancel_fragment_cancel)
+    RecyclerView recyclerView;
     private View view;
     private CancelFragmentAdapter cancelFragmentAdapter;
 

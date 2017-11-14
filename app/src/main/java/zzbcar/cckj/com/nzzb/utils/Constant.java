@@ -26,22 +26,22 @@ public class Constant {
     public static final String API_SIGN = SERVE_URL + "zzb/app/member/login";
 
     /*获取短信验证码*/
-    public static final String API_GET_CODE = SERVE_URL + "zzb/app/member/login";
+    public static final String API_GET_CODE = SERVE_URL + "zzb/app/common/smscode";
 
     /*下单*/
     public static final String API_ADD_ORDER = SERVE_URL + "zzb/app/order/doOrder";
 
     /*主页*/
-    public static final String API_MAIN_PAGE = SERVE_URL + "/zzb/app/compound/mainpage";
+    public static final String API_MAIN_PAGE = SERVE_URL + "zzb/app/compound/mainpage";
 
     /*查询车辆信息*/
-    public static final String API_CAR_DETAIL = SERVE_URL + "/zzb/app/car/queryCar";
+    public static final String API_CAR_DETAIL = SERVE_URL + "zzb/app/car/queryCar";
 
     /*获取支付*/
-    public static final String API_ORDER_PAY = SERVE_URL + "/zzb/app/pay/request";
+    public static final String API_ORDER_PAY = SERVE_URL + "zzb/app/pay/request";
 
     /*查询租金*/
-    public static final String API_QUERY_PRICE = SERVE_URL + "/zzb/app/bus/calcPrice";
+    public static final String API_QUERY_PRICE = SERVE_URL + "zzb/app/bus/calcPrice";
 
     public static final String HOME_LUNBO_URL = SERVE_URL + "zzb/app/common/marquee";
     //品牌
