@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,14 +14,12 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:background="#000000">
+            android:layout_height="270dp">
 
             <zzbcar.cckj.com.nzzb.view.customview.Gradient
                 android:id="@+id/gradient"
                 android:layout_width="match_parent"
-                android:layout_height="270dp"
-                android:background="@drawable/main_new_bac" />
+                android:layout_height="270dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"

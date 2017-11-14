@@ -34,11 +34,11 @@
         </meta-data>
         <activity android:name=".view.activity.MainActivity">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
 
         <!-- 三方集成 -->
@@ -121,12 +121,12 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".view.activity.SplshActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
         <activity android:name=".view.activity.GuideActivity"/>
         <activity android:name=".view.activity.TestActivity"/>

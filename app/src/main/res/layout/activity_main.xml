@@ -3,54 +3,54 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="zzbcar.cckj.com.nzzb.view.activity.MainActivity">
 
     <!--<zzbcar.cckj.com.nzzb.view.customview.NoScrollViewPager-->
-        <!--android:id="@+id/fl_main"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1" />-->
+    <!--android:id="@+id/fl_main"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1" />-->
     <FrameLayout
         android:id="@+id/fl_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <RadioGroup
         android:id="@+id/rg_main"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center"
         android:background="@color/Zzb_BG"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/rb_home"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_home"
-            android:text="首页" />
+            android:text="首页"/>
 
         <RadioButton
             android:id="@+id/rb_find_car"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_find"
-            android:text="找车" />
+            android:text="找车"/>
 
         <RadioButton
             android:id="@+id/rb_journey"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_journey"
-            android:text="行程" />
+            android:text="行程"/>
 
 
         <RadioButton
             android:id="@+id/rb_mine"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_mine"
-            android:text="我的" />
+            android:text="我的"/>
 
     </RadioGroup>
 

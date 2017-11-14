@@ -40,6 +40,7 @@ import permissions.dispatcher.RuntimePermissions;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.GridPagerAdapter;
 import zzbcar.cckj.com.nzzb.adapter.MyGoodExperenceAdapter;
+import zzbcar.cckj.com.nzzb.adapter.base.BaseRecycleViewAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.CarTypeAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.GridItemAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.NewCarAdapter;
@@ -51,6 +52,7 @@ import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PayActivity;
@@ -160,9 +162,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
      *
      * @param carDatas
      */
-    private void initCarType(List<MainPageBean.DataBean.CarListBean> carDatas) {
+    private void initCarType(final List<MainPageBean.DataBean.CarListBean> carDatas) {
         rvChexing.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
-        rvChexing.setAdapter(new CarTypeAdapter(mActivity, carDatas));
+        final CarTypeAdapter adapter = new CarTypeAdapter(mActivity, carDatas);
+        adapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                /*跳转详情页面*/
+                final Intent intent = new Intent(mActivity, CarDetailActivity.class);
+                intent.putExtra("carid", carDatas.get(position).getId());
+                startActivity(intent);
+            }
+        });
+        rvChexing.setAdapter(adapter);
     }
 
     /**
@@ -170,9 +182,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
      *
      * @param newCarDatas
      */
-    private void initFreshCarType(List<MainPageBean.DataBean.NewCarListBean> newCarDatas) {
+    private void initFreshCarType(final List<MainPageBean.DataBean.NewCarListBean> newCarDatas) {
         rvXinxian.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
-        rvXinxian.setAdapter(new NewCarAdapter(mActivity, newCarDatas));
+        final NewCarAdapter adapter = new NewCarAdapter(mActivity, newCarDatas);
+        adapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                /*跳转详情页面*/
+                final Intent intent = new Intent(mActivity, CarDetailActivity.class);
+                intent.putExtra("carid", newCarDatas.get(position).getId());
+                startActivity(intent);
+            }
+        });
+        rvXinxian.setAdapter(adapter);
     }
 
     /**
@@ -180,8 +202,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
      *
      * @param activityDatas
      */
-    private void initGoodExperence(List<MainPageBean.DataBean.ActivityBean> activityDatas) {
+    private void initGoodExperence(final List<MainPageBean.DataBean.ActivityBean> activityDatas) {
         MyGoodExperenceAdapter myGoodExperenceAdapter = new MyGoodExperenceAdapter(mActivity, activityDatas);
+        myGoodExperenceAdapter.setItemClickListener(new MyGoodExperenceAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                /*跳转详情页面*/
+                final Intent intent = new Intent(mActivity, CarDetailActivity.class);
+                intent.putExtra("carid", activityDatas.get(position).getId());
+                startActivity(intent);
+            }
+        });
         vpChaozhi.setAdapter(myGoodExperenceAdapter);
         vpChaozhi.setPageTransformer(false, new ScaleTransformer());
         vpChaozhi.setOffscreenPageLimit(5);
@@ -190,7 +221,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home_new;
+        return R.layout.fragment_home;
     }
 
     @Override
@@ -226,6 +257,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         });
         initLocation();
     }
+
     @TargetApi(Build.VERSION_CODES.M)
     private void initLocation() {
         HomeFragmentPermissionsDispatcher.showLocationWithPermissionCheck(this);
@@ -312,6 +344,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     void permissionDenied() {
     }
+
     private class MyBDLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(final BDLocation bdLocation) {
@@ -345,6 +378,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             });
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -352,6 +386,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             mLocationClient.unRegisterLocationListener(bdLocationListener);
         }
     }
+
     @Override
     public void onPause() {
         super.onPause();

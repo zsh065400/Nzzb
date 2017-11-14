@@ -1,48 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   >
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp"
+        android:id="@+id/vp_guide_items"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
 
     <Button
+        android:id="@+id/btn_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="开始体验"
-        android:id="@+id/bt_start"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="60dp"
-        android:visibility="gone"
+        android:alpha="0"
+        android:background="@drawable/btn_selector"
+        android:clickable="false"
         android:padding="15dp"
-        android:textColor="@color/btn_text_selector"
-        android:background="@drawable/btn_selector"/>
+        android:text="开始体验"
+        android:textColor="@color/btn_text_selector"/>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/indicator_guide"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="10dp"
+        app:ci_drawable="@drawable/point_red_selected"
+        app:ci_drawable_unselected="@drawable/point_red_unselected"
+        app:ci_height="6dp"
+        app:ci_width="6dp">
 
-        <LinearLayout
-            android:id="@+id/container_gray_point"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!--在代码中动态的添加灰色的点-->
-        </LinearLayout>
-        <!--红色的点-->
-        <View
-            android:id="@+id/red_point"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:background="@drawable/point_red_bg"/>
-    </RelativeLayout>
+    </me.relex.circleindicator.CircleIndicator>
 
 
 </RelativeLayout>
