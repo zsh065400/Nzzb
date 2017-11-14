@@ -13,6 +13,7 @@ import zzbcar.cckj.com.nzzb.bean.LocationSelectBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
+import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 
@@ -50,7 +51,15 @@ public class LocationListActivity extends BaseActivity {
     private void parseLocationData(String result) {
         LocationSelectBean selectBean = GsonUtil.parseJsonWithGson(result, LocationSelectBean.class);
         data = selectBean.getData();
-        rv_location_list.setAdapter(new LocationSelectAdapter(data, mContext));
+        LocationSelectAdapter locationSelectAdapter = new LocationSelectAdapter(data, mContext);
+        rv_location_list.setAdapter(locationSelectAdapter);
+        locationSelectAdapter.addRecycleItemListener(new LocationSelectAdapter.OnRecycleItemListener<LocationSelectBean.DataBean>() {
+            @Override
+            public void OnRecycleItemClick(View v, LocationSelectBean.DataBean o) {
+                SPUtils.saveString(LocationListActivity.this,Constant.SP_LAST_LOCATION,o.getName());
+                finish();
+            }
+        });
     }
 
     @Override

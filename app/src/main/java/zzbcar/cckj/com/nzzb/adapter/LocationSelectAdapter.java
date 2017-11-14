@@ -20,9 +20,13 @@ public class LocationSelectAdapter extends RecyclerView.Adapter<LocationSelectAd
     private List<LocationSelectBean.DataBean> data;
     private Context mContext;
     private View view;
+    private OnRecycleItemListener listener;
     public LocationSelectAdapter(List<LocationSelectBean.DataBean> data, Context mContext) {
         this.data = data;
         this.mContext = mContext;
+    }
+    public void addRecycleItemListener(OnRecycleItemListener listener){
+        this.listener = listener;
     }
 
     @Override
@@ -32,8 +36,14 @@ public class LocationSelectAdapter extends RecyclerView.Adapter<LocationSelectAd
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
+    public void onBindViewHolder(MyViewHolder myViewHolder, final int i) {
            myViewHolder.bt_location_city_item.setText(data.get(i).getName());
+        myViewHolder.bt_location_city_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.OnRecycleItemClick(view,data.get(i));
+            }
+        });
     }
 
 
@@ -51,5 +61,8 @@ public class LocationSelectAdapter extends RecyclerView.Adapter<LocationSelectAd
             bt_location_city_item = itemView.findViewById(R.id.bt_location_city_item);
 
         }
+    }
+    public interface OnRecycleItemListener <T>{
+        void OnRecycleItemClick(View v,T o);
     }
 }
