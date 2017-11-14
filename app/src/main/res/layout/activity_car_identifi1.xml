@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarIdentifiActivity">
     <LinearLayout
-
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,73 +15,84 @@
         <include layout="@layout/activity_title" />
 
         <LinearLayout
+
+            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
             android:orientation="horizontal">
 
             <LinearLayout
+                android:gravity="center_horizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:background="@mipmap/select1" />
 
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="4dp"
                     android:text="身份认证"
-                    android:textColor="#0f0"
+                    android:textColor="@color/text_green"
                     android:textSize="16sp" />
 
             </LinearLayout>
-
+            <View
+                android:layout_gravity="center_vertical"
+                android:layout_width="15dp"
+                android:layout_height="2dp"
+                android:background="@color/light_while"/>
             <LinearLayout
+                android:gravity="center_horizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:background="@mipmap/normal2" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="4dp"
                     android:text="驾驶认证"
                     android:textColor="@color/halfblack"
                     android:textSize="16sp" />
 
             </LinearLayout>
-
+            <View
+                android:layout_gravity="center_vertical"
+                android:layout_width="15dp"
+                android:layout_height="2dp"
+                android:background="@color/light_while"/>
             <LinearLayout
+                android:gravity="center_horizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:background="@mipmap/normal3" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="4dp"
                     android:text="完成认证"
                     android:textColor="@color/halfblack"
                     android:textSize="16sp" />
@@ -91,9 +102,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="#b6adad" />
+            android:layout_height="10dp"
+            android:background="@color/light_while" />
 
         <LinearLayout
             android:layout_width="match_parent"
