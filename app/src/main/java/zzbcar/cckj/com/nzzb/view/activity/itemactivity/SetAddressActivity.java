@@ -1,6 +1,8 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.Editable;
@@ -10,8 +12,10 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -124,9 +128,16 @@ public class SetAddressActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                lvSetaddress.setVisibility(View.VISIBLE);
-                flSetaddress.setVisibility(View.GONE);
-                searchPoi(etSetaddress.getText().toString());
+                String s1 = etSetaddress.getText().toString();
+                if(TextUtils.isEmpty(s1)){
+                    lvSetaddress.setVisibility(View.GONE);
+                    flSetaddress.setVisibility(View.VISIBLE);
+                }else{
+                    lvSetaddress.setVisibility(View.VISIBLE);
+                    flSetaddress.setVisibility(View.GONE);
+                    searchPoi(s1);
+                }
+
             }
         });
         cdSetaddress.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +150,49 @@ public class SetAddressActivity extends BaseActivity {
                 }
             }
         });
+        lvSetaddress.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent();
+                intent.putExtra("address",poiInfo.get(i).address+poiInfo.get(i).name);
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+        });
+        cdSetaddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("address",tvSetaddressContent.getText().toString());
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+        });
+        tvSetaddressCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
+        etSetaddress.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Drawable drawable = etSetaddress.getCompoundDrawables()[2];
+                //如果右边没有图片，不再处理
+                if (drawable == null)
+                    return false;
+                //如果不是按下事件，不再处理
+                if (motionEvent.getAction() != MotionEvent.ACTION_UP)
+                    return false;
+                if (motionEvent.getX() > etSetaddress.getWidth()
+                        - etSetaddress.getPaddingRight()
+                        - drawable.getIntrinsicWidth()){
+                    etSetaddress.setText("");
+                }
+                return false;
+            }
+        });
     }
 
     private void searchPoi(String s) {
@@ -149,8 +203,14 @@ public class SetAddressActivity extends BaseActivity {
                 if (poiResult.getAllPoi() != null) {
                     poiInfo.addAll(poiResult.getAllPoi());
                     if (searchLocationAdapter == null) {
-                        searchLocationAdapter = new SearchLocationAdapter(poiInfo);
-                        lvSetaddress.setAdapter(searchLocationAdapter);
+                        if(poiInfo.size()!=0) {
+                            searchLocationAdapter = new SearchLocationAdapter(poiInfo);
+                            lvSetaddress.setAdapter(searchLocationAdapter);
+                        }else{
+                            lvSetaddress.setVisibility(View.GONE);
+                            flSetaddress.setVisibility(View.VISIBLE);
+                            Toast.makeText(mContext, "搜索数据为空", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         searchLocationAdapter.notifyDataSetChanged();
                     }
@@ -307,5 +367,11 @@ public class SetAddressActivity extends BaseActivity {
         if (mLocationClient != null) {
             mLocationClient.unRegisterLocationListener(bdLocationListener);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        finish();
     }
 }

@@ -1,5 +1,6 @@
 package zzbcar.cckj.com.nzzb.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
@@ -27,6 +28,7 @@ import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.GridItemAdapter;
 import zzbcar.cckj.com.nzzb.adapter.GridPagerAdapter;
 import zzbcar.cckj.com.nzzb.adapter.ListItemAdapter;
+import zzbcar.cckj.com.nzzb.adapter.base.BaseRecycleViewAdapter;
 import zzbcar.cckj.com.nzzb.base.SpaceSize;
 import zzbcar.cckj.com.nzzb.base.SpacesItemDecoration;
 import zzbcar.cckj.com.nzzb.bean.BrandCarBean;
@@ -36,6 +38,7 @@ import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 
 /**
  * Created by Admin on 2017/10/31.
@@ -121,10 +124,19 @@ public class FindCarFragment extends BaseFragment {
     }
 
     private void parseDefaultCarBean(String result) {
-        CarDefaultBean carDefaultBean = GsonUtil.parseJsonWithGson(result, CarDefaultBean.class);
+        final CarDefaultBean carDefaultBean = GsonUtil.parseJsonWithGson(result, CarDefaultBean.class);
         carList = carDefaultBean.getData();
 
-        final ListItemAdapter adapter = new ListItemAdapter(carList, mActivity);
+        final ListItemAdapter adapter = new ListItemAdapter(mActivity, carList);
+        adapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                /*跳转详情页面*/
+                final Intent intent = new Intent(mActivity, CarDetailActivity.class);
+                intent.putExtra("carid", carList.get(position).getId());
+                startActivity(intent);
+            }
+        });
         rvListItems.setAdapter(adapter);
     }
 

@@ -2,6 +2,8 @@ package zzbcar.cckj.com.nzzb.view.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,9 +17,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -27,6 +26,7 @@ import java.util.Map;
 import butterknife.BindView;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
+import zzbcar.cckj.com.nzzb.bean.GeneralResponseBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
@@ -51,7 +51,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @BindView(R.id.iv_qq_signin)
     ImageView ivQQSignin;
 
-    private Tencent mTencent;
+//    private Tencent mTencent;
     private IWXAPI mWxApi;
     private UMShareAPI mShareAPI = null;
 
@@ -125,18 +125,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void getVerifyCode() {
         /*同步更新界面显示，倒计时验证码*/
         mPhone = etPhoneNumber.getText().toString().trim();
-        final String url = OkHttpUtil.obtainGetUrl(Constant.API_GET_CODE, "phone", mPhone);
+        if (TextUtils.isEmpty(mPhone)) {
+            Toast.makeText(mContext, "手机号为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        final String url = OkHttpUtil.obtainGetUrl(Constant.API_GET_CODE, "mobile", mPhone);
         OkGo.<String>get(url).tag(TAG).execute(new StringCallback() {
 
             @Override
             public void onSuccess(Response<String> response) {
-                /*默认验证码9527，此处不做其它操作*/
-                //可以提示验证码已发送
+                final GeneralResponseBean responseBean = GsonUtil.parseJsonWithGson(response.body(), GeneralResponseBean.class);
+                if (responseBean.getErrno() == 0) {
+                    handler.sendEmptyMessage(MSG_SEND_CODE_SUCCESS);
+                } else {
+                    handler.sendEmptyMessage(MSG_SEND_CODE_ERROR);
+                }
             }
 
             @Override
             public void onError(Response<String> response) {
-
+                handler.sendEmptyMessage(MSG_SEND_CODE_ERROR);
             }
         });
     }
@@ -150,22 +158,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         } else {
             final String url = OkHttpUtil.obtainGetUrl(Constant.API_SIGN,
                     "type", mType,
-                    "param", mPhone + "-" + 9527);
+                    "param", mPhone + "-" + mCode);
             OkGo.<String>get(url).tag(TAG).execute(new StringCallback() {
 
                 @Override
                 public void onSuccess(Response<String> response) {
                     final SigninBean bean = GsonUtil.parseJsonWithGson(response.body(), SigninBean.class);
                     /*缓存用户数据，可用于自动登录等*/
-                    SPUtils.saveString(mContext, "User", response.body());
-                    Log.d(TAG, "onSuccess: "+ response.body());
-                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                    finish();
+                    if (bean.getErrno() == 0) {
+                        SPUtils.saveString(mContext, "User", response.body());
+                        Log.d(TAG, "onSuccess: " + response.body());
+                        asyncShowToast("登陆成功");
+                        finish();
+                    } else {
+                        asyncShowToast("手机号或验证码错误");
+                    }
                 }
 
                 @Override
                 public void onError(Response<String> response) {
-
+                    asyncShowToast("手机号或验证码错误");
                 }
             });
         }
@@ -195,30 +207,85 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        mTencent.login(LoginActivity.this, "all", new BaseUiListener());
     }
 
+    private TimerHandler handler = new TimerHandler();
+
+    private static final int MSG_SEND_CODE_SUCCESS = 0;
+    private static final int MSG_SEND_CODE_ERROR = 1;
+    private static final int MSG_TIMER = 2;
+
+    private int time = 60;
+
+    private class TimerHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            /*验证码倒计时*/
+            switch (msg.what) {
+                case MSG_SEND_CODE_SUCCESS:
+                    Toast.makeText(mContext, "验证码发送成功", Toast.LENGTH_SHORT).show();
+                    handler.sendEmptyMessage(MSG_TIMER);
+                    break;
+
+                case MSG_SEND_CODE_ERROR:
+                    Toast.makeText(mContext, "验证码发送失败，请重试", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case MSG_TIMER:
+                    startTimer();
+                    break;
+            }
+        }
+    }
+
+    /**
+     * 设置是否可发送短信
+     */
+    private void chageSendStatus(boolean canSend) {
+        if (canSend) {
+            tvGetCode.setEnabled(true);
+            tvGetCode.setClickable(true);
+        } else {
+            tvGetCode.setEnabled(false);
+            tvGetCode.setClickable(false);
+        }
+    }
+
+    private void startTimer() {
+        if (time > 0) {
+            tvGetCode.setText(String.format("倒计时%s秒", time));
+            time -= 1;
+            chageSendStatus(false);
+            handler.sendEmptyMessageDelayed(MSG_TIMER, 1000);
+        } else {
+            tvGetCode.setText("获取验证码");
+            time = 60;
+            chageSendStatus(true);
+        }
+    }
+
     /**
      * QQ登录回调
      */
-    private class BaseUiListener implements IUiListener {
-        @Override
-        public void onComplete(Object o) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(mContext, "登陆成功", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-        @Override
-        public void onError(UiError uiError) {
-
-        }
-
-        @Override
-        public void onCancel() {
-
-        }
-    }
+//    private class BaseUiListener implements IUiListener {
+//        @Override
+//        public void onComplete(Object o) {
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Toast.makeText(mContext, "登陆成功", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
+//
+//        @Override
+//        public void onError(UiError uiError) {
+//
+//        }
+//
+//        @Override
+//        public void onCancel() {
+//
+//        }
+//    }
 
     /**
      * 微信登录回调

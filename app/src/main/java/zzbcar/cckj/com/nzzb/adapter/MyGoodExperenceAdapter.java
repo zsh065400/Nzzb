@@ -42,8 +42,14 @@ public class MyGoodExperenceAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         final View view = inflater.inflate(R.layout.good_experence_item, container, false);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (itemClickListener != null) itemClickListener.onItemClick(view, position);
+            }
+        });
         final MainPageBean.DataBean.ActivityBean bean = mDatas.get(position);
 
         ImageView pic = (ImageView) view.findViewById(R.id.iv_chaozhi_pic);
@@ -55,7 +61,7 @@ public class MyGoodExperenceAdapter extends PagerAdapter {
                 .fit()
                 .into(pic);
         name.setText(bean.getCarName());
-        price.setText(bean.getPrice()+"");
+        price.setText(bean.getPrice() + "");
         container.addView(view);
         return view;
     }
@@ -63,5 +69,15 @@ public class MyGoodExperenceAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
+    }
+
+    private OnItemClickListener itemClickListener;
+
+    public void setItemClickListener(OnItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position);
     }
 }

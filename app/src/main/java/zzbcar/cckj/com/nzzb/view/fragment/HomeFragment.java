@@ -3,10 +3,12 @@ package zzbcar.cckj.com.nzzb.view.fragment;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -40,6 +43,7 @@ import permissions.dispatcher.RuntimePermissions;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.GridPagerAdapter;
 import zzbcar.cckj.com.nzzb.adapter.MyGoodExperenceAdapter;
+import zzbcar.cckj.com.nzzb.adapter.base.BaseRecycleViewAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.CarTypeAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.GridItemAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.NewCarAdapter;
@@ -51,7 +55,9 @@ import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.LocationListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PayActivity;
 import zzbcar.cckj.com.nzzb.view.customview.Gradient;
@@ -160,9 +166,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
      *
      * @param carDatas
      */
-    private void initCarType(List<MainPageBean.DataBean.CarListBean> carDatas) {
+    private void initCarType(final List<MainPageBean.DataBean.CarListBean> carDatas) {
         rvChexing.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
-        rvChexing.setAdapter(new CarTypeAdapter(mActivity, carDatas));
+        final CarTypeAdapter adapter = new CarTypeAdapter(mActivity, carDatas);
+        adapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                /*跳转详情页面*/
+                final Intent intent = new Intent(mActivity, CarDetailActivity.class);
+                intent.putExtra("carid", carDatas.get(position).getId());
+                startActivity(intent);
+            }
+        });
+        rvChexing.setAdapter(adapter);
     }
 
     /**
@@ -170,9 +186,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
      *
      * @param newCarDatas
      */
-    private void initFreshCarType(List<MainPageBean.DataBean.NewCarListBean> newCarDatas) {
+    private void initFreshCarType(final List<MainPageBean.DataBean.NewCarListBean> newCarDatas) {
         rvXinxian.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
-        rvXinxian.setAdapter(new NewCarAdapter(mActivity, newCarDatas));
+        final NewCarAdapter adapter = new NewCarAdapter(mActivity, newCarDatas);
+        adapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                /*跳转详情页面*/
+                final Intent intent = new Intent(mActivity, CarDetailActivity.class);
+                intent.putExtra("carid", newCarDatas.get(position).getId());
+                startActivity(intent);
+            }
+        });
+        rvXinxian.setAdapter(adapter);
     }
 
     /**
@@ -180,8 +206,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
      *
      * @param activityDatas
      */
-    private void initGoodExperence(List<MainPageBean.DataBean.ActivityBean> activityDatas) {
+    private void initGoodExperence(final List<MainPageBean.DataBean.ActivityBean> activityDatas) {
         MyGoodExperenceAdapter myGoodExperenceAdapter = new MyGoodExperenceAdapter(mActivity, activityDatas);
+        myGoodExperenceAdapter.setItemClickListener(new MyGoodExperenceAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                /*跳转详情页面*/
+                final Intent intent = new Intent(mActivity, CarDetailActivity.class);
+                intent.putExtra("carid", activityDatas.get(position).getId());
+                startActivity(intent);
+            }
+        });
         vpChaozhi.setAdapter(myGoodExperenceAdapter);
         vpChaozhi.setPageTransformer(false, new ScaleTransformer());
         vpChaozhi.setOffscreenPageLimit(5);
@@ -190,7 +225,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home_new;
+        return R.layout.fragment_home;
     }
 
     @Override
@@ -199,6 +234,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             @Override
             public void onSuccess(Response<String> response) {
                 /*此处应加判断，不应直接使用*/
+                System.out.println(response.body());
                 final MainPageBean pageBean = GsonUtil.parseJsonWithGson(response.body(), MainPageBean.class);
                 final MainPageBean.DataBean data = pageBean.getData();
                 marqueeDatas = data.getMarquee();
@@ -225,6 +261,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         });
         initLocation();
     }
+
     @TargetApi(Build.VERSION_CODES.M)
     private void initLocation() {
         HomeFragmentPermissionsDispatcher.showLocationWithPermissionCheck(this);
@@ -244,6 +281,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tvXinxianAll.setOnClickListener(this);
         tvChaozhiAll.setOnClickListener(this);
         tvChexingAll.setOnClickListener(this);
+        tvLocation.setOnClickListener(this);
     }
 
     @Override
@@ -269,6 +307,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.tv_chexing_all:
                 intent = new Intent(mActivity, CarListActivity.class);
                 intent.putExtra("carlist", (Serializable) carDatas);
+                break;
+            case R.id.tv_location:
+                intent = new Intent(mActivity, LocationListActivity.class);
                 break;
         }
         startActivity(intent);
@@ -305,12 +346,25 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @OnShowRationale({Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     void showRationale(final PermissionRequest request) {
+        new AlertDialog.Builder(mActivity)
+                .setMessage("拒绝授权后，程序将无法正常使用，请重试")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //再次执行请求
+                        request.proceed();
+                    }
+                })
+                .show();
     }
 
     @OnPermissionDenied({Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     void permissionDenied() {
+        Toast.makeText(mActivity, "授权失败，请稍后重试", Toast.LENGTH_SHORT).show();
+        mActivity.finish();
     }
+
     private class MyBDLocationListener implements BDLocationListener {
         @Override
         public void onReceiveLocation(final BDLocation bdLocation) {
@@ -334,16 +388,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         return;
                     }
                     if (!TextUtils.isEmpty(bdLocation.getCity()) && tvLocation != null) {
-                        //判断本地定位和上次定位的不同，切换不同的城市
+                        //Todo 判断本地定位和上次定位的不同，切换不同的城市
+                        mLocationClient.stop();
                         String city = bdLocation.getCity();
                         city = city.substring(0, city.length() - 1);
-                        tvLocation.setText(city);
-                        SPUtils.saveString(mActivity, Constant.SP_LAST_LOCATION, city);
+                        final String fincity = city;
+                        String last = SPUtils.getString(mActivity, Constant.SP_LAST_LOCATION, "");
+                        if(!last.equals(city)){
+                            new AlertDialog.Builder(mActivity)
+                                    .setMessage("定位到当前城市有变更，是否改变城市")
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            tvLocation.setText(fincity);
+                                            SPUtils.saveString(mActivity, Constant.SP_LAST_LOCATION, fincity);
+                                        }
+                                    })
+                                    .setNegativeButton("取消",null)
+                                    .show();
+                        }
+
                     }
                 }
             });
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -351,6 +421,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             mLocationClient.unRegisterLocationListener(bdLocationListener);
         }
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -369,4 +440,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        String lastLocation = SPUtils.getString(mActivity, Constant.SP_LAST_LOCATION, "");
+
+        if (!TextUtils.isEmpty(lastLocation)) {
+            tvLocation.setText(lastLocation);
+        }
+    }
 }
