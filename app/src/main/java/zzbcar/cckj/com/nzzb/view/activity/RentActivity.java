@@ -6,6 +6,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -40,6 +41,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
     private ImageView iv_rentcar_sorder;
     private ListView lv_carrent_series;
     public boolean IsBrandShow = true;
+    private static final int CHOOSE_ADDRESS = 100;
+    private TextView tv_rent_address;
 
     @Override
     protected int getLayoutId() {
@@ -62,7 +65,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
         iv_rentcar_sorder = (ImageView) findViewById(R.id.iv_rentcar_sorder);
         lv_carrent_series = (ListView) findViewById(R.id.lv_carrent_series);
-
+        tv_rent_address = findViewById(R.id.tv_rent_address);
 
     }
 
@@ -181,7 +184,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.ll_address:
                 intent = new Intent(this, SetAddressActivity.class);
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent,CHOOSE_ADDRESS);
                 break;
             case R.id.ll_type_pick:
 
@@ -211,5 +215,13 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void setStatusBar() {
         StatusBarUtil.setTransparentForImageView(this,null);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==RESULT_OK){
+            String address = data.getStringExtra("address");
+            tv_rent_address.setText(address);
+        }
     }
 }
