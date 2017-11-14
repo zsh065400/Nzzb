@@ -17,9 +17,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.tauth.IUiListener;
-import com.tencent.tauth.Tencent;
-import com.tencent.tauth.UiError;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -54,7 +51,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @BindView(R.id.iv_qq_signin)
     ImageView ivQQSignin;
 
-    private Tencent mTencent;
+//    private Tencent mTencent;
     private IWXAPI mWxApi;
     private UMShareAPI mShareAPI = null;
 
@@ -268,27 +265,27 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     /**
      * QQ登录回调
      */
-    private class BaseUiListener implements IUiListener {
-        @Override
-        public void onComplete(Object o) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(mContext, "登陆成功", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-        @Override
-        public void onError(UiError uiError) {
-
-        }
-
-        @Override
-        public void onCancel() {
-
-        }
-    }
+//    private class BaseUiListener implements IUiListener {
+//        @Override
+//        public void onComplete(Object o) {
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Toast.makeText(mContext, "登陆成功", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
+//
+//        @Override
+//        public void onError(UiError uiError) {
+//
+//        }
+//
+//        @Override
+//        public void onCancel() {
+//
+//        }
+//    }
 
     /**
      * 微信登录回调
