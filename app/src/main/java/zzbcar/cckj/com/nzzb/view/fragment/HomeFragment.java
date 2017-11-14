@@ -3,10 +3,12 @@ package zzbcar.cckj.com.nzzb.view.fragment;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -54,6 +57,7 @@ import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.LocationListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PayActivity;
 import zzbcar.cckj.com.nzzb.view.customview.Gradient;
@@ -277,6 +281,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tvXinxianAll.setOnClickListener(this);
         tvChaozhiAll.setOnClickListener(this);
         tvChexingAll.setOnClickListener(this);
+        tvLocation.setOnClickListener(this);
     }
 
     @Override
@@ -302,6 +307,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.tv_chexing_all:
                 intent = new Intent(mActivity, CarListActivity.class);
                 intent.putExtra("carlist", (Serializable) carDatas);
+                break;
+            case R.id.tv_location:
+                intent = new Intent(mActivity, LocationListActivity.class);
                 break;
         }
         startActivity(intent);
@@ -338,11 +346,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @OnShowRationale({Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     void showRationale(final PermissionRequest request) {
+        new AlertDialog.Builder(mActivity)
+                .setMessage("拒绝授权后，程序将无法正常使用，请重试")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //再次执行请求
+                        request.proceed();
+                    }
+                })
+                .show();
     }
 
     @OnPermissionDenied({Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE})
     void permissionDenied() {
+        Toast.makeText(mActivity, "授权失败，请稍后重试", Toast.LENGTH_SHORT).show();
+        mActivity.finish();
     }
 
     private class MyBDLocationListener implements BDLocationListener {
@@ -368,11 +388,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         return;
                     }
                     if (!TextUtils.isEmpty(bdLocation.getCity()) && tvLocation != null) {
-                        //判断本地定位和上次定位的不同，切换不同的城市
+                        //Todo 判断本地定位和上次定位的不同，切换不同的城市
+                        mLocationClient.stop();
                         String city = bdLocation.getCity();
                         city = city.substring(0, city.length() - 1);
-                        tvLocation.setText(city);
-                        SPUtils.saveString(mActivity, Constant.SP_LAST_LOCATION, city);
+                        final String fincity = city;
+                        String last = SPUtils.getString(mActivity, Constant.SP_LAST_LOCATION, "");
+                        if(!last.equals(city)){
+                            new AlertDialog.Builder(mActivity)
+                                    .setMessage("定位到当前城市有变更，是否改变城市")
+                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            tvLocation.setText(fincity);
+                                            SPUtils.saveString(mActivity, Constant.SP_LAST_LOCATION, fincity);
+                                        }
+                                    })
+                                    .setNegativeButton("取消",null)
+                                    .show();
+                        }
+
                     }
                 }
             });
@@ -405,4 +440,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        String lastLocation = SPUtils.getString(mActivity, Constant.SP_LAST_LOCATION, "");
+
+        if (!TextUtils.isEmpty(lastLocation)) {
+            tvLocation.setText(lastLocation);
+        }
+    }
 }
