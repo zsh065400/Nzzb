@@ -50,7 +50,7 @@
             android:layout_gravity="center_vertical"
             android:layout_width="15dp"
             android:layout_height="2dp"
-            android:background="@color/light_while"/>
+            android:background="@color/divider"/>
         <LinearLayout
             android:gravity="center_horizontal"
             android:layout_width="0dp"
@@ -78,7 +78,7 @@
             android:layout_gravity="center_vertical"
             android:layout_width="15dp"
             android:layout_height="2dp"
-            android:background="@color/light_while"/>
+            android:background="@color/divider"/>
         <LinearLayout
             android:gravity="center_horizontal"
             android:layout_width="0dp"
