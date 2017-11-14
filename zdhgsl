@@ -1,0 +1,152 @@
+[33mcommit 23b6e8aa14e431ec4f6981bfc49720cd8fc656b5[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m, [m[1;31morigin/dev[m[33m)[m
+Author: Scout <3104517435@qq.com>
+Date:   Tue Nov 14 09:42:40 2017 +0800
+
+    2017/11/14 done
+
+[33mcommit 591e2dbfcf54bd2ce9d48ae484eb0370846428e4[m
+Merge: f35b9d0 a89a7c1
+Author: hegeyang <a798284971@qq.com>
+Date:   Mon Nov 13 22:19:53 2017 +0800
+
+    2017年11月13日22:19:49
+
+[33mcommit f35b9d095bca5acdcc14a1597dcf5bc9e410dfd0[m
+Author: hegeyang <a798284971@qq.com>
+Date:   Mon Nov 13 22:13:46 2017 +0800
+
+    第二次
+
+[33mcommit a89a7c100a96ecec1d38bc1fab123797cb853e4c[m
+Merge: 8ac34e5 5002f85
+Author: zhaolongtao <13295815771@163.com>
+Date:   Mon Nov 13 22:11:29 2017 +0800
+
+    zlt 没有冲突
+
+[33mcommit 4309e336131bd9673f8adc5b54dde57e4b338e43[m
+Author: hegeyang <a798284971@qq.com>
+Date:   Mon Nov 13 21:51:19 2017 +0800
+
+    这里是提交信息
+
+[33mcommit 8ac34e5e8ebf079574ecbde6cbb90930a03d08f2[m
+Author: zhaolongtao <13295815771@163.com>
+Date:   Mon Nov 13 21:50:30 2017 +0800
+
+    zlt 我的界面修改
+
+[33mcommit 5002f8576fd9815f1e4bf0bb8e83418ae1d82b7d[m
+Merge: afba72d 2b7604e
+Author: Scout <3104517435@qq.com>
+Date:   Mon Nov 13 17:58:06 2017 +0800
+
+    Merge branch 'zsh' into dev
+
+[33mcommit 2b7604e78f7474cd5085fdd52a4e82af9ee7beb2[m
+Author: Scout <3104517435@qq.com>
+Date:   Mon Nov 13 17:58:01 2017 +0800
+
+    2017/11/13 zsh pay done
+
+[33mcommit ecf01f0c8ddf1d17f3e1b247a5735c1e25fcf767[m
+Author: zhaolongtao <13295815771@163.com>
+Date:   Mon Nov 13 17:30:50 2017 +0800
+
+    recommit
+
+[33mcommit afba72dea288c5396c6f2982cf2ad056bd594604[m
+Merge: 07699d5 dfe1bab
+Author: Scout <3104517435@qq.com>
+Date:   Mon Nov 13 16:36:49 2017 +0800
+
+    Merge branch 'zsh' into dev
+
+[33mcommit dfe1babb17983d3604921e81e9c8a77e8927951f[m
+Author: Scout <3104517435@qq.com>
+Date:   Mon Nov 13 16:36:40 2017 +0800
+
+    pay queue done
+
+[33mcommit 07699d5f6bca167b6c7eabf42faea3a3f2304a5c[m
+Author: Scout <3104517435@qq.com>
+Date:   Mon Nov 13 10:04:01 2017 +0800
+
+    xiu fu
+
+[33mcommit 3fcdec1adc74a1e0a05c679ece78dd6503af65c1[m
+Merge: e72ec53 b00aaba
+Author: Scout <3104517435@qq.com>
+Date:   Mon Nov 13 10:02:22 2017 +0800
+
+    Merge branch 'dev' of github.com:zsh065400/Nzzb into dev
+
+[33mcommit e72ec5324f842afce291f2ea0221f49b736c942d[m
+Author: Scout <3104517435@qq.com>
+Date:   Mon Nov 13 10:01:45 2017 +0800
+
+    zsh 2017/11/12 car detail done
+
+[33mcommit e86aa326003843cd9bd8da6582e37de5ecf79014[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 1e96ece b00aaba
+Author: Zhao Shuhao <zsh065400@users.noreply.github.com>
+Date:   Mon Nov 13 09:57:23 2017 +0800
+
+    Merge pull request #2 from zsh065400/dev
+    
+    hgy first commit
+
+[33mcommit b00aaba68313b1994c3bd35e43d2f2faf727eb89[m
+Author: hegeyang <a798284971@qq.com>
+Date:   Mon Nov 13 09:53:54 2017 +0800
+
+    hgy first commit
+
+[33mcommit 1e96ecea7c47574fe9cf150d0b6df9e0d408d6b3[m
+Author: a798284971 <798284971@qq.com>
+Date:   Sun Nov 12 20:36:23 2017 +0800
+
+    2017年11月12日20:32:46
+
+[33mcommit 1d57a4e681f2757e0bf6ec0b65369d94c01eaae6[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Scout <3104517435@qq.com>
+Date:   Sun Nov 12 18:44:21 2017 +0800
+
+    redev
+
+[33mcommit 8283a2ad2e7ffd99b329f34f3dd3c05949278c91[m
+Author: Scout <3104517435@qq.com>
+Date:   Sat Nov 11 22:37:28 2017 +0800
+
+    11/11 done
+
+[33mcommit feeec52888a0eb18c0ba8fa7d14abeca434d42ec[m
+Merge: 60c3922 6462345
+Author: Scout <3104517435@qq.com>
+Date:   Sat Nov 11 17:45:10 2017 +0800
+
+    2017.11.11 zsh 17.45
+
+[33mcommit 60c39229b8c6c4f8abfd95008a824b24df042938[m
+Author: Scout <3104517435@qq.com>
+Date:   Sat Nov 11 16:09:47 2017 +0800
+
+    home ui done
+
+[33mcommit 64623452fb0567a62bc3a5fd25638f7b71a18dac[m
+Author: zhaolongtao <13295815771@163.com>
+Date:   Sat Nov 11 10:32:19 2017 +0800
+
+    first commit
+
+[33mcommit a4eab1f17b79efab396b32ba65b82635d1e6abf3[m
+Author: Scout <3104517435@qq.com>
+Date:   Fri Nov 10 17:00:57 2017 +0800
+
+    signin done
+
+[33mcommit b93c4d61fa664c1dc8deb095384f72eecc0ab6e4[m
+Author: Scout <3104517435@qq.com>
+Date:   Fri Nov 10 08:52:34 2017 +0800
+
+    first push

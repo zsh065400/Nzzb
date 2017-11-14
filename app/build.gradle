@@ -10,6 +10,16 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a','x86', 'x86_64', 'mips'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "3150b64ba78fd2f9da2efa87", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
     buildTypes {
         release {
@@ -80,4 +90,6 @@ dependencies {
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
     compile('com.github.hotchemi:permissionsdispatcher:2.4.0')
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
+    compile 'cn.jiguang.sdk:jpush:3.0.9'
+    compile 'cn.jiguang.sdk:jcore:1.1.7'
 }

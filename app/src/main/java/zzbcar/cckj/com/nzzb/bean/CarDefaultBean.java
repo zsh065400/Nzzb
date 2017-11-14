@@ -102,7 +102,7 @@ public class CarDefaultBean {
         private String pics;
         private String plateNo;
         private double price;
-        private int receivePercent;
+        private double receivePercent;
         private int seatNum;
         private int series;
         private String seriesName;
@@ -303,7 +303,7 @@ public class CarDefaultBean {
             this.price = price;
         }
 
-        public int getReceivePercent() {
+        public double getReceivePercent() {
             return receivePercent;
         }
 

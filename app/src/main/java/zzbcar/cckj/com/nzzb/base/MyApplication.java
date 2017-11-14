@@ -10,6 +10,7 @@ import com.umeng.socialize.UMShareAPI;
 
 import java.util.concurrent.TimeUnit;
 
+import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 
@@ -45,6 +46,8 @@ public class MyApplication extends MultiDexApplication {
 //        PayReq req = new PayReq();
 ////....拼接req参数
 //        api.sendReq(req);// 调用支付
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     private void initOkGo() {

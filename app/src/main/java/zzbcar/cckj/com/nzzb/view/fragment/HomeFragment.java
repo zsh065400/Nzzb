@@ -55,6 +55,7 @@ import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.LocationListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PayActivity;
 import zzbcar.cckj.com.nzzb.view.customview.Gradient;
@@ -248,6 +249,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tvXinxianAll.setOnClickListener(this);
         tvChaozhiAll.setOnClickListener(this);
         tvChexingAll.setOnClickListener(this);
+        tvLocation.setOnClickListener(this);
     }
 
     @Override
@@ -273,6 +275,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.tv_chexing_all:
                 intent = new Intent(mActivity, CarListActivity.class);
                 intent.putExtra("carlist", (Serializable) carDatas);
+                break;
+            case R.id.tv_location:
+                intent = new Intent(mActivity, LocationListActivity.class);
                 break;
         }
         startActivity(intent);
@@ -351,6 +356,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     }
                     if (!TextUtils.isEmpty(bdLocation.getCity()) && tvLocation != null) {
                         //Todo 判断本地定位和上次定位的不同，切换不同的城市
+                        mLocationClient.stop();
                         String city = bdLocation.getCity();
                         city = city.substring(0, city.length() - 1);
                         final String fincity = city;
@@ -399,4 +405,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        String lastLocation = SPUtils.getString(mActivity, Constant.SP_LAST_LOCATION, "");
+
+        if (!TextUtils.isEmpty(lastLocation)) {
+            tvLocation.setText(lastLocation);
+        }
+    }
 }
