@@ -123,14 +123,14 @@
                 <ImageView
                     android:id="@+id/iv_identificar_idcar_up"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="120dp"
                     android:layout_weight="1"
                     android:src="@mipmap/identicarup" />
 
                 <ImageView
                     android:id="@+id/iv_identificar_idcar_down"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="120dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
                     android:src="@mipmap/identicardowm" />
