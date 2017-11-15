@@ -25,4 +25,9 @@
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
+    <!--上传等待dialog-->
+    <style name="MaterialDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:tint">@color/text_green</item>
+    </style>
+
 </resources>

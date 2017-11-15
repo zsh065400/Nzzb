@@ -54,6 +54,11 @@ public class Constant {
 
     public static final String SP_LOGIN = "login";
     public static final String SP_LAST_LOCATION="last_location";
-
+    //aliyun oss
+    public static final String ACCESS_ID = "LTAIwAHa3lPn0JXN";
+    public static final String ACCESS_PAS ="eN01vFRyf3uBe6KxM1R2Abdzy0QcPw";
+    public static final String END_POINT= "http://oss-cn-hangzhou.aliyuncs.com";
+    public static final String BUCKET = "zzb-2017";
+    public static final String IDCARD_KEYPATH = "zzbcar/idcard/";
 }
 
