@@ -15,13 +15,13 @@ import zzbcar.cckj.com.nzzb.bean.CarSeriesBean;
 
 public class CarSeriesItemAdapter extends BaseAdapter {
     private Context context;
-    private List<CarSeriesBean.DataBean> objects ;
+    private List<CarSeriesBean.DataBean> objects;
     private LayoutInflater layoutInflater;
 
     public CarSeriesItemAdapter(Context context, List<CarSeriesBean.DataBean> objects) {
         this.context = context;
         this.objects = objects;
-        layoutInflater=LayoutInflater.from(context);
+        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -45,13 +45,18 @@ public class CarSeriesItemAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.car_series_item, null);
             convertView.setTag(new ViewHolder(convertView));
         }
-        initializeViews((CarSeriesBean.DataBean)getItem(position), (ViewHolder) convertView.getTag());
+        initializeViews((CarSeriesBean.DataBean) getItem(position), (ViewHolder) convertView.getTag());
         return convertView;
     }
 
     private void initializeViews(CarSeriesBean.DataBean object, ViewHolder holder) {
-        //TODO implement
         holder.tvRentcarCarseries.setText(object.getName());
+    }
+
+    public void reset(List<CarSeriesBean.DataBean> news) {
+        objects.clear();
+        objects.addAll(news);
+        notifyDataSetChanged();
     }
 
     protected class ViewHolder {
@@ -59,7 +64,6 @@ public class CarSeriesItemAdapter extends BaseAdapter {
 
         public ViewHolder(View view) {
             tvRentcarCarseries = (TextView) view.findViewById(R.id.tv_rentcar_carseries);
-
         }
     }
 }

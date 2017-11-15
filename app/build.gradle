@@ -5,7 +5,7 @@ android {
     buildToolsVersion '26.0.1'
     defaultConfig {
         applicationId "zzbcar.cckj.com.nzzb"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -93,4 +93,5 @@ dependencies {
     compile files('libs/SocialSDK_QQ_Simplify.jar')
     compile files('libs/umeng_social_shareboard.jar')
     compile files('libs/SocialSDK_Sina_Simplify.jar')
+    compile 'com.github.Jay-Goo:RangeSeekBar:v1.1.0'
 }

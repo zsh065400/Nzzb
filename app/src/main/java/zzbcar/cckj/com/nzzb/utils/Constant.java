@@ -43,6 +43,21 @@ public class Constant {
     /*查询租金*/
     public static final String API_QUERY_PRICE = SERVE_URL + "zzb/app/bus/calcPrice";
 
+    /*车辆筛选*/
+    public static final String API_CAR_SCREEN = SERVE_URL + "zzb/app/car/queryCarByCondition";
+
+    /*车辆品牌*/
+    public static final String API_CAR_BRAND = SERVE_URL + "zzb/app/car/brand";
+
+    /*车系*/
+    public static final String API_CAR_SERIES = SERVE_URL + "zzb/app/car/series";
+
+    /*车型*/
+    public static final String API_CAR_MODEL = SERVE_URL + "zzb/app/car/model";
+
+
+
+
     public static final String HOME_LUNBO_URL = SERVE_URL + "zzb/app/common/marquee";
     //品牌
     public static final String CAR_BRAND_URL = SERVE_URL + "zzb/app/car/brand";
@@ -50,10 +65,10 @@ public class Constant {
     public static final String CAR_SERIES_URL = SERVE_URL + "zzb/app/car/series";
 
     public static final String CAR_DEFAULT_URL = SERVE_URL + "zzb/app/car/queryCarByCondition?pageNum=0&pageSize=10";
-    public static final String LOCATION_SELECT_URL=SERVE_URL+"zzb/app/common/citys";
+    public static final String LOCATION_SELECT_URL = SERVE_URL + "zzb/app/common/citys";
 
     public static final String SP_LOGIN = "login";
-    public static final String SP_LAST_LOCATION="last_location";
+    public static final String SP_LAST_LOCATION = "last_location";
 
 }
 

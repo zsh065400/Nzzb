@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="zzbcar.cckj.com.nzzb.view.activity.RentActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="zzbcar.cckj.com.nzzb.view.activity.RentActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="#0a1b2b">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/delete_img"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="自助找车"
+            android:textColor="#fff"
+            android:textSize="20dp"/>
+
+        <ImageView
+            android:id="@+id/iv_rentcar_sorder"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/icon_service_1"/>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#0a1b2b"
         android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="65dp">
-
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
-                android:src="@mipmap/delete_img" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="自助找车"
-                android:textColor="#fff"
-                android:textSize="24sp" />
-
-            <ImageView
-                android:id="@+id/iv_rentcar_sorder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:src="@mipmap/icon_service_1" />
-        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/ll_self_activity_selelct_time"
@@ -59,7 +59,7 @@
                 android:layout_marginRight="3dp"
                 android:text="09/27/02:45"
                 android:textColor="#b71212"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="20dp"
@@ -73,34 +73,20 @@
                 android:layout_marginLeft="3dp"
                 android:text="09/27/02:45"
                 android:textColor="#b71212"
-                android:textSize="16sp" />
+                android:textSize="14dp"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_address"
+        <TextView
+            android:id="@+id/tv_rent_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_rent_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="点击选择地址"
-                android:textColor="#fff"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="3dp"
-                android:src="@mipmap/icon_arrow_bottom_white" />
-        </LinearLayout>
+            android:layout_margin="10dp"
+            android:drawablePadding="3dp"
+            android:drawableRight="@mipmap/icon_arrow_bottom_white"
+            android:text="点击选择地址"
+            android:textColor="#fff"
+            android:textSize="14dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -120,16 +106,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
+                android:drawablePadding="3dp"
+                android:drawableRight="@mipmap/icon_arrow_bottom_filter_orange"
                 android:text="品牌"
-                android:textColor="#313131" />
+                android:textColor="#313131"/>
 
-            <ImageView
-                android:id="@+id/iv__brand"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:src="@mipmap/icon_arrow_bottom_filter_orange" />
         </LinearLayout>
 
         <LinearLayout
@@ -147,19 +128,14 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="3dp"
+                android:drawableRight="@mipmap/icon_arrow_bottom_filter_orange"
                 android:text="价格"
-                android:textColor="#313131" />
-
-            <ImageView
-                android:id="@+id/iv__price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:src="@mipmap/icon_arrow_bottom_filter_small" />
+                android:textColor="#313131"/>
         </LinearLayout>
 
         <LinearLayout
@@ -179,16 +155,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="3dp"
+                android:drawableRight="@mipmap/icon_arrow_bottom_filter_orange"
                 android:text="类型"
-                android:textColor="#313131" />
-
-            <ImageView
-                android:id="@+id/iv__type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:src="@mipmap/icon_arrow_bottom_filter_small" />
+                android:textColor="#313131"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -196,356 +168,273 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <com.jcodecraeer.xrecyclerview.XRecyclerView
-        android:id="@+id/rlv_self_find_car"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </com.jcodecraeer.xrecyclerview.XRecyclerView>
-    <LinearLayout
-        android:id="@+id/ll_whole_brand"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:visibility="visible">
+        <!--显示内容-->
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/rv_car_query"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+        </com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+        <!--品牌-->
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/ll_whole_brand"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <ListView
-                android:dividerHeight="10dp"
-                android:divider="@null"
-                android:id="@+id/lv_rentcar_brand"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#f5f4f4"
-                android:fadeScrollbars="false"
-
-                android:scrollbars="none">
-
-            </ListView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linear"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:background="@color/Zzb_BG">
-
-            <ListView
-                android:id="@+id/lv_carrent_series"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:listSelector="@color/translucent">
-
-            </ListView>
-        </LinearLayout>
-    </LinearLayout>
-
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:visibility="invisible">
 
             <LinearLayout
-                android:id="@+id/ll_time_pick"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="#fff"
-                android:orientation="vertical"
-                android:visibility="invisible">
+                android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/tv_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="6dp"
-                    android:text="666" />
-
-                <zzbcar.cckj.com.nzzb.view.customview.SeekBarPressure
-                    android:id="@+id/seekBar_tg"
+                <ListView
+                    android:id="@+id/lv_rentcar_brand"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:paddingBottom="5dp" />
+                    android:layout_height="match_parent"
+                    android:background="#f5f4f4"
+                    android:divider="@null"
+                    android:dividerHeight="10dp"
+                    android:fadeScrollbars="false"
+                    android:scrollbars="none">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="￥0"
-                        android:textColor="#e20c0c" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="￥100"
-                        android:textColor="#e20c0c" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="￥200"
-                        android:textColor="#e20c0c" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="￥300"
-                        android:textColor="#e20c0c" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="不限"
-                        android:textColor="#e20c0c" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_rent_activity_commit"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/shape_sure"
-                    android:gravity="center"
-                    android:text="查看符合条件的车辆"
-                    android:textColor="#fff"
-                    android:textSize="14sp" />
+                </ListView>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@color/Zzb_BG">
+
+                <ListView
+                    android:id="@+id/lv_carrent_series"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:listSelector="@android:color/transparent">
+
+                </ListView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--价格-->
+        <LinearLayout
+            android:id="@+id/ll_time_pick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <com.jaygoo.widget.RangeSeekBar
+                android:id="@+id/rsb_prices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:cellMode="other"
+                app:cells="1"
+                app:lineColorEdge="@color/colorSeekBarDefault"
+                app:lineColorSelected="@color/colorAccent"
+                app:markTextArray="@array/markArray"
+                app:max="100"
+                app:min="0"
+                app:progressHintMode="alwaysShow"
+                app:reserve="10"
+                app:seekBarMode="range"
+                app:textPadding="15dp"
+                app:thumbResId="@drawable/seekbar_thumb"
+                />
+
+            <TextView
+                android:id="@+id/tv_price_commit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_sure"
+                android:gravity="center"
+                android:text="查看符合条件的车辆"
+                android:textColor="#fff"
+                android:textSize="14dp"/>
+        </LinearLayout>
+
+        <!--类型-->
         <LinearLayout
             android:id="@+id/ll_type_pick"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#fff"
             android:orientation="vertical"
             android:visibility="invisible">
-            <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="手/自动挡"
-            android:textColor="@color/txt_lvl_2"
-            android:textSize="@dimen/txt_size_3" />
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:columnCount="4"
-            android:orientation="horizontal"
-            android:rowCount="3">
 
             <TextView
-                android:id="@+id/text_10"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:layout_marginRight="10dp"
-                android:layout_row="1"
-                android:background="@drawable/shape_round_stroke_white_gb"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="AT"
-                android:textColor="@drawable/select_color_filter"
-                android:textSize="@dimen/txt_size_3"
-                android:weightSum="1" />
+                android:layout_marginLeft="10dp"
+                android:text="手/自动挡"
+                android:textColor="@color/txt_lvl_2"
+                android:textSize="@dimen/txt_size_3"/>
 
-            <TextView
-                android:id="@+id/text_11"
-                android:layout_width="0dp"
+            <zzbcar.cckj.com.nzzb.widget.RadioGroupEx
+                android:id="@+id/rg_transmission"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:layout_marginRight="10dp"
-                android:layout_row="1"
-                android:background="@drawable/shape_round_stroke_white_gb"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="MT"
-                android:textColor="@drawable/select_color_filter"
-                android:textSize="@dimen/txt_size_3"
-
-                android:weightSum="1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:layout_marginRight="10dp"
-                android:layout_row="1"
-                android:background="@drawable/shape_round_stroke_white"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="200-300"
-                android:textColor="@color/txt_lvl_3"
-                android:textSize="@dimen/txt_size_3"
-                android:visibility="invisible"
-                android:weightSum="1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:layout_row="1"
-                android:background="@drawable/shape_round_stroke_white"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="300-400"
-                android:textColor="@color/txt_lvl_3"
-                android:textSize="@dimen/txt_size_3"
-                android:visibility="invisible"
-                android:weightSum="1" />
-        </GridLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="座位数"
-            android:textColor="@color/txt_lvl_2"
-            android:textSize="@dimen/txt_size_3" />
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:columnCount="4"
-            android:orientation="horizontal"
-            android:rowCount="3">
-
-            <TextView
-                android:id="@+id/text_12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:layout_marginRight="10dp"
-                android:layout_row="1"
-                android:background="@drawable/shape_round_stroke_white_gb"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="2座"
-                android:textColor="@drawable/select_color_filter"
-                android:textSize="@dimen/txt_size_3"
-                android:weightSum="1" />
-
-            <TextView
-                android:id="@+id/text_13"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:layout_marginRight="10dp"
-                android:layout_row="1"
-                android:background="@drawable/shape_round_stroke_white_gb"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="4座"
-                android:textColor="@drawable/select_color_filter"
-                android:textSize="@dimen/txt_size_3"
-
-                android:weightSum="1" />
-
-            <TextView
-                android:id="@+id/text_14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:layout_marginRight="10dp"
-                android:layout_row="1"
-                android:background="@drawable/shape_round_stroke_white_gb"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="5座"
-                android:textColor="@drawable/select_color_filter"
-                android:textSize="@dimen/txt_size_3"
-
-                android:weightSum="1" />
-
-            <TextView
-                android:id="@+id/text_15"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:layout_row="1"
-                android:background="@drawable/shape_round_stroke_white_gb"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="6座"
-                android:textColor="@drawable/select_color_filter"
-                android:textSize="@dimen/txt_size_3"
-
-                android:weightSum="1" />
-
-            <TextView
-                android:id="@+id/text_16"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_row="1"
-                android:background="@drawable/shape_round_stroke_white_gb"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:text="7座及以上"
-                android:textColor="@drawable/select_color_filter"
-                android:textSize="@dimen/txt_size_3"
-                android:weightSum="1" />
-        </GridLayout>
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/rb_auto"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/shape_round_stroke_white_gb"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="AT"
+                    android:textColor="@drawable/select_color_filter"
+                    android:textSize="14dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_manual"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/shape_round_stroke_white_gb"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="MT"
+                    android:textColor="@drawable/select_color_filter"
+                    android:textSize="14dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_trans_null"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/shape_round_stroke_white_gb"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:checked="true"
+                    android:padding="8dp"
+                    android:text="空"
+                    android:textColor="@drawable/select_color_filter"
+                    android:textSize="14dp"/>
+
+            </zzbcar.cckj.com.nzzb.widget.RadioGroupEx>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="座位数"
+                android:textColor="@color/txt_lvl_2"
+                android:textSize="@dimen/txt_size_3"/>
+
+            <zzbcar.cckj.com.nzzb.widget.RadioGroupEx
+                android:id="@+id/rg_seats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_two"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/shape_round_stroke_white_gb"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="2座"
+                    android:textColor="@drawable/select_color_filter"
+                    android:textSize="14dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_four"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/shape_round_stroke_white_gb"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="4座"
+                    android:textColor="@drawable/select_color_filter"
+                    android:textSize="14dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_five"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/shape_round_stroke_white_gb"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="5座"
+                    android:textColor="@drawable/select_color_filter"
+                    android:textSize="14dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_six"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/shape_round_stroke_white_gb"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="6座"
+                    android:textColor="@drawable/select_color_filter"
+                    android:textSize="14dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_seven_or_higher"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/shape_round_stroke_white_gb"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="7座及以上"
+                    android:textColor="@drawable/select_color_filter"
+                    android:textSize="14dp"/>
+
+                <RadioButton
+                    android:id="@+id/rb_seat_null"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/shape_round_stroke_white_gb"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:checked="true"
+                    android:padding="8dp"
+                    android:text="空"
+                    android:textColor="@drawable/select_color_filter"
+                    android:textSize="14dp"/>
+
+            </zzbcar.cckj.com.nzzb.widget.RadioGroupEx>
+
+            <TextView
+                android:id="@+id/tv_type_commit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_sure"
+                android:gravity="center"
+                android:text="查看符合条件的车辆"
+                android:textColor="#fff"
+                android:textSize="14dp"/>
+
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>

@@ -16,7 +16,8 @@ import zzbcar.cckj.com.nzzb.R;
 
 public class PopWindow extends PopupWindow {
     private View conentView;
-    public PopWindow(final Activity context){
+
+    public PopWindow(final Activity context) {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         conentView = inflater.inflate(R.layout.self_rentcar_popupwindow, null);
@@ -41,29 +42,39 @@ public class PopWindow extends PopupWindow {
         // 设置SelectPicPopupWindow弹出窗体动画效果
         this.setAnimationStyle(R.style.AnimationPreview);
 
-        conentView.findViewById(R.id.about).setOnClickListener(new View.OnClickListener() {
+        conentView.findViewById(R.id.pop_loc_near).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 //do something you need here
+                if (itemListener != null) itemListener.onLocationNearSort();
                 PopWindow.this.dismiss();
             }
         });
-        conentView.findViewById(R.id.ability_logout).setOnClickListener(new View.OnClickListener() {
+        conentView.findViewById(R.id.pop_price_lower).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // do something before signing out
-                context.finish();
+                if (itemListener != null) itemListener.onPriceLowerSort();
                 PopWindow.this.dismiss();
             }
         });
-        conentView.findViewById(R.id.settings).setOnClickListener(new View.OnClickListener() {
+        conentView.findViewById(R.id.pop_share_many).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // do something you need here
+                if (itemListener != null) itemListener.onShareMoreSort();
+                PopWindow.this.dismiss();
+            }
+        });
 
+        conentView.findViewById(R.id.pop_niankuan_new).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                if (itemListener != null) itemListener.onNianKuanNewSort();
                 PopWindow.this.dismiss();
             }
         });
@@ -81,5 +92,21 @@ public class PopWindow extends PopupWindow {
         } else {
             this.dismiss();
         }
+    }
+
+    private OnPopItemClickListener itemListener;
+
+    public void setItemListener(OnPopItemClickListener itemListener) {
+        this.itemListener = itemListener;
+    }
+
+    public interface OnPopItemClickListener{
+        void onLocationNearSort();
+
+        void onPriceLowerSort();
+
+        void onShareMoreSort();
+
+        void onNianKuanNewSort();
     }
 }

@@ -9,20 +9,20 @@ import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.base.BaseRecycleViewAdapter;
-import zzbcar.cckj.com.nzzb.bean.MainPageBean;
+import zzbcar.cckj.com.nzzb.bean.QueryBean;
 
 /**
  * Created by Scout
  * Created on 2017/11/12 17:28.
  */
 
-public class CarListAdapter extends BaseRecycleViewAdapter<MainPageBean.DataBean.CarListBean> {
-    public CarListAdapter(Context context, List<MainPageBean.DataBean.CarListBean> datas) {
+public class CarQueryAdapter extends BaseRecycleViewAdapter<QueryBean.DataBean> {
+    public CarQueryAdapter(Context context, List<QueryBean.DataBean> datas) {
         super(context, datas);
     }
 
     @Override
-    protected void convert(MyViewHolder holder, int position, MainPageBean.DataBean.CarListBean bean) {
+    protected void convert(MyViewHolder holder, int position, QueryBean.DataBean bean) {
         final String carName = bean.getCarName();
         final String pics = bean.getPics();
         final double price = bean.getPrice();

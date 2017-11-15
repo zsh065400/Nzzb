@@ -46,7 +46,7 @@ public class AaAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.aa, null);
+            convertView = layoutInflater.inflate(R.layout.car_brand, null);
             convertView.setTag(new ViewHolder(convertView));
         }
         initializeViews((CarBean.DataBean) getItem(position), (ViewHolder) convertView.getTag(),position);

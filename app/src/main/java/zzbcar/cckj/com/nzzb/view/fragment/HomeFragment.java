@@ -288,9 +288,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.tv_self:
                 intent = new Intent(mActivity, RentActivity.class);
+                intent.putExtra("carlist", (Serializable) carDatas);
+                intent.putExtra("useType", 1);
                 break;
             case R.id.tv_business:
                 intent = new Intent(mActivity, RentActivity.class);
+                intent.putExtra("carlist", (Serializable) carDatas);
+                // TODO: 2017/11/15 商务用车为2
+                intent.putExtra("useType", 1);
                 break;
             case R.id.tv_wedding:
                 intent = new Intent(mActivity, MarriedActivity.class);
@@ -392,7 +397,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         city = city.substring(0, city.length() - 1);
                         final String fincity = city;
                         String last = SPUtils.getString(mActivity, Constant.SP_LAST_LOCATION, "");
-                        if(!last.equals(city)){
+                        if (!last.equals(city)) {
                             new AlertDialog.Builder(mActivity)
                                     .setMessage("定位到当前城市有变更，是否改变城市")
                                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -402,7 +407,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                             SPUtils.saveString(mActivity, Constant.SP_LAST_LOCATION, fincity);
                                         }
                                     })
-                                    .setNegativeButton("取消",null)
+                                    .setNegativeButton("取消", null)
                                     .show();
                         }
 

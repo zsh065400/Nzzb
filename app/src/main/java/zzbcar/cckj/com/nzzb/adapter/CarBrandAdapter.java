@@ -17,7 +17,7 @@ import zzbcar.cckj.com.nzzb.bean.CarBean;
 
 public class CarBrandAdapter extends BaseAdapter {
 
-    private List<CarBean.DataBean> data ;
+    private List<CarBean.DataBean> data;
 
     private Context context;
     private LayoutInflater layoutInflater;
@@ -25,7 +25,7 @@ public class CarBrandAdapter extends BaseAdapter {
     public CarBrandAdapter(List<CarBean.DataBean> data, Context context) {
         this.data = data;
         this.context = context;
-        layoutInflater=LayoutInflater.from(context);
+        layoutInflater = LayoutInflater.from(context);
 
     }
 
@@ -47,10 +47,10 @@ public class CarBrandAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.aa, null);
+            convertView = layoutInflater.inflate(R.layout.car_brand, null);
             convertView.setTag(new ViewHolder(convertView));
         }
-        initializeViews((CarBean.DataBean)getItem(position), (ViewHolder) convertView.getTag());
+        initializeViews((CarBean.DataBean) getItem(position), (ViewHolder) convertView.getTag());
         return convertView;
     }
 
@@ -62,7 +62,7 @@ public class CarBrandAdapter extends BaseAdapter {
 
     protected class ViewHolder {
         private ImageView ivCar;
-    private TextView tvCar;
+        private TextView tvCar;
 
         public ViewHolder(View view) {
             ivCar = (ImageView) view.findViewById(R.id.iv_car);
