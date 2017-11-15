@@ -30,15 +30,15 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="sat8VbLTefHetbQNEw8vyhCIWkGjbfLa" >
+            android:value="sat8VbLTefHetbQNEw8vyhCIWkGjbfLa">
         </meta-data>
         <activity android:name=".view.activity.MainActivity">
 
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
+            <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
 
         <!-- 三方集成 -->
@@ -55,6 +55,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:windowSoftInputMode="adjustResize">
+
         </activity>
         <activity
             android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
@@ -62,25 +63,33 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+
         </activity>
 
         <!-- QQ -->
         <activity
-            android:name="com.tencent.tauth.AuthActivity"
+            android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
             android:noHistory="true">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.VIEW" /> -->
-            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
-            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
-            <!-- <data android:scheme="tencent100424468" /> -->
-            <!-- </intent-filter> -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
 
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="tencent100424468"/>
+            </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
         <!-- 微信登陆 -->
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -121,12 +130,12 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".view.activity.SplshActivity">
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
 
 
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".view.activity.GuideActivity"/>
         <activity android:name=".view.activity.TestActivity"/>
@@ -143,11 +152,12 @@
             android:name=".view.activity.itemactivity.CarIdentifiActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.activity.itemactivity.CarLicenceActivity"
+        <activity
+            android:name=".view.activity.itemactivity.CarLicenceActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.itemactivity.IdentiCompleteActivity"/>
-        <activity android:name=".view.activity.itemactivity.CarFriendIdentifiActivity" />
+        <activity android:name=".view.activity.itemactivity.CarFriendIdentifiActivity"/>
         <activity android:name=".view.activity.itemactivity.SelecTimeActivity"/>
         <activity android:name=".view.activity.LoginActivity"/>
         <activity android:name=".view.activity.itemactivity.PreCarFriendIdentifiActivity"/>
@@ -161,7 +171,11 @@
 
         </activity>
         <activity android:name=".view.activity.itemactivity.LocationListActivity"/>
-        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"> </service>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
     </application>
 
 </manifest>

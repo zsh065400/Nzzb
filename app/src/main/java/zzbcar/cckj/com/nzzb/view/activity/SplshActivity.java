@@ -61,7 +61,7 @@ public class SplshActivity extends BaseActivity implements Animation.AnimationLi
     @Override
     public void onAnimationEnd(Animation animation) {
         //延时2s进入向导界面GuideActivity  该方法在主线程   发送一个延时的消息
-        mHandler.postDelayed(new MyTask(), 2000);
+        mHandler.postDelayed(new MyTask(), 1500);
     }
 
     @Override

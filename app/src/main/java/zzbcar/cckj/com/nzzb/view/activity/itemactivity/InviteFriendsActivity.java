@@ -15,7 +15,6 @@ public class InviteFriendsActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-
         return R.layout.activity_invite_friends;
     }
 
@@ -23,17 +22,17 @@ public class InviteFriendsActivity extends BaseActivity {
     protected void initViews() {
         new ShareAction(InviteFriendsActivity.this)
                 .withText("hello")
-                .setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.WEIXIN)
+                .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN)
                 .setCallback(shareListener)
                 .open();
-
-
     }
 
     @Override
     protected void initDatas() {
 
     }
+
+
     private UMShareListener shareListener = new UMShareListener() {
         /**
          * @descrption 分享开始的回调
@@ -50,7 +49,7 @@ public class InviteFriendsActivity extends BaseActivity {
          */
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(InviteFriendsActivity.this,"成功了",Toast.LENGTH_LONG).show();
+            Toast.makeText(InviteFriendsActivity.this, "成功了", Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -60,7 +59,7 @@ public class InviteFriendsActivity extends BaseActivity {
          */
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            Toast.makeText(InviteFriendsActivity.this,"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(InviteFriendsActivity.this, "失败" + t.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         /**
@@ -69,11 +68,12 @@ public class InviteFriendsActivity extends BaseActivity {
          */
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            Toast.makeText(InviteFriendsActivity.this,"取消了",Toast.LENGTH_LONG).show();
+            Toast.makeText(InviteFriendsActivity.this, "取消了", Toast.LENGTH_LONG).show();
 
         }
     };
-//防止内存泄漏
+
+    //防止内存泄漏
     @Override
     protected void onDestroy() {
         super.onDestroy();
