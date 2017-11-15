@@ -93,4 +93,5 @@ dependencies {
     compile files('libs/SocialSDK_QQ_Simplify.jar')
     compile files('libs/umeng_social_shareboard.jar')
     compile files('libs/SocialSDK_Sina_Simplify.jar')
+    compile 'com.aliyun.dpa:oss-android-sdk:2.4.5'
 }
