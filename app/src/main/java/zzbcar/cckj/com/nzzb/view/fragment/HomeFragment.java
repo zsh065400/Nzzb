@@ -53,13 +53,11 @@ import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
-import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.LocationListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
-import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PayActivity;
 import zzbcar.cckj.com.nzzb.view.customview.Gradient;
 
 /**
@@ -299,11 +297,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
 
             case R.id.tv_xinxian_all://暂时替代
-                intent = new Intent(mActivity, LoginActivity.class);
-                break;
+//                intent = new Intent(mActivity, LoginActivity.class);
+//                break;
             case R.id.tv_chaozhi_all://暂时替代
-                intent = new Intent(mActivity, PayActivity.class);
-                break;
+//                intent = new Intent(mActivity, PayActivity.class);
+//                break;
             case R.id.tv_chexing_all:
                 intent = new Intent(mActivity, CarListActivity.class);
                 intent.putExtra("carlist", (Serializable) carDatas);

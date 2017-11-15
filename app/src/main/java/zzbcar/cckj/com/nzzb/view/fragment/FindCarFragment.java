@@ -1,14 +1,11 @@
 package zzbcar.cckj.com.nzzb.view.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -21,8 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import me.relex.circleindicator.CircleIndicator;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.GridItemAdapter;
@@ -38,6 +33,7 @@ import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 
 /**
@@ -56,7 +52,6 @@ public class FindCarFragment extends BaseFragment {
     ImageButton ibErweima;
     @BindView(R.id.TopTitleBar)
     LinearLayout TopTitleBar;
-    Unbinder unbinder;
     private OkManager manager = new OkManager();
 
     private List<CarDefaultBean.DataBean> carList = new ArrayList<>();
@@ -150,20 +145,11 @@ public class FindCarFragment extends BaseFragment {
 
     @Override
     protected void initListeners() {
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+        ibErweima.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toActivity(LoginActivity.class);
+            }
+        });
     }
 }

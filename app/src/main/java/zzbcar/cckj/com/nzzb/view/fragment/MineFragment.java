@@ -3,6 +3,7 @@ package zzbcar.cckj.com.nzzb.view.fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,19 +15,23 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import zzbcar.cckj.com.nzzb.R;
-import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AboutUsActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AccountBindActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BreakRuleActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarIdentifiActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HelpCenterActivity;
-import zzbcar.cckj.com.nzzb.view.activity.itemactivity.InviteFriendsActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PreCarFriendIdentifiActivity;
 import zzbcar.cckj.com.nzzb.view.customview.RoundImageView;
 
@@ -52,7 +57,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private static final int PHOTO_REQUEST_GALLERY = 2;
     private static final int PHOTO_REQUEST_CUT = 3;
 
-    File tempFile = new File(Environment.getExternalStorageDirectory(),getPhotoFileName());
+    File tempFile = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
 
     @Override
     public int getLayoutId() {
@@ -76,19 +81,19 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initViews(View view) {
-        rl_my_card = (RelativeLayout)view.findViewById(R.id.rl_my_card);
-        rl_my_address = (RelativeLayout)view.findViewById(R.id.rl_my_address);
-        rl_my_account_bind = (RelativeLayout)view.findViewById(R.id.rl_my_account_bind);
-        rl_my_break_rules = (RelativeLayout)view.findViewById(R.id.rl_my_break_rules);
-        rl_my_invite_friends = (RelativeLayout)view.findViewById(R.id.rl_my_invite_friends);
-        rl_my_help_center = (RelativeLayout)view.findViewById(R.id.rl_my_help_center);
-        rl_my_about_us = (RelativeLayout)view.findViewById(R.id.rl_my_about_us);
-        tv_minfragment_car_identifi = (TextView)view.findViewById(R.id.tv_minfragment_car_identifi);
+        rl_my_card = (RelativeLayout) view.findViewById(R.id.rl_my_card);
+        rl_my_address = (RelativeLayout) view.findViewById(R.id.rl_my_address);
+        rl_my_account_bind = (RelativeLayout) view.findViewById(R.id.rl_my_account_bind);
+        rl_my_break_rules = (RelativeLayout) view.findViewById(R.id.rl_my_break_rules);
+        rl_my_invite_friends = (RelativeLayout) view.findViewById(R.id.rl_my_invite_friends);
+        rl_my_help_center = (RelativeLayout) view.findViewById(R.id.rl_my_help_center);
+        rl_my_about_us = (RelativeLayout) view.findViewById(R.id.rl_my_about_us);
+        tv_minfragment_car_identifi = (TextView) view.findViewById(R.id.tv_minfragment_car_identifi);
         iv_mine_fragment_carowener_recruit = view.findViewById(R.id.iv_mine_fragment_carowener_recruit);
 
-        iv_minfragment_head_pic = (RoundImageView)view.findViewById(R.id.iv_minfragment_head_pic);
+        iv_minfragment_head_pic = (RoundImageView) view.findViewById(R.id.iv_minfragment_head_pic);
 
-        iv_minfragment_head_pic =(RoundImageView) view.findViewById(R.id.iv_minfragment_head_pic);
+        iv_minfragment_head_pic = (RoundImageView) view.findViewById(R.id.iv_minfragment_head_pic);
 
     }
 
@@ -113,8 +118,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.rl_my_invite_friends:
-                intent = new Intent(mActivity, InviteFriendsActivity.class);
-                startActivity(intent);
+//                intent = new Intent(mActivity, InviteFriendsActivity.class);
+//                startActivity(intent);
+                openShared();
                 break;
             case R.id.rl_my_help_center:
                 intent = new Intent(mActivity, HelpCenterActivity.class);
@@ -125,20 +131,69 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.tv_minfragment_car_identifi:
-                intent=new Intent(mActivity,CarIdentifiActivity.class);
+                intent = new Intent(mActivity, CarIdentifiActivity.class);
                 startActivity(intent);
                 break;
             case R.id.iv_mine_fragment_carowener_recruit:
-               intent=new Intent(mActivity,PreCarFriendIdentifiActivity.class);
-               startActivity(intent);
+                intent = new Intent(mActivity, PreCarFriendIdentifiActivity.class);
+                startActivity(intent);
                 break;
             case R.id.iv_minfragment_head_pic:
-                 DialogtoUpPic();
+                DialogtoUpPic();
                 break;
 
         }
 
     }
+
+    /*暂时调整到此处，确定逻辑后剪切即可*/
+    private void openShared() {
+        new ShareAction(mActivity)
+                .withText("至尊宝豪车共享")
+                .withMedia(new UMImage(mActivity, BitmapFactory.decodeResource(getResources(), R.drawable.p001)))
+                .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN)
+                .setCallback(shareListener)
+                .open();
+    }
+
+    private UMShareListener shareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            asyncShowToast("成功分享");
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            asyncShowToast("失败" + t.getMessage());
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            asyncShowToast("取消了");
+        }
+    };
 
     private void DialogtoUpPic() {
         new AlertDialog.Builder(mActivity)
@@ -164,11 +219,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                         // TODO Auto-generated method stub
                         dialog.dismiss();
                         Intent intent = new Intent(Intent.ACTION_PICK, null);
-                        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+                        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                         startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
                     }
                 }).show();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -190,6 +246,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     private void startPhotoZoom(Uri uri, int size) {
         Log.e("zoom", "begin");
         Intent intent = new Intent("com.android.camera.action.CROP");
@@ -208,6 +265,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         Log.e("zoom", "begin1");
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
     }
+
     private void setPicToView(Intent picdata) {
         Bundle bundle = picdata.getExtras();
         if (bundle != null) {
@@ -217,6 +275,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             iv_minfragment_head_pic.setImageBitmap(photo);
         }
     }
+
     private String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
