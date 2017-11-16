@@ -55,8 +55,8 @@ public class Constant {
     /*车型*/
     public static final String API_CAR_MODEL = SERVE_URL + "zzb/app/car/model";
 
-
-
+    /*车友认证*/
+    public static final String USER_AUTH = SERVE_URL+"zzb/app/member/userAuth";
 
     public static final String HOME_LUNBO_URL = SERVE_URL + "zzb/app/common/marquee";
     //品牌
@@ -77,6 +77,7 @@ public class Constant {
     public static final String END_POINT= "http://oss-cn-hangzhou.aliyuncs.com";
     public static final String BUCKET = "zzb-2017";
     public static final String IDCARD_KEYPATH = "zzbcar/idcard/";
-    public static final String SERVER_PHOTO_HEAD = "zzb-2017.oss-cn-hangzhou.aliyuncs.com/";
+    public static final String CARLICENCE_KEYPATH = "zzbcar/car";
+    public static final String SERVER_PHOTO_HEAD = "http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/";
 }
 

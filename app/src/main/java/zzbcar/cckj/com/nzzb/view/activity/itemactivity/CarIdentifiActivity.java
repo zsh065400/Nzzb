@@ -131,7 +131,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     private void ifCommit() {
         String name = etCar1Name.getText().toString().trim();
         String idcardNumber = etCar1Idcard.getText().toString().trim();
-        if(TextUtils.isEmpty(name)){
+        /*if(TextUtils.isEmpty(name)){
             Toast.makeText(mContext, "还没有输入姓名", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -142,12 +142,14 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         if(idCard.size()!=2){
             Toast.makeText(mContext, "还没有上传完身份证照片", Toast.LENGTH_SHORT).show();
             return;
-        }
+        }*/
         Intent intent = new Intent(mContext, CarLicenceActivity.class);
         intent.putExtra("name",name);
         intent.putExtra("idCardNumber",idcardNumber);
-        intent.putExtra("idCardUp",idCard.get(0));
-        intent.putExtra("idCardDown",idCard.get(1));
+        /*intent.putExtra("idCardUp",idCard.get(0));
+        intent.putExtra("idCardDown",idCard.get(1));*/
+        intent.putExtra("idCardUp","");
+        intent.putExtra("idCardDown","");
         startActivity(intent);
         finish();
     }
@@ -248,7 +250,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
 
     private void upload(File file) {
         showWaitDialog();
-        OssUtils.initOss(this).asyncPutObject(OssUtils.putImage(file), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+        OssUtils.initOss(this).asyncPutObject(OssUtils.putImage(file,Constant.IDCARD_KEYPATH), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
                 Message obtain = Message.obtain();
