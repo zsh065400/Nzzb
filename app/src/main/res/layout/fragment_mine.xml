@@ -159,6 +159,7 @@
             android:layout_width="match_parent"
             android:layout_height="12dp"/>
         <RelativeLayout
+            android:visibility="gone"
             android:background="@color/white"
             android:padding="15dp"
             android:id="@+id/rl_my_card"
@@ -183,6 +184,7 @@
                 android:src="@mipmap/arrow_right" />
         </RelativeLayout>
         <View
+            android:visibility="gone"
             android:layout_marginLeft="30dp"
             android:background="@color/light_while"
             android:layout_width="match_parent"

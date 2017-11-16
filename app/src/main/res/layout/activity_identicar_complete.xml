@@ -23,8 +23,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:background="@mipmap/car_identifi_right" />
 
             <TextView
@@ -33,24 +33,24 @@
                 android:layout_height="wrap_content"
                 android:text="恭喜你"
                 android:textColor="#ff4048"
-                android:textSize="40sp" />
+                android:textSize="26sp" />
 
             <TextView
                 android:layout_marginTop="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="你的认证审核已通过"
-                android:textSize="20sp" />
+                android:text="您的认证审核已通过"
+                android:textSize="14sp" />
 
             <Button
+                android:layout_margin="40dp"
                 android:id="@+id/bt_identifi_complete_rent"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
                 android:background="#ff4048"
                 android:text="马上租车"
-                android:textColor="@color/Zzb_BG"
-                android:textSize="18sp" />
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
         </LinearLayout>
 

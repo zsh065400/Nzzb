@@ -30,6 +30,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,6 +79,10 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
                     break;
                 case 1:
                     progressDialog.dismiss();
+                    Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+                    Toast.makeText(mContext, (String)msg.obj, Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -131,25 +136,41 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     private void ifCommit() {
         String name = etCar1Name.getText().toString().trim();
         String idcardNumber = etCar1Idcard.getText().toString().trim();
-        /*if(TextUtils.isEmpty(name)){
-            Toast.makeText(mContext, "还没有输入姓名", Toast.LENGTH_SHORT).show();
+        Message obtain = Message.obtain();
+        obtain.what =3;
+        if(TextUtils.isEmpty(name)){
+            obtain.obj = "还没有输入姓名";
+            handler.sendMessage(obtain);
             return;
         }
         if(TextUtils.isEmpty(idcardNumber)){
-            Toast.makeText(mContext, "还没有输入身份证号", Toast.LENGTH_SHORT).show();
+            obtain.obj = "还没有输入身份证号";
+            handler.sendMessage(obtain);
+            return;
+        }
+        if(idcardNumber.length()!=18){
+            obtain.obj = "身份证号码长度不符，再检查一下吧";
+            handler.sendMessage(obtain);
+            return;
+        }
+        String reg = "^[1-9]\\d{5}[1-9]\\d{3}((0\\[1-9]))|((1[0-2]))(([0\\[1-9]|1\\d|2\\d])|3[0-1])\\d{3}([0-9]|x|X){1}$";
+        if(!idcardNumber.matches(reg)){
+            obtain.obj = "身份证格式错误，再检查一下吧";
+            handler.sendMessage(obtain);
             return;
         }
         if(idCard.size()!=2){
-            Toast.makeText(mContext, "还没有上传完身份证照片", Toast.LENGTH_SHORT).show();
+            obtain.obj = "还没有上传完身份证照片";
+            handler.sendMessage(obtain);
             return;
-        }*/
+        }
         Intent intent = new Intent(mContext, CarLicenceActivity.class);
         intent.putExtra("name",name);
         intent.putExtra("idCardNumber",idcardNumber);
-        /*intent.putExtra("idCardUp",idCard.get(0));
-        intent.putExtra("idCardDown",idCard.get(1));*/
-        intent.putExtra("idCardUp","");
-        intent.putExtra("idCardDown","");
+        intent.putExtra("idCardUp",idCard.get(0));
+        intent.putExtra("idCardDown",idCard.get(1));
+        /*intent.putExtra("idCardUp","");
+        intent.putExtra("idCardDown","");*/
         startActivity(intent);
         finish();
     }
@@ -274,12 +295,6 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
                     Log.e("HostId", serviceException.getHostId());
                     Log.e("RawMessage", serviceException.getRawMessage());
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
                 handler.sendEmptyMessage(1);
             }
         });

@@ -35,38 +35,32 @@
        android:layout_marginTop="100dp"
         android:layout_gravity="center"
         android:src="@mipmap/un_address"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
 
        <TextView
            android:id="@+id/tv_add_newAddress_describe"
            android:layout_marginTop="40dp"
            android:layout_gravity="center"
-           android:textSize="25sp"
+           android:textSize="18sp"
            android:text="您还没有收车地址哦!"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content" />
-
-
-
-
    </LinearLayout>
-
-
-
 
 </LinearLayout>
 
     <TextView
+        android:padding="18dp"
         android:id="@+id/tv_commom_address_add"
         android:gravity="center"
         android:textColor="@color/Zzb_BG"
-        android:textSize="22sp"
+        android:textSize="16sp"
         android:text="+添加新地址"
         android:background="#ff4048"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="66dp" />
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
 

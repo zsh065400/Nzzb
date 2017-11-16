@@ -100,6 +100,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                     break;
                 case 1:
                     progressDialog.dismiss();
+                    Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -296,9 +297,17 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        progressDialog.dismiss();
+
                         Intent intent = new Intent(mContext, IdentiCompleteActivity.class);
                         startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(Response<String> response) {
+                        super.onError(response);
+                        progressDialog.dismiss();
+                        Toast.makeText(mContext, "提交出现问题，请稍后重试", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
@@ -437,12 +446,6 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                     Log.e("HostId", serviceException.getHostId());
                     Log.e("RawMessage", serviceException.getRawMessage());
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
                 handler.sendEmptyMessage(1);
             }
         });

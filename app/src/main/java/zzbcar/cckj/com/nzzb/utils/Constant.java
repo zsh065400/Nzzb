@@ -76,6 +76,10 @@ public class Constant {
     public static final String SP_LOGIN = "login";
 
     public static final String SP_LAST_LOCATION = "last_location";
+    //纬度
+    public static final String SP_LATITUDE = "latitude";
+    //经度
+    public static final String SP_LONGITUDE="longitude";
     //aliyun oss
     //TOdo 这里持久化AcciessId 和 Psd 会出现安全性问题。建议以后修改。
     public static final String ACCESS_ID = "LTAIwAHa3lPn0JXN";
