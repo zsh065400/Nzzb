@@ -20,8 +20,6 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="center_vertical"
             android:background="#0a1b2b"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:orientation="horizontal"
             android:paddingBottom="10dp"
             android:paddingLeft="5dp"
@@ -29,7 +27,6 @@
             android:paddingTop="15dp">
 
             <LinearLayout
-
                 android:id="@+id/ll_choose_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,8 +47,11 @@
             </LinearLayout>
 
             <include
+                android:id="@+id/search_find"
                 layout="@layout/searchview"
                 android:layout_width="0dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
@@ -93,8 +93,8 @@
                 android:id="@+id/indicator"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
                 app:ci_drawable="@drawable/indicator_circle_selected"
                 app:ci_drawable_unselected="@drawable/indicator_circle_unselected">
 
@@ -112,9 +112,9 @@
         <!--</zzbcar.cckj.com.nzzb.view.customview.MeasureGridView>-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_list_items"
-            android:padding="5dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="5dp">
 
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
