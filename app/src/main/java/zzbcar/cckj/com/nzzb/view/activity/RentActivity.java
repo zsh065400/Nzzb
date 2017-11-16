@@ -554,7 +554,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
         }
 
         public String buildUrl() {
-            return OkHttpUtil.obtainGetUrl(Constant.API_CAR_SCREEN,
+            return OkHttpUtil.obtainGetUrl(Constant.API_CAR_QUERY,
                     "brand", brand,
                     "series", series,
                     "model", model,

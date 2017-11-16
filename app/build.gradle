@@ -12,13 +12,13 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a','x86', 'x86_64', 'mips'
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
         manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
+                JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "3150b64ba78fd2f9da2efa87", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
     buildTypes {
@@ -71,7 +71,7 @@ dependencies {
     compile files('libs/umeng_social_net.jar')
     compile files('libs/umeng_social_tool.jar')
     //    compile files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
-        compile files('libs/weiboSDKCore.jar')
+    compile files('libs/weiboSDKCore.jar')
     compile 'com.android.support:cardview-v7:26.0.0-alpha1'
     compile files('libs/alipaySdk-20170922.jar')
     compile files('libs/libammsdk.jar')

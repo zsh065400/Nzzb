@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,6 +55,7 @@ import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BrandCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.LocationListActivity;
@@ -148,10 +150,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void initCarTypeList(List<MainPageBean.DataBean.BrandBean> brandDatas) {
         List<List<MainPageBean.DataBean.BrandBean>> split = ListUtils.split(brandDatas, 5);
         List<View> gridViews = new ArrayList<>();
-        for (List<MainPageBean.DataBean.BrandBean> dataBeans : split) {
+        for (final List<MainPageBean.DataBean.BrandBean> dataBeans : split) {
             GridItemAdapter itemAdapter = new GridItemAdapter(mActivity, dataBeans);
             GridView gridView = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
             gridView.setAdapter(itemAdapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    final Intent intent = new Intent(mActivity, BrandCarActivity.class);
+                    final MainPageBean.DataBean.BrandBean bean = dataBeans.get(position);
+                    intent.putExtra("brandId", String.valueOf(bean.getId()));
+                    intent.putExtra("brandName", String.valueOf(bean.getName()));
+                    startActivity(intent);
+                }
+            });
             gridViews.add(gridView);
         }
         vpChexingList.setAdapter(new GridPagerAdapter(gridViews));

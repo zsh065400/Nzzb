@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -34,6 +35,7 @@ import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BrandCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 
 /**
@@ -75,7 +77,7 @@ public class FindCarFragment extends BaseFragment {
     public void initViews(View view) {
         //下部滑动
         rvListItems.setLayoutManager(new GridLayoutManager(mActivity, 2, GridLayoutManager.VERTICAL, false));
-        rvListItems.addItemDecoration(new SpacesItemDecoration(new SpaceSize(25, 10, 10, 10)));
+        rvListItems.addItemDecoration(new SpacesItemDecoration(new SpaceSize(10, 10, 10, 10)));
         rvListItems.setNestedScrollingEnabled(false);
     }
 
@@ -97,10 +99,20 @@ public class FindCarFragment extends BaseFragment {
     private void initCarBrand() {
         List<List<BrandCarBean.DataBean>> split = ListUtils.split(brandList, 10);
         List<View> gridViews = new ArrayList<>();
-        for (List<BrandCarBean.DataBean> dataBeans : split) {
+        for (final List<BrandCarBean.DataBean> dataBeans : split) {
             GridItemAdapter itemAdapter = new GridItemAdapter(mActivity, dataBeans);
             GridView gridView = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
             gridView.setAdapter(itemAdapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    final Intent intent = new Intent(mActivity, BrandCarActivity.class);
+                    final BrandCarBean.DataBean bean = dataBeans.get(position);
+                    intent.putExtra("brandId", String.valueOf(bean.getId()));
+                    intent.putExtra("brandName", String.valueOf(bean.getName()));
+                    startActivity(intent);
+                }
+            });
             gridViews.add(gridView);
         }
         vp_grid_items.setAdapter(new GridPagerAdapter(gridViews));
