@@ -191,6 +191,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_car_1_name"
                 android:imeOptions="actionSearch"
                 android:lines="1"
                 android:layout_width="match_parent"
@@ -230,12 +231,13 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:id="@+id/et_car_1_idcard"
                android:imeOptions="actionSearch"
                 android:lines="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="请输入你的姓名"
+                android:hint="请输入你的身份证号"
                 android:textColor="@color/halfblack" />
         </LinearLayout>
 

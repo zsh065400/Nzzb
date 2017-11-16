@@ -71,10 +71,12 @@ public class Constant {
 
     public static final String SP_LAST_LOCATION="last_location";
     //aliyun oss
+    //TOdo 这里持久化AcciessId 和 Psd 会出现安全性问题。建议以后修改。
     public static final String ACCESS_ID = "LTAIwAHa3lPn0JXN";
     public static final String ACCESS_PAS ="eN01vFRyf3uBe6KxM1R2Abdzy0QcPw";
     public static final String END_POINT= "http://oss-cn-hangzhou.aliyuncs.com";
     public static final String BUCKET = "zzb-2017";
     public static final String IDCARD_KEYPATH = "zzbcar/idcard/";
+    public static final String SERVER_PHOTO_HEAD = "zzb-2017.oss-cn-hangzhou.aliyuncs.com/";
 }
 
