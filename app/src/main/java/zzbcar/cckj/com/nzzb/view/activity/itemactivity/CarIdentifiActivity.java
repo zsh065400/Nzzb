@@ -5,8 +5,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,17 +15,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.alibaba.sdk.android.oss.ClientException;
-import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.common.utils.OSSUtils;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
-import com.baidu.mapapi.map.Text;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -35,8 +31,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
+import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
@@ -44,32 +43,38 @@ import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 public class CarIdentifiActivity extends BaseActivity implements View.OnClickListener {
 
 
+    @BindView(R.id.et_car_1_name)
+    EditText etCar1Name;
+    @BindView(R.id.et_car_1_idcard)
+    EditText etCar1Idcard;
     private Button bt_identicar_nest;
     private ImageView iv_identificar_idcar_up;
     private ImageView iv_identificar_idcar_down;
     private static final int PHOTO_REQUEST_TAKEPHOTO = 1;
     private static final int PHOTO_REQUEST_GALLERY = 2;
-    private static final int PHOTO_REQUEST_IDCAR_UP= 300;
-    private static final int PHOTO_REQUEST_IDCAR_DOWN= 4;
+    private static final int PHOTO_REQUEST_IDCAR_UP = 300;
+    private static final int PHOTO_REQUEST_IDCAR_DOWN = 4;
     private boolean isUp = true;
     private String path = Environment.getExternalStorageDirectory().getPath() + File.separator + "zzbcar" + File.separator + "icon";
     private ArrayList<String> idCard = new ArrayList<>();
-    File tempFile = new File(Environment.getExternalStorageDirectory(),getPhotoFileName());
+    File tempFile = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
     private File cropfile;
     private ProgressDialog progressDialog;
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     progressDialog.dismiss();
                     PutObjectResult obj = (PutObjectResult) msg.obj;
-                    if(isUp){
-                        LogUtil.e("abc'");
-                    }else{
-
+                    String idCardTemp = Constant.SERVER_PHOTO_HEAD + Constant.IDCARD_KEYPATH + cropfile.getName();
+                    ;
+                    if (isUp) {
+                        idCard.add(0, idCardTemp);
+                    } else {
+                        idCard.add(1, idCardTemp);
                     }
-                    LogUtil.e(obj.getServerCallbackReturnBody()+"++++"+ TextUtils.isEmpty(obj.getServerCallbackReturnBody()));
+                    LogUtil.e(idCardTemp);
                     break;
                 case 1:
                     progressDialog.dismiss();
@@ -77,6 +82,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
             }
         }
     };
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_car_identifi1;
@@ -95,27 +101,22 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         iv_identificar_idcar_down.setOnClickListener(this);
         iv_identificar_idcar_up.setOnClickListener(this);
 
-         new TitleBuilder(this).setTitleText("车友认证").setLeftIco(R.mipmap.row_back).setLeftIcoListening(leftReturnListener);
+        new TitleBuilder(this).setTitleText("车友认证").setLeftIco(R.mipmap.row_back).setLeftIcoListening(leftReturnListener);
     }
 
 
     @Override
     public void onClick(View view) {
-        Intent intent=null;
+        Intent intent = null;
         switch (view.getId()) {
 
             case R.id.bt_identicar_nest:
-                if(idCard.size()!=2){
-                    intent  =new Intent(this,CarLicenceActivity.class);
-                    startActivity(intent);
-                }else{
-                    Toast.makeText(mContext, "信息还没有填写完毕", Toast.LENGTH_SHORT).show();
-                }
-
+                //判断是否能提交下个界面
+                ifCommit();
                 break;
             case R.id.iv_identificar_idcar_up:
                 isUp = true;
-               showDialog();
+                showDialog();
                 break;
 
             case R.id.iv_identificar_idcar_down:
@@ -124,6 +125,31 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
                 break;
 
         }
+    }
+
+    //提交下一个界面的方法。
+    private void ifCommit() {
+        String name = etCar1Name.getText().toString().trim();
+        String idcardNumber = etCar1Idcard.getText().toString().trim();
+        if(TextUtils.isEmpty(name)){
+            Toast.makeText(mContext, "还没有输入姓名", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(TextUtils.isEmpty(idcardNumber)){
+            Toast.makeText(mContext, "还没有输入身份证号", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(idCard.size()!=2){
+            Toast.makeText(mContext, "还没有上传完身份证照片", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(mContext, CarLicenceActivity.class);
+        intent.putExtra("name",name);
+        intent.putExtra("idCardNumber",idcardNumber);
+        intent.putExtra("idCardUp",idCard.get(0));
+        intent.putExtra("idCardDown",idCard.get(1));
+        startActivity(intent);
+        finish();
     }
 
     private void showDialog() {
@@ -150,7 +176,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
                         // TODO Auto-generated method stub
                         dialog.dismiss();
                         Intent intent = new Intent(Intent.ACTION_PICK, null);
-                        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+                        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                         startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
                     }
                 }).show();
@@ -165,17 +191,17 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
 
             case PHOTO_REQUEST_GALLERY:
 
-                if (data != null){
+                if (data != null) {
                     startPhotoZoom(data.getData(), 150);
                 }
                 break;
 
             case PHOTO_REQUEST_IDCAR_UP:
                 Log.e("zoom", "begin2");
-                if (data != null){
-                    if (isUp){
+                if (data != null) {
+                    if (isUp) {
                         setIdCarUPToView(data);
-                    }else{
+                    } else {
                         setIdCarDownToView(data);
                     }
                 }
@@ -194,7 +220,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
-        intent.putExtra("scale",true);
+        intent.putExtra("scale", true);
         Log.e("zoom", "begin1");
         File file = new File(path);
         if (!file.exists()) {
@@ -205,6 +231,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         startActivityForResult(intent, PHOTO_REQUEST_IDCAR_UP);
     }
+
     private void setIdCarUPToView(Intent picdata) {
         //Bundle bundle = picdata.getExtras();
         /*if (picdata != null) {
@@ -212,7 +239,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
             iv_identificar_idcar_up.setScaleType(ImageView.ScaleType.CENTER_CROP);
             iv_identificar_idcar_up.setImageBitmap(bitmap);*/
         Picasso.with(this).load(Uri.fromFile(cropfile)).fit().into(iv_identificar_idcar_up);
-            upload(cropfile);
+        upload(cropfile);
 
 
         //Bitmap photo2= bundle.getParcelable("data");
@@ -222,41 +249,41 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     private void upload(File file) {
         showWaitDialog();
         OssUtils.initOss(this).asyncPutObject(OssUtils.putImage(file), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-                @Override
-                public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
-                    Message obtain = Message.obtain();
-                    obtain.obj = putObjectResult;
-                    obtain.what = 0;
-                    handler.sendMessage(obtain);
-                }
+            @Override
+            public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
+                Message obtain = Message.obtain();
+                obtain.obj = putObjectResult;
+                obtain.what = 0;
+                handler.sendMessage(obtain);
+            }
 
-                @Override
-                public void onFailure(PutObjectRequest putObjectRequest, ClientException clientExcepion, ServiceException serviceException) {
+            @Override
+            public void onFailure(PutObjectRequest putObjectRequest, ClientException clientExcepion, ServiceException serviceException) {
 
-                    // 请求异常
-                    if (clientExcepion != null) {
-                        // 本地异常如网络异常等
-                        clientExcepion.printStackTrace();
-                    }
-                    if (serviceException != null) {
-                        // 服务异常
-                        Log.e("ErrorCode", serviceException.getErrorCode());
-                        Log.e("RequestId", serviceException.getRequestId());
-                        Log.e("HostId", serviceException.getHostId());
-                        Log.e("RawMessage", serviceException.getRawMessage());
-                    }
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    handler.sendEmptyMessage(1);
+                // 请求异常
+                if (clientExcepion != null) {
+                    // 本地异常如网络异常等
+                    clientExcepion.printStackTrace();
                 }
-            });
+                if (serviceException != null) {
+                    // 服务异常
+                    Log.e("ErrorCode", serviceException.getErrorCode());
+                    Log.e("RequestId", serviceException.getRequestId());
+                    Log.e("HostId", serviceException.getHostId());
+                    Log.e("RawMessage", serviceException.getRawMessage());
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                handler.sendEmptyMessage(1);
+            }
+        });
     }
 
-    private  View.OnClickListener leftReturnListener=new View.OnClickListener() {
+    private View.OnClickListener leftReturnListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             finish();
@@ -268,11 +295,19 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         SimpleDateFormat dateFormat = new SimpleDateFormat("'IMG'_yyyyMMdd_HHmmss");
         return dateFormat.format(date) + ".jpg";
     }
+
     private void showWaitDialog() {
         progressDialog = new ProgressDialog(this);
         progressDialog.setProgressStyle(R.style.MaterialDialog);
         progressDialog.setMessage("正在上传");
         progressDialog.setCancelable(false);
         progressDialog.show();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
