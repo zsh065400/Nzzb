@@ -7,6 +7,7 @@ import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
+import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
@@ -14,7 +15,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_blank;
     }
 
     @Override

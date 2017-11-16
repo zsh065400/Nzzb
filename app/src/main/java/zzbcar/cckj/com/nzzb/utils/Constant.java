@@ -56,10 +56,10 @@ public class Constant {
     public static final String API_CAR_MODEL = SERVE_URL + "zzb/app/car/model";
 
     /*获取服务器时间*/
-    public static final String GET_SERVER_TIME = SERVE_URL + "zzb/app/common/svrtm";
+    public static final String API_SERVER_TIME = SERVE_URL + "zzb/app/common/svrtm";
 
     /*获取热搜内容*/
-    public static final String GET_FIRE_SEARCH = SERVE_URL + "zzb/app/car/searchfreq";
+    public static final String API_FIRE_SEARCH = SERVE_URL + "zzb/app/car/searchfreq";
 
     public static final String HOME_LUNBO_URL = SERVE_URL + "zzb/app/common/marquee";
     //品牌

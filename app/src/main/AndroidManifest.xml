@@ -172,6 +172,8 @@
 
         <activity android:name=".view.activity.itemactivity.BrandCarActivity">
         </activity>
+        <activity android:name=".view.activity.itemactivity.SearchActivity">
+        </activity>
     </application>
 
 </manifest>

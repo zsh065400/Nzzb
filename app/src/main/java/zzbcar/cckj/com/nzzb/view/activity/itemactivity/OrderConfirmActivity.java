@@ -1,6 +1,7 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +19,9 @@ import zzbcar.cckj.com.nzzb.bean.CarDetailBean;
 import zzbcar.cckj.com.nzzb.bean.OrderBean;
 import zzbcar.cckj.com.nzzb.bean.PriceListBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
+import zzbcar.cckj.com.nzzb.bean.TimeBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.EncryptUtils;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
@@ -88,14 +91,39 @@ public class OrderConfirmActivity extends BaseActivity {
                 final PriceListBean priceListBean = GsonUtil.parseJsonWithGson(body, PriceListBean.class);
                 if (priceListBean.getErrno() == 0) {
                     final double amount = priceListBean.getData().getAmount();
-                    openOrder(amount);
+                    getServerTime(amount);
                 } else asyncShowToast(priceListBean.getMessage());
             }
         });
     }
 
+    /*获取服务器时间，开单校准*/
+    private void getServerTime(final double amount) {
+        OkGo.<String>get(Constant.API_SERVER_TIME).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                final TimeBean timeBean = GsonUtil.parseJsonWithGson(response.body(), TimeBean.class);
+                if (timeBean.getErrno() == 0) {
+                    final long serverTime = timeBean.getData();
+                    final Date date = new Date();
+                    final long currentTime = date.getTime() / 1000;
+                    Log.d(TAG, "server: " + serverTime + " current" + currentTime);
+                    if (currentTime - serverTime > 8) {
+                        asyncShowToast("校时失败，无法提交订单");
+                    } else {
+                        final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                        final String format = sdf.format(date);
+                        openOrder(amount, format);
+                    }
+                } else {
+                    asyncShowToast("获取服务器时间失败");
+                }
+            }
+        });
+    }
+
     /*开单*/
-    private void openOrder(double amount) {
+    private void openOrder(double amount, String time) {
         final String url = OkHttpUtil.obtainGetUrl(Constant.API_ADD_ORDER,
                 "carId", String.valueOf(cardetail.getId()),
                 "userId", String.valueOf(userId),
@@ -109,18 +137,23 @@ public class OrderConfirmActivity extends BaseActivity {
                 "takeTime", startTime,
                 "returnHome", "0",
                 "leasePrice", String.valueOf(amount),
-                "returnTime", endTime);
+                "returnTime", endTime,
+                "timestamp", time,
+                "seat", EncryptUtils.getMD5("zzb" + String.valueOf(cardetail.getId() + String.valueOf(userId) + time)),
+                "ver", "1");
         OkGo.<String>get(url).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
                 final String body = response.body();
                 final OrderBean orderBean = GsonUtil.parseJsonWithGson(body, OrderBean.class);
-                orderBeanData = orderBean.getData();
-                System.out.println(body);
-                /*启动*/
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("payinfo", orderBeanData);
-                toActivity(PayActivity.class, bundle);
+                if (orderBean.getErrno() == 0) {
+                    orderBeanData = orderBean.getData();
+                    System.out.println(body);
+                    /*启动*/
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("payinfo", orderBeanData);
+                    toActivity(PayActivity.class, bundle);
+                } else asyncShowToast(orderBean.getMessage());
             }
 
             @Override
