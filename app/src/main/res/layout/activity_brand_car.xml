@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity">
+
+    <include layout="@layout/default_line_1dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_keyboard_arrow_left_black_36dp"/>
+
+        <TextView
+            android:id="@+id/tv_brand_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:text="品牌车辆"
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_brand_car_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>

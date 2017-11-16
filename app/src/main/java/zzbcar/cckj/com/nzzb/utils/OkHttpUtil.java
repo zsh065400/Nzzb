@@ -99,7 +99,7 @@ public class OkHttpUtil {
     public static void upLoadFile(String url, File file, String fileName, Callback callback) throws IOException {
         RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
        /* RequestBody requestBody = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
+                .setUseType(MultipartBody.FORM)
                 .addFormDataPart("file" , fileName , fileBody)
                 .build();*/
         Request request = new Request.Builder().url(url).post(fileBody).build();

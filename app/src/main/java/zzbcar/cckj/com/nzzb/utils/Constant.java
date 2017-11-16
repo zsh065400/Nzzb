@@ -43,22 +43,41 @@ public class Constant {
     /*查询租金*/
     public static final String API_QUERY_PRICE = SERVE_URL + "zzb/app/bus/calcPrice";
 
+    /*车辆筛选*/
+    public static final String API_CAR_QUERY = SERVE_URL + "zzb/app/car/queryCarByCondition";
+
+    /*车辆品牌*/
+    public static final String API_CAR_BRAND = SERVE_URL + "zzb/app/car/brand";
+
+    /*车系*/
+    public static final String API_CAR_SERIES = SERVE_URL + "zzb/app/car/series";
+
+    /*车型*/
+    public static final String API_CAR_MODEL = SERVE_URL + "zzb/app/car/model";
+
+    /*获取服务器时间*/
+    public static final String API_SERVER_TIME = SERVE_URL + "zzb/app/common/svrtm";
+
+    /*获取热搜内容*/
+    public static final String API_FIRE_SEARCH = SERVE_URL + "zzb/app/car/searchfreq";
+
     public static final String HOME_LUNBO_URL = SERVE_URL + "zzb/app/common/marquee";
     //品牌
     public static final String CAR_BRAND_URL = SERVE_URL + "zzb/app/car/brand";
-    //  车系
-    public static final String CAR_SERIES_URL = SERVE_URL + "zzb/app/car/series";
 
     public static final String CAR_DEFAULT_URL = SERVE_URL + "zzb/app/car/queryCarByCondition?pageNum=0&pageSize=10";
-    public static final String LOCATION_SELECT_URL=SERVE_URL+"zzb/app/common/citys";
+    public static final String LOCATION_SELECT_URL = SERVE_URL + "zzb/app/common/citys";
 
     public static final String SP_LOGIN = "login";
-    public static final String SP_LAST_LOCATION="last_location";
+
+    public static final String SP_LAST_LOCATION = "last_location";
     //aliyun oss
+    //TOdo 这里持久化AcciessId 和 Psd 会出现安全性问题。建议以后修改。
     public static final String ACCESS_ID = "LTAIwAHa3lPn0JXN";
-    public static final String ACCESS_PAS ="eN01vFRyf3uBe6KxM1R2Abdzy0QcPw";
-    public static final String END_POINT= "http://oss-cn-hangzhou.aliyuncs.com";
+    public static final String ACCESS_PAS = "eN01vFRyf3uBe6KxM1R2Abdzy0QcPw";
+    public static final String END_POINT = "http://oss-cn-hangzhou.aliyuncs.com";
     public static final String BUCKET = "zzb-2017";
     public static final String IDCARD_KEYPATH = "zzbcar/idcard/";
+    public static final String SERVER_PHOTO_HEAD = "zzb-2017.oss-cn-hangzhou.aliyuncs.com/";
 }
 

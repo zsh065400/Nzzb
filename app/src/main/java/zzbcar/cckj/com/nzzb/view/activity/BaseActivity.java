@@ -38,7 +38,6 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -104,10 +103,11 @@ public abstract class BaseActivity extends FragmentActivity {
      * 初始化数据
      */
     protected abstract void initDatas();
-    public  void setStatusBar(){
-        StatusBarUtil.setTranslucentForImageView(this,null);
-        StatusBarUtil.MIUISetStatusBarLightMode(this,true);
-        StatusBarUtil.FlymeSetStatusBarLightMode(this,true);
+
+    protected void setStatusBar() {
+        StatusBarUtil.setTranslucentForImageView(this, null);
+        StatusBarUtil.MIUISetStatusBarLightMode(this, true);
+        StatusBarUtil.FlymeSetStatusBarLightMode(this, true);
     }
 
 }

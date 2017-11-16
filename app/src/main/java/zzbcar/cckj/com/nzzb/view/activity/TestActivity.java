@@ -106,7 +106,7 @@ public class TestActivity extends AppCompatActivity {
 //        @Override
 //        public View getView(int i, View view, ViewGroup viewGroup) {
 //
-//            View view1 = View.inflate(TestActivity.this, R.layout.aa, null);
+//            View view1 = View.inflate(TestActivity.this, R.layout.car_brand, null);
 //            ImageView iv_car = (ImageView)view1.findViewById(R.id.iv_car);
 //            TextView tv_car = (TextView)view1.findViewById(R.id.tv_car);
 //
