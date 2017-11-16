@@ -95,4 +95,6 @@ dependencies {
     compile files('libs/SocialSDK_Sina_Simplify.jar')
     compile 'com.github.Jay-Goo:RangeSeekBar:v1.1.0'
     compile 'com.aliyun.dpa:oss-android-sdk:2.4.5'
+    compile 'com.contrarywind:Android-PickerView:3.2.7'
+//    compile 'com.github.pinguo-zhouwei:CustomPopwindow:2.1.1'
 }

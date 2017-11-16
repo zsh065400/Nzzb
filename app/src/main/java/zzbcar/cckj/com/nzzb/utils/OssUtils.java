@@ -40,12 +40,12 @@ public class OssUtils {
         return oss;
     }
     //上传图片
-    public static PutObjectRequest putImage(File file){
+    public static PutObjectRequest putImage(File file,String ossPath){
         if(put==null){
             ObjectMetadata objectMeta = new ObjectMetadata();
             //objectMeta.setContentType("image/jpeg");
             LogUtil.e("============"+file.getPath()+"========="+file.getName());
-            put = new PutObjectRequest(Constant.BUCKET, Constant.IDCARD_KEYPATH+file.getName(),file.getPath());
+            put = new PutObjectRequest(Constant.BUCKET, ossPath+file.getName(),file.getPath());
             put.setMetadata(objectMeta);
             put.setCallbackParam(new HashMap<String, String>() {
                 {

@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -37,6 +36,7 @@ import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BrandCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SearchActivity;
 
 /**
  * Created by Admin on 2017/10/31.
@@ -48,12 +48,10 @@ public class FindCarFragment extends BaseFragment {
     TextView tvHomeLocalCity;
     @BindView(R.id.ll_choose_city)
     LinearLayout llChooseCity;
-    @BindView(R.id.et_home_search)
-    EditText etHomeSearch;
     @BindView(R.id.ib_erweima)
     ImageButton ibErweima;
-    @BindView(R.id.TopTitleBar)
-    LinearLayout TopTitleBar;
+    @BindView(R.id.search_find)
+    LinearLayout searchFind;
     private OkManager manager = new OkManager();
 
     private List<CarDefaultBean.DataBean> carList = new ArrayList<>();
@@ -161,6 +159,13 @@ public class FindCarFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 toActivity(LoginActivity.class);
+            }
+        });
+        searchFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toActivity(SearchActivity.class);
+                System.out.println("搜索栏点击");
             }
         });
     }
