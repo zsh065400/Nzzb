@@ -2,19 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:clickable="true"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
               android:gravity="center"
               android:orientation="horizontal">
 
-    <EditText
+    <TextView
         android:id="@+id/et_home_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:background="@drawable/search_frame"
-        android:focusable="false"
+        android:gravity="center_vertical"
         android:lines="1"
         android:paddingLeft="32dp"
-        android:textCursorDrawable="@null"
         android:textSize="16sp"/>
 
 </LinearLayout>
