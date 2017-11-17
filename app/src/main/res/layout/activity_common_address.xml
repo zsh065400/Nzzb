@@ -7,10 +7,9 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
 <LinearLayout
+    android:background="@color/light_while"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,11 +20,19 @@
 
     <include layout="@layout/activity_title"  />
 
+    <android.support.v7.widget.RecyclerView
 
-
+        android:layout_marginTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:id="@+id/rv_comm_addr"></android.support.v7.widget.RecyclerView>
    <LinearLayout
+       android:visibility="visible"
+       android:id="@+id/ll_no_address"
        android:orientation="vertical"
-       android:background="#f5f5f5"
+       android:background="@color/light_while"
        android:layout_weight="1"
        android:layout_width="match_parent"
        android:layout_height="0dp">
@@ -35,40 +42,33 @@
        android:layout_marginTop="100dp"
         android:layout_gravity="center"
         android:src="@mipmap/un_address"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
 
        <TextView
            android:id="@+id/tv_add_newAddress_describe"
            android:layout_marginTop="40dp"
            android:layout_gravity="center"
-           android:textSize="25sp"
+           android:textSize="18sp"
            android:text="您还没有收车地址哦!"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content" />
-
-
-
-
    </LinearLayout>
-
-
-
-
-</LinearLayout>
-
     <TextView
+        android:padding="18dp"
         android:id="@+id/tv_commom_address_add"
         android:gravity="center"
         android:textColor="@color/Zzb_BG"
-        android:textSize="22sp"
+        android:textSize="16sp"
         android:text="+添加新地址"
         android:background="#ff4048"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="66dp" />
+        android:layout_height="wrap_content" />
+</LinearLayout>
 
-</RelativeLayout>
+   
+
 
 
 </FrameLayout>

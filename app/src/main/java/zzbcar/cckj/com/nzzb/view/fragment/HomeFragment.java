@@ -52,6 +52,7 @@ import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ListUtils;
+import zzbcar.cckj.com.nzzb.utils.SPUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
@@ -409,6 +410,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         city = city.substring(0, city.length() - 1);
                         final String fincity = city;
                         String last = SPUtils.getString(mActivity, Constant.SP_LAST_LOCATION, "");
+                        final double latitude = bdLocation.getLatitude();
+                        final double longitude = bdLocation.getLongitude();
+                        if(TextUtils.isEmpty(last)){
+                            SPUtils.saveString(mActivity, Constant.SP_LAST_LOCATION, fincity);
+                            SPUtils.saveString(mActivity,Constant.SP_LATITUDE,latitude+"");
+                            SPUtils.saveString(mActivity,Constant.SP_LONGITUDE,longitude+"");
+                        }
                         if (!last.equals(city)) {
                             new AlertDialog.Builder(mActivity)
                                     .setMessage("定位到当前城市有变更，是否改变城市")
@@ -417,6 +425,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                         public void onClick(DialogInterface dialog, int which) {
                                             tvLocation.setText(fincity);
                                             SPUtils.saveString(mActivity, Constant.SP_LAST_LOCATION, fincity);
+                                            SPUtils.saveString(mActivity,Constant.SP_LATITUDE,latitude+"");
+                                            SPUtils.saveString(mActivity,Constant.SP_LONGITUDE,longitude+"");
                                         }
                                     })
                                     .setNegativeButton("取消", null)

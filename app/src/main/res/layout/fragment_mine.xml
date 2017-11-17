@@ -159,6 +159,7 @@
             android:layout_width="match_parent"
             android:layout_height="12dp"/>
         <RelativeLayout
+            android:visibility="gone"
             android:background="@color/white"
             android:padding="15dp"
             android:id="@+id/rl_my_card"
@@ -183,6 +184,7 @@
                 android:src="@mipmap/arrow_right" />
         </RelativeLayout>
         <View
+            android:visibility="gone"
             android:layout_marginLeft="30dp"
             android:background="@color/light_while"
             android:layout_width="match_parent"
@@ -372,6 +374,19 @@
                 android:layout_marginRight="20dp"
                 android:src="@mipmap/arrow_right" />
         </RelativeLayout>
+        <View
+            android:background="@color/light_while"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"/>
+        <TextView
+            android:id="@+id/tv_my_checkout"
+            android:textSize="16sp"
+            android:padding="15dp"
+            android:gravity="center"
+            android:text="退出登录"
+            android:textColor="@color/sure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <View
             android:background="@color/light_while"
             android:layout_width="wrap_content"

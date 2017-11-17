@@ -1,139 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/light_while">
 
-    <ImageView
-
-        android:background="#f7f7f9"
+    <android.support.v7.widget.RecyclerView
+        android:background="@color/white"
+        android:layout_marginTop="10dp"
+        android:id="@+id/rv_break_complete"
         android:layout_width="match_parent"
-        android:layout_height="15dp" />
-    <LinearLayout
-        android:layout_marginTop="13dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-
-            android:layout_marginLeft="14dp"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:text="订单号 ："
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:singleLine="true"
-            android:id="@+id/et_break_ruledoing_order_reference"
-            android:background="@null"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    <View
-        android:layout_marginTop="13dp"
-        android:background="@color/divider"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
-    <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="13dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:text="违章地址 ："
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:maxLines="2"
-            android:background="@null"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="13dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:text="违章时间 ："
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:singleLine="true"
-            android:background="@null"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="13dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:singleLine="true"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:text="罚款金额 ："
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:background="@null"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="13dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:singleLine="true"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:text="扣分情况 ："
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:background="@null"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="13dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:text="违法行为 ："
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <EditText
-            android:maxLines="3"
-            android:textColor="@color/halfblack"
-            android:background="@null"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

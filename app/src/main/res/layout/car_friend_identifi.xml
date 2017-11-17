@@ -19,7 +19,7 @@
         <TextView
             android:layout_gravity="center"
             android:textColor="#444444"
-            android:textSize="23sp"
+            android:textSize="18sp"
             android:text="姓名 :"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -27,7 +27,7 @@
         <EditText
             android:background="@null"
            android:layout_marginLeft="50dp"
-            android:textSize="23sp"
+            android:textSize="18sp"
             android:hint="您的姓名"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -35,6 +35,8 @@
     </LinearLayout>
 
     <View
+        android:layout_marginRight="13dp"
+        android:layout_marginLeft="13dp"
          android:background="@color/divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"/>
@@ -48,7 +50,7 @@
         <TextView
             android:layout_gravity="center"
             android:textColor="#444444"
-            android:textSize="23sp"
+            android:textSize="18sp"
             android:text="手机号 :"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -56,7 +58,7 @@
         <EditText
             android:background="@null"
             android:layout_marginLeft="30dp"
-            android:textSize="23sp"
+            android:textSize="18sp"
             android:hint="请输入联系方式"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -64,17 +66,28 @@
     </LinearLayout>
 
     <View
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
         android:background="@color/divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"/>
 
-    <Button
-        android:id="@+id/bt_carfriend_identifi_commit"
-        android:background="#ff4048"
+    <LinearLayout
         android:layout_marginTop="15dp"
-        android:layout_gravity="center"
-        android:text="确定"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content" />
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:textColor="@color/white"
+            android:id="@+id/bt_carfriend_identifi_commit"
+            android:background="#ff4048"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="确定"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>

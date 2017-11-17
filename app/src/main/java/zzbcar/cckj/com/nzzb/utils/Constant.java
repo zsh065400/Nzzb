@@ -72,10 +72,17 @@ public class Constant {
 
     public static final String CAR_DEFAULT_URL = SERVE_URL + "zzb/app/car/queryCarByCondition?pageNum=0&pageSize=10";
     public static final String LOCATION_SELECT_URL = SERVE_URL + "zzb/app/common/citys";
-
+    //常用地址
+    public static final String GET_ADDR = SERVE_URL+"zzb/app/member/getAddr";
+    public static final String ADD_ADDR = SERVE_URL+"zzb/app/member/addAddr";
+    public static final String DEL_ADDR = SERVE_URL+"zzb/app/member/delAddr";
     public static final String SP_LOGIN = "login";
 
     public static final String SP_LAST_LOCATION = "last_location";
+    //纬度
+    public static final String SP_LATITUDE = "latitude";
+    //经度
+    public static final String SP_LONGITUDE="longitude";
     //aliyun oss
     //TOdo 这里持久化AcciessId 和 Psd 会出现安全性问题。建议以后修改。
     public static final String ACCESS_ID = "LTAIwAHa3lPn0JXN";
@@ -85,5 +92,15 @@ public class Constant {
     public static final String IDCARD_KEYPATH = "zzbcar/idcard/";
     public static final String CARLICENCE_KEYPATH = "zzbcar/car";
     public static final String SERVER_PHOTO_HEAD = "http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/";
+
+    //加载的网页链接
+    //用户协议
+    public static final String MASTER_PROTOCOL="http://app.zzbcar.com/zzb/helpcenter/ptgz.html";
+    //用车流程
+    public static final String USE_PROCEDURE="http://app.zzbcar.com/zzb/helpcenter/user1.html";
+    //用户押金
+    public static final String USER_DEPOSIT = "http://app.zzbcar.com/zzb/helpcenter/user2.html";
+    //注册审核
+    public static final String SIGN_PROTOCOL = "http://app.zzbcar.com/zzb/helpcenter/user3.html";
 }
 
