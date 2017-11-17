@@ -10,6 +10,7 @@ import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.MyViewPagerAdapter;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.CancelFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.CompleteFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.ProceedFragment;
@@ -19,18 +20,18 @@ import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.UnProceedFragment;
  * Created by Admin on 2017/10/31.
  */
 
-public class JourneyFragment extends BaseFragment implements TabLayout.OnTabSelectedListener{
+public class JourneyFragment extends BaseFragment implements TabLayout.OnTabSelectedListener {
 
     private TabLayout journet_tab_layou;
     private ViewPager journey_view_pager;
     //TabLayout标签
-    private String[] titles=new String[]{"未进行","进行中","已完成","已取消"};
-    private List<Fragment> fragments=new ArrayList<>();
+    private String[] titles = new String[]{"未进行", "进行中", "已完成", "已取消"};
+    private List<Fragment> fragments = new ArrayList<>();
     private MyViewPagerAdapter viewPagerAdapter;
 
     @Override
     public int getLayoutId() {
-        return  R.layout.fragment_journey;
+        return R.layout.fragment_journey;
     }
 
     @Override
@@ -49,14 +50,16 @@ public class JourneyFragment extends BaseFragment implements TabLayout.OnTabSele
 
     @Override
     public void initViews(View view) {
-        journet_tab_layou = (TabLayout)view.findViewById(R.id.journet_tab_layou);
-        journey_view_pager = (ViewPager)view.findViewById(R.id.journey_view_pager);
+        journet_tab_layou = (TabLayout) view.findViewById(R.id.journet_tab_layou);
+        journey_view_pager = (ViewPager) view.findViewById(R.id.journey_view_pager);
         //设置TabLayout标签的显示方式
         journet_tab_layou.setTabMode(TabLayout.MODE_FIXED);
         //循环注入标签
-        for (String tab:titles){
+        for (String tab : titles) {
             journet_tab_layou.addTab(journet_tab_layou.newTab().setText(tab));
         }
+
+        StatusBarUtil.setViewTopPadding(mActivity, view, R.id.top_bar);
     }
 
     @Override

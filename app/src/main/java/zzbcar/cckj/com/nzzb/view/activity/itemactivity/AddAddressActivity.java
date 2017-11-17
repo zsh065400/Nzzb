@@ -1,4 +1,4 @@
-package zzbcar.cckj.com.nzzb.view.fragment.itemfragment;
+package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,14 +29,14 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.REGutil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
-import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SetAddressActivity;
 
 /**
  * Created by Admin on 2017/11/7.
  */
 
-public class AddAddressFragment extends BaseActivity implements View.OnClickListener {
+public class AddAddressActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.title_leftIco)
     ImageView titleLeftIco;
@@ -72,7 +72,7 @@ public class AddAddressFragment extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initViews() {
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override

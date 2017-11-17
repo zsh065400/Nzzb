@@ -39,6 +39,7 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 public class SearchActivity extends BaseActivity {
@@ -76,6 +77,7 @@ public class SearchActivity extends BaseActivity {
 
         rvSearchHistory.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvSearchHistory.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override
@@ -253,6 +255,7 @@ public class SearchActivity extends BaseActivity {
         etSearch.setText(searchText);
         /*移动到末尾*/
         etSearch.setSelection(etSearch.getText().length());
+        doSearch();
     }
 
     /*搜索操作*/

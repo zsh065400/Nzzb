@@ -9,69 +9,80 @@
     tools:context="zzbcar.cckj.com.nzzb.view.activity.itemactivity.HelpCenterActivity">
 
     <include layout="@layout/activity_title"/>
+
     <ImageView
-        android:background="#f5f5f5"
         android:layout_width="match_parent"
-        android:layout_height="15dp" />
+        android:layout_height="15dp"
+        android:background="#f5f5f5"/>
 
 
     <RadioGroup
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/rb_use_car_flow"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_home"
-            android:text="用车流程" />
+            android:text="用车流程"/>
+
         <RadioButton
             android:id="@+id/rb_use_car_cash"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_home"
-            android:text="用车押金" />
+            android:text="用车押金"/>
+
         <RadioButton
             android:id="@+id/rb_regist_check"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_home"
-            android:text="注册审核" />
+            android:text="注册审核"/>
+
         <RadioButton
             android:id="@+id/rb_pltform_security"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_home"
-            android:text="平台保障" />
+            android:text="平台保障"/>
 
     </RadioGroup>
+
     <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
         android:layout_marginTop="20dp"
-        android:background="@color/divider"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        android:background="@color/divider"/>
+
     <RadioGroup
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
         <RadioButton
             android:id="@+id/rb_deal_break_rule"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_home"
-            android:text="用车流程" />
+            android:text="用车流程"/>
+
         <RadioButton
             android:id="@+id/rb_account_message"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_home"
-            android:text="用车押金" />
+            android:text="用车押金"/>
+
         <RadioButton
             android:id="@+id/rb_app_operate"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_home"
-            android:text="注册审核" />
+            android:text="注册审核"/>
+
         <RadioButton
             android:id="@+id/rb_dispute_manage"
             style="@style/MainRadioButtonStyle"
             android:drawableTop="@drawable/selector_tab_home"
-            android:text="平台保障" />
+            android:text="平台保障"/>
 
     </RadioGroup>
 </LinearLayout>

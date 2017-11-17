@@ -10,25 +10,32 @@
     <include layout="@layout/default_line_1dp"/>
 
     <RelativeLayout
-        android:background="@color/white"
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:src="@drawable/ic_keyboard_arrow_left_black_36dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center_vertical"
-            android:text="全部车辆"
-            android:textColor="#000000"
-            android:textSize="20dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_keyboard_arrow_left_black_36dp"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:text="全部车辆"
+                android:textColor="#000000"
+                android:textSize="20dp"/>
+
+        </RelativeLayout>
     </RelativeLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_car_list"

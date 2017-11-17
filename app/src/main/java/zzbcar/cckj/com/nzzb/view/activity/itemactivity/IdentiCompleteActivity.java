@@ -9,6 +9,7 @@ import java.util.List;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.bean.MainPageBean;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
 
@@ -27,7 +28,7 @@ public class IdentiCompleteActivity extends BaseActivity implements View.OnClick
     @Override
     protected void initViews() {
         bt_identifi_complete_rent = (Button) findViewById(R.id.bt_identifi_complete_rent);
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override

@@ -9,6 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 public class AboutUsActivity extends BaseActivity implements View.OnClickListener {
@@ -25,7 +26,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void initViews() {
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override
@@ -36,7 +37,6 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                 finish();
             }
         });
-
 
     }
 

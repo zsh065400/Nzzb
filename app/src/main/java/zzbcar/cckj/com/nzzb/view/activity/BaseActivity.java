@@ -109,5 +109,4 @@ public abstract class BaseActivity extends FragmentActivity {
         StatusBarUtil.MIUISetStatusBarLightMode(this, true);
         StatusBarUtil.FlymeSetStatusBarLightMode(this, true);
     }
-
 }

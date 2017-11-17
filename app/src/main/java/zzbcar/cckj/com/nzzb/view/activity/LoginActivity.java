@@ -32,6 +32,7 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.et_phone_number)
@@ -51,7 +52,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @BindView(R.id.iv_qq_signin)
     ImageView ivQQSignin;
 
-//    private Tencent mTencent;
+    //    private Tencent mTencent;
     private IWXAPI mWxApi;
     private UMShareAPI mShareAPI = null;
 
@@ -77,6 +78,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         // TODO: 2017/11/10 权限请求逻辑需要调整
         String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
         ActivityCompat.requestPermissions(this, mPermissionList, 123);
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override

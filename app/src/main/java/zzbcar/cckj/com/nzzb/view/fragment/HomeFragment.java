@@ -52,9 +52,9 @@ import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ListUtils;
-import zzbcar.cckj.com.nzzb.utils.SPUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BrandCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
@@ -280,7 +280,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initViews(View view) {
-
+        StatusBarUtil.setViewTopPadding(mActivity, view, R.id.top_bar);
     }
 
 
@@ -412,10 +412,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                         String last = SPUtils.getString(mActivity, Constant.SP_LAST_LOCATION, "");
                         final double latitude = bdLocation.getLatitude();
                         final double longitude = bdLocation.getLongitude();
-                        if(TextUtils.isEmpty(last)){
+                        if (TextUtils.isEmpty(last)) {
                             SPUtils.saveString(mActivity, Constant.SP_LAST_LOCATION, fincity);
-                            SPUtils.saveString(mActivity,Constant.SP_LATITUDE,latitude+"");
-                            SPUtils.saveString(mActivity,Constant.SP_LONGITUDE,longitude+"");
+                            SPUtils.saveString(mActivity, Constant.SP_LATITUDE, latitude + "");
+                            SPUtils.saveString(mActivity, Constant.SP_LONGITUDE, longitude + "");
                         }
                         if (!last.equals(city)) {
                             new AlertDialog.Builder(mActivity)
@@ -425,8 +425,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                                         public void onClick(DialogInterface dialog, int which) {
                                             tvLocation.setText(fincity);
                                             SPUtils.saveString(mActivity, Constant.SP_LAST_LOCATION, fincity);
-                                            SPUtils.saveString(mActivity,Constant.SP_LATITUDE,latitude+"");
-                                            SPUtils.saveString(mActivity,Constant.SP_LONGITUDE,longitude+"");
+                                            SPUtils.saveString(mActivity, Constant.SP_LATITUDE, latitude + "");
+                                            SPUtils.saveString(mActivity, Constant.SP_LONGITUDE, longitude + "");
                                         }
                                     })
                                     .setNegativeButton("取消", null)

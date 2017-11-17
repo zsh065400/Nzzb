@@ -20,6 +20,7 @@ import java.util.Map;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.ProductDatePrice;
 import zzbcar.cckj.com.nzzb.utils.RandomUtils;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.utils.StringUtils;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 import zzbcar.cckj.com.nzzb.view.customview.CommonCalendarView;
@@ -50,8 +51,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         red_point = (ImageView) findViewById(R.id.red_point);
         ll_get_car = (LinearLayout) findViewById(R.id.ll_get_car);
         ll_back_car = (LinearLayout) findViewById(R.id.ll_back_car);
-
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override

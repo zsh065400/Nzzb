@@ -12,6 +12,7 @@ import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.base.BaseRecycleViewAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.CarListAdapter;
 import zzbcar.cckj.com.nzzb.bean.MainPageBean;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 public class CarListActivity extends BaseActivity {
@@ -27,6 +28,7 @@ public class CarListActivity extends BaseActivity {
     @Override
     protected void initViews() {
         rvCarList.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override
