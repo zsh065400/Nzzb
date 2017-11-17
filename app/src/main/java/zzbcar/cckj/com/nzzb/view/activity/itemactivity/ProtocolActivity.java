@@ -45,11 +45,13 @@ public class ProtocolActivity extends BaseActivity {
         });
         webview = new WebView(this);
         WebSettings settings = webview.getSettings();
-        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         settings.setDomStorageEnabled(true);
         settings.setSupportZoom(false);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setDisplayZoomControls(false);
+        settings.setDefaultTextEncodingName("utf-8");
+        settings.setAppCacheEnabled(true);
         webview.loadUrl(url);
         llProtocolMain.addView(webview);
     }
@@ -65,6 +67,7 @@ public class ProtocolActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         webview.removeAllViews();
+        webview.clearHistory();
         webview.destroy();
         webview=null;
         llProtocolMain.removeAllViews();

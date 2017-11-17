@@ -95,12 +95,24 @@ public class Constant {
 
     //加载的网页链接
     //用户协议
-    public static final String MASTER_PROTOCOL="http://app.zzbcar.com/zzb/helpcenter/ptgz.html";
+    public static final String MASTER_PROTOCOL="http://app.zzbcar.com/zzb/helpcenter/protocol.html";
+    //平台规则
+    public static final String PTGZ = "http://app.zzbcar.com/zzb/helpcenter/ptgz.html";
     //用车流程
     public static final String USE_PROCEDURE="http://app.zzbcar.com/zzb/helpcenter/user1.html";
     //用户押金
     public static final String USER_DEPOSIT = "http://app.zzbcar.com/zzb/helpcenter/user2.html";
     //注册审核
     public static final String SIGN_PROTOCOL = "http://app.zzbcar.com/zzb/helpcenter/user3.html";
+    //平台保障
+    public static final String USER_4 = "http://app.zzbcar.com/zzb/helpcenter/user4.html";
+    //违章处理
+    public static final String USER_5 = "http://app.zzbcar.com/zzb/helpcenter/user5.html";
+    //账户信息
+    public static final String USER_6 = "http://app.zzbcar.com/zzb/helpcenter/user6.html";
+    //APP操作引导
+    public static final String USER_7 = "http://app.zzbcar.com/zzb/helpcenter/user7.html";
+    //纠纷处理
+    public static final String USER_8 = "http://app.zzbcar.com/zzb/helpcenter/user8.html";
 }
 
