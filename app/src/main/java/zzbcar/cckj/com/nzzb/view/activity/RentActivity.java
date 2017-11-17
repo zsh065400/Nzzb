@@ -395,6 +395,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_rent_address:
                 intent = new Intent(this, SetAddressActivity.class);
+                intent.putExtra("type",SetAddressActivity.GET_CAR);
                 //startActivity(intent);
                 startActivityForResult(intent, CHOOSE_ADDRESS);
                 break;

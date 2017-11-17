@@ -72,7 +72,10 @@ public class Constant {
 
     public static final String CAR_DEFAULT_URL = SERVE_URL + "zzb/app/car/queryCarByCondition?pageNum=0&pageSize=10";
     public static final String LOCATION_SELECT_URL = SERVE_URL + "zzb/app/common/citys";
-
+    //常用地址
+    public static final String GET_ADDR = SERVE_URL+"zzb/app/member/getAddr";
+    public static final String ADD_ADDR = SERVE_URL+"zzb/app/member/addAddr";
+    public static final String DEL_ADDR = SERVE_URL+"zzb/app/member/delAddr";
     public static final String SP_LOGIN = "login";
 
     public static final String SP_LAST_LOCATION = "last_location";

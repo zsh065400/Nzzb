@@ -77,6 +77,8 @@ public class SetAddressActivity extends BaseActivity {
     private MyBDLocationListener bdLocationListener;
     private double latitude;
     private double longitude;
+    public static final String GET_CAR = "get_car";
+    public static final String CHOOSE_ADDR = "choose_addr";
     @Override
     protected int getLayoutId() {
         return R.layout.activity_set_address;
@@ -89,6 +91,12 @@ public class SetAddressActivity extends BaseActivity {
 
     @Override
     protected void initDatas() {
+        String type = getIntent().getStringExtra("type");
+        if(type.equals(GET_CAR)){
+            etSetaddress.setHint("请输入取车地址");
+        }else{
+            etSetaddress.setHint("请输入地址搜索");
+        }
         initLocation();
         poiSearch = PoiSearch.newInstance();
         poiInfo = new ArrayList<PoiInfo>();
@@ -155,6 +163,8 @@ public class SetAddressActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent();
                 intent.putExtra("address",poiInfo.get(i).address+poiInfo.get(i).name);
+                intent.putExtra("latitude",poiInfo.get(i).location.latitude+"");
+                intent.putExtra("longitude",poiInfo.get(i).location.longitude+"");
                 setResult(RESULT_OK,intent);
                 finish();
             }

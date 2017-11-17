@@ -39,6 +39,7 @@ import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OssUtils;
+import zzbcar.cckj.com.nzzb.utils.REGutil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 public class CarIdentifiActivity extends BaseActivity implements View.OnClickListener {
@@ -153,8 +154,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
             handler.sendMessage(obtain);
             return;
         }
-        String reg = "^[1-9]\\d{5}[1-9]\\d{3}((0\\[1-9]))|((1[0-2]))(([0\\[1-9]|1\\d|2\\d])|3[0-1])\\d{3}([0-9]|x|X){1}$";
-        if(!idcardNumber.matches(reg)){
+        if(!REGutil.checkIDcardNumber(idcardNumber)){
             obtain.obj = "身份证格式错误，再检查一下吧";
             handler.sendMessage(obtain);
             return;
