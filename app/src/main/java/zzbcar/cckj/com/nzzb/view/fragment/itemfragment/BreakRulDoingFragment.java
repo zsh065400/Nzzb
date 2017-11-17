@@ -18,6 +18,11 @@ public class BreakRulDoingFragment extends BaseFragment {
 
     @Override
     public void initDatas() {
+        //获取网络数据
+        getData();
+    }
+
+    private void getData() {
 
     }
 
