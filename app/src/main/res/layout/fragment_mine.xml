@@ -21,18 +21,18 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:background="@mipmap/my_bj"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@mipmap/my_bj">
 
                 <!--<FrameLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="230dp">-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="230dp">-->
 
-                    <!--<ImageView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:scaleType="fitXY"-->
-                        <!--android:src="@mipmap/my_bj"/>-->
+                <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@mipmap/my_bj"/>-->
                 <!--</FrameLayout>-->
 
                 <FrameLayout
@@ -60,7 +60,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
-                            android:text="151****5521"
+                            android:text="请登陆"
                             android:textColor="@color/white"
                             android:textSize="16sp"/>
 
@@ -388,12 +388,13 @@
                 android:background="@color/light_while"/>
 
             <TextView
-                android:id="@+id/tv_my_checkout"
+                android:id="@+id/tv_signout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="15dp"
                 android:text="退出登录"
+                android:visibility="gone"
                 android:textColor="@color/sure"
                 android:textSize="16sp"/>
 

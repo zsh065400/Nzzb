@@ -14,7 +14,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -24,8 +26,12 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import butterknife.BindView;
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.bean.SigninBean;
+import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
+import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AboutUsActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AccountBindActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BreakRuleActivity;
@@ -42,7 +48,6 @@ import zzbcar.cckj.com.nzzb.view.customview.RoundImageView;
 
 public class MineFragment extends BaseFragment implements View.OnClickListener {
 
-
     private RelativeLayout rl_my_card;
     private RelativeLayout rl_my_address;
     private RelativeLayout rl_my_account_bind;
@@ -58,7 +63,30 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private static final int PHOTO_REQUEST_GALLERY = 2;
     private static final int PHOTO_REQUEST_CUT = 3;
 
+    @BindView(R.id.iv_minfragment_head_pic)
+    RoundImageView ivUserHead;
+
+    @BindView(R.id.tv_minfragment_phone_number)
+    TextView tvUserPhone;
+
+    @BindView(R.id.tv_signout)
+    TextView tvSignout;
+
+
     File tempFile = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
+
+    private boolean isSignin = false;
+    private SigninBean.DataBean.MemberBean signInfo;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        signInfo = SPUtils.getSignInfo(mActivity);
+        if (signInfo != null) {
+            isSignin = true;
+            initSignInfo();
+        }
+    }
 
     @Override
     public int getLayoutId() {
@@ -78,6 +106,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         iv_mine_fragment_carowener_recruit.setOnClickListener(this);
         iv_minfragment_head_pic.setOnClickListener(this);
 
+    }
+
+    /*初始化登录信息*/
+    private void initSignInfo() {
+        final String avatar = signInfo.getAvatar();
+        if (avatar.equals("") || avatar.equals(":")) {
+            Toast.makeText(mActivity, "头像地址错误，且Picasso加载有异常", Toast.LENGTH_SHORT).show();
+        } else {
+            Picasso.with(mActivity).load(avatar)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
+                    .into(ivUserHead);
+        }
+        tvUserPhone.setText(signInfo.getMobile());
+        tvSignout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -100,7 +143,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
+    protected void initListeners() {
+        ivUserHead.setOnClickListener(this);
+        tvUserPhone.setOnClickListener(this);
+        tvSignout.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(final View view) {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.rl_my_card:
@@ -141,9 +191,33 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.iv_minfragment_head_pic:
-                DialogtoUpPic();
+                if (isSignin) DialogtoUpPic();
+                else toActivity(LoginActivity.class);
                 break;
 
+            case R.id.tv_minfragment_phone_number:
+                if (isSignin) Toast.makeText(mActivity,
+                        "登陆了，别瞎点了", Toast.LENGTH_SHORT).show();
+                else toActivity(LoginActivity.class);
+                break;
+            case R.id.tv_signout:
+                /*此按钮可点击时已经是登录状态*/
+                new AlertDialog.Builder(mActivity)
+                        .setTitle("是否退出登录")
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                /*清除登录信息*/
+                                SPUtils.saveString(mActivity, "User", "");
+                                ivUserHead.setImageResource(R.mipmap.ic_launcher);
+                                tvUserPhone.setText("请登陆");
+                                view.setVisibility(View.GONE);
+                                isSignin = false;
+                                signInfo = null;
+                            }
+                        })
+                        .setNegativeButton("否", null).show();
+                break;
         }
 
     }
@@ -204,7 +278,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // TODO Auto-generated method stub
                         dialog.dismiss();
 
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

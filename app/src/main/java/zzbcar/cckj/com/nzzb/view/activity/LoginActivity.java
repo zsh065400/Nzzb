@@ -107,6 +107,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        next = null;
+        nextBundle = null;
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_qq_signin:
@@ -171,6 +178,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         SPUtils.saveString(mContext, "User", response.body());
                         Log.d(TAG, "onSuccess: " + response.body());
                         asyncShowToast("登陆成功");
+                        /*登陆成功后跳转*/
+                        toNextActivity();
                         finish();
                     } else {
                         asyncShowToast("手机号或验证码错误");
@@ -207,6 +216,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mShareAPI.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, authListener);
 //        mTencent = Tencent.createInstance("1106313801", MyApplication.getMyApplicaiton());
 //        mTencent.login(LoginActivity.this, "all", new BaseUiListener());
+    }
+
+    /**
+     * 跳转
+     */
+    protected void toNextActivity() {
+        if (next != null) {
+            toActivity(next, nextBundle);
+            next = null;
+            nextBundle = null;
+        }
     }
 
     private TimerHandler handler = new TimerHandler();

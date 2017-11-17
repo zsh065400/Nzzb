@@ -161,7 +161,7 @@ public class FindCarFragment extends BaseFragment {
         ibErweima.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toActivity(LoginActivity.class);
+
             }
         });
         searchFind.setOnClickListener(new View.OnClickListener() {

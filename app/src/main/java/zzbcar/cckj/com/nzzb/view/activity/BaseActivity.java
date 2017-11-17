@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import zzbcar.cckj.com.nzzb.bean.SigninBean;
+import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 
 /**
@@ -48,6 +50,31 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onDestroy();
         mContext = null;
         mResources = null;
+    }
+
+    protected static Class<?> next = null;
+    protected static Bundle nextBundle = null;
+
+    /**
+     * 需要登陆才能跳转的aty
+     */
+    protected void toActivity(Class<?> target, boolean needSignin) {
+        toActivity(target, null, needSignin);
+    }
+
+    /**
+     * 需要登陆才能跳转的aty
+     */
+    protected void toActivity(Class<?> target, Bundle bundle, boolean needSignin) {
+        this.nextBundle = bundle;
+        if (needSignin) {
+            final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mContext);
+            if (signInfo == null) {
+                Toast.makeText(BaseActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
+                toActivity(LoginActivity.class, bundle);
+                next = target;
+            } else toActivity(target, bundle);
+        } else toActivity(target, bundle);
     }
 
     protected void toActivity(Class<?> target) {
