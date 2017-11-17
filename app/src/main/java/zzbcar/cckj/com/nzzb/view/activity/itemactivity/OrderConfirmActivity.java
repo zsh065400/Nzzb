@@ -25,6 +25,7 @@ import zzbcar.cckj.com.nzzb.utils.EncryptUtils;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 public class OrderConfirmActivity extends BaseActivity {
@@ -46,7 +47,7 @@ public class OrderConfirmActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override

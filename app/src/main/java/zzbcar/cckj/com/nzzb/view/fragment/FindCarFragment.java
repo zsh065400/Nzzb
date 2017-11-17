@@ -33,6 +33,7 @@ import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BrandCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
@@ -77,6 +78,8 @@ public class FindCarFragment extends BaseFragment {
         rvListItems.setLayoutManager(new GridLayoutManager(mActivity, 2, GridLayoutManager.VERTICAL, false));
         rvListItems.addItemDecoration(new SpacesItemDecoration(new SpaceSize(10, 10, 10, 10)));
         rvListItems.setNestedScrollingEnabled(false);
+
+        StatusBarUtil.setViewTopPadding(mActivity, view, R.id.TopTitleBar);
     }
 
     /**
@@ -158,7 +161,7 @@ public class FindCarFragment extends BaseFragment {
         ibErweima.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toActivity(LoginActivity.class);
+
             }
         });
         searchFind.setOnClickListener(new View.OnClickListener() {

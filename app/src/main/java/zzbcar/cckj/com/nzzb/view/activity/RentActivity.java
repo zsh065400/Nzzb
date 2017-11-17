@@ -33,6 +33,7 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelecTimeActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SetAddressActivity;
@@ -124,6 +125,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
         rvCarQuery.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvCarQuery.setLoadingMoreEnabled(false);
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override

@@ -12,59 +12,67 @@
         android:background="#fff"
         android:orientation="vertical">
 
-        <!--顶部搜索栏-->
+
         <LinearLayout
             android:id="@+id/TopTitleBar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_hetght"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_gravity="center_vertical"
             android:background="#0a1b2b"
-            android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="15dp">
+            android:orientation="horizontal">
 
+            <!--顶部搜索栏-->
             <LinearLayout
-                android:id="@+id/ll_choose_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#0a1b2b">
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="15dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="?android:attr/actionBarSize">
 
-                <TextView
-                    android:id="@+id/tv_home_local_city"
+                <LinearLayout
+                    android:id="@+id/ll_choose_city"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#0a1b2b">
+
+                    <TextView
+                        android:id="@+id/tv_home_local_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:drawablePadding="4dp"
+                        android:drawableRight="@mipmap/down_arr"
+                        android:gravity="center_vertical"
+                        android:text="杭州"
+                        android:textColor="@color/Zzb_BG"
+                        android:textSize="16sp"/>
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/search_find"
+                    layout="@layout/searchview"
+                    android:layout_width="0dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:drawablePadding="4dp"
-                    android:drawableRight="@mipmap/down_arr"
-                    android:gravity="center_vertical"
-                    android:text="杭州"
-                    android:textColor="@color/Zzb_BG"
-                    android:textSize="16sp"/>
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"/>
+
+                <ImageButton
+                    android:id="@+id/ib_erweima"
+                    android:layout_width="22dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/icon_service_1"/>
+
             </LinearLayout>
-
-            <include
-                android:id="@+id/search_find"
-                layout="@layout/searchview"
-                android:layout_width="0dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"/>
-
-            <ImageButton
-                android:id="@+id/ib_erweima"
-                android:layout_width="22dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:background="@mipmap/icon_service_1"/>
         </LinearLayout>
 
         <View

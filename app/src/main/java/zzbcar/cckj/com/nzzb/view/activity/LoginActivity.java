@@ -32,6 +32,7 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.et_phone_number)
@@ -51,7 +52,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @BindView(R.id.iv_qq_signin)
     ImageView ivQQSignin;
 
-//    private Tencent mTencent;
+    //    private Tencent mTencent;
     private IWXAPI mWxApi;
     private UMShareAPI mShareAPI = null;
 
@@ -77,6 +78,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         // TODO: 2017/11/10 权限请求逻辑需要调整
         String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
         ActivityCompat.requestPermissions(this, mPermissionList, 123);
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override
@@ -102,6 +104,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        next = null;
+        nextBundle = null;
     }
 
     @Override
@@ -169,6 +178,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         SPUtils.saveString(mContext, "User", response.body());
                         Log.d(TAG, "onSuccess: " + response.body());
                         asyncShowToast("登陆成功");
+                        /*登陆成功后跳转*/
+                        toNextActivity();
                         finish();
                     } else {
                         asyncShowToast("手机号或验证码错误");
@@ -205,6 +216,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mShareAPI.getPlatformInfo(LoginActivity.this, SHARE_MEDIA.QQ, authListener);
 //        mTencent = Tencent.createInstance("1106313801", MyApplication.getMyApplicaiton());
 //        mTencent.login(LoginActivity.this, "all", new BaseUiListener());
+    }
+
+    /**
+     * 跳转
+     */
+    protected void toNextActivity() {
+        if (next != null) {
+            toActivity(next, nextBundle);
+            next = null;
+            nextBundle = null;
+        }
     }
 
     private TimerHandler handler = new TimerHandler();

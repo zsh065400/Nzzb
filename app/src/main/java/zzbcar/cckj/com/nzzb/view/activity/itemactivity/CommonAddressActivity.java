@@ -2,13 +2,10 @@ package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -24,7 +21,6 @@ import com.lzy.okgo.model.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,12 +29,11 @@ import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.AddressAdapter;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.bean.AddressBean;
-import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
-import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.AddAddressFragment;
 
 public class CommonAddressActivity extends BaseActivity implements View.OnClickListener {
 
@@ -68,14 +63,12 @@ public class CommonAddressActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected int getLayoutId() {
-
         return R.layout.activity_common_address;
     }
 
     @Override
     protected void initViews() {
-
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override
@@ -179,7 +172,7 @@ public class CommonAddressActivity extends BaseActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_commom_address_add:
-                Intent intent = new Intent(mContext, AddAddressFragment.class);
+                Intent intent = new Intent(mContext, AddAddressActivity.class);
                 startActivity(intent);
                 break;
         }
