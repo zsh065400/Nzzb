@@ -5,13 +5,14 @@ import android.widget.Button;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 /**
  * Created by Admin on 2017/11/4.
  */
 
-public class CarFriendIdentifiActivity extends BaseActivity implements View.OnClickListener{
+public class CarFriendIdentifiActivity extends BaseActivity implements View.OnClickListener {
     private Button bt_carfriend_identifi_commit;
 
     @Override
@@ -22,7 +23,7 @@ public class CarFriendIdentifiActivity extends BaseActivity implements View.OnCl
     @Override
     protected void initViews() {
         bt_carfriend_identifi_commit = (Button) findViewById(R.id.bt_carfriend_identifi_commit);
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override
@@ -36,7 +37,7 @@ public class CarFriendIdentifiActivity extends BaseActivity implements View.OnCl
         }).setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            finish();
+                finish();
             }
         });
 
@@ -45,7 +46,7 @@ public class CarFriendIdentifiActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.bt_carfriend_identifi_commit:
                 break;
         }

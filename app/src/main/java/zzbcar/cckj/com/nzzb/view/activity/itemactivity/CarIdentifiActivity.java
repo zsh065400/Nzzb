@@ -30,7 +30,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +39,7 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.utils.REGutil;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 public class CarIdentifiActivity extends BaseActivity implements View.OnClickListener {
@@ -99,6 +99,8 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         bt_identicar_nest = (Button) findViewById(R.id.bt_identicar_nest);
         iv_identificar_idcar_up = (ImageView) findViewById(R.id.iv_identificar_idcar_up);
         iv_identificar_idcar_down = (ImageView) findViewById(R.id.iv_identificar_idcar_down);
+
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override

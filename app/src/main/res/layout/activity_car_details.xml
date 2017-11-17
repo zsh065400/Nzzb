@@ -22,27 +22,34 @@
                 android:src="@mipmap/first"/>
 
             <RelativeLayout
+                android:id="@+id/top_bar"
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
-                android:padding="15dp">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/iv_back"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/row_back"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/actionBarSize"
+                    android:padding="15dp">
 
-                <ImageView
-                    android:id="@+id/iv_share"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/icon_share"/>
+                    <ImageView
+                        android:id="@+id/iv_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/row_back"/>
 
+                    <ImageView
+                        android:id="@+id/iv_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/icon_share"/>
+
+                </RelativeLayout>
             </RelativeLayout>
+
         </RelativeLayout>
 
         <RelativeLayout

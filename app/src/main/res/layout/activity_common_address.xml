@@ -1,74 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
+    android:id="@+id/fl_common_address_main"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fl_common_address_main"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context="zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity">
 
-<LinearLayout
-    android:background="@color/light_while"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true">
-
-
-    <include layout="@layout/activity_title"  />
-
-    <android.support.v7.widget.RecyclerView
-
-        android:layout_marginTop="2dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:visibility="gone"
-        android:id="@+id/rv_comm_addr"></android.support.v7.widget.RecyclerView>
-   <LinearLayout
-       android:visibility="visible"
-       android:id="@+id/ll_no_address"
-       android:orientation="vertical"
-       android:background="@color/light_while"
-       android:layout_weight="1"
-       android:layout_width="match_parent"
-       android:layout_height="0dp">
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/light_while"
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_add_Address_un"
-       android:layout_marginTop="100dp"
-        android:layout_gravity="center"
-        android:src="@mipmap/un_address"
-        android:layout_width="80dp"
-        android:layout_height="80dp" />
+        <include layout="@layout/activity_title"/>
 
-       <TextView
-           android:id="@+id/tv_add_newAddress_describe"
-           android:layout_marginTop="40dp"
-           android:layout_gravity="center"
-           android:textSize="18sp"
-           android:text="您还没有收车地址哦!"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content" />
-   </LinearLayout>
-    <TextView
-        android:padding="18dp"
-        android:id="@+id/tv_commom_address_add"
-        android:gravity="center"
-        android:textColor="@color/Zzb_BG"
-        android:textSize="16sp"
-        android:text="+添加新地址"
-        android:background="#ff4048"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        <android.support.v7.widget.RecyclerView
 
-   
+            android:id="@+id/rv_comm_addr"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:visibility="gone"></android.support.v7.widget.RecyclerView>
 
+        <LinearLayout
+            android:id="@+id/ll_no_address"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/light_while"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_add_Address_un"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="100dp"
+                android:src="@mipmap/un_address"/>
+
+            <TextView
+                android:id="@+id/tv_add_newAddress_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:text="您还没有收车地址哦!"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_commom_address_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#ff4048"
+            android:gravity="center"
+            android:padding="18dp"
+            android:text="+添加新地址"
+            android:textColor="@color/Zzb_BG"
+            android:textSize="16sp"/>
+    </LinearLayout>
 
 
 </FrameLayout>

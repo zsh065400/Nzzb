@@ -14,6 +14,7 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 
@@ -45,7 +46,7 @@ public class LocationListActivity extends BaseActivity {
                 parseLocationData(result);
             }
         });
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     private void parseLocationData(String result) {

@@ -11,6 +11,7 @@ import java.util.List;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.BreakRuleVpAdapter;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.BreakRulCompleteFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.BreakRulDoingFragment;
@@ -41,7 +42,7 @@ public class BreakRuleActivity extends BaseActivity implements TabLayout.OnTabSe
             tablayout_break_rule.addTab(tablayout_break_rule.newTab().setText(tab));
 
         }
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override

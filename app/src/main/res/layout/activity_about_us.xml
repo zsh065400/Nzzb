@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="zzbcar.cckj.com.nzzb.view.activity.itemactivity.AboutUsActivity">
 
     <include layout="@layout/activity_title"/>
@@ -26,7 +26,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:gravity="center_vertical"
-            android:text="用户协议" />
+            android:text="用户协议"/>
 
         <ImageView
             android:id="@+id/iv_person_protocol"
@@ -34,16 +34,16 @@
             android:layout_height="23dp"
             android:layout_gravity="center"
             android:layout_marginRight="7dp"
-            android:src="@mipmap/arrow_right" />
+            android:src="@mipmap/arrow_right"/>
 
     </LinearLayout>
 
     <View
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/divider" />
+        android:layout_marginTop="8dp"
+        android:background="@color/divider"/>
 
     <LinearLayout
         android:id="@+id/ll_master_ptgz"
@@ -61,24 +61,25 @@
             android:layout_marginLeft="13dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:hint="平台规则" />
+            android:hint="平台规则"/>
 
         <ImageView
-            android:layout_marginRight="7dp"
             android:id="@+id/iv_platform_rule"
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:layout_gravity="center"
-            android:src="@mipmap/arrow_right" />
+            android:layout_marginRight="7dp"
+            android:src="@mipmap/arrow_right"/>
 
     </LinearLayout>
 
     <View
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/divider" />
+        android:layout_marginTop="8dp"
+        android:background="@color/divider"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -88,28 +89,28 @@
 
 
         <TextView
-            android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="13dp"
             android:layout_weight="1"
+            android:gravity="center_vertical"
 
-            android:hint="版本信息" />
+            android:hint="版本信息"/>
 
         <ImageView
-            android:layout_marginRight="7dp"
             android:id="@+id/iv_version_message"
             android:layout_width="23dp"
             android:layout_height="23dp"
             android:layout_gravity="center"
-            android:src="@mipmap/arrow_right" />
+            android:layout_marginRight="7dp"
+            android:src="@mipmap/arrow_right"/>
 
     </LinearLayout>
 
     <View
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/divider" />
-    </LinearLayout>
+        android:layout_marginTop="8dp"
+        android:background="@color/divider"/>
+</LinearLayout>

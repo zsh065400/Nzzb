@@ -23,6 +23,7 @@ import zzbcar.cckj.com.nzzb.bean.WxPayInfoBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 /**
@@ -159,6 +160,7 @@ public class PayActivity extends BaseActivity {
             }
         });
         initTime();
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     private void initTime() {

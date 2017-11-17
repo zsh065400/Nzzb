@@ -4,6 +4,7 @@ import android.view.View;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 public class MyCarActivity extends BaseActivity {
@@ -17,7 +18,7 @@ public class MyCarActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override

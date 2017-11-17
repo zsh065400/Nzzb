@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AboutUsActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AccountBindActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BreakRuleActivity;
@@ -95,6 +96,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
         iv_minfragment_head_pic = (RoundImageView) view.findViewById(R.id.iv_minfragment_head_pic);
 
+        StatusBarUtil.setViewTopPadding(mActivity, view, R.id.top_bar);
     }
 
     @Override

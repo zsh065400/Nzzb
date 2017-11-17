@@ -52,6 +52,7 @@ import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 public class CarLicenceActivity extends BaseActivity implements View.OnClickListener {
@@ -121,7 +122,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
     protected void initViews() {
         bt_licence_car_nest = (Button) findViewById(R.id.bt_licence_car_nest);
 
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override
@@ -265,15 +266,15 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
             Toast.makeText(mContext, "请选择日期", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(cartype.equals("请选择车型")){
+        if (cartype.equals("请选择车型")) {
             Toast.makeText(mContext, "请选择车型", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(carage)){
+        if (TextUtils.isEmpty(carage)) {
             Toast.makeText(mContext, "请输入驾龄", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(cardLicence.size()!=2){
+        if (cardLicence.size() != 2) {
             Toast.makeText(mContext, "还没有上传完驾驶证", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -281,17 +282,17 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
         String user = SPUtils.getString(mContext, "User", "");
         SigninBean signinBean = GsonUtil.parseJsonWithGson(user, SigninBean.class);
         HashMap<String, String> params = new HashMap<>();
-        params.put("userId",signinBean.getData().getMember().getId()+"");
-        params.put("idcard1",idCardUp);
-        params.put("idcard1",idCardUp);
-        params.put("idcard2",idCardDown);
-        params.put("idno",idCardNumber);
-        params.put("name",name);
-        params.put("licenseDate",carDate);
-        params.put("permitType",cartype);
-        params.put("driveAge",carage);
-        params.put("drvPic1",cardLicence.get(0));
-        params.put("drvPic2",cardLicence.get(1));
+        params.put("userId", signinBean.getData().getMember().getId() + "");
+        params.put("idcard1", idCardUp);
+        params.put("idcard1", idCardUp);
+        params.put("idcard2", idCardDown);
+        params.put("idno", idCardNumber);
+        params.put("name", name);
+        params.put("licenseDate", carDate);
+        params.put("permitType", cartype);
+        params.put("driveAge", carage);
+        params.put("drvPic1", cardLicence.get(0));
+        params.put("drvPic2", cardLicence.get(1));
         OkGo.<String>post(Constant.USER_AUTH)
                 .params(params)
                 .execute(new StringCallback() {
