@@ -92,5 +92,15 @@ public class Constant {
     public static final String IDCARD_KEYPATH = "zzbcar/idcard/";
     public static final String CARLICENCE_KEYPATH = "zzbcar/car";
     public static final String SERVER_PHOTO_HEAD = "http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/";
+
+    //加载的网页链接
+    //用户协议
+    public static final String MASTER_PROTOCOL="http://app.zzbcar.com/zzb/helpcenter/ptgz.html";
+    //用车流程
+    public static final String USE_PROCEDURE="http://app.zzbcar.com/zzb/helpcenter/user1.html";
+    //用户押金
+    public static final String USER_DEPOSIT = "http://app.zzbcar.com/zzb/helpcenter/user2.html";
+    //注册审核
+    public static final String SIGN_PROTOCOL = "http://app.zzbcar.com/zzb/helpcenter/user3.html";
 }
 

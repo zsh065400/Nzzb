@@ -11,6 +11,7 @@
     <include layout="@layout/activity_title"/>
 
     <LinearLayout
+        android:id="@+id/ll_master_xieyi"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
@@ -25,7 +26,6 @@
             android:layout_weight="1"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="QQ"
             android:text="用户协议" />
 
         <ImageView

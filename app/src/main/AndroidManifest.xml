@@ -175,6 +175,7 @@
         <activity android:name=".view.activity.itemactivity.SearchActivity">
         </activity>
         <activity android:name=".view.fragment.itemfragment.AddAddressFragment"/>
+        <activity android:name=".view.activity.itemactivity.ProtocolActivity"/>
     </application>
 
 </manifest>
