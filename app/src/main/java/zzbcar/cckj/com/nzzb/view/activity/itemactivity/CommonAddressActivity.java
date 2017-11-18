@@ -21,6 +21,7 @@ import com.lzy.okgo.model.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,6 +30,7 @@ import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.AddressAdapter;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.bean.AddressBean;
+import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
@@ -84,10 +86,10 @@ public class CommonAddressActivity extends BaseActivity implements View.OnClickL
     }
 
     private void getAddressData() {
-        String user = SPUtils.getString(mContext, "User", "");
-        //SigninBean.DataBean.MemberBean member = GsonUtil.parseJsonWithGson(user, SigninBean.class).getData().getMember();
+        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mContext);
+        HashMap<String, String> params = new HashMap<>();
         OkGo.<String>get(Constant.GET_ADDR)
-                .params("userId","1")//TODO 数据测试暂时ID写1
+                .params("userId",signInfo.getId()+"")
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -127,9 +129,8 @@ public class CommonAddressActivity extends BaseActivity implements View.OnClickL
     }
 
     private void deleteItem(final int position) {
-        String user = SPUtils.getString(mContext, "User", "");
-        //SigninBean.DataBean.MemberBean member = GsonUtil.parseJsonWithGson(user, SigninBean.class).getData().getMember();
-        //TODO 数据测试暂时ID写1
+        final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mContext);
+        HashMap<String, String> params = new HashMap<>();
         new AlertDialog.Builder(mContext)
                 .setTitle("提示")
                 .setMessage("确定删除地址？")
@@ -138,7 +139,7 @@ public class CommonAddressActivity extends BaseActivity implements View.OnClickL
                     @Override
                     public void onClick(final DialogInterface dialog, int which) {
                         OkGo.<String>get(Constant.DEL_ADDR)
-                                .params("userId","1")
+                                .params("userId",signInfo.getId()+"")
                                 .params("addrId",addrList.get(position).getId()+"")
                                 .execute(new StringCallback() {
                                     @Override
