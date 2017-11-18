@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
@@ -52,9 +53,6 @@ public abstract class BaseActivity extends FragmentActivity {
         mResources = null;
     }
 
-    protected static Class<?> next = null;
-    protected static Bundle nextBundle = null;
-
     /**
      * 需要登陆才能跳转的aty
      */
@@ -66,13 +64,13 @@ public abstract class BaseActivity extends FragmentActivity {
      * 需要登陆才能跳转的aty
      */
     protected void toActivity(Class<?> target, Bundle bundle, boolean needSignin) {
-        this.nextBundle = bundle;
+        MyApplication.nextBundle = bundle;
         if (needSignin) {
             final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mContext);
             if (signInfo == null) {
                 Toast.makeText(BaseActivity.this, "请先登录", Toast.LENGTH_SHORT).show();
                 toActivity(LoginActivity.class, bundle);
-                next = target;
+                MyApplication.next = target;
             } else toActivity(target, bundle);
         } else toActivity(target, bundle);
     }
@@ -132,8 +130,12 @@ public abstract class BaseActivity extends FragmentActivity {
     protected abstract void initDatas();
 
     protected void setStatusBar() {
-        StatusBarUtil.setTranslucentForImageView(this, null);
+        StatusBarUtil.setTransparentForImageView(this, null);
         StatusBarUtil.MIUISetStatusBarLightMode(this, true);
         StatusBarUtil.FlymeSetStatusBarLightMode(this, true);
+    }
+
+    protected void setBackButon(int id) {
+
     }
 }

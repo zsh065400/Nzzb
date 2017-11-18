@@ -1,5 +1,6 @@
 package zzbcar.cckj.com.nzzb.base;
 
+import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
 
 import com.lzy.okgo.OkGo;
@@ -19,6 +20,9 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
  */
 
 public class MyApplication extends MultiDexApplication {
+
+    public static Class<?> next = null;
+    public static Bundle nextBundle = null;
 
     private static IWXAPI SWXAPI;
     private static MyApplication SINSTANCE;
