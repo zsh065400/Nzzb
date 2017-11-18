@@ -109,8 +109,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        next = null;
-        nextBundle = null;
+        MyApplication.next = null;
+        MyApplication.nextBundle = null;
     }
 
     @Override
@@ -222,10 +222,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
      * 跳转
      */
     protected void toNextActivity() {
-        if (next != null) {
-            toActivity(next, nextBundle);
-            next = null;
-            nextBundle = null;
+        if (MyApplication.next != null) {
+            toActivity(MyApplication.next, MyApplication.nextBundle);
+            MyApplication.next = null;
+            MyApplication.nextBundle = null;
         }
     }
 

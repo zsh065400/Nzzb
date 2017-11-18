@@ -119,6 +119,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     .error(R.mipmap.ic_launcher)
                     .into(ivUserHead);
         }
+        /*车主认证状态*/
+        if (signInfo.getAuthStatus() == 1) tv_minfragment_car_identifi.setText("车主已认证");
         tvUserPhone.setText(signInfo.getMobile());
         tvSignout.setVisibility(View.VISIBLE);
     }
