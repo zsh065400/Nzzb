@@ -58,6 +58,7 @@ public class OrderConfirmActivity extends BaseActivity {
                 calcPrice();
             }
         });
+        setBackButon(R.id.iv_back);
     }
 
     @Override

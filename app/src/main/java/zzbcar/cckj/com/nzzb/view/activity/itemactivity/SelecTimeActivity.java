@@ -19,6 +19,7 @@ import java.util.Map;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.ProductDatePrice;
+import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.utils.RandomUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.utils.StringUtils;
@@ -29,7 +30,7 @@ import zzbcar.cckj.com.nzzb.view.customview.CommonCalendarView;
  * Created by Admin on 2017/11/4.
  */
 
-public class SelecTimeActivity extends BaseActivity implements View.OnClickListener{
+public class SelecTimeActivity extends BaseActivity implements View.OnClickListener {
     private TextView tv_get_car_time;
     private TextView tv_back_car_time;
     private ImageView iv_swicth;
@@ -38,6 +39,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     private LinearLayout ll_back_car;
     private CommonCalendarView calendarView;
     private Map<String, List> mYearMonthMap = new HashMap<>();
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_select_time;
@@ -55,10 +57,20 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    protected void initDatas() {
+    protected void initListeners() {
+        new TitleBuilder(this).setTitleText("选择时间").setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         ll_get_car.setOnClickListener(this);
         ll_back_car.setOnClickListener(this);
         ll_get_car.setEnabled(false);
+    }
+
+    @Override
+    protected void initDatas() {
         List<ProductDatePrice> mDatePriceList = new ArrayList<>();
         for (int i = 1; i <= 12; i++) {//构造12个月每天的价格数据
             for (int j = 1; j <= 31; j++) {
@@ -91,7 +103,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onDayOfMonthSelected(int year, int month, int day) {
-                Toast.makeText(SelecTimeActivity.this,String.format("%s-%s-%s", year, StringUtils.leftPad(String.valueOf(month), 2, "0"),
+                Toast.makeText(SelecTimeActivity.this, String.format("%s-%s-%s", year, StringUtils.leftPad(String.valueOf(month), 2, "0"),
                         StringUtils.leftPad(String.valueOf(day), 2, "0")), Toast.LENGTH_LONG).show();
             }
 
@@ -108,20 +120,19 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                         continue;
                     }
                     if (TextUtils.equals(datePrice.getPriceDate(), priceDate)) {
-                        Toast.makeText(SelecTimeActivity.this,datePrice.getPriceDate(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SelecTimeActivity.this, datePrice.getPriceDate(), Toast.LENGTH_SHORT).show();
                         final TimePickerDialog timePickerDialog = new TimePickerDialog(SelecTimeActivity.this, new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                if (!ll_get_car.isEnabled()){
+                                if (!ll_get_car.isEnabled()) {
                                     tv_back_car_time.setText(datePrice.getPriceDate() + " " + hourOfDay + ":" + minute);
                                     ll_back_car.setEnabled(false);
                                     ll_get_car.setEnabled(true);
-                                }else {
+                                } else {
                                     tv_back_car_time.setText(datePrice.getPriceDate() + " " + hourOfDay + ":" + minute);
                                     ll_back_car.setEnabled(false);
                                     ll_get_car.setEnabled(true);
                                 }
-
 
 
                             }
@@ -162,7 +173,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                 ll_back_car.setEnabled(true);
                 break;
             case R.id.ll_back_car:
-                if(tv_get_car_time.getText().equals("请设置取车时间")){
+                if (tv_get_car_time.getText().equals("请设置取车时间")) {
                     Toast.makeText(this, "请设置取车时间", Toast.LENGTH_SHORT).show();
                     return;
                 }

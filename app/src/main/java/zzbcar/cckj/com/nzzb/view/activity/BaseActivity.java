@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
@@ -136,6 +137,12 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     protected void setBackButon(int id) {
-
+        final View back = findViewById(id);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

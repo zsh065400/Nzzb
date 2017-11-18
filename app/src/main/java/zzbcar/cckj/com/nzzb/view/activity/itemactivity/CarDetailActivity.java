@@ -63,9 +63,10 @@ public class CarDetailActivity extends BaseActivity {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("cardetail", carDetailBean);
-                toActivity(OrderConfirmActivity.class, bundle,true);
+                toActivity(OrderConfirmActivity.class, bundle, true);
             }
         });
+        setBackButon(R.id.iv_back);
     }
 
     @Override
