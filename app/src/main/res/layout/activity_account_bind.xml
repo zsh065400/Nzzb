@@ -9,6 +9,7 @@
     tools:context="zzbcar.cckj.com.nzzb.view.activity.itemactivity.AccountBindActivity">
 
     <include layout="@layout/activity_title"/>
+
     <ImageView
         android:background="#f5f5f5"
         android:layout_width="match_parent"

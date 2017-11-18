@@ -32,7 +32,6 @@ public class CarFriendIdentifiActivity extends BaseActivity implements View.OnCl
         new TitleBuilder(this).setTitleText("填写信息").setRightIco(R.mipmap.call_service).setRightIcoListening(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         }).setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
             @Override

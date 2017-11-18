@@ -26,6 +26,7 @@ import java.util.Map;
 import butterknife.BindView;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
+import zzbcar.cckj.com.nzzb.bean.BaseBean;
 import zzbcar.cckj.com.nzzb.bean.GeneralResponseBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
@@ -58,15 +59,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private String mPhone;
     private String mCode;
-    /*登录类型，0手机、1QQ、2微信
-    *
-    * 根据登录类型,上传相应的参数
-        0:电话号码+"-"+验证码
-        1:微信openId
-        2:qq号
-        3.公众号
-    * */
-    private String mType;
+
+    private String qqOpenId;
+    private String wxOpenId;
 
     @Override
     protected int getLayoutId() {
@@ -123,7 +118,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 loginWX();
                 break;
             case R.id.tv_signin:
-                doSignin();
+                /*正常登录状态*/
+                mPhone = etPhoneNumber.getText().toString().trim();
+                mCode = etCode.getText().toString().trim();
+                if (TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mCode)) {
+                    Toast.makeText(mContext, "手机号或验证码为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (((TextView) view).getText().toString().equals("确认")) {
+                    doSignin("0", String.format("%s-%s", mPhone, mCode));
+                } else {
+                    bindPhone();
+                }
                 break;
             case R.id.tv_get_code:
                 getVerifyCode();
@@ -158,40 +164,82 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
     }
 
-    private void doSignin() {
-        mPhone = etPhoneNumber.getText().toString().trim();
-        mCode = etCode.getText().toString().trim();
-        mType = "0";
-        if (TextUtils.isEmpty(mCode)) {
-            Toast.makeText(LoginActivity.this, "请输入验证码", Toast.LENGTH_SHORT).show();
+    private void doSignin(final String type, String param) {
+        final String url = OkHttpUtil.obtainGetUrl(Constant.API_SIGN,
+                "type", type,
+                "param", param);
+        if (TextUtils.isEmpty(param)) {
+            Toast.makeText(LoginActivity.this, "用户信息不全，请重试", Toast.LENGTH_SHORT).show();
         } else {
-            final String url = OkHttpUtil.obtainGetUrl(Constant.API_SIGN,
-                    "type", mType,
-                    "param", mPhone + "-" + mCode);
             OkGo.<String>get(url).tag(TAG).execute(new StringCallback() {
-
                 @Override
                 public void onSuccess(Response<String> response) {
                     final SigninBean bean = GsonUtil.parseJsonWithGson(response.body(), SigninBean.class);
                     /*缓存用户数据，可用于自动登录等*/
-                    if (bean.getErrno() == 0) {
+                    final int errno = bean.getErrno();
+                    if (errno == 0) {
                         SPUtils.saveString(mContext, "User", response.body());
                         Log.d(TAG, "onSuccess: " + response.body());
                         asyncShowToast("登陆成功");
                         /*登陆成功后跳转*/
                         toNextActivity();
                         finish();
+                        /*此处判断可改换成更加稳妥的*/
+                    } else if ((type.equals("1") || type.equals("2")) && errno == 1) {
+                        asyncShowToast("请在当前页面使用手机登陆即可自动绑定");
+                        changeSignStatus(0);
                     } else {
-                        asyncShowToast("手机号或验证码错误");
+                        asyncShowToast(bean.getMessage());
                     }
                 }
 
                 @Override
                 public void onError(Response<String> response) {
-                    asyncShowToast("手机号或验证码错误");
+                    asyncShowToast(response.getException().getLocalizedMessage());
                 }
             });
         }
+    }
+
+    /**
+     * 因接口问题，当三方登录未与手机号绑定时，需要改换登录策略
+     * 由原先的登录接口，改换成绑定接口
+     * 绑定完成后，再次通过对应的三方登录即可完成登录功能
+     */
+    private void changeSignStatus(int status) {
+        if (status == 0)
+            tvSignin.setText("绑定手机号");
+        else if (status == 1) {
+            tvSignin.setText("使用该手机号或该第三方登录");
+            tvSignin.setEnabled(false);
+        } else if (status == 2)
+            tvSignin.setEnabled(true);
+    }
+
+    /**
+     * 第三方授权后通过该方法绑定手机号
+     */
+    private void bindPhone() {
+        final String url = OkHttpUtil.obtainGetUrl(Constant.API_BIND_QQWX,
+                "mobile", mPhone,
+                "authCode", mCode,
+                "qq", qqOpenId,
+                "wxOpenId", wxOpenId);
+        OkGo.<String>get(url).tag(TAG).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                final BaseBean bean = GsonUtil.parseJsonWithGson(response.body(), BaseBean.class);
+                if (bean.getErrno() == 0) {
+                    asyncShowToast("绑定成功,使用该手机号或该第三方即可登录");
+                    changeSignStatus(1);
+                } else asyncShowToast(bean.getMessage());
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                asyncShowToast(response.getException().getLocalizedMessage());
+            }
+        });
     }
 
     private void loginWX() {
@@ -332,6 +380,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
          */
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, final Map<String, String> data) {
+            for (Map.Entry<String, String> entry : data.entrySet()) {
+                Log.d(TAG, "onComplete: " + entry.getKey() + ":" + entry.getValue());
+            }
+            final String openid = data.get("openid");
+            switch (platform) {
+                case QQ:
+                    qqOpenId = openid;
+                    doSignin("2", openid);
+                    break;
+                case WEIXIN:
+                    wxOpenId = openid;
+                    doSignin("1", openid);
+                    break;
+            }
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

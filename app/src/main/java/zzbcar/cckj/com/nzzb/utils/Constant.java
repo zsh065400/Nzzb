@@ -65,6 +65,8 @@ public class Constant {
     /*获取热搜内容*/
     public static final String API_FIRE_SEARCH = SERVE_URL + "zzb/app/car/searchfreq";
 
+    /*绑定三方登录账号*/
+    public static final String API_BIND_QQWX = SERVE_URL + "zzb/app/member/bind";
 
     public static final String HOME_LUNBO_URL = SERVE_URL + "zzb/app/common/marquee";
     //品牌

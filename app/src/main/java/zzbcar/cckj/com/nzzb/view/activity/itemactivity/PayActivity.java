@@ -187,6 +187,7 @@ public class PayActivity extends BaseActivity {
     @Override
     protected void initDatas() {
         payInfo = (OrderBean.DataBean) getIntent().getExtras().getSerializable("payinfo");
+        setBackButon(R.id.iv_back);
     }
 
     @Override
