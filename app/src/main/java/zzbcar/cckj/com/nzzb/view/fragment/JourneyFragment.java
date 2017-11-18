@@ -11,10 +11,7 @@ import java.util.List;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.MyViewPagerAdapter;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
-import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.CancelFragment;
-import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.CompleteFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.ProceedFragment;
-import zzbcar.cckj.com.nzzb.view.fragment.itemfragment.UnProceedFragment;
 
 /**
  * Created by Admin on 2017/10/31.
@@ -38,10 +35,10 @@ public class JourneyFragment extends BaseFragment implements TabLayout.OnTabSele
     public void initDatas() {
         //设置TabLayout点击事件
         journet_tab_layou.setOnTabSelectedListener(this);
-        fragments.add(new UnProceedFragment());
         fragments.add(new ProceedFragment());
-        fragments.add(new CompleteFragment());
-        fragments.add(new CancelFragment());
+        fragments.add(new ProceedFragment());
+        fragments.add(new ProceedFragment());
+        fragments.add(new ProceedFragment());
         viewPagerAdapter = new MyViewPagerAdapter(mActivity.getSupportFragmentManager(), titles, fragments);
         journey_view_pager.setAdapter(viewPagerAdapter);
         journet_tab_layou.setupWithViewPager(journey_view_pager);
