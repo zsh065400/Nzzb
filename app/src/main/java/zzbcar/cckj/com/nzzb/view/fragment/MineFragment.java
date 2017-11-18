@@ -119,6 +119,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     .error(R.mipmap.ic_launcher)
                     .into(ivUserHead);
         }
+        /*车主认证状态*/
+        if (signInfo.getAuthStatus() == 1) {
+            tv_minfragment_car_identifi.setText("车主已认证");
+        }else if(signInfo.getAuthStatus() == 0){
+            tv_minfragment_car_identifi.setText("车主未认证");
+        }else if(signInfo.getAuthStatus() == 3){
+            tv_minfragment_car_identifi.setText("车主认证失败");
+        }
         tvUserPhone.setText(signInfo.getMobile());
         tvSignout.setVisibility(View.VISIBLE);
     }
@@ -158,16 +166,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.rl_my_address:
-                intent = new Intent(mActivity, CommonAddressActivity.class);
-                startActivity(intent);
+                toActivity(CommonAddressActivity.class,true);
                 break;
             case R.id.rl_my_account_bind:
-                intent = new Intent(mActivity, AccountBindActivity.class);
-                startActivity(intent);
+                toActivity(AccountBindActivity.class,true);
                 break;
             case R.id.rl_my_break_rules:
-                intent = new Intent(mActivity, BreakRuleActivity.class);
-                startActivity(intent);
+                toActivity(BreakRuleActivity.class,true);
                 break;
             case R.id.rl_my_invite_friends:
 //                intent = new Intent(mActivity, InviteFriendsActivity.class);
@@ -183,8 +188,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.tv_minfragment_car_identifi:
-                intent = new Intent(mActivity, CarIdentifiActivity.class);
-                startActivity(intent);
+                toActivity(CarIdentifiActivity.class,true);
                 break;
             case R.id.iv_mine_fragment_carowener_recruit:
                 intent = new Intent(mActivity, PreCarFriendIdentifiActivity.class);

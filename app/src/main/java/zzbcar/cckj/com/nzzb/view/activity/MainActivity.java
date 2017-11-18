@@ -1,33 +1,30 @@
 package zzbcar.cckj.com.nzzb.view.activity;
 
-import android.support.annotation.IdRes;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.widget.FrameLayout;
-import android.widget.RadioButton;
+import android.support.v4.app.Fragment;
 import android.widget.RadioGroup;
 
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.adapter.main.MainViewPagerAdapter;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.utils.Constant;
-import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.fragment.FindCarFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.HomeFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.JourneyFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.MineFragment;
+import zzbcar.cckj.com.nzzb.widget.NoScrollViewPager;
 
 public class MainActivity extends BaseActivity {
-    private FragmentManager fm;
-    private RadioGroup rgMain;
-    private FrameLayout fl_main;
-    private RadioButton rb;
-    private RadioButton rb_home;
-    private RadioButton rb_find_car;
-    private RadioButton rb_journey;
-    private RadioButton rb_mine;
+    @BindView(R.id.rg_main)
+    RadioGroup rgMain;
+    @BindView(R.id.vp_main)
+    NoScrollViewPager vpMain;
 
     @Override
     protected int getLayoutId() {
@@ -36,12 +33,49 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        rgMain = (RadioGroup) findViewById(R.id.rg_main);
-        fl_main = (FrameLayout) findViewById(R.id.fl_main);
-        rb_home = (RadioButton) findViewById(R.id.rb_home);
-        rb_find_car = (RadioButton) findViewById(R.id.rb_find_car);
-        rb_journey = (RadioButton) findViewById(R.id.rb_journey);
-        rb_mine = (RadioButton) findViewById(R.id.rb_mine);
+        initViewPagers();
+    }
+
+    @Override
+    protected void initListeners() {
+        /*切换页面*/
+        rgMain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_home:
+                        vpMain.setCurrentItem(0,false);
+                        break;
+                    case R.id.rb_find_car:
+                        vpMain.setCurrentItem(1,false);
+                        break;
+                    case R.id.rb_journey:
+                        vpMain.setCurrentItem(2,false);
+                        break;
+                    case R.id.rb_mine:
+                        vpMain.setCurrentItem(3,false);
+                        break;
+
+
+                }
+            }
+        });
+    }
+
+    private void initViewPagers() {
+        final List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new HomeFragment());
+        fragments.add(new FindCarFragment());
+        fragments.add(new JourneyFragment());
+        fragments.add(new MineFragment());
+        final MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager(), fragments);
+        vpMain.setAdapter(adapter);
+        /*禁止滑动*/
+        vpMain.setScroll(false);
+        /*增加缓存页面数量*/
+        vpMain.setOffscreenPageLimit(fragments.size() - 1);
+
+        /*默认选中第一个选项卡*/
         rgMain.check(R.id.rb_home);
     }
 
@@ -51,37 +85,6 @@ public class MainActivity extends BaseActivity {
         IWXAPI api = WXAPIFactory.createWXAPI(this, Constant.WEIXIN_APP_ID, false);
         api.registerApp(Constant.WEIXIN_APP_ID);
         MyApplication.setWxApi(api);
-        fm = getSupportFragmentManager();
-        FragmentTransaction begin = fm.beginTransaction();
-        begin.replace(R.id.fl_main, new HomeFragment());
-        begin.commit();
-
-        rgMain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-                FragmentTransaction ft = fm.beginTransaction();
-                switch (i){
-                    case R.id.rb_home:
-                        ft.replace(R.id.fl_main,new HomeFragment());
-                        break;
-                    case R.id.rb_find_car:
-                        ft.replace(R.id.fl_main,new FindCarFragment());
-                        break;
-                    case R.id.rb_journey:
-                        ft.replace(R.id.fl_main,new JourneyFragment());
-                        break;
-                    case R.id.rb_mine:
-                        ft.replace(R.id.fl_main,new MineFragment());
-                        break;
-                }
-                ft.commit();
-
-            }
-        });
     }
 
-    @Override
-    public void setStatusBar() {
-        StatusBarUtil.setTransparentForImageView(this,null);
-    }
 }

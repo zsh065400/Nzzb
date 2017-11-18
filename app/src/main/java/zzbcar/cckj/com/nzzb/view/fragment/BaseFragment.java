@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
+import zzbcar.cckj.com.nzzb.base.MyApplication;
+import zzbcar.cckj.com.nzzb.bean.SigninBean;
+import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 
 /**
  * Created by Admin on 2017/11/3.
@@ -46,6 +50,28 @@ public abstract class BaseFragment extends Fragment {
         initViews(view);
         initDatas();
         initListeners();
+    }
+
+    /**
+     * 需要登陆才能跳转的aty
+     */
+    protected void toActivity(Class<?> target, boolean needSignin) {
+        toActivity(target, null, needSignin);
+    }
+
+    /**
+     * 需要登陆才能跳转的aty
+     */
+    protected void toActivity(Class<?> target, Bundle bundle, boolean needSignin) {
+        MyApplication.nextBundle = bundle;
+        if (needSignin) {
+            final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mActivity);
+            if (signInfo == null) {
+                Toast.makeText(mActivity, "请先登录", Toast.LENGTH_SHORT).show();
+                toActivity(LoginActivity.class, bundle);
+                MyApplication.next = target;
+            } else toActivity(target, bundle);
+        } else toActivity(target, bundle);
     }
 
     protected void toActivity(Class<?> target) {
