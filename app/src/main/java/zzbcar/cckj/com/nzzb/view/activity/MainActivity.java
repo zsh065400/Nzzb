@@ -14,6 +14,7 @@ import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.main.MainViewPagerAdapter;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.fragment.FindCarFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.HomeFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.JourneyFragment;
@@ -87,4 +88,8 @@ public class MainActivity extends BaseActivity {
         MyApplication.setWxApi(api);
     }
 
+    @Override
+    protected void setStatusBar() {
+        StatusBarUtil.setTransparentForImageViewInFragment(this,null);
+    }
 }

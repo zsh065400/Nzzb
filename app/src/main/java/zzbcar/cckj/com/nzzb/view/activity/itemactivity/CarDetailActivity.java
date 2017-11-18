@@ -98,4 +98,8 @@ public class CarDetailActivity extends BaseActivity {
         tvCarPrice.setText(carDetailBean.getPrice() + "");
         tvCarAddr.setText(carDetailBean.getAddr());
     }
+    @Override
+    protected void setStatusBar() {
+        StatusBarUtil.setTransparentForImageViewInFragment(this,null);
+    }
 }
