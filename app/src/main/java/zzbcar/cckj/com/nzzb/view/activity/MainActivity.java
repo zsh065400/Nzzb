@@ -56,8 +56,6 @@ public class MainActivity extends BaseActivity {
                     case R.id.rb_mine:
                         vpMain.setCurrentItem(3,false);
                         break;
-
-
                 }
             }
         });
@@ -80,6 +78,7 @@ public class MainActivity extends BaseActivity {
         rgMain.check(R.id.rb_home);
     }
 
+
     @Override
     protected void initDatas() {
         /*初始化微信*/
@@ -90,6 +89,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void setStatusBar() {
-        StatusBarUtil.setTransparentForImageViewInFragment(this,null);
+        StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
+
 }

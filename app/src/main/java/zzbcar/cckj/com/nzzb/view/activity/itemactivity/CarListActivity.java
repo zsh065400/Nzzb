@@ -35,6 +35,7 @@ public class CarListActivity extends BaseActivity {
     protected void initDatas() {
         final List<MainPageBean.DataBean.CarListBean> extras = (List<MainPageBean.DataBean.CarListBean>) getIntent().getSerializableExtra("carlist");
         initCarList(extras);
+        setBackButon(R.id.iv_back);
     }
 
     private void initCarList(final List<MainPageBean.DataBean.CarListBean> extras) {

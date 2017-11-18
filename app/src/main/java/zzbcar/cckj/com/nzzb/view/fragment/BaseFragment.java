@@ -145,4 +145,14 @@ public abstract class BaseFragment extends Fragment {
     protected void initListeners() {
 
     }
+
+    protected void setBackButon(View view, int id) {
+        final View back = view.findViewById(id);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mActivity.finish();
+            }
+        });
+    }
 }

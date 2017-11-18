@@ -205,6 +205,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 doCarQuery(params.buildUrl());
             }
         });
+
+        setBackButon(R.id.iv_back);
     }
 
     @Override

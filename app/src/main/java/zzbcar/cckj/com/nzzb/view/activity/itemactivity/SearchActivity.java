@@ -138,6 +138,7 @@ public class SearchActivity extends BaseActivity {
                 updateHistories(null, true);
             }
         });
+        setBackButon(R.id.iv_back);
     }
 
     @BindView(R.id.rv_search_result)

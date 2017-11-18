@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,9 +33,6 @@ public class BrandCarActivity extends BaseActivity {
     @BindView(R.id.rv_brand_car_list)
     RecyclerView rvBrandCarList;
 
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
-
     @BindView(R.id.tv_brand_name)
     TextView tvBrandName;
 
@@ -60,12 +56,7 @@ public class BrandCarActivity extends BaseActivity {
 
     @Override
     protected void initListeners() {
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        setBackButon(R.id.iv_back);
     }
 
     /**
