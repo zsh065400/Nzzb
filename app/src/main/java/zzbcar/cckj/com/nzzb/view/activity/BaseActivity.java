@@ -137,6 +137,7 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     protected void setBackButon(int id) {
+
         final View back = findViewById(id);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

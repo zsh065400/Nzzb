@@ -145,11 +145,9 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
             Toast.makeText(mContext, "请填写详细的地址", Toast.LENGTH_SHORT).show();
             return;
         }
-        String user = SPUtils.getString(mContext, "User", "");
-        //SigninBean.DataBean.MemberBean member = GsonUtil.parseJsonWithGson(user, SigninBean.class).getData().getMember();
+        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mContext);
         HashMap<String, String> params = new HashMap<>();
-        //TODO 数据测试暂时ID写1
-        params.put("userId","1");
+        params.put("userId",signInfo.getId()+"");
         params.put("linkman",name);
         params.put("mobile",phone);
         params.put("addr",addres1);

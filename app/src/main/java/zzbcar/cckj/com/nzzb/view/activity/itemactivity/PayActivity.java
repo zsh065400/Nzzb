@@ -6,6 +6,7 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.lzy.okgo.OkGo;
@@ -18,6 +19,7 @@ import java.util.Map;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.bean.AliPayInfoBean;
+import zzbcar.cckj.com.nzzb.bean.AliPayResultBean;
 import zzbcar.cckj.com.nzzb.bean.OrderBean;
 import zzbcar.cckj.com.nzzb.bean.WxPayInfoBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
@@ -49,7 +51,19 @@ public class PayActivity extends BaseActivity {
                     }
                     break;
                 case 1:
+                    final AliPayResultBean resultBean =
+                            GsonUtil.parseJsonWithGson((String) msg.obj, AliPayResultBean.class);
+                    final String result = resultBean.getResult();
+                    // TODO: 2017/11/18 支付状态确认
+                    if (result.equals("9000")) {
+                        Toast.makeText(mContext, "订单支付成功", Toast.LENGTH_SHORT).show();
+                    } else if (result.equals("4000")) {
+                        Toast.makeText(mContext, "订单支付失败", Toast.LENGTH_SHORT).show();
+                    } else if (result.equals("6001")) {
+                        Toast.makeText(mContext, "用户取消", Toast.LENGTH_SHORT).show();
+                    }
                     System.out.println(msg.obj);
+                    finish();
                     break;
             }
             super.handleMessage(msg);

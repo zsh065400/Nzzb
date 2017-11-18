@@ -279,10 +279,9 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
             return;
         }
         showWaitDialog();
-        String user = SPUtils.getString(mContext, "User", "");
-        SigninBean signinBean = GsonUtil.parseJsonWithGson(user, SigninBean.class);
+        final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mContext);
         HashMap<String, String> params = new HashMap<>();
-        params.put("userId", signinBean.getData().getMember().getId() + "");
+        params.put("userId",signInfo.getId()+"");
         params.put("idcard1", idCardUp);
         params.put("idcard1", idCardUp);
         params.put("idcard2", idCardDown);

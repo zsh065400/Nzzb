@@ -14,6 +14,7 @@ import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.main.MainViewPagerAdapter;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.fragment.FindCarFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.HomeFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.JourneyFragment;
@@ -44,19 +45,17 @@ public class MainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_home:
-                        vpMain.setCurrentItem(0);
+                        vpMain.setCurrentItem(0,false);
                         break;
                     case R.id.rb_find_car:
-                        vpMain.setCurrentItem(1);
+                        vpMain.setCurrentItem(1,false);
                         break;
                     case R.id.rb_journey:
-                        vpMain.setCurrentItem(2);
+                        vpMain.setCurrentItem(2,false);
                         break;
                     case R.id.rb_mine:
-                        vpMain.setCurrentItem(3);
+                        vpMain.setCurrentItem(3,false);
                         break;
-
-
                 }
             }
         });
@@ -79,12 +78,18 @@ public class MainActivity extends BaseActivity {
         rgMain.check(R.id.rb_home);
     }
 
+
     @Override
     protected void initDatas() {
         /*初始化微信*/
         IWXAPI api = WXAPIFactory.createWXAPI(this, Constant.WEIXIN_APP_ID, false);
         api.registerApp(Constant.WEIXIN_APP_ID);
         MyApplication.setWxApi(api);
+    }
+
+    @Override
+    protected void setStatusBar() {
+        StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
 
 }

@@ -575,4 +575,9 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                     "pageSize", pageSize);
         }
     }
+
+    @Override
+    protected void setStatusBar() {
+        StatusBarUtil.setTransparentForImageViewInFragment(this,null);
+    }
 }

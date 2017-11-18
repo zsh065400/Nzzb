@@ -34,10 +34,11 @@ import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
-import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BrandCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SearchActivity;
+
+import static zzbcar.cckj.com.nzzb.utils.Constant.SP_LAST_LOCATION;
 
 /**
  * Created by Admin on 2017/10/31.
@@ -150,7 +151,7 @@ public class FindCarFragment extends BaseFragment {
 
     @Override
     public void initDatas() {
-        String lastCity = SPUtils.getString(mActivity, Constant.SP_LAST_LOCATION, "");
+        String lastCity = SPUtils.getString(mActivity, SP_LAST_LOCATION, "");
         tvHomeLocalCity.setText(lastCity);
         startTask();
         getCarBrandData();
@@ -171,5 +172,11 @@ public class FindCarFragment extends BaseFragment {
                 System.out.println("搜索栏点击");
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        tvHomeLocalCity.setText(SPUtils.getString(mActivity, SP_LAST_LOCATION, ""));
     }
 }

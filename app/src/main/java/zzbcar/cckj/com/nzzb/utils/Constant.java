@@ -55,9 +55,8 @@ public class Constant {
     /*车型*/
     public static final String API_CAR_MODEL = SERVE_URL + "zzb/app/car/model";
 
-
     /*车友认证*/
-    public static final String USER_AUTH = SERVE_URL+"zzb/app/member/userAuth";
+    public static final String USER_AUTH = SERVE_URL + "zzb/app/member/userAuth";
 
     /*获取服务器时间*/
     public static final String API_SERVER_TIME = SERVE_URL + "zzb/app/common/svrtm";
@@ -68,6 +67,9 @@ public class Constant {
     /*绑定三方登录账号*/
     public static final String API_BIND_QQWX = SERVE_URL + "zzb/app/member/bind";
 
+    /*查询用户订单*/
+    public static final String API_GET_USER_ORDER = SERVE_URL + "zzb/app/order/query";
+
     public static final String HOME_LUNBO_URL = SERVE_URL + "zzb/app/common/marquee";
     //品牌
     public static final String CAR_BRAND_URL = SERVE_URL + "zzb/app/car/brand";
@@ -75,16 +77,16 @@ public class Constant {
     public static final String CAR_DEFAULT_URL = SERVE_URL + "zzb/app/car/queryCarByCondition?pageNum=0&pageSize=10";
     public static final String LOCATION_SELECT_URL = SERVE_URL + "zzb/app/common/citys";
     //常用地址
-    public static final String GET_ADDR = SERVE_URL+"zzb/app/member/getAddr";
-    public static final String ADD_ADDR = SERVE_URL+"zzb/app/member/addAddr";
-    public static final String DEL_ADDR = SERVE_URL+"zzb/app/member/delAddr";
+    public static final String GET_ADDR = SERVE_URL + "zzb/app/member/getAddr";
+    public static final String ADD_ADDR = SERVE_URL + "zzb/app/member/addAddr";
+    public static final String DEL_ADDR = SERVE_URL + "zzb/app/member/delAddr";
     public static final String SP_LOGIN = "login";
 
     public static final String SP_LAST_LOCATION = "last_location";
     //纬度
     public static final String SP_LATITUDE = "latitude";
     //经度
-    public static final String SP_LONGITUDE="longitude";
+    public static final String SP_LONGITUDE = "longitude";
     //aliyun oss
     //TOdo 这里持久化AcciessId 和 Psd 会出现安全性问题。建议以后修改。
     public static final String ACCESS_ID = "LTAIwAHa3lPn0JXN";
@@ -97,11 +99,11 @@ public class Constant {
 
     //加载的网页链接
     //用户协议
-    public static final String MASTER_PROTOCOL="http://app.zzbcar.com/zzb/helpcenter/protocol.html";
+    public static final String MASTER_PROTOCOL = "http://app.zzbcar.com/zzb/helpcenter/protocol.html";
     //平台规则
     public static final String PTGZ = "http://app.zzbcar.com/zzb/helpcenter/ptgz.html";
     //用车流程
-    public static final String USE_PROCEDURE="http://app.zzbcar.com/zzb/helpcenter/user1.html";
+    public static final String USE_PROCEDURE = "http://app.zzbcar.com/zzb/helpcenter/user1.html";
     //用户押金
     public static final String USER_DEPOSIT = "http://app.zzbcar.com/zzb/helpcenter/user2.html";
     //注册审核

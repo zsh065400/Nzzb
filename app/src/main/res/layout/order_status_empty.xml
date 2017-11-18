@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/rl_frag_upprocess_main"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f5f5f5">
+
+
+    <ImageView
+        android:id="@+id/iv_journey_frag_qiche"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:src="@mipmap/qiche"/>
+
+    <TextView
+        android:id="@+id/tv_journey_frag_describe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_journey_frag_qiche"
+        android:layout_centerHorizontal="true"
+        android:text="您还没有相关的订单哦~"
+        android:textSize="20sp"/>
+
+
+    <Button
+        android:id="@+id/bt_journey_grag_toselect_car"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_journey_frag_describe"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="#ff4048"
+        android:text="去选车"
+        android:textColor="#fff"
+        android:textSize="25sp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_unproceed_fragment_nodone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:visibility="invisible"></android.support.v7.widget.RecyclerView>
+</RelativeLayout>
