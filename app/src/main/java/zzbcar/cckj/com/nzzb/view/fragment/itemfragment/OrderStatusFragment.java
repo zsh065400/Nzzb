@@ -111,18 +111,20 @@ public class OrderStatusFragment extends BaseFragment {
 
     /*查询订单*/
     private void queryUserOrder() {
-        url = url + "&userId=" + signInfo.getId();
-        OkGo.<String>get(url).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                final UserOrderBean orderBean = GsonUtil.parseJsonWithGson(response.body(), UserOrderBean.class);
-                final int errno = orderBean.getErrno();
-                if (errno == 0) {
-                    final List<UserOrderBean.DataBean> data = orderBean.getData();
-                    initOrderList(data);
-                }
-            }
-        });
+       if(signInfo!=null){
+           url = url + "&userId=" + signInfo.getId();
+           OkGo.<String>get(url).execute(new StringCallback() {
+               @Override
+               public void onSuccess(Response<String> response) {
+                   final UserOrderBean orderBean = GsonUtil.parseJsonWithGson(response.body(), UserOrderBean.class);
+                   final int errno = orderBean.getErrno();
+                   if (errno == 0) {
+                       final List<UserOrderBean.DataBean> data = orderBean.getData();
+                       initOrderList(data);
+                   }
+               }
+           });
+       }
     }
 
     /*显示订单列表*/

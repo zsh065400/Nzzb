@@ -96,6 +96,7 @@ public class Constant {
     public static final String IDCARD_KEYPATH = "zzbcar/idcard/";
     public static final String CARLICENCE_KEYPATH = "zzbcar/car";
     public static final String SERVER_PHOTO_HEAD = "http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/";
+    public static final String HEAD_KEYPATH = "headImg";
 
     //加载的网页链接
     //用户协议
