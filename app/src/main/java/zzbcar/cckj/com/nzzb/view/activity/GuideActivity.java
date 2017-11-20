@@ -13,6 +13,8 @@ import java.util.List;
 import butterknife.BindView;
 import me.relex.circleindicator.CircleIndicator;
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.SPUtils;
 
 public class GuideActivity extends BaseActivity {
     //向导图片
@@ -73,6 +75,7 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     protected void initDatas() {
+        SPUtils.saveBoolean(mContext, Constant.KEY_HAS_GUIDE,true);
         List<View> views = new ArrayList<>();
         for (int img : imgs) {
             final ImageView imageView = new ImageView(mContext);

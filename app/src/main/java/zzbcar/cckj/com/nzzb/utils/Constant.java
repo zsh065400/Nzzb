@@ -76,12 +76,17 @@ public class Constant {
 
     public static final String CAR_DEFAULT_URL = SERVE_URL + "zzb/app/car/queryCarByCondition?pageNum=0&pageSize=10";
     public static final String LOCATION_SELECT_URL = SERVE_URL + "zzb/app/common/citys";
+    //查询订单
+    public static final String SELECT_ORDER_URL=SERVE_URL+"zzb/app/order/query";
     //常用地址
     public static final String GET_ADDR = SERVE_URL + "zzb/app/member/getAddr";
     public static final String ADD_ADDR = SERVE_URL + "zzb/app/member/addAddr";
     public static final String DEL_ADDR = SERVE_URL + "zzb/app/member/delAddr";
     public static final String SP_LOGIN = "login";
-
+    //用户
+    public static final String CHANGE_INFO = SERVE_URL + "/zzb/app/member/changeInfo";
+    //查询违章
+    public static final String QUERRY_TICKET =SERVE_URL+ "zzb/app/car/ticket";
     public static final String SP_LAST_LOCATION = "last_location";
     //纬度
     public static final String SP_LATITUDE = "latitude";
@@ -102,7 +107,7 @@ public class Constant {
     //用户协议
     public static final String MASTER_PROTOCOL = "http://app.zzbcar.com/zzb/helpcenter/protocol.html";
     //平台规则
-    public static final String PTGZ = "http://app.zzbcar.com/zzb/helpcenter/ptgz.html";
+    public static final String PTGZ = "http://app.zzbcar.com/zzb/helpcenter/protocol.html";
     //用车流程
     public static final String USE_PROCEDURE = "http://app.zzbcar.com/zzb/helpcenter/user1.html";
     //用户押金

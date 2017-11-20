@@ -111,7 +111,8 @@ public class OrderStatusFragment extends BaseFragment {
 
     /*查询订单*/
     private void queryUserOrder() {
-       if(signInfo!=null){
+
+       if (signInfo!=null){
            url = url + "&userId=" + signInfo.getId();
            OkGo.<String>get(url).execute(new StringCallback() {
                @Override
@@ -124,6 +125,8 @@ public class OrderStatusFragment extends BaseFragment {
                    }
                }
            });
+       }else{
+           empty.setVisibility(View.VISIBLE);
        }
     }
 

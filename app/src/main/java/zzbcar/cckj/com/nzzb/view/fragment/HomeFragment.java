@@ -225,6 +225,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 /*跳转详情页面*/
                 final Intent intent = new Intent(mActivity, CarDetailActivity.class);
                 intent.putExtra("carid", activityDatas.get(position).getId());
+
                 startActivity(intent);
             }
         });

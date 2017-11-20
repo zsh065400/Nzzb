@@ -7,6 +7,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -16,11 +18,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -29,6 +42,10 @@ import java.util.Date;
 import butterknife.BindView;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
+import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.GsonUtil;
+import zzbcar.cckj.com.nzzb.utils.LogUtil;
+import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
@@ -62,6 +79,49 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private static final int PHOTO_REQUEST_TAKEPHOTO = 1;
     private static final int PHOTO_REQUEST_GALLERY = 2;
     private static final int PHOTO_REQUEST_CUT = 3;
+    private String path = Environment.getExternalStorageDirectory().getPath() + File.separator + "zzbcar" + File.separator + "icon";
+    private File cropfile;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    String hearUrl = Constant.SERVER_PHOTO_HEAD + Constant.HEAD_KEYPATH + cropfile.getName();
+                    LogUtil.e(hearUrl+"头像地址");
+                    submitHeadUrl(hearUrl);
+                    break;
+                case 1:
+                    Toast.makeText(mActivity, "头像上传失败", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
+
+    private void submitHeadUrl(final String hearUrl) {
+        final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mActivity);
+        if (signInfo!=null)
+        OkGo.<String>get(Constant.CHANGE_INFO)
+                .params("userId",signInfo.getId())
+                .params("avatar",hearUrl)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body());
+                            int errno = jsonObject.getInt("errno");
+                            if(errno!=0){
+                                handler.sendEmptyMessage(1);
+                            }else{
+                                SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mActivity, "User", ""), SigninBean.class);
+                                user.getData().getMember().setAvatar(hearUrl);
+                                SPUtils.saveString(mActivity,"User",GsonUtil.getGson().toJson(user));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
 
     @BindView(R.id.iv_minfragment_head_pic)
     RoundImageView ivUserHead;
@@ -230,7 +290,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private void openShared() {
         new ShareAction(mActivity)
                 .withText("至尊宝豪车共享")
-                .withMedia(new UMImage(mActivity, BitmapFactory.decodeResource(getResources(), R.drawable.p001)))
+                .withMedia(new UMImage(mActivity, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)))
                 .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN)
                 .setCallback(shareListener)
                 .open();
@@ -339,19 +399,47 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 //        intent.putExtra("outputY", size);
         intent.putExtra("outputX", 250);
         intent.putExtra("outputY", 250);
-
-        intent.putExtra("return-data", true);
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        cropfile = new File(file.getPath(), System.currentTimeMillis() + ".jpg");
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cropfile));
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         Log.e("zoom", "begin1");
         startActivityForResult(intent, PHOTO_REQUEST_CUT);
     }
 
     private void setPicToView(Intent picdata) {
-        Bundle bundle = picdata.getExtras();
-        if (bundle != null) {
-            Bitmap photo = bundle.getParcelable("data");
+        if(picdata!=null){
+            Picasso.with(mActivity).load(Uri.fromFile(cropfile)).fit().into(iv_minfragment_head_pic);
+            OssUtils.initOss(mActivity).asyncPutObject(OssUtils.putImage(cropfile, Constant.HEAD_KEYPATH), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+                @Override
+                public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
+                    Message obtain = Message.obtain();
+                    obtain.obj = putObjectResult;
+                    obtain.what = 0;
+                    handler.sendMessage(obtain);
+                }
 
-//            Drawable drawable = new BitmapDrawable(photo);
-            iv_minfragment_head_pic.setImageBitmap(photo);
+                @Override
+                public void onFailure(PutObjectRequest putObjectRequest, ClientException clientExcepion, ServiceException serviceException) {
+
+                    // 请求异常
+                    if (clientExcepion != null) {
+                        // 本地异常如网络异常等
+                        clientExcepion.printStackTrace();
+                    }
+                    if (serviceException != null) {
+                        // 服务异常
+                        Log.e("ErrorCode", serviceException.getErrorCode());
+                        Log.e("RequestId", serviceException.getRequestId());
+                        Log.e("HostId", serviceException.getHostId());
+                        Log.e("RawMessage", serviceException.getRawMessage());
+                    }
+                    handler.sendEmptyMessage(1);
+                }
+            });
         }
     }
 

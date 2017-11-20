@@ -208,7 +208,7 @@
             android:background="#ededed">
         </LinearLayout>
 
-        <include layout="@layout/item_dar_details_order_datails"/>
+        <include layout="@layout/item_dar_details_order_datails" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -218,7 +218,7 @@
             android:background="#ededed">
         </LinearLayout>
 
-        <include layout="@layout/item_car_details_good_things"/>
+        <include layout="@layout/item_car_details_good_things" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -232,6 +232,7 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/tv_detail_car_describe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -268,12 +269,14 @@
                 android:src="@mipmap/icon_logo_baoma"/>
 
             <TextView
+                android:id="@+id/tv_car_remark"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="4"
+                android:maxLines="3"
                 android:text="干的啥发给对方刚给的发个梵蒂冈梵蒂冈地方个梵蒂冈电饭锅地方刮大风刮大风搞得发个电饭锅的时代个个人个二广东人个我的个人观感"/>
         </LinearLayout>
 
@@ -418,6 +421,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/ll_car_collect"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -427,7 +431,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_collect_yes"/>
+                    android:background="@drawable/collect_selector"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -441,7 +445,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:gravity="center">
-
                 <TextView
                     android:id="@+id/tv_immediately_rent_car"
                     android:layout_width="match_parent"

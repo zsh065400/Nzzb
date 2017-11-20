@@ -54,6 +54,16 @@ public class SearchActivity extends BaseActivity {
     TextView tvClearHistory;
     @BindView(R.id.tv_cancel)
     TextView tvCancel;
+    @BindView(R.id.rv_search_result)
+    RecyclerView rvResult;
+
+    private List<QueryBean.DataBean> queryResult;
+    private QueryResultAdapter resultAdapter;
+
+    @BindView(R.id.ll_result)
+    LinearLayout llResult;
+    @BindView(R.id.ll_search)
+    LinearLayout llSearch;
 
     private String searchText = "";
     private List<String> historyDatas = new LinkedList<>();
@@ -138,19 +148,8 @@ public class SearchActivity extends BaseActivity {
                 updateHistories(null, true);
             }
         });
-        setBackButon(R.id.iv_back);
+        //setBackButon(R.id.iv_back);
     }
-
-    @BindView(R.id.rv_search_result)
-     RecyclerView rvResult;
-
-    private List<QueryBean.DataBean> queryResult;
-    private QueryResultAdapter resultAdapter;
-
-    @BindView(R.id.ll_result)
-    LinearLayout llResult;
-    @BindView(R.id.ll_search)
-    LinearLayout llSearch;
 
     /**
      * 请求搜索

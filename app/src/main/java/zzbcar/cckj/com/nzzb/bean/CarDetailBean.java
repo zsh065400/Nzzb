@@ -65,6 +65,16 @@ public class CarDetailBean implements Serializable {
         private String plateNo;
         private double price;
         private double receivePercent;
+        private String remark;
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
         private int seatNum;
         private int series;
         private String seriesName;

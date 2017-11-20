@@ -80,6 +80,7 @@ public class MainActivity extends BaseActivity {
 
 
     @Override
+
     protected void initDatas() {
         /*初始化微信*/
         IWXAPI api = WXAPIFactory.createWXAPI(this, Constant.WEIXIN_APP_ID, false);
@@ -93,3 +94,4 @@ public class MainActivity extends BaseActivity {
     }
 
 }
+

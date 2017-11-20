@@ -3,6 +3,7 @@ package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lzy.okgo.OkGo;
@@ -11,6 +12,7 @@ import com.lzy.okgo.model.Response;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.CarDetailBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
@@ -26,6 +28,20 @@ import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 public class CarDetailActivity extends BaseActivity {
 
+    @BindView(R.id.tv_car_owner_name)
+    TextView tvCarOwnerName;
+    @BindView(R.id.tv_accept_order_rate)
+    TextView tvAcceptOrderRate;
+    @BindView(R.id.tv_accept_order_num)
+    TextView tvAcceptOrderNum;
+    @BindView(R.id.tv_collect_times)
+    TextView tvCollectTimes;
+    @BindView(R.id.tv_car_remark)
+    TextView tvCarRemark;
+    @BindView(R.id.tv_car_license_number)
+    TextView tvCarLicenseNumber;
+    @BindView(R.id.ll_car_collect)
+    LinearLayout llCarCollect;
     private CarDetailBean.DataBean carDetailBean;
 
     @Override
@@ -50,6 +66,8 @@ public class CarDetailActivity extends BaseActivity {
 
     @BindView(R.id.tv_immediately_rent_car)
     TextView tvCarRent;
+    @BindView(R.id.tv_detail_car_describe)
+    TextView tvDetailCarDescribe;
 
     @Override
     protected void initViews() {
@@ -61,12 +79,25 @@ public class CarDetailActivity extends BaseActivity {
         tvCarRent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("cardetail", carDetailBean);
-                toActivity(OrderConfirmActivity.class, bundle, true);
+                if (carDetailBean != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("cardetail", carDetailBean);
+                    toActivity(OrderConfirmActivity.class, bundle, true);
+                }
             }
         });
         setBackButon(R.id.iv_back);
+        llCarCollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Todo 收藏车辆(未实现，接口状态不明)
+                collectCar();
+            }
+        });
+    }
+
+    private void collectCar() {
+
     }
 
     @Override
@@ -97,10 +128,24 @@ public class CarDetailActivity extends BaseActivity {
         tvCarName.setText(carDetailBean.getCarName());
         tvCarModelName.setText(carDetailBean.getModelName());
         tvCarPrice.setText(carDetailBean.getPrice() + "");
+        tvCarLicenseNumber.setText(carDetailBean.getPlateNo());
         tvCarAddr.setText(carDetailBean.getAddr());
+        tvCarOwnerName.setText("车主" + carDetailBean.getOwnerName());
+        tvAcceptOrderRate.setText(String.valueOf(carDetailBean.getReceivePercent()));
+        tvCollectTimes.setText(String.valueOf(carDetailBean.getCollectCount()));
+        tvAcceptOrderNum.setText(String.valueOf(carDetailBean.getOrderCount()));
+        tvCarRemark.setText(String.valueOf(carDetailBean.getRemark()));
     }
+
     @Override
     protected void setStatusBar() {
-        StatusBarUtil.setTransparentForImageViewInFragment(this,null);
+        StatusBarUtil.setTransparentForImageViewInFragment(this, null);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
