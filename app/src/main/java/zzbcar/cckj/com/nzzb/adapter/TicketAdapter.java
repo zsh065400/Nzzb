@@ -28,6 +28,7 @@ public class TicketAdapter extends BaseRecycleViewAdapter<TicketBean.DataBean> {
 
     @Override
     protected int getItemView() {
+
         return R.layout.item_break_rule;
     }
 }

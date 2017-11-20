@@ -50,7 +50,8 @@ public class BreakRulDoingFragment extends BaseFragment {
     private void getData() {
         SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mActivity);
         OkGo.<String>get(Constant.QUERRY_TICKET)
-                .params("userId",signInfo.getId())
+//                .params("userId",signInfo.getId())
+                .params("userId",1)
                 .params("status",0)
                 .execute(new StringCallback() {
                     @Override

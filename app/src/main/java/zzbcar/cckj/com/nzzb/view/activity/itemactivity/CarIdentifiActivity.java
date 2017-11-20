@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -70,7 +71,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
                     progressDialog.dismiss();
                     PutObjectResult obj = (PutObjectResult) msg.obj;
                     String idCardTemp = Constant.SERVER_PHOTO_HEAD + Constant.IDCARD_KEYPATH + cropfile.getName();
-                    ;
+
                     if (isUp) {
                         idCard.add(0, idCardTemp);
                     } else {
@@ -91,6 +92,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected int getLayoutId() {
+       getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return R.layout.activity_car_identifi1;
     }
 

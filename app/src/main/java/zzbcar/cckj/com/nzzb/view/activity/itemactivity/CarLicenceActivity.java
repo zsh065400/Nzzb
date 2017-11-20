@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -48,7 +49,6 @@ import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.bean.CardBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
-import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
@@ -114,7 +114,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected int getLayoutId() {
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return R.layout.activity_car_identifi2;
     }
 

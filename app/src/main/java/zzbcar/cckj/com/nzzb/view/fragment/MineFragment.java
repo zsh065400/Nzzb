@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,8 +56,11 @@ import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarIdentifiActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HelpCenterActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCarActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCollectActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyOrderActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PreCarFriendIdentifiActivity;
 import zzbcar.cckj.com.nzzb.view.customview.RoundImageView;
+
 
 /**
  * Created by Admin on 2017/10/31.
@@ -137,6 +140,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private boolean isSignin = false;
     private SigninBean.DataBean.MemberBean signInfo;
+    private LinearLayout ll_my_order;
+    private LinearLayout ll_my_collect;
 
     @Override
     public void onResume() {
@@ -165,6 +170,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         tv_minfragment_car_identifi.setOnClickListener(this);
         iv_mine_fragment_carowener_recruit.setOnClickListener(this);
         iv_minfragment_head_pic.setOnClickListener(this);
+        ll_my_collect.setOnClickListener(this);
+        ll_my_order.setOnClickListener(this);
+
+
 
     }
 
@@ -193,6 +202,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initViews(View view) {
+        ll_my_order = (LinearLayout)view.findViewById(R.id.ll_my_order);
+        ll_my_collect = (LinearLayout)view.findViewById(R.id.ll_my_collect);
+
         rl_my_card = (RelativeLayout) view.findViewById(R.id.rl_my_card);
         rl_my_address = (RelativeLayout) view.findViewById(R.id.rl_my_address);
         rl_my_account_bind = (RelativeLayout) view.findViewById(R.id.rl_my_account_bind);
@@ -200,6 +212,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         rl_my_invite_friends = (RelativeLayout) view.findViewById(R.id.rl_my_invite_friends);
         rl_my_help_center = (RelativeLayout) view.findViewById(R.id.rl_my_help_center);
         rl_my_about_us = (RelativeLayout) view.findViewById(R.id.rl_my_about_us);
+
         tv_minfragment_car_identifi = (TextView) view.findViewById(R.id.tv_minfragment_car_identifi);
         iv_mine_fragment_carowener_recruit = view.findViewById(R.id.iv_mine_fragment_carowener_recruit);
 
@@ -245,6 +258,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.rl_my_about_us:
                 intent = new Intent(mActivity, AboutUsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_my_order:
+                intent = new Intent(mActivity, MyOrderActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_my_collect:
+                intent = new Intent(mActivity, MyCollectActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tv_minfragment_car_identifi:

@@ -31,11 +31,11 @@
         </meta-data>
 
         <activity android:name=".view.activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
 
         <!-- 三方集成 -->
@@ -124,12 +124,12 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".view.activity.SplshActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN"/> -->
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN"/>
 
 
-            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
-            <!-- </intent-filter> -->
+             <category android:name="android.intent.category.LAUNCHER"/>
+             </intent-filter>
         </activity>
         <activity android:name=".view.activity.GuideActivity"/>
         <activity android:name=".view.activity.TestActivity"/>
@@ -145,11 +145,13 @@
         <activity
             android:name=".view.activity.itemactivity.CarIdentifiActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity
             android:name=".view.activity.itemactivity.CarLicenceActivity"
             android:configChanges="screenSize|keyboardHidden|orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".view.activity.itemactivity.IdentiCompleteActivity"/>
         <activity android:name=".view.activity.itemactivity.CarFriendIdentifiActivity"/>
         <activity android:name=".view.activity.itemactivity.SelecTimeActivity"/>
@@ -176,6 +178,8 @@
         </activity>
         <activity android:name=".view.activity.itemactivity.AddAddressActivity"/>
         <activity android:name=".view.activity.itemactivity.ProtocolActivity"/>
+        <activity android:name=".view.activity.itemactivity.MyCollectActivity"/>
+        <activity android:name=".view.activity.itemactivity.MyOrderActivity"/>
     </application>
 
 </manifest>
