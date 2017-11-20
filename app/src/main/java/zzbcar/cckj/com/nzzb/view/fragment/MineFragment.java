@@ -115,6 +115,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                             if(errno!=0){
                                 handler.sendEmptyMessage(1);
                             }else{
+                                Picasso.with(mActivity).load(Uri.fromFile(cropfile)).fit().into(iv_minfragment_head_pic);
                                 SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mActivity, "User", ""), SigninBean.class);
                                 user.getData().getMember().setAvatar(hearUrl);
                                 SPUtils.saveString(mActivity,"User",GsonUtil.getGson().toJson(user));
@@ -183,6 +184,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if (avatar.equals("") || avatar.equals(":")) {
             Toast.makeText(mActivity, "头像地址错误，且Picasso加载有异常", Toast.LENGTH_SHORT).show();
         } else {
+            LogUtil.e(avatar+"保存的头像");
             Picasso.with(mActivity).load(avatar)
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_launcher)
@@ -432,8 +434,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void setPicToView(Intent picdata) {
-        if(picdata!=null){
-            Picasso.with(mActivity).load(Uri.fromFile(cropfile)).fit().into(iv_minfragment_head_pic);
             OssUtils.initOss(mActivity).asyncPutObject(OssUtils.putImage(cropfile, Constant.HEAD_KEYPATH), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
                 @Override
                 public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
@@ -449,19 +449,20 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     // 请求异常
                     if (clientExcepion != null) {
                         // 本地异常如网络异常等
+                        handler.sendEmptyMessage(1);
                         clientExcepion.printStackTrace();
                     }
                     if (serviceException != null) {
                         // 服务异常
+                        handler.sendEmptyMessage(1);
                         Log.e("ErrorCode", serviceException.getErrorCode());
                         Log.e("RequestId", serviceException.getRequestId());
                         Log.e("HostId", serviceException.getHostId());
                         Log.e("RawMessage", serviceException.getRawMessage());
                     }
-                    handler.sendEmptyMessage(1);
                 }
             });
-        }
+
     }
 
     private String getPhotoFileName() {
