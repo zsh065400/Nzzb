@@ -230,7 +230,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private void openShared() {
         new ShareAction(mActivity)
                 .withText("至尊宝豪车共享")
-                .withMedia(new UMImage(mActivity, BitmapFactory.decodeResource(getResources(), R.drawable.p001)))
+                .withMedia(new UMImage(mActivity, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)))
                 .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN)
                 .setCallback(shareListener)
                 .open();

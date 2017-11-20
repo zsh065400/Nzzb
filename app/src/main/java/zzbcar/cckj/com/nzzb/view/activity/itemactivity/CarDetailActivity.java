@@ -50,7 +50,8 @@ public class CarDetailActivity extends BaseActivity {
 
     @BindView(R.id.tv_immediately_rent_car)
     TextView tvCarRent;
-
+    @BindView(R.id.tv_detail_car_describe)
+    TextView tvDetailCarDescribe;
     @Override
     protected void initViews() {
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
@@ -98,6 +99,7 @@ public class CarDetailActivity extends BaseActivity {
         tvCarModelName.setText(carDetailBean.getModelName());
         tvCarPrice.setText(carDetailBean.getPrice() + "");
         tvCarAddr.setText(carDetailBean.getAddr());
+
     }
     @Override
     protected void setStatusBar() {

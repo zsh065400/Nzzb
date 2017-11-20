@@ -22,7 +22,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_drive_age" />
+                android:src="@mipmap/send_cartodoor" />
 
             <TextView
                 android:layout_marginTop="5dp"
@@ -42,14 +42,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_drive_age" />
+                android:src="@mipmap/kilometre_limit" />
 
             <TextView
                 android:layout_marginTop="5dp"
                 android:textColor="#545454"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="日均限300km" />
+                android:text="日公里限速" />
         </LinearLayout>
 
         <LinearLayout
@@ -60,17 +60,16 @@
             android:orientation="vertical">
 
             <ImageView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_drive_age" />
+                android:src="@mipmap/gas" />
 
             <TextView
                 android:textColor="#545454"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="可交接车时间" />
+                android:text="98号汽油" />
         </LinearLayout>
 
         <RelativeLayout

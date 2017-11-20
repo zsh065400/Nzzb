@@ -23,7 +23,7 @@
             android:layout_marginBottom="32dp"
             android:layout_marginTop="32dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/p001"/>
+            android:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/tv_chaozhi_name"

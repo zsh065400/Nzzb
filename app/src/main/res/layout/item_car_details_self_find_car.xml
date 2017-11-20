@@ -22,14 +22,14 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_drive_age" />
+                android:src="@mipmap/engine" />
 
             <TextView
                 android:layout_marginTop="5dp"
                 android:textColor="#545454"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="支持自助..." />
+                android:text="发动机" />
         </LinearLayout>
 
         <LinearLayout
@@ -42,14 +42,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_drive_age" />
+                android:src="@mipmap/seat_number" />
 
             <TextView
                 android:layout_marginTop="5dp"
                 android:textColor="#545454"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4年驾龄" />
+                android:text="座椅数" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,14 +63,14 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_drive_age" />
+                android:src="@mipmap/hand_block" />
 
             <TextView
                 android:textColor="#545454"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="低于2万公里" />
+                android:text="手动挡" />
         </LinearLayout>
 
         <RelativeLayout

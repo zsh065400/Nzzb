@@ -95,7 +95,7 @@
                     android:layout_width="115dp"
                     android:layout_height="84dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/p001"/>
+                    android:src="@mipmap/ic_launcher"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

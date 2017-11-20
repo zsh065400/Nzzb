@@ -208,7 +208,7 @@
             android:background="#ededed">
         </LinearLayout>
 
-        <include layout="@layout/item_dar_details_order_datails"/>
+        <include layout="@layout/item_dar_details_order_datails" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -218,7 +218,7 @@
             android:background="#ededed">
         </LinearLayout>
 
-        <include layout="@layout/item_car_details_good_things"/>
+        <include layout="@layout/item_car_details_good_things" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -232,6 +232,7 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/tv_detail_car_describe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -427,7 +428,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/icon_collect_yes"/>
+                    android:background="@drawable/collect_selector"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -441,7 +442,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:gravity="center">
-
                 <TextView
                     android:id="@+id/tv_immediately_rent_car"
                     android:layout_width="match_parent"
