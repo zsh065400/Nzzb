@@ -1,11 +1,15 @@
 package zzbcar.cckj.com.nzzb.view.activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -86,6 +90,41 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
 
         initProtocol();
+        initCall();
+    }
+    /**
+     *  拨打热线电话
+     */
+    private void initCall() {
+        tvCall.setText("如需帮助可拨打至尊宝豪车共享服务热线");
+        SpannableString spCall = new SpannableString("0571-86815027");
+        String s2 = "0571-86815027";
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        NoLineClickSpan clickSpan1 = new NoLineClickSpan("#ff4049") {
+            @Override
+            public void onClick(View widget) {
+                Toast.makeText(LoginActivity.this, "电话热线", Toast.LENGTH_SHORT).show();
+                builder.setTitle("拨打给客服？");
+                builder.setMessage("0571-86815027");
+                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "15163225521"));
+                        if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
+                        startActivity(intent);
+                    }
+                });
+                builder.setNegativeButton("取消",null);
+                builder.show();
+            }
+        };
+        spCall.setSpan(clickSpan1, spCall.length() - s2.length(), spCall.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        tvCall.append(spCall);
+        tvCall.setMovementMethod(LinkMovementMethod.getInstance());
+        //设置文本不高亮，如果需要点击后高亮文本，删掉这句即可
+        tvCall.setHighlightColor(Color.parseColor("#ff4049"));
     }
 
     private void initProtocol() {
