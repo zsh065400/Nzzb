@@ -84,11 +84,11 @@ public class Constant {
     public static final String DEL_ADDR = SERVE_URL + "zzb/app/member/delAddr";
     public static final String SP_LOGIN = "login";
     //用户
-    public static final String CHANGE_INFO = SERVE_URL + "/zzb/app/member/changeInfo";
+    public static final String CHANGE_INFO = SERVE_URL +"zzb/app/member/changeInfo";
     //查询违章
     public static final String QUERRY_TICKET =SERVE_URL+ "zzb/app/car/ticket";
-    //我的订单
-    public static final String MY_ORDER_URL =SERVE_URL+ "zzb/app/order/query";
+    //我的收藏
+    public static final String MY_COLLECT_URL =SERVE_URL+"zzb/app/common/loadCollectCar";
 
     public static final String SP_LAST_LOCATION = "last_location";
     //纬度

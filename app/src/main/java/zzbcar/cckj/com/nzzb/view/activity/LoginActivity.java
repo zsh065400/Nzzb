@@ -2,12 +2,17 @@ package zzbcar.cckj.com.nzzb.view.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +36,7 @@ import zzbcar.cckj.com.nzzb.bean.GeneralResponseBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
+import zzbcar.cckj.com.nzzb.utils.NoLineClickSpan;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
@@ -44,6 +50,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @BindView(R.id.tv_signin)
     TextView tvSignin;
     @BindView(R.id.tv_call)
+    TextView tvProtocol;
+    @BindView(R.id.tv_protocol)
     TextView tvCall;
     @BindView(R.id.tv_get_code)
     TextView tvGetCode;
@@ -65,15 +73,36 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected int getLayoutId() {
+
         return R.layout.activity_login;
     }
 
     @Override
     protected void initViews() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         // TODO: 2017/11/10 权限请求逻辑需要调整
         String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
         ActivityCompat.requestPermissions(this, mPermissionList, 123);
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
+
+        initProtocol();
+    }
+
+    private void initProtocol() {
+        tvProtocol.setText("未注册至尊宝豪车共享的手机号，点击确认时自动注册，且代表您已同意");
+        SpannableString spStr = new SpannableString("《至尊宝豪车共享服务协议》");
+        String s2 = "《至尊宝豪车共享服务协议》";
+        NoLineClickSpan clickSpan2 = new NoLineClickSpan("#ff4049") {
+            @Override
+            public void onClick(View widget) {
+                Toast.makeText(LoginActivity.this, "至尊宝豪车共享服务协议", Toast.LENGTH_SHORT).show();
+            }
+        };
+        spStr.setSpan(clickSpan2, spStr.length() - s2.length(), spStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        tvProtocol.append(spStr);
+        tvProtocol.setMovementMethod(LinkMovementMethod.getInstance());
+        //设置文本不高亮，如果需要点击后高亮文本，删掉这句即可
+        tvProtocol.setHighlightColor(Color.parseColor("#ff4049"));
     }
 
     @Override
@@ -99,6 +128,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
+
     }
 
     @Override

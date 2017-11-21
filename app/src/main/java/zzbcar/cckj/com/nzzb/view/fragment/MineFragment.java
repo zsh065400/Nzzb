@@ -38,9 +38,11 @@ import org.json.JSONObject;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.bean.MyCollectBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
@@ -84,6 +86,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private static final int PHOTO_REQUEST_CUT = 3;
     private String path = Environment.getExternalStorageDirectory().getPath() + File.separator + "zzbcar" + File.separator + "icon";
     private File cropfile;
+     private List<MyCollectBean.DataBean> dataBeans;
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {

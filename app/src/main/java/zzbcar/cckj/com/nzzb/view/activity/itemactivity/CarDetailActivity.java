@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.CarDetailBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
@@ -61,6 +62,12 @@ public class CarDetailActivity extends BaseActivity {
     @BindView(R.id.tv_car_addr)
     TextView tvCarAddr;
 
+    @BindView(R.id.tv_cardetail_engineer)
+    TextView tv_cardetail_engineer;
+    @BindView(R.id.tv_cardetail_seatnum)
+    TextView tv_cardetail_seatnum;
+    @BindView(R.id.tv_cardrtail_handblock)
+    TextView tv_cardrtail_handblock;
     @BindView(R.id.tv_car_price)
     TextView tvCarPrice;
 
@@ -68,6 +75,10 @@ public class CarDetailActivity extends BaseActivity {
     TextView tvCarRent;
     @BindView(R.id.tv_detail_car_describe)
     TextView tvDetailCarDescribe;
+    @BindView(R.id.iv_car_detail_brand)
+    ImageView iv_car_detail_brand;
+    @BindView(R.id.civ_head_portrait)
+    CircleImageView civ_head_portrait;
 
     @Override
     protected void initViews() {
@@ -95,9 +106,7 @@ public class CarDetailActivity extends BaseActivity {
             }
         });
     }
-
     private void collectCar() {
-
     }
 
     @Override
@@ -111,30 +120,40 @@ public class CarDetailActivity extends BaseActivity {
                 final CarDetailBean detailBean = GsonUtil.parseJsonWithGson(response.body(), CarDetailBean.class);
                 setViewInfo(detailBean);
             }
-
             @Override
             public void onError(Response<String> response) {
 
             }
         });
     }
-
     private void setViewInfo(CarDetailBean detailBean) {
         carDetailBean = detailBean.getData().get(0);
         Picasso.with(mContext).load(carDetailBean.getPics())
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(ivCarPic);
+        Picasso.with(mContext).load(carDetailBean.getBrandLogo())
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(iv_car_detail_brand);
+        Picasso.with(mContext).load(carDetailBean.getOwnerAvatar())
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(civ_head_portrait);
+
         tvCarName.setText(carDetailBean.getCarName());
         tvCarModelName.setText(carDetailBean.getModelName());
         tvCarPrice.setText(carDetailBean.getPrice() + "");
         tvCarLicenseNumber.setText(carDetailBean.getPlateNo());
+//        tv_cardetail_seatnum.setText(carDetailBean.getSeatNum());
+//        tv_cardrtail_handblock.setText(carDetailBean.getTransmissionCase());
         tvCarAddr.setText(carDetailBean.getAddr());
         tvCarOwnerName.setText("车主" + carDetailBean.getOwnerName());
         tvAcceptOrderRate.setText(String.valueOf(carDetailBean.getReceivePercent()));
         tvCollectTimes.setText(String.valueOf(carDetailBean.getCollectCount()));
         tvAcceptOrderNum.setText(String.valueOf(carDetailBean.getOrderCount()));
         tvCarRemark.setText(String.valueOf(carDetailBean.getRemark()));
+
     }
 
     @Override

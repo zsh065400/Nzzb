@@ -1,15 +1,19 @@
 package zzbcar.cckj.com.nzzb.bean;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Scout
- * Created on 2017/11/12 20:12.
+ * Created by Admin on 2017/11/21.
  */
 
-public class CarDetailBean implements Serializable {
-    private static final long serialVersionUID = 3995591983593704104L;
+public class MyCollectBean {
+
+    /**
+     * errno : 0
+     * data : [{"addr":"杭州市庆春路58号","age":5,"brand":18,"brandLogo":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/brand/Audi.png","brandName":"奥迪","carName":"奥迪R8","collectCount":1,"createTime":"2017-10-12 11:59:03","deposit":20000,"distance":0,"engineLiter":"V6","id":2,"imgs":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg","latitude":30.278001,"longitude":120.168069,"mileage":50000,"model":9,"modelName":"R8","name":"奥迪 S8 2016款 4.0 TFSI quattro","onShelfTime":"2017-11-10 14:41:55","orderCount":"10","owner":5,"ownerAvatar":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/headimg/1511185739418.jpg","ownerName":"ZZB","pics":"http://living-2016.oss-cn-hangzhou.aliyuncs.com/7f40bce7e9992e64a3197d2082f4acc8.png","plateNo":"浙AK136A","price":0.01,"receivePercent":0.25,"remark":"测试车辆","seatNum":2,"series":13,"seriesName":"R8","status":1,"transmissionCase":0,"useCity":"重庆,杭州,北京","useType":1},{"addr":"杭州市庆春路58号","age":0,"brand":23,"brandLogo":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/brand/Lamborghini.png","brandName":"兰博基尼","carName":"兰博基尼Aventador","collectCount":1,"createTime":"2017-10-12 11:59:03","deposit":20000,"distance":0,"engineLiter":"V6","id":3,"imgs":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg","latitude":30.22935,"longitude":120.033163,"mileage":0,"model":17,"modelName":"LP-700-4","name":"至尊宝CAR2","onShelfTime":"2017-10-12 11:59:03","orderCount":"4","owner":10,"ownerAvatar":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/headimg/1511185739418.jpg","ownerName":"Happy","pics":"http://living.cto1024.com/a604af1f51dcdc715edabae672a536e2.jpg","plateNo":"浙AK137A","price":0.01,"receivePercent":0,"remark":"测试车辆","seatNum":2,"series":22,"seriesName":"Aventador","status":2,"transmissionCase":2,"useCity":"重庆,杭州,北京","useType":1}]
+     * message : 请求成功
+     */
+
     private int errno;
     private String message;
     private List<DataBean> data;
@@ -38,37 +42,59 @@ public class CarDetailBean implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable {
+    public static class DataBean {
+        /**
+         * addr : 杭州市庆春路58号
+         * age : 5
+         * brand : 18
+         * brandLogo : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/brand/Audi.png
+         * brandName : 奥迪
+         * carName : 奥迪R8
+         * collectCount : 1
+         * createTime : 2017-10-12 11:59:03
+         * deposit : 20000
+         * distance : 0
+         * engineLiter : V6
+         * id : 2
+         * imgs : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg
+         * latitude : 30.278001
+         * longitude : 120.168069
+         * mileage : 50000
+         * model : 9
+         * modelName : R8
+         * name : 奥迪 S8 2016款 4.0 TFSI quattro
+         * onShelfTime : 2017-11-10 14:41:55
+         * orderCount : 10
+         * owner : 5
+         * ownerAvatar : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/headimg/1511185739418.jpg
+         * ownerName : ZZB
+         * pics : http://living-2016.oss-cn-hangzhou.aliyuncs.com/7f40bce7e9992e64a3197d2082f4acc8.png
+         * plateNo : 浙AK136A
+         * price : 0.01
+         * receivePercent : 0.25
+         * remark : 测试车辆
+         * seatNum : 2
+         * series : 13
+         * seriesName : R8
+         * status : 1
+         * transmissionCase : 0
+         * useCity : 重庆,杭州,北京
+         * useType : 1
+         */
+
         private String addr;
         private int age;
         private int brand;
-
-        public String getBrandLogo() {
-            return brandLogo;
-        }
-        public void setBrandLogo(String brandLogo) {
-            this.brandLogo = brandLogo;
-        }
-
-        private  String brandLogo;
+        private String brandLogo;
         private String brandName;
         private String carName;
         private int collectCount;
         private String createTime;
         private int deposit;
         private int distance;
+        private String engineLiter;
         private int id;
         private String imgs;
-
-        public String getOwnerAvatar() {
-            return ownerAvatar;
-        }
-
-        public void setOwnerAvatar(String ownerAvatar) {
-            this.ownerAvatar = ownerAvatar;
-        }
-
-        private String ownerAvatar;
         private double latitude;
         private double longitude;
         private int mileage;
@@ -78,21 +104,13 @@ public class CarDetailBean implements Serializable {
         private String onShelfTime;
         private String orderCount;
         private int owner;
+        private String ownerAvatar;
         private String ownerName;
         private String pics;
         private String plateNo;
         private double price;
         private double receivePercent;
         private String remark;
-
-        public String getRemark() {
-            return remark;
-        }
-
-        public void setRemark(String remark) {
-            this.remark = remark;
-        }
-
         private int seatNum;
         private int series;
         private String seriesName;
@@ -125,8 +143,15 @@ public class CarDetailBean implements Serializable {
             this.brand = brand;
         }
 
-        public String getBrandName() {
+        public String getBrandLogo() {
+            return brandLogo;
+        }
 
+        public void setBrandLogo(String brandLogo) {
+            this.brandLogo = brandLogo;
+        }
+
+        public String getBrandName() {
             return brandName;
         }
 
@@ -172,6 +197,14 @@ public class CarDetailBean implements Serializable {
 
         public void setDistance(int distance) {
             this.distance = distance;
+        }
+
+        public String getEngineLiter() {
+            return engineLiter;
+        }
+
+        public void setEngineLiter(String engineLiter) {
+            this.engineLiter = engineLiter;
         }
 
         public int getId() {
@@ -262,6 +295,14 @@ public class CarDetailBean implements Serializable {
             this.owner = owner;
         }
 
+        public String getOwnerAvatar() {
+            return ownerAvatar;
+        }
+
+        public void setOwnerAvatar(String ownerAvatar) {
+            this.ownerAvatar = ownerAvatar;
+        }
+
         public String getOwnerName() {
             return ownerName;
         }
@@ -300,6 +341,14 @@ public class CarDetailBean implements Serializable {
 
         public void setReceivePercent(double receivePercent) {
             this.receivePercent = receivePercent;
+        }
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
         }
 
         public int getSeatNum() {
