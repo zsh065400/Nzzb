@@ -1,6 +1,7 @@
 package zzbcar.cckj.com.nzzb.view.customview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -13,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -306,6 +308,7 @@ public class CommonCalendarView extends FrameLayout implements View.OnClickListe
             if (view == null) {
                 view = LayoutInflater.from(mContext).inflate(R.layout.item_day, viewGroup, false);
                 viewHolder = new GridViewHolder();
+                viewHolder.llMain = view.findViewById(R.id.ll_main);
                 viewHolder.mTextView = (TextView) view.findViewById(R.id.day_tv);
                 viewHolder.mPriceTv = (TextView) view.findViewById(R.id.price_tv);
                 viewHolder.mLineView = view.findViewById(R.id.line_view);
@@ -318,6 +321,8 @@ public class CommonCalendarView extends FrameLayout implements View.OnClickListe
                 viewHolder.mTextView.setText("");
                 viewHolder.mPriceTv.setText("");
             } else {
+                /*if (item+1<Calendar.getInstance().get(Calendar.DAY_OF_MONTH))
+                    viewHolder.llMain.setBackgroundColor(Color.BLACK);*/
                 viewHolder.mTextView.setText(String.valueOf(item + 1));
                 viewHolder.mPriceTv.setText("");
                 if (i%7==0||i%7==6){
@@ -350,6 +355,7 @@ public class CommonCalendarView extends FrameLayout implements View.OnClickListe
     }
 
     public static class GridViewHolder {
+        public LinearLayout llMain;
         public TextView mTextView;
         public View mLineView;
         public TextView mPriceTv;

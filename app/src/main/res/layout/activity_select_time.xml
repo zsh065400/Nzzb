@@ -26,6 +26,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:background="@color/white"
                         android:id="@+id/ll_get_car"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -47,6 +48,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_marginTop="2dp"
                             android:text="请设置取车时间"
+                            android:textSize="16sp"
                             android:textColor="#000" />
 
                     </LinearLayout>
@@ -56,7 +58,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/get_or_return_car"
+                        android:background="@color/light_while"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -80,10 +82,10 @@
 
                 </LinearLayout>
 
-                <zzbcar.cckj.com.nzzb.view.customview.CommonCalendarView
-                    android:id="@+id/calendarView"
+                <zzbcar.cckj.com.nzzb.widget.NoScrollViewPager
+                    android:id="@+id/vp_select_time"
                     android:layout_width="match_parent"
-                    android:layout_height="398dp" />
+                    android:layout_height="360dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
