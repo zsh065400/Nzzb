@@ -31,6 +31,7 @@ import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 import zzbcar.cckj.com.nzzb.bean.QueryBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
+import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
@@ -286,6 +287,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
      * @param result
      */
     private void parseSeriesData(String result) {
+        LogUtil.e(result+"车系数据");
         final CarSeriesBean bean = GsonUtil.parseJsonWithGson(result, CarSeriesBean.class);
         final List<CarSeriesBean.DataBean> data = bean.getData();
         if (carSeriesAdapter == null) {
@@ -296,6 +298,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     /*请求数据,刷新车辆信息,每次点击都刷新*/
                     params.setSeries(String.valueOf(data.get(position).getId()));
+                    LogUtil.e(params.buildUrl()+"请求url");
                     doCarQuery(params.buildUrl());
                     ll_whole_brand.performClick();
                 }

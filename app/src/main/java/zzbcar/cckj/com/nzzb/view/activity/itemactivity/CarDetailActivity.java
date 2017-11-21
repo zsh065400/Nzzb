@@ -1,7 +1,9 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,11 +13,16 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+import java.util.List;
+import java.util.zip.Inflater;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.CarDetailBean;
+import zzbcar.cckj.com.nzzb.bean.WeekPriceBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
@@ -43,6 +50,8 @@ public class CarDetailActivity extends BaseActivity {
     TextView tvCarLicenseNumber;
     @BindView(R.id.ll_car_collect)
     LinearLayout llCarCollect;
+    @BindView(R.id.ll_car_price_list)
+    LinearLayout llCarPriceList;
     private CarDetailBean.DataBean carDetailBean;
 
     @Override
@@ -106,12 +115,15 @@ public class CarDetailActivity extends BaseActivity {
             }
         });
     }
+
     private void collectCar() {
     }
 
     @Override
     protected void initDatas() {
+
         final int carid = getIntent().getIntExtra("carid", 0);
+        initWeekPrice(carid + "");
         final String url = OkHttpUtil.obtainGetUrl(Constant.API_CAR_DETAIL, "carIdList", carid + "");
         OkGo.<String>get(url).execute(new StringCallback() {
             @Override
@@ -120,12 +132,44 @@ public class CarDetailActivity extends BaseActivity {
                 final CarDetailBean detailBean = GsonUtil.parseJsonWithGson(response.body(), CarDetailBean.class);
                 setViewInfo(detailBean);
             }
+
             @Override
             public void onError(Response<String> response) {
 
             }
         });
     }
+
+    private void initWeekPrice(String carid) {
+        OkGo.<String>get(Constant.API_CAR_WEEK_PRICE)
+                .params("carId", carid)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        List<WeekPriceBean.DataBean> data = GsonUtil.parseJsonWithGson(response.body(), WeekPriceBean.class).getData();
+                        parseWeekData(data);
+                    }
+                });
+    }
+
+    private void parseWeekData(List<WeekPriceBean.DataBean> data) {
+        llCarPriceList.removeAllViews();
+        for (int i=0;i<data.size();i++){
+            View inflate = getLayoutInflater().inflate(R.layout.car_detail_week_item,null,false);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
+            inflate.setLayoutParams(lp);
+            TextView week = inflate.findViewById(R.id.tv_week_price_week);
+            TextView weekDay = inflate.findViewById(R.id.tv_week_price_weekday);
+            TextView money = inflate.findViewById(R.id.tv_week_price_money);
+            WeekPriceBean.DataBean dataBean = data.get(i);
+            week.setText(getWeekDay(dataBean.getWeekday()));
+            int day = new Date().getDay()+i;
+            weekDay.setText(day<10?"0"+day:day+"");
+            money.setText(dataBean.getPrice()+"");
+            llCarPriceList.addView(inflate,i);
+        }
+    }
+
     private void setViewInfo(CarDetailBean detailBean) {
         carDetailBean = detailBean.getData().get(0);
         Picasso.with(mContext).load(carDetailBean.getPics())
@@ -136,6 +180,7 @@ public class CarDetailActivity extends BaseActivity {
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(iv_car_detail_brand);
+        if (!TextUtils.isEmpty(carDetailBean.getOwnerName()))
         Picasso.with(mContext).load(carDetailBean.getOwnerAvatar())
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
@@ -166,5 +211,32 @@ public class CarDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+    private String getWeekDay(int week){
+        String weekDay="";
+        switch (week){
+            case 1:
+                weekDay = "日";
+                break;
+            case 2:
+                weekDay = "一";
+                break;
+            case 3:
+                weekDay = "二";
+                break;
+            case 4:
+                weekDay = "三";
+                break;
+            case 5:
+                weekDay = "四";
+                break;
+            case 6:
+                weekDay = "五";
+                break;
+            case 7:
+                weekDay = "六";
+                break;
+        }
+        return weekDay;
     }
 }

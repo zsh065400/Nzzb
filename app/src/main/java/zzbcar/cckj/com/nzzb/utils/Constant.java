@@ -36,7 +36,8 @@ public class Constant {
 
     /*查询车辆信息*/
     public static final String API_CAR_DETAIL = SERVE_URL + "zzb/app/car/queryCar";
-
+    /*查询车辆价格表*/
+    public static final String API_CAR_WEEK_PRICE = SERVE_URL+"zzb/app/bus/week_price";
     /*获取支付*/
     public static final String API_ORDER_PAY = SERVE_URL + "zzb/app/pay/request";
 
