@@ -54,6 +54,7 @@ public class MainActivity extends BaseActivity {
                         vpMain.setCurrentItem(2,false);
                         break;
                     case R.id.rb_mine:
+
                         vpMain.setCurrentItem(3,false);
                         break;
                 }

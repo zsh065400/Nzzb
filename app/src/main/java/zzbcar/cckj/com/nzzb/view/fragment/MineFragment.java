@@ -79,6 +79,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private RelativeLayout rl_my_help_center;
     private RelativeLayout rl_my_about_us;
     private TextView tv_minfragment_car_identifi;
+    private TextView tv_collectcar_counts;
+    private TextView tv_ordercar_counts;
     private ImageView iv_mine_fragment_carowener_recruit;
     private RoundImageView iv_minfragment_head_pic;
     private AlertDialog dialog;
@@ -87,15 +89,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private static final int PHOTO_REQUEST_CUT = 3;
     private String path = Environment.getExternalStorageDirectory().getPath() + File.separator + "zzbcar" + File.separator + "icon";
     private File cropfile;
-     private List<MyCollectBean.DataBean> dataBeans;
+    private List<MyCollectBean.DataBean> dataBeans;
 
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
                     String hearUrl = Constant.SERVER_PHOTO_HEAD + Constant.HEAD_KEYPATH + cropfile.getName();
-                    LogUtil.e(hearUrl+"头像地址");
+                    LogUtil.e(hearUrl + "头像地址");
                     submitHeadUrl(hearUrl);
                     break;
                 case 1:
@@ -104,33 +106,33 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             }
         }
     };
-    private int collectCount;
+
 
     private void submitHeadUrl(final String hearUrl) {
         final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mActivity);
-        if (signInfo!=null)
-        OkGo.<String>get(Constant.CHANGE_INFO)
-                .params("userId",signInfo.getId())
-                .params("avatar",hearUrl)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response.body());
-                            int errno = jsonObject.getInt("errno");
-                            if(errno!=0){
-                                handler.sendEmptyMessage(1);
-                            }else{
-                                Picasso.with(mActivity).load(Uri.fromFile(cropfile)).fit().into(iv_minfragment_head_pic);
-                                SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mActivity, "User", ""), SigninBean.class);
-                                user.getData().getMember().setAvatar(hearUrl);
-                                SPUtils.saveString(mActivity,"User",GsonUtil.getGson().toJson(user));
+        if (signInfo != null)
+            OkGo.<String>get(Constant.CHANGE_INFO)
+                    .params("userId", signInfo.getId())
+                    .params("avatar", hearUrl)
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.body());
+                                int errno = jsonObject.getInt("errno");
+                                if (errno != 0) {
+                                    handler.sendEmptyMessage(1);
+                                } else {
+                                    Picasso.with(mActivity).load(Uri.fromFile(cropfile)).fit().into(iv_minfragment_head_pic);
+                                    SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mActivity, "User", ""), SigninBean.class);
+                                    user.getData().getMember().setAvatar(hearUrl);
+                                    SPUtils.saveString(mActivity, "User", GsonUtil.getGson().toJson(user));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
     }
 
     @BindView(R.id.iv_minfragment_head_pic)
@@ -167,6 +169,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initDatas() {
+
         rl_my_card.setOnClickListener(this);
         rl_my_address.setOnClickListener(this);
         rl_my_account_bind.setOnClickListener(this);
@@ -181,7 +184,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         ll_my_order.setOnClickListener(this);
 
 
-
     }
 
     /*初始化登录信息*/
@@ -190,7 +192,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if (avatar.equals("") || avatar.equals(":")) {
             Toast.makeText(mActivity, "头像地址错误，且Picasso加载有异常", Toast.LENGTH_SHORT).show();
         } else {
-            LogUtil.e(avatar+"保存的头像");
+            LogUtil.e(avatar + "保存的头像");
             Picasso.with(mActivity).load(avatar)
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_launcher)
@@ -199,9 +201,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         /*车主认证状态*/
         if (signInfo.getAuthStatus() == 1) {
             tv_minfragment_car_identifi.setText("车主已认证");
-        }else if(signInfo.getAuthStatus() == 0){
+        } else if (signInfo.getAuthStatus() == 0) {
             tv_minfragment_car_identifi.setText("车主未认证");
-        }else if(signInfo.getAuthStatus() == 3){
+        } else if (signInfo.getAuthStatus() == 3) {
             tv_minfragment_car_identifi.setText("车主认证失败");
         }
         tvUserPhone.setText(signInfo.getMobile());
@@ -210,8 +212,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initViews(View view) {
-        ll_my_order = (LinearLayout)view.findViewById(R.id.ll_my_order);
-        ll_my_collect = (LinearLayout)view.findViewById(R.id.ll_my_collect);
+        ll_my_order = (LinearLayout) view.findViewById(R.id.ll_my_order);
+        ll_my_collect = (LinearLayout) view.findViewById(R.id.ll_my_collect);
 
         rl_my_card = (RelativeLayout) view.findViewById(R.id.rl_my_card);
         rl_my_address = (RelativeLayout) view.findViewById(R.id.rl_my_address);
@@ -222,6 +224,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         rl_my_about_us = (RelativeLayout) view.findViewById(R.id.rl_my_about_us);
 
         tv_minfragment_car_identifi = (TextView) view.findViewById(R.id.tv_minfragment_car_identifi);
+        tv_ordercar_counts = (TextView) view.findViewById(R.id.tv_ordercar_counts);
+        tv_collectcar_counts = (TextView) view.findViewById(R.id.tv_collectcar_counts);
         iv_mine_fragment_carowener_recruit = view.findViewById(R.id.iv_mine_fragment_carowener_recruit);
 
         iv_minfragment_head_pic = (RoundImageView) view.findViewById(R.id.iv_minfragment_head_pic);
@@ -229,6 +233,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         iv_minfragment_head_pic = (RoundImageView) view.findViewById(R.id.iv_minfragment_head_pic);
 
         StatusBarUtil.setViewTopPadding(mActivity, view, R.id.top_bar);
+
+
     }
 
     @Override
@@ -247,13 +253,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.rl_my_address:
-                toActivity(CommonAddressActivity.class,true);
+                toActivity(CommonAddressActivity.class, true);
                 break;
             case R.id.rl_my_account_bind:
-                toActivity(AccountBindActivity.class,true);
+                toActivity(AccountBindActivity.class, true);
                 break;
             case R.id.rl_my_break_rules:
-                toActivity(BreakRuleActivity.class,true);
+                toActivity(BreakRuleActivity.class, true);
                 break;
             case R.id.rl_my_invite_friends:
 //                intent = new Intent(mActivity, InviteFriendsActivity.class);
@@ -269,16 +275,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.ll_my_order:
-                toActivity(MyOrderActivity.class,true);
+                toActivity(MyOrderActivity.class, true);
                 break;
             case R.id.ll_my_collect:
+              toCollectView();
+                toActivity(MyCollectActivity.class, true);
 
-                toActivity(MyCollectActivity.class,true);
-
-                toCollectView();
                 break;
             case R.id.tv_minfragment_car_identifi:
-                toActivity(CarIdentifiActivity.class,true);
+                toActivity(CarIdentifiActivity.class, true);
                 break;
             case R.id.iv_mine_fragment_carowener_recruit:
                 intent = new Intent(mActivity, PreCarFriendIdentifiActivity.class);
@@ -320,7 +325,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(getContext());
         OkGo.<String>get(Constant.PERSON_MESSAGE)
 //                .params("userId",signInfo.getId())
-                .params("userId",1)
+                .params("userId", 1)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -333,7 +338,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void setViewInfo(PeresonMessageBean.DataBean permessBean) {
-        collectCount = permessBean.getCollectCount();
+
+        tv_collectcar_counts.setText(permessBean.getCollectCount());
+        tv_ordercar_counts.setText(permessBean.getOrderCount());
 
     }
 
@@ -463,34 +470,34 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void setPicToView(Intent picdata) {
-            OssUtils.initOss(mActivity).asyncPutObject(OssUtils.putImage(cropfile, Constant.HEAD_KEYPATH), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-                @Override
-                public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
-                    Message obtain = Message.obtain();
-                    obtain.obj = putObjectResult;
-                    obtain.what = 0;
-                    handler.sendMessage(obtain);
-                }
+        OssUtils.initOss(mActivity).asyncPutObject(OssUtils.putImage(cropfile, Constant.HEAD_KEYPATH), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+            @Override
+            public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
+                Message obtain = Message.obtain();
+                obtain.obj = putObjectResult;
+                obtain.what = 0;
+                handler.sendMessage(obtain);
+            }
 
-                @Override
-                public void onFailure(PutObjectRequest putObjectRequest, ClientException clientExcepion, ServiceException serviceException) {
+            @Override
+            public void onFailure(PutObjectRequest putObjectRequest, ClientException clientExcepion, ServiceException serviceException) {
 
-                    // 请求异常
-                    if (clientExcepion != null) {
-                        // 本地异常如网络异常等
-                        handler.sendEmptyMessage(1);
-                        clientExcepion.printStackTrace();
-                    }
-                    if (serviceException != null) {
-                        // 服务异常
-                        handler.sendEmptyMessage(1);
-                        Log.e("ErrorCode", serviceException.getErrorCode());
-                        Log.e("RequestId", serviceException.getRequestId());
-                        Log.e("HostId", serviceException.getHostId());
-                        Log.e("RawMessage", serviceException.getRawMessage());
-                    }
+                // 请求异常
+                if (clientExcepion != null) {
+                    // 本地异常如网络异常等
+                    handler.sendEmptyMessage(1);
+                    clientExcepion.printStackTrace();
                 }
-            });
+                if (serviceException != null) {
+                    // 服务异常
+                    handler.sendEmptyMessage(1);
+                    Log.e("ErrorCode", serviceException.getErrorCode());
+                    Log.e("RequestId", serviceException.getRequestId());
+                    Log.e("HostId", serviceException.getHostId());
+                    Log.e("RawMessage", serviceException.getRawMessage());
+                }
+            }
+        });
 
     }
 

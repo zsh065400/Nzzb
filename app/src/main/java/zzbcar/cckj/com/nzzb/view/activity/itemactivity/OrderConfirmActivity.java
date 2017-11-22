@@ -3,6 +3,7 @@ package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class OrderConfirmActivity extends BaseActivity {
     private int userId;
     private String startTime;
     private String endTime;
+    private ImageView iv_order_car_pic;
 
     @Override
     protected int getLayoutId() {
@@ -48,6 +50,7 @@ public class OrderConfirmActivity extends BaseActivity {
     @Override
     protected void initViews() {
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
+        iv_order_car_pic = (ImageView)findViewById(R.id.iv_order_car_pic);
     }
 
     @Override
@@ -150,6 +153,7 @@ public class OrderConfirmActivity extends BaseActivity {
                 final OrderBean orderBean = GsonUtil.parseJsonWithGson(body, OrderBean.class);
                 if (orderBean.getErrno() == 0) {
                     orderBeanData = orderBean.getData();
+
                     System.out.println(body);
                     /*启动*/
                     Bundle bundle = new Bundle();
@@ -164,6 +168,8 @@ public class OrderConfirmActivity extends BaseActivity {
             }
         });
     }
+
+
 
     private String getCurrentTime(boolean next) {
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");

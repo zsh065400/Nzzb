@@ -91,7 +91,8 @@
                 >
 
                 <ImageView
-                    android:id="@+id/iv_car_pic"
+
+                    android:id="@+id/iv_order_car_pic"
                     android:layout_width="115dp"
                     android:layout_height="84dp"
                     android:scaleType="fitXY"
@@ -396,7 +397,7 @@
             android:gravity="center"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
-            android:text="去支付"
+            android:text="提交订单"
             android:textColor="#fff"
             android:textSize="16dp"/>
 
