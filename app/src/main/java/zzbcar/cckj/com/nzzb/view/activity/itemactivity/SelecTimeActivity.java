@@ -17,7 +17,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -81,8 +80,6 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         initTimePicker();
         tv_get_car_time = (TextView) findViewById(R.id.tv_get_car_time);
         tv_back_car_time = (TextView) findViewById(R.id.tv_back_car_time);
-        iv_swicth = (ImageView) findViewById(R.id.iv_swicth);
-        red_point = (ImageView) findViewById(R.id.red_point);
         ll_get_car = (LinearLayout) findViewById(R.id.ll_get_car);
         ll_back_car = (LinearLayout) findViewById(R.id.ll_back_car);
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
