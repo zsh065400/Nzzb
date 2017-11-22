@@ -5,8 +5,11 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -62,8 +65,6 @@ import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.LocationListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
 import zzbcar.cckj.com.nzzb.view.customview.Gradient;
-
-
 
 
 /**
@@ -297,6 +298,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tvChaozhiAll.setOnClickListener(this);
         tvChexingAll.setOnClickListener(this);
         tvLocation.setOnClickListener(this);
+        tvLocation.setOnClickListener(this);
+        ivService.setOnClickListener(this);
     }
 
     @Override
@@ -330,6 +333,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.tv_location:
                 intent = new Intent(mActivity, LocationListActivity.class);
+                break;
+            case R.id.iv_service:
+                intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13295815771"));
+                if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+
                 break;
         }
         startActivity(intent);

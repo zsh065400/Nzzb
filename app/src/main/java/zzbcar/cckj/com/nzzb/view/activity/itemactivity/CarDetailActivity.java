@@ -3,7 +3,6 @@ package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,7 +14,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +26,8 @@ import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
+
+
 
 /**
  * Created by Scout
@@ -115,7 +115,6 @@ public class CarDetailActivity extends BaseActivity {
             }
         });
     }
-
     private void collectCar() {
     }
 
@@ -132,13 +131,13 @@ public class CarDetailActivity extends BaseActivity {
                 final CarDetailBean detailBean = GsonUtil.parseJsonWithGson(response.body(), CarDetailBean.class);
                 setViewInfo(detailBean);
             }
-
             @Override
             public void onError(Response<String> response) {
 
             }
         });
     }
+
 
     private void initWeekPrice(String carid) {
         OkGo.<String>get(Constant.API_CAR_WEEK_PRICE)
@@ -170,6 +169,7 @@ public class CarDetailActivity extends BaseActivity {
         }
     }
 
+
     private void setViewInfo(CarDetailBean detailBean) {
         carDetailBean = detailBean.getData().get(0);
         Picasso.with(mContext).load(carDetailBean.getPics())
@@ -180,7 +180,9 @@ public class CarDetailActivity extends BaseActivity {
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(iv_car_detail_brand);
+
         if (!TextUtils.isEmpty(carDetailBean.getOwnerName()))
+
         Picasso.with(mContext).load(carDetailBean.getOwnerAvatar())
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)

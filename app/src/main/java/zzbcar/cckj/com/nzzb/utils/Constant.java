@@ -90,6 +90,8 @@ public class Constant {
     public static final String QUERRY_TICKET =SERVE_URL+ "zzb/app/car/ticket";
     //我的收藏
     public static final String MY_COLLECT_URL =SERVE_URL+"zzb/app/common/loadCollectCar";
+    //个人用户信息的统计
+    public static final String PERSON_MESSAGE =SERVE_URL+"zzb/app/member/userStatisInfo";
 
     public static final String SP_LAST_LOCATION = "last_location";
     //纬度
