@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="3dp"
-                android:text="09/27/02:45"
+                android:text="取车时间"
                 android:textColor="#b71212"
                 android:textSize="16sp"/>
 
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
-                android:text="09/27/02:45"
+                android:text="还车时间"
                 android:textColor="#b71212"
                 android:textSize="14dp"/>
         </LinearLayout>

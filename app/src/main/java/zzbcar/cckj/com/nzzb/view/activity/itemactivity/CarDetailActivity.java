@@ -101,8 +101,9 @@ public class CarDetailActivity extends BaseActivity {
             public void onClick(View v) {
                 if (carDetailBean != null) {
                     Bundle bundle = new Bundle();
+                    bundle.putString("type",SelecTimeActivity.DETAIL_KEY);
                     bundle.putSerializable("cardetail", carDetailBean);
-                    toActivity(OrderConfirmActivity.class, bundle, true);
+                    toActivity(SelecTimeActivity.class, bundle);
                 }
             }
         });
@@ -112,6 +113,17 @@ public class CarDetailActivity extends BaseActivity {
             public void onClick(View view) {
                 //Todo 收藏车辆(未实现，接口状态不明)
                 collectCar();
+            }
+        });
+        llCarPriceList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (carDetailBean != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("type",SelecTimeActivity.DETAIL_KEY);
+                    bundle.putSerializable("cardetail", carDetailBean);
+                    toActivity(SelecTimeActivity.class, bundle);
+                }
             }
         });
     }
