@@ -418,6 +418,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 //startActivity(intent);
                 Bundle bundle = new Bundle();
                 bundle.putString("type", SelecTimeActivity.RENT_KEY);
+                bundle.putString("getAddress",tv_rent_address.getText().toString());
                 toActivityWithResult(SelecTimeActivity.class, bundle, 0);
                 break;
 
@@ -452,6 +453,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                     Bundle extras = data.getExtras();
                     tvStartTime.setText(extras.getString("getTime"));
                     tvEndTime.setText(extras.getString("backTime"));
+                    String address = data.getStringExtra("getAddress");
+                    tv_rent_address.setText(address);
                 }
                 break;
         }
@@ -461,6 +464,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
     private void toCarDetail(int id) {
         final Intent intent = new Intent(mContext, CarDetailActivity.class);
         intent.putExtra("carid", id);
+        intent.putExtra("type",CarDetailActivity.RENT_KEY);
+        intent.putExtra("getAddress",tv_rent_address.getText().toString());
         startActivity(intent);
     }
 

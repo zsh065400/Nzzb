@@ -92,7 +92,7 @@
             android:layout_margin="10dp"
             android:drawablePadding="3dp"
             android:drawableRight="@mipmap/icon_arrow_bottom_white"
-            android:text="点击选择地址"
+            android:text="请点击设置送车上门地址"
             android:textColor="#fff"
             android:textSize="14dp"/>
     </LinearLayout>

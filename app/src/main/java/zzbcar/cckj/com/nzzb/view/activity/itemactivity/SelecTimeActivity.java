@@ -17,7 +17,6 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,6 +49,8 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     NoScrollViewPager vpSelectTime;
     @BindView(R.id.tv_sure_send_car)
     TextView tvSureSendCar;
+    @BindView(R.id.tv_select_getAddress)
+    TextView tvSelectGetAddress;
     private TextView tv_get_car_time;
     private TextView tv_back_car_time;
     private ImageView iv_swicth;
@@ -100,16 +101,19 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         ll_back_car.setOnClickListener(this);
         ll_get_car.setEnabled(false);
         tvSureSendCar.setOnClickListener(this);
+        tvSelectGetAddress.setOnClickListener(this);
     }
 
     @Override
     protected void initDatas() {
         Bundle bundle = getIntent().getExtras();
         type = bundle.getString("type");
-        if(type.equals(DETAIL_KEY)){
+        if (type.equals(DETAIL_KEY)) {
             cardetail = (CarDetailBean.DataBean) bundle.getSerializable("cardetail");
+            tvSelectGetAddress.setText(bundle.getString("getAddress"));
             getPrice();
-        }else{
+        } else {
+            tvSelectGetAddress.setText(bundle.getString("getAddress"));
             setVpData();
         }
         /*this.calendarView.init(new CommonCalendarView.DatePickerController() {
@@ -182,25 +186,25 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     private void getPrice() {
         final Calendar calendar = Calendar.getInstance();
         OkGo.<String>get(Constant.API_PRICE_MONTH)
-                .params("year",calendar.get(Calendar.YEAR)+"")
-                .params("month",calendar.get(Calendar.MONTH)+1+"")
-                .params("carId",cardetail.getId()+"")
+                .params("year", calendar.get(Calendar.YEAR) + "")
+                .params("month", calendar.get(Calendar.MONTH) + 1 + "")
+                .params("carId", cardetail.getId() + "")
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
                         monthPriceList = GsonUtil.parseJsonWithGson(response.body(), MonthPriceBean.class).getData();
                         int montyNow = calendar.get(Calendar.MONTH);
                         int yearNow = calendar.get(Calendar.YEAR);
-                        if(montyNow==11){
+                        if (montyNow == 11) {
                             montyNow = 0;
                             yearNow++;
-                        }else{
+                        } else {
                             montyNow++;
                         }
                         OkGo.<String>get(Constant.API_PRICE_MONTH)
-                                .params("year",yearNow+"")
-                                .params("month",montyNow+1+"")
-                                .params("carId",cardetail.getId()+"")
+                                .params("year", yearNow + "")
+                                .params("month", montyNow + 1 + "")
+                                .params("carId", cardetail.getId() + "")
                                 .execute(new StringCallback() {
                                     @Override
                                     public void onSuccess(Response<String> response) {
@@ -212,13 +216,13 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                 });
     }
 
-    public void setVpData(){
+    public void setVpData() {
         Calendar calendar = Calendar.getInstance();
         int daysInMonthNow = CalendarUtils.getDaysInMonth(calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR));
-        int daysInMonthLast = CalendarUtils.getDaysInMonth(calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.YEAR));
+        int daysInMonthLast = CalendarUtils.getDaysInMonth(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
         int dayNow = calendar.get(Calendar.DAY_OF_MONTH);
         int days = daysInMonthNow - dayNow + 1 + daysInMonthLast;
-        vpSelecTimeAdapter = new VpSelecTimeAdapter(mContext,days, vpSelectTime,monthPriceList);
+        vpSelecTimeAdapter = new VpSelecTimeAdapter(mContext, days, vpSelectTime, monthPriceList);
         vpSelectTime.setAdapter(vpSelecTimeAdapter);
         vpSelecTimeAdapter.setOnCalendarOrderListener(new VpSelecTimeAdapter.OnCalendarOrderListener() {
             @Override
@@ -255,12 +259,18 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             case R.id.tv_sure_send_car:
                 submitTime();
                 break;
+            case R.id.tv_select_getAddress:
+                Intent intent = new Intent(mContext, SetAddressActivity.class);
+                intent.putExtra("type",SetAddressActivity.GET_CAR);
+                startActivityForResult(intent,150);
+                break;
         }
     }
 
     private void submitTime() {
         String getTime = tv_get_car_time.getText().toString();
         String backTime = tv_back_car_time.getText().toString();
+        String getAddress =tvSelectGetAddress.getText().toString();
         if (getTime.equals("请设置取车时间")) {
             Toast.makeText(this, "请设置取车时间", Toast.LENGTH_SHORT).show();
             return;
@@ -269,15 +279,20 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             Toast.makeText(this, "请设置还车时间", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(type.equals(DETAIL_KEY) && getAddress.equals("请点击设置送车上门地址")){
+            Toast.makeText(this, "请点击设置送车上门地址", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Bundle bundle = new Bundle();
-        bundle.putString("getTime",getTime);
-        bundle.putString("backTime",backTime);
-        if (type.equals(RENT_KEY)){
-            setResult(RESULT_OK,new Intent().putExtras(bundle));
+        bundle.putString("getTime", getTime);
+        bundle.putString("backTime", backTime);
+        bundle.putString("getAddress", getAddress);
+        if (type.equals(RENT_KEY)) {
+            setResult(RESULT_OK, new Intent().putExtras(bundle));
             finish();
-        }else{
-            bundle.putSerializable("cardetail",cardetail);
-            toActivity(OrderConfirmActivity.class,bundle,true);
+        } else {
+            bundle.putSerializable("cardetail", cardetail);
+            toActivity(OrderConfirmActivity.class, bundle, true);
             Toast.makeText(mContext, "租车逻辑", Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -391,9 +406,18 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        if(type.equals(RENT_KEY)){
+        if (type.equals(RENT_KEY)) {
             setResult(RESULT_CANCELED);
         }
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            String address = data.getStringExtra("address");
+            tvSelectGetAddress.setText(address);
+        }
     }
 }

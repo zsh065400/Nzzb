@@ -1,5 +1,6 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,7 +35,7 @@ import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
  * Created on 2017/11/12 20:09.
  */
 
-public class CarDetailActivity extends BaseActivity {
+public class CarDetailActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.tv_car_owner_name)
     TextView tvCarOwnerName;
@@ -53,6 +54,7 @@ public class CarDetailActivity extends BaseActivity {
     @BindView(R.id.ll_car_price_list)
     LinearLayout llCarPriceList;
     private CarDetailBean.DataBean carDetailBean;
+    private String getAddress;
 
     @Override
     protected int getLayoutId() {
@@ -88,6 +90,7 @@ public class CarDetailActivity extends BaseActivity {
     ImageView iv_car_detail_brand;
     @BindView(R.id.civ_head_portrait)
     CircleImageView civ_head_portrait;
+    public static final String RENT_KEY ="rent";
 
     @Override
     protected void initViews() {
@@ -96,17 +99,7 @@ public class CarDetailActivity extends BaseActivity {
 
     @Override
     protected void initListeners() {
-        tvCarRent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (carDetailBean != null) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("type",SelecTimeActivity.DETAIL_KEY);
-                    bundle.putSerializable("cardetail", carDetailBean);
-                    toActivity(SelecTimeActivity.class, bundle);
-                }
-            }
-        });
+        tvCarRent.setOnClickListener(this);
         setBackButon(R.id.iv_back);
         llCarCollect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,24 +108,22 @@ public class CarDetailActivity extends BaseActivity {
                 collectCar();
             }
         });
-        llCarPriceList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (carDetailBean != null) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("type",SelecTimeActivity.DETAIL_KEY);
-                    bundle.putSerializable("cardetail", carDetailBean);
-                    toActivity(SelecTimeActivity.class, bundle);
-                }
-            }
-        });
+        llCarPriceList.setOnClickListener(this);
     }
     private void collectCar() {
     }
 
     @Override
     protected void initDatas() {
-
+        Intent intent = getIntent();
+        String type = intent.getStringExtra("type");
+        if (!TextUtils.isEmpty(type)) {
+            if (type.equals(RENT_KEY)) {
+                getAddress = intent.getStringExtra("getAddress");
+            }
+        }else{
+            getAddress="请点击设置送车上门地址";
+        }
         final int carid = getIntent().getIntExtra("carid", 0);
         initWeekPrice(carid + "");
         final String url = OkHttpUtil.obtainGetUrl(Constant.API_CAR_DETAIL, "carIdList", carid + "");
@@ -252,5 +243,21 @@ public class CarDetailActivity extends BaseActivity {
                 break;
         }
         return weekDay;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tv_immediately_rent_car:
+            case R.id.ll_car_price_list:
+                if (carDetailBean != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("type",SelecTimeActivity.DETAIL_KEY);
+                    bundle.putSerializable("cardetail", carDetailBean);
+                    bundle.putString("getAddress",getAddress);
+                    toActivity(SelecTimeActivity.class, bundle);
+                }
+                break;
+        }
     }
 }
