@@ -77,8 +77,8 @@ public class SetAddressActivity extends BaseActivity {
     private MyBDLocationListener bdLocationListener;
     private double latitude;
     private double longitude;
-    public static final String GET_CAR = "get_car";
-    public static final String CHOOSE_ADDR = "choose_addr";
+    public static final String GET_CAR = "get_car";//选择取车地址的跳转类型
+    public static final String CHOOSE_ADDR = "choose_addr";//直接选择地址的跳转类型
     @Override
     protected int getLayoutId() {
         return R.layout.activity_set_address;

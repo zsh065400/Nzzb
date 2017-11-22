@@ -66,8 +66,8 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     private TextView tv_picker_date;
     private VpSelecTimeAdapter vpSelecTimeAdapter;
     private boolean isCommit = false;
-    public static final String RENT_KEY = "rentActivty";
-    public static final String DETAIL_KEY = "carDetail";
+    public static final String RENT_KEY = "rentActivty";//来自于RenActivity的跳转
+    public static final String DETAIL_KEY = "carDetail";//来自于CarDetialActivity页面的跳转
     private String type;
     private CarDetailBean.DataBean cardetail;
     private List<MonthPriceBean.DataBean> monthPriceList;
@@ -82,8 +82,6 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         initTimePicker();
         tv_get_car_time = (TextView) findViewById(R.id.tv_get_car_time);
         tv_back_car_time = (TextView) findViewById(R.id.tv_back_car_time);
-        iv_swicth = (ImageView) findViewById(R.id.iv_swicth);
-        red_point = (ImageView) findViewById(R.id.red_point);
         ll_get_car = (LinearLayout) findViewById(R.id.ll_get_car);
         ll_back_car = (LinearLayout) findViewById(R.id.ll_back_car);
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);

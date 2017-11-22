@@ -7,6 +7,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:orientation="vertical">
 
         <include layout="@layout/activity_title" />
@@ -26,11 +29,11 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:background="@color/white"
                         android:id="@+id/ll_get_car"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@color/white"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -48,8 +51,8 @@
                             android:layout_marginBottom="10dp"
                             android:layout_marginTop="2dp"
                             android:text="请设置取车时间"
-                            android:textSize="16sp"
-                            android:textColor="#000" />
+                            android:textColor="#000"
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -92,19 +95,84 @@
                     android:layout_height="15dp"
                     android:background="#e9e6e6" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#fff"
-                    android:gravity="center_vertical">
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <ImageView
+                            android:id="@+id/point_outdoor_pickcat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/point_selecter" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@+id/point_outdoor_pickcat"
+                            android:text="送车上门地址"
+                            android:textColor="#494747"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_marginRight="15dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:layout_alignParentRight="true"
+                           android:background="@drawable/point_selecter" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:maxLines="1"
+                        android:id="@+id/tv_select_getAddress"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:text="请点击设置送车上门地址"
+                        android:textColor="#494747"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="送车上门" />
+
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
 
                     <ImageView
-                        android:id="@+id/red_point"
+                        android:id="@+id/point_indoor_pickcat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:background="@drawable/point_selecter" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -113,79 +181,50 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="6dp"
                         android:layout_marginTop="5dp"
-                        android:layout_toRightOf="@+id/red_point"
-                        android:text="送车上门地址"
+                        android:layout_toRightOf="@+id/point_indoor_pickcat"
+                        android:text="上门取车地址"
                         android:textColor="#494747"
                         android:textSize="14sp" />
 
                     <ImageView
-                        android:id="@+id/iv_swicth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_marginRight="14dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/point_selecter"
+                        android:layout_alignParentTop="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="40dp"
-                        android:layout_marginTop="5dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="14dp" />
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#fff"
-                    android:gravity="center_vertical">
+                    android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/tv_select_getAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="21dp"
-                        android:text="请点击设置送车上门地址"
+                        android:layout_marginLeft="25dp"
+                        android:text="杭州市下城区xxx"
                         android:textColor="#494747"
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tv_send_car_to_door"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginRight="20dp"
-                        android:src="@mipmap/ic_launcher"
-                        android:text="送车上门" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#fff"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="21dp"
-                        android:text="杭州市下城区"
-                        android:textColor="#494747"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tv_go_take_car"
+                        android:layout_marginRight="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginRight="20dp"
-                        android:src="@mipmap/ic_launcher"
                         android:text="上门取车" />
+
                 </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_sure_pay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true">
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="8dp">
 
                     <TextView
                         android:id="@+id/tv_sure_send_car"

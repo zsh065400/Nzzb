@@ -90,7 +90,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     ImageView iv_car_detail_brand;
     @BindView(R.id.civ_head_portrait)
     CircleImageView civ_head_portrait;
-    public static final String RENT_KEY ="rent";
+    public static final String RENT_KEY ="rent";//来自于RentActivity的跳转。
 
     @Override
     protected void initViews() {
