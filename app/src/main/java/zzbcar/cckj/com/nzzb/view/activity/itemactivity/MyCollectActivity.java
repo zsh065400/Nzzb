@@ -19,6 +19,7 @@ import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 /**
@@ -38,6 +39,7 @@ public class MyCollectActivity extends BaseActivity {
     protected void initViews() {
         rv_car_mycollect = (RecyclerView) findViewById(R.id.rv_car_mycollect);
         rv_car_mycollect.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override

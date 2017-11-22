@@ -94,7 +94,8 @@ public class Constant {
     public static final String PERSON_MESSAGE =SERVE_URL+"zzb/app/member/userStatisInfo";
     //价格日历
     public static final String API_PRICE_MONTH = SERVE_URL+"zzb/app/bus/monthprice";
-
+    //提交车主
+    public static final String API_ADD_OWNER = SERVE_URL+"zzb/app/bus/addOwnerContact";
     public static final String SP_LAST_LOCATION = "last_location";
     //纬度
     public static final String SP_LATITUDE = "latitude";

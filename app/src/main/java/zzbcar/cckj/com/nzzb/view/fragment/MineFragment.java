@@ -198,6 +198,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     .error(R.mipmap.ic_launcher)
                     .into(ivUserHead);
         }
+        toCollectView();
         /*车主认证状态*/
         if (signInfo.getAuthStatus() == 1) {
             tv_minfragment_car_identifi.setText("车主已认证");
@@ -278,7 +279,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 toActivity(MyOrderActivity.class, true);
                 break;
             case R.id.ll_my_collect:
-              toCollectView();
                 toActivity(MyCollectActivity.class, true);
 
                 break;
@@ -339,8 +339,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private void setViewInfo(PeresonMessageBean.DataBean permessBean) {
 
-        tv_collectcar_counts.setText(permessBean.getCollectCount());
-        tv_ordercar_counts.setText(permessBean.getOrderCount());
+        tv_collectcar_counts.setText(permessBean.getCollectCount()+" 辆");
+        tv_ordercar_counts.setText(permessBean.getOrderCount()+" 单");
 
     }
 

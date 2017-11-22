@@ -14,6 +14,7 @@ import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
+import zzbcar.cckj.com.nzzb.utils.REGutil;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
@@ -66,8 +67,12 @@ public class CarFriendIdentifiActivity extends BaseActivity implements View.OnCl
             case R.id.bt_carfriend_identifi_commit:
                 String name = et_carfriend_identifi_name.getText().toString().trim();
                 String phone = et_carfriend_identifi_phone.getText().toString().trim();
-                if (TextUtils.isEmpty(name)&&TextUtils.isEmpty(phone)){
-                    Toast.makeText(mContext, "姓名和密码不能为空", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(name) || TextUtils.isEmpty(phone)){
+                    Toast.makeText(mContext, "姓名和手机号不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(!REGutil.checkCellphone(phone)){
+                    Toast.makeText(mContext, "手机格式错误了，请检查重试", Toast.LENGTH_SHORT).show();
                     return;
                 }
                commitInfo(name,phone);
@@ -77,7 +82,7 @@ public class CarFriendIdentifiActivity extends BaseActivity implements View.OnCl
     }
 
     private void commitInfo(String name, String phone) {
-        final  String url= OkHttpUtil.obtainGetUrl(Constant.PERSON_MESSAGE,
+        final  String url= OkHttpUtil.obtainGetUrl(Constant.API_ADD_OWNER,
                 "name",name,
                 "mobile",phone);
         OkGo.<String>get(url).execute(new StringCallback() {
