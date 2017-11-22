@@ -43,6 +43,7 @@ import java.util.List;
 import butterknife.BindView;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.MyCollectBean;
+import zzbcar.cckj.com.nzzb.bean.PeresonMessageBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
@@ -87,6 +88,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private String path = Environment.getExternalStorageDirectory().getPath() + File.separator + "zzbcar" + File.separator + "icon";
     private File cropfile;
      private List<MyCollectBean.DataBean> dataBeans;
+
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -102,6 +104,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             }
         }
     };
+    private int collectCount;
 
     private void submitHeadUrl(final String hearUrl) {
         final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mActivity);
@@ -266,12 +269,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.ll_my_order:
-                intent = new Intent(mActivity, MyOrderActivity.class);
-                startActivity(intent);
+                toActivity(MyOrderActivity.class,true);
                 break;
             case R.id.ll_my_collect:
-                intent = new Intent(mActivity, MyCollectActivity.class);
-                startActivity(intent);
+
+                toActivity(MyCollectActivity.class,true);
+
+                toCollectView();
                 break;
             case R.id.tv_minfragment_car_identifi:
                 toActivity(CarIdentifiActivity.class,true);
@@ -311,6 +315,28 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
 
     }
+
+    private void toCollectView() {
+        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(getContext());
+        OkGo.<String>get(Constant.PERSON_MESSAGE)
+//                .params("userId",signInfo.getId())
+                .params("userId",1)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        PeresonMessageBean.DataBean permessBean = GsonUtil.parseJsonWithGson(response.body(), PeresonMessageBean.class).getData();
+                        setViewInfo(permessBean);
+
+                    }
+
+                });
+    }
+
+    private void setViewInfo(PeresonMessageBean.DataBean permessBean) {
+        collectCount = permessBean.getCollectCount();
+
+    }
+
 
     /*暂时调整到此处，确定逻辑后剪切即可*/
     private void openShared() {

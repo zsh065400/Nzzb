@@ -2,6 +2,10 @@ package zzbcar.cckj.com.nzzb.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +14,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.bean.MonthPriceBean;
 import zzbcar.cckj.com.nzzb.utils.CalendarUtils;
 import zzbcar.cckj.com.nzzb.utils.Day;
 
@@ -23,17 +29,21 @@ import zzbcar.cckj.com.nzzb.utils.Day;
  */
 public class CalendarAdapter extends BaseAdapter {
 
+	private int index;
+	private List<MonthPriceBean.DataBean> monthPriceList;
 	private ArrayList<Day> days;
 	private LayoutInflater mInflater;
 	private Calendar c;
 	private Context context;
 	private String orderDay;
 
-	public CalendarAdapter(Context context, Calendar c, int passDays, String orderDay) {
+	public CalendarAdapter(Context context, Calendar c, int passDays, String orderDay, List<MonthPriceBean.DataBean> monthPriceList, int index) {
 		this.c = c;
 		this.context = context;
 		this.orderDay = orderDay;
+		this.monthPriceList = monthPriceList;
 		days = CalendarUtils.getDaysOfMonth(this.c, passDays, orderDay);
+		this.index = index;
 		mInflater = LayoutInflater.from(context);
 	}
 
@@ -94,7 +104,13 @@ public class CalendarAdapter extends BaseAdapter {
 			holder.tv.setTextSize(context.getResources().getDimension(R.dimen.calendar_item_nonorder_day_size));
 			break;
 		}
-
+		//Todo 可以处理单个价格的逻辑
+		if(!(d.getType()== Day.DayType.NOT_ENABLE) && !TextUtils.isEmpty(d.getName()) && monthPriceList!=null){
+			SpannableString spannableString = new SpannableString(holder.tv.getText().toString()+"\r¥"+monthPriceList.get(index).getPrice());
+			spannableString.setSpan(new ForegroundColorSpan(context.getColor(R.color.divider)), holder.tv.getText().toString().length(),spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+			holder.tv.setText(spannableString);
+			index++;
+		}
 		return v;
 	}
 
@@ -112,7 +128,7 @@ public class CalendarAdapter extends BaseAdapter {
 	}
 
 	public void previous() {
-		if (c.get(Calendar.MONTH) == Integer.valueOf(c.getActualMinimum(Calendar.MONTH))) {
+		if (Integer.valueOf(c.get(Calendar.MONTH)) == Integer.valueOf(c.getActualMinimum(Calendar.MONTH))) {
 			c.set((c.get(Calendar.YEAR) - 1), c.getActualMaximum(Calendar.MONTH), 1);
 		} else {
 			c.set(Calendar.MONTH, c.get(Calendar.MONTH) - 1);
@@ -122,7 +138,7 @@ public class CalendarAdapter extends BaseAdapter {
 	}
 
 	public void next() {
-		if (c.get(Calendar.MONTH) == c.getActualMaximum(Calendar.MONTH)) {
+		if (Integer.valueOf(c.get(Calendar.MONTH)) == c.getActualMaximum(Calendar.MONTH)) {
 			c.set((c.get(Calendar.YEAR) + 1), c.getActualMinimum(Calendar.MONTH), 1);
 		} else {
 			c.set(Calendar.MONTH, c.get(Calendar.MONTH) + 1);

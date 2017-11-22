@@ -198,9 +198,14 @@
                 android:textSize="12sp"/>
         </RelativeLayout>
 
-        <include layout="@layout/item_week"/>
+        <!--<include layout="@layout/item_week"/>
 
-        <include layout="@layout/item_car_details_date_and_money"/>
+        <include layout="@layout/item_car_details_date_and_money"/>-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll_car_price_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -45,6 +45,8 @@ import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 
+
+
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.et_phone_number)
     EditText etPhoneNumber;
@@ -90,6 +92,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
 
         initProtocol();
+
         initCall();
     }
     /**
@@ -109,11 +112,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "15163225521"));
+                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13295815771"));
                         if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                             return;
                         }
                         startActivity(intent);
+
                     }
                 });
                 builder.setNegativeButton("取消",null);
@@ -125,8 +129,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         tvCall.setMovementMethod(LinkMovementMethod.getInstance());
         //设置文本不高亮，如果需要点击后高亮文本，删掉这句即可
         tvCall.setHighlightColor(Color.parseColor("#ff4049"));
+
     }
 
+    /**
+     * 协议
+     */
     private void initProtocol() {
         tvProtocol.setText("未注册至尊宝豪车共享的手机号，点击确认时自动注册，且代表您已同意");
         SpannableString spStr = new SpannableString("《至尊宝豪车共享服务协议》");
@@ -137,11 +145,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 Toast.makeText(LoginActivity.this, "至尊宝豪车共享服务协议", Toast.LENGTH_SHORT).show();
             }
         };
+
         spStr.setSpan(clickSpan2, spStr.length() - s2.length(), spStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         tvProtocol.append(spStr);
         tvProtocol.setMovementMethod(LinkMovementMethod.getInstance());
         //设置文本不高亮，如果需要点击后高亮文本，删掉这句即可
         tvProtocol.setHighlightColor(Color.parseColor("#ff4049"));
+
     }
 
     @Override

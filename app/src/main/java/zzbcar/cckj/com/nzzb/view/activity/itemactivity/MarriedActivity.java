@@ -1,7 +1,10 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 
@@ -37,13 +40,11 @@ public class MarriedActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_connection_us:
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                // 2. 对用户没有提示，直接拨打电话
-//                 Intent intent = new Intent(Intent.ACTION_CALL);
-                Uri data = Uri.parse("tel:" + "10086");
-                intent.setData(data);
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13295815771"));
+                if (ActivityCompat.checkSelfPermission(MarriedActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
                 startActivity(intent);
-
 
 
                 break;
@@ -52,6 +53,6 @@ public class MarriedActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void setStatusBar() {
-        StatusBarUtil.setTransparentForImageView(this,null);
+        StatusBarUtil.setTransparentForImageView(this, null);
     }
 }

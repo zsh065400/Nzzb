@@ -1,6 +1,7 @@
 package zzbcar.cckj.com.nzzb.view.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.CarBrandAdapter;
 import zzbcar.cckj.com.nzzb.adapter.CarSeriesItemAdapter;
@@ -31,6 +33,7 @@ import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 import zzbcar.cckj.com.nzzb.bean.QueryBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
+import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
@@ -47,6 +50,10 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
     LinearLayout ll_price;
     @BindView(R.id.ll_type)
     LinearLayout ll_type;
+    @BindView(R.id.tv_start_time)
+    TextView tvStartTime;
+    @BindView(R.id.tv_end_time)
+    TextView tvEndTime;
 
     private OkManager okManager = new OkManager();
 
@@ -286,6 +293,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
      * @param result
      */
     private void parseSeriesData(String result) {
+        LogUtil.e(result + "车系数据");
         final CarSeriesBean bean = GsonUtil.parseJsonWithGson(result, CarSeriesBean.class);
         final List<CarSeriesBean.DataBean> data = bean.getData();
         if (carSeriesAdapter == null) {
@@ -296,6 +304,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     /*请求数据,刷新车辆信息,每次点击都刷新*/
                     params.setSeries(String.valueOf(data.get(position).getId()));
+                    LogUtil.e(params.buildUrl() + "请求url");
                     doCarQuery(params.buildUrl());
                     ll_whole_brand.performClick();
                 }
@@ -399,14 +408,17 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.tv_rent_address:
                 intent = new Intent(this, SetAddressActivity.class);
-                intent.putExtra("type",SetAddressActivity.GET_CAR);
+                intent.putExtra("type", SetAddressActivity.GET_CAR);
                 //startActivity(intent);
                 startActivityForResult(intent, CHOOSE_ADDRESS);
                 break;
             /*选择时间*/
             case R.id.ll_self_activity_selelct_time:
-                intent = new Intent(this, SelecTimeActivity.class);
-                startActivity(intent);
+                //intent = new Intent(this, );
+                //startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString("type", SelecTimeActivity.RENT_KEY);
+                toActivityWithResult(SelecTimeActivity.class, bundle, 0);
                 break;
 
             /*价格选择完毕*/
@@ -428,16 +440,35 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            String address = data.getStringExtra("address");
-            tv_rent_address.setText(address);
+        switch (requestCode) {
+            case CHOOSE_ADDRESS:
+                if (resultCode == RESULT_OK) {
+                    String address = data.getStringExtra("address");
+                    tv_rent_address.setText(address);
+                }
+                break;
+            case 0:
+                if (resultCode == RESULT_OK) {
+                    Bundle extras = data.getExtras();
+                    tvStartTime.setText(extras.getString("getTime"));
+                    tvEndTime.setText(extras.getString("backTime"));
+                }
+                break;
         }
+
     }
 
     private void toCarDetail(int id) {
         final Intent intent = new Intent(mContext, CarDetailActivity.class);
         intent.putExtra("carid", id);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
     private class ParamsBuilder {
@@ -578,6 +609,6 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void setStatusBar() {
-        StatusBarUtil.setTransparentForImageViewInFragment(this,null);
+        StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
 }

@@ -36,7 +36,8 @@ public class Constant {
 
     /*查询车辆信息*/
     public static final String API_CAR_DETAIL = SERVE_URL + "zzb/app/car/queryCar";
-
+    /*查询车辆价格表*/
+    public static final String API_CAR_WEEK_PRICE = SERVE_URL+"zzb/app/bus/week_price";
     /*获取支付*/
     public static final String API_ORDER_PAY = SERVE_URL + "zzb/app/pay/request";
 
@@ -89,6 +90,10 @@ public class Constant {
     public static final String QUERRY_TICKET =SERVE_URL+ "zzb/app/car/ticket";
     //我的收藏
     public static final String MY_COLLECT_URL =SERVE_URL+"zzb/app/common/loadCollectCar";
+    //个人用户信息的统计
+    public static final String PERSON_MESSAGE =SERVE_URL+"zzb/app/member/userStatisInfo";
+    //价格日历
+    public static final String API_PRICE_MONTH = SERVE_URL+"zzb/app/bus/monthprice";
 
     public static final String SP_LAST_LOCATION = "last_location";
     //纬度

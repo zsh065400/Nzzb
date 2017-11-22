@@ -11,8 +11,10 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.bean.MonthPriceBean;
 import zzbcar.cckj.com.nzzb.utils.CalendarUtils;
 import zzbcar.cckj.com.nzzb.widget.NoScrollGridView;
 
@@ -21,6 +23,7 @@ import zzbcar.cckj.com.nzzb.widget.NoScrollGridView;
  */
 
 public class VpSelecTimeAdapter extends PagerAdapter implements View.OnClickListener {
+    private List<MonthPriceBean.DataBean> monthPriceList;
     private ViewPager vp;
     private Context context;
     private LayoutInflater mInflater;
@@ -30,10 +33,11 @@ public class VpSelecTimeAdapter extends PagerAdapter implements View.OnClickList
     private View lastView;
     private int lastColor;
 
-    public VpSelecTimeAdapter(Context context, int daysOfSelect, ViewPager vp) {
+    public VpSelecTimeAdapter(Context context, int daysOfSelect, ViewPager vp, List<MonthPriceBean.DataBean> monthPriceList) {
         this.context = context;
         this.daysOfSelect = daysOfSelect;
         this.vp = vp;
+        this.monthPriceList = monthPriceList;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -61,13 +65,13 @@ public class VpSelecTimeAdapter extends PagerAdapter implements View.OnClickList
 
         cAdapter = null;
         if (position == 0) {
-            cAdapter = new CalendarAdapter(context, c, daysOfSelect, null);
+            cAdapter = new CalendarAdapter(context, c, daysOfSelect, null,monthPriceList,0);
         } else {
             int d = daysOfSelect - CalendarUtils.currentMonthRemainDays() - CalendarUtils.getFlowMonthDays(position - 1);
-            cAdapter = new CalendarAdapter(context, c, d, null);
+            cAdapter = new CalendarAdapter(context, c, d, null,monthPriceList,
+                    CalendarUtils.getDaysInMonth(Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.YEAR)));
         }
         calendarGrid.setAdapter(cAdapter);
-        final CalendarAdapter finalCAdapter = cAdapter;
         calendarGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
