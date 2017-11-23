@@ -67,7 +67,7 @@ public class MyCollectActivity extends BaseActivity {
     private void parseData(String body) {
         List<MyCollectBean.DataBean> dataList = GsonUtil.parseJsonWithGson(body, MyCollectBean.class).getData();
         if (dataList.size()==0){
-            Toast.makeText(mContext, "还没有订单可查询哦", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "还没有收藏可查询哦", Toast.LENGTH_SHORT).show();
             return;
         }
         MyCollectAdapter myCollectAdapter = new MyCollectAdapter(mContext, dataList);

@@ -39,7 +39,8 @@ public class MyCollectAdapter extends BaseRecycleViewAdapter<MyCollectBean.DataB
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(imageView);
-
+        ImageView iv_type = holder.getView(R.id.iv_car_type);
+        iv_type.setBackgroundResource(dataBean.getUseType()==1?R.mipmap.car_type1:R.mipmap.car_type_2);
     }
 
     @Override

@@ -29,7 +29,6 @@ import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 
-
 /**
  * Created by Scout
  * Created on 2017/11/12 20:09.
@@ -53,6 +52,8 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     LinearLayout llCarCollect;
     @BindView(R.id.ll_car_price_list)
     LinearLayout llCarPriceList;
+    @BindView(R.id.tv_drive_model)
+    TextView tvDriveModel;
     private CarDetailBean.DataBean carDetailBean;
     private String getAddress;
 
@@ -90,7 +91,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     ImageView iv_car_detail_brand;
     @BindView(R.id.civ_head_portrait)
     CircleImageView civ_head_portrait;
-    public static final String RENT_KEY ="rent";//来自于RentActivity的跳转。
+    public static final String RENT_KEY = "rent";//来自于RentActivity的跳转。
 
     @Override
     protected void initViews() {
@@ -110,6 +111,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         });
         llCarPriceList.setOnClickListener(this);
     }
+
     private void collectCar() {
     }
 
@@ -121,8 +123,8 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             if (type.equals(RENT_KEY)) {
                 getAddress = intent.getStringExtra("getAddress");
             }
-        }else{
-            getAddress="请点击设置送车上门地址";
+        } else {
+            getAddress = "请点击设置送车上门地址";
         }
         final int carid = getIntent().getIntExtra("carid", 0);
         initWeekPrice(carid + "");
@@ -134,6 +136,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                 final CarDetailBean detailBean = GsonUtil.parseJsonWithGson(response.body(), CarDetailBean.class);
                 setViewInfo(detailBean);
             }
+
             @Override
             public void onError(Response<String> response) {
 
@@ -156,8 +159,8 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     private void parseWeekData(List<WeekPriceBean.DataBean> data) {
         llCarPriceList.removeAllViews();
-        for (int i=0;i<data.size();i++){
-            View inflate = getLayoutInflater().inflate(R.layout.car_detail_week_item,null,false);
+        for (int i = 0; i < data.size(); i++) {
+            View inflate = getLayoutInflater().inflate(R.layout.car_detail_week_item, null, false);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
             inflate.setLayoutParams(lp);
             TextView week = inflate.findViewById(R.id.tv_week_price_week);
@@ -165,10 +168,10 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             TextView money = inflate.findViewById(R.id.tv_week_price_money);
             WeekPriceBean.DataBean dataBean = data.get(i);
             week.setText(getWeekDay(dataBean.getWeekday()));
-            int day = new Date().getDay()+i;
-            weekDay.setText(day<10?"0"+day:day+"");
-            money.setText(dataBean.getPrice()+"");
-            llCarPriceList.addView(inflate,i);
+            int day = new Date().getDay() + i;
+            weekDay.setText(day < 10 ? "0" + day : day + "");
+            money.setText(dataBean.getPrice() + "");
+            llCarPriceList.addView(inflate, i);
         }
     }
 
@@ -186,10 +189,10 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
         if (!TextUtils.isEmpty(carDetailBean.getOwnerName()))
 
-        Picasso.with(mContext).load(carDetailBean.getOwnerAvatar())
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
-                .into(civ_head_portrait);
+            Picasso.with(mContext).load(carDetailBean.getOwnerAvatar())
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
+                    .into(civ_head_portrait);
 
         tvCarName.setText(carDetailBean.getCarName());
         tvCarModelName.setText(carDetailBean.getModelName());
@@ -203,7 +206,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         tvCollectTimes.setText(String.valueOf(carDetailBean.getCollectCount()));
         tvAcceptOrderNum.setText(String.valueOf(carDetailBean.getOrderCount()));
         tvCarRemark.setText(String.valueOf(carDetailBean.getRemark()));
-
+        tvDriveModel.setText(carDetailBean.getUseType()==1?"自驾":"商务");
     }
 
     @Override
@@ -217,9 +220,10 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
-    private String getWeekDay(int week){
-        String weekDay="";
-        switch (week){
+
+    private String getWeekDay(int week) {
+        String weekDay = "";
+        switch (week) {
             case 1:
                 weekDay = "日";
                 break;
@@ -247,14 +251,14 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tv_immediately_rent_car:
             case R.id.ll_car_price_list:
                 if (carDetailBean != null) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("type",SelecTimeActivity.DETAIL_KEY);
+                    bundle.putString("type", SelecTimeActivity.DETAIL_KEY);
                     bundle.putSerializable("cardetail", carDetailBean);
-                    bundle.putString("getAddress",getAddress);
+                    bundle.putString("getAddress", getAddress);
                     toActivity(SelecTimeActivity.class, bundle);
                 }
                 break;

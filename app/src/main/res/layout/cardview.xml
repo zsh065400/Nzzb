@@ -11,47 +11,58 @@
     android:gravity="center"
     app:elevation="5dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_item_car"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:scaleType="fitCenter"
-            android:src="@drawable/car"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_item_car"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="2dp"
-            android:ellipsize="end"
-            android:gravity="center|center_vertical|left"
-            android:lines="1"
-            android:text="凯迪拉克"
-            android:textSize="15dp"/>
+                <ImageView
+                    android:id="@+id/iv_item_car"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/car"/>
+                <ImageView
+                    android:layout_alignParentLeft="true"
+                    android:src="@mipmap/car_type1"
+                    android:id="@+id/iv_car_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_item_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="2dp"
-            android:ellipsize="end"
-            android:gravity="center|center_vertical|left"
-            android:lines="1"
-            android:text="0.01/天"
-            android:textColor="#e94237"
-            android:textSize="15dp"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_item_car"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:gravity="center|center_vertical|left"
+                android:lines="1"
+                android:text="凯迪拉克"
+                android:textSize="15dp"/>
 
+            <TextView
+                android:id="@+id/tv_item_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:gravity="center|center_vertical|left"
+                android:lines="1"
+                android:text="0.01/天"
+                android:textColor="#e94237"
+                android:textSize="15dp"/>
+
+        </LinearLayout>
 </android.support.v7.widget.CardView>

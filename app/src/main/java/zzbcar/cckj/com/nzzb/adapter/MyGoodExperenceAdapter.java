@@ -55,11 +55,13 @@ public class MyGoodExperenceAdapter extends PagerAdapter {
         ImageView pic = (ImageView) view.findViewById(R.id.iv_chaozhi_pic);
         TextView name = (TextView) view.findViewById(R.id.tv_chaozhi_name);
         TextView price = (TextView) view.findViewById(R.id.tv_chaozhi_price);
+        ImageView iv_type = view.findViewById(R.id.iv_car_type);
         Picasso.with(mContext).load(bean.getPicUrl())
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .fit()
                 .into(pic);
+        //iv_type.setBackgroundResource(bean.get==1?R.mipmap.car_type1:R.mipmap.car_type_2);
         name.setText(bean.getCarName());
         price.setText(bean.getPrice() + "");
         container.addView(view);

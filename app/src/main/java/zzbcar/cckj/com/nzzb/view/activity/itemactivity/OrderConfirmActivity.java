@@ -155,6 +155,7 @@ public class OrderConfirmActivity extends BaseActivity {
         tvCarPrice.setText(amount + "元");
         tvOrderBzj.setText(cardetail.getDeposit() + "元");
         tvOrderAllMoney.setText("合计："+(bean.getData().getSysdata().getTrafficDeposit()+amount)+"元");
+        tvOrderType.setText(cardetail.getUseType()==1?"自 驾":"商 务");
     }
 
     /*获取服务器时间，开单校准*/
@@ -188,7 +189,7 @@ public class OrderConfirmActivity extends BaseActivity {
                 "carId", String.valueOf(cardetail.getId()),
                 "userId", String.valueOf(userId),
                 "money", String.valueOf(bean.getData().getSysdata().getTrafficDeposit()),
-                "type", "1",
+                "type", String.valueOf(cardetail.getUseType()),
                 "startTime", startTime,
                 "endTime", endTime,
                 "takeAddress", getAddress,
@@ -214,6 +215,7 @@ public class OrderConfirmActivity extends BaseActivity {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("payinfo", orderBeanData);
                     toActivity(PayActivity.class, bundle);
+                    finish();
                 } else asyncShowToast(orderBean.getMessage());
             }
 

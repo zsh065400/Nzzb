@@ -24,9 +24,7 @@ import zzbcar.cckj.com.nzzb.utils.LogUtil;
 
 
 /**
- * @author lvning
- * @version create time:2014-10-28_下午5:37:27
- * @Description 日历表格适配器
+ *  Created by hegeyang on 2017/11/21.
  */
 public class CalendarAdapter extends BaseAdapter {
 
@@ -108,10 +106,10 @@ public class CalendarAdapter extends BaseAdapter {
 		/*if(d.getName().equals("1")){
 			LogUtil.e(index+"----");
 		}*/
-		//Todo 可以处理单个价格的逻辑
 		if((d.getType()== Day.DayType.NOT_ENABLE && !TextUtils.isEmpty(d.getName()))){
 			index++;
 		}
+		//Todo 这里可以处理单个价格的逻辑 这个index指的就是价格数据的下标
 		if(!(d.getType()== Day.DayType.NOT_ENABLE) && !TextUtils.isEmpty(d.getName()) && monthPriceList!=null){
 			SpannableString spannableString = new SpannableString(holder.tv.getText().toString()+"\n¥"+monthPriceList.get(index).getPrice());
 			spannableString.setSpan(new ForegroundColorSpan(context.getColor(R.color.divider)), holder.tv.getText().toString().length(),spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

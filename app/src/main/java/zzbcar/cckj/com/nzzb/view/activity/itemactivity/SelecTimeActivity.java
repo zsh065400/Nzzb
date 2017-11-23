@@ -185,40 +185,10 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void getPrice(final int year, final int month, final int index) {
-        /*final Calendar calendar = Calendar.getInstance();
-        OkGo.<String>get(Constant.API_PRICE_MONTH)
-                .params("year", calendar.get(Calendar.YEAR) + "")
-                .params("month", calendar.get(Calendar.MONTH) + 1 + "")
-                .params("carId", cardetail.getId() + "")
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        monthPriceList = GsonUtil.parseJsonWithGson(response.body(), MonthPriceBean.class).getData();
-                        int montyNow = calendar.get(Calendar.MONTH);
-                        int yearNow = calendar.get(Calendar.YEAR);
-                        if (montyNow == 11) {
-                            montyNow = 0;
-                            yearNow++;
-                        } else {
-                            montyNow++;
-                        }
-                        OkGo.<String>get(Constant.API_PRICE_MONTH)
-                                .params("year", yearNow + "")
-                                .params("month", montyNow + 1 + "")
-                                .params("carId", cardetail.getId() + "")
-                                .execute(new StringCallback() {
-                                    @Override
-                                    public void onSuccess(Response<String> response) {
-                                        monthPriceList.addAll(GsonUtil.parseJsonWithGson(response.body(), MonthPriceBean.class).getData());
-                                        setVpData();
-                                    }
-                                });
-                    }
-                });*/
+       //递归获取往后一年的价格。
         if (monthPriceList==null)
             monthPriceList = new ArrayList<>();
         if(index==13){
-            //LogUtil.e(monthPriceList.size()+"");
             setVpData();
             return;
         }
@@ -237,18 +207,14 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void setVpData() {
-        /*Calendar calendar = Calendar.getInstance();
-        int daysInMonthNow = CalendarUtils.getDaysInMonth(calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR));
-        int daysInMonthLast = CalendarUtils.getDaysInMonth(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
-        int dayNow = calendar.get(Calendar.DAY_OF_MONTH);
-        int days = daysInMonthNow - dayNow + 1 + daysInMonthLast;*/
+
         if (vpSelectTime!=null){
             vpSelecTimeAdapter = new VpSelecTimeAdapter(mContext, 365, vpSelectTime, monthPriceList);
             vpSelectTime.setAdapter(vpSelecTimeAdapter);
             vpSelecTimeAdapter.setOnCalendarOrderListener(new VpSelecTimeAdapter.OnCalendarOrderListener() {
                 @Override
                 public void onOrder(String orderInfo) {
-                    Toast.makeText(mContext, orderInfo, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, orderInfo, Toast.LENGTH_SHORT).show();
                     chooseDate = orderInfo;
                     tv_picker_date.setText(orderInfo);
                     pvCustomTime.show();

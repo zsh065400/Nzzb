@@ -35,6 +35,8 @@ public class CarTypeAdapter extends BaseRecycleViewAdapter<MainPageBean.DataBean
                 .error(R.mipmap.ic_launcher)
                 .fit()
                 .into(pic);
+        ImageView iv_type = holder.getView(R.id.iv_car_type);
+        iv_type.setBackgroundResource(newCarListBean.getUseType()==1?R.mipmap.car_type1:R.mipmap.car_type_2);
     }
 
     @Override

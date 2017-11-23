@@ -67,6 +67,7 @@ public class VpSelecTimeAdapter extends PagerAdapter implements View.OnClickList
         if (position == 0) {
             cAdapter = new CalendarAdapter(context, c, daysOfSelect, null,monthPriceList,0);
         } else {
+            //每个月需要填充的日期数量不同，需要重新计算
             int d = daysOfSelect - CalendarUtils.currentMonthRemainDays() - CalendarUtils.getFlowMonthDays(position - 1);
             int month = Calendar.getInstance().get(Calendar.MONTH);
             cAdapter = new CalendarAdapter(context, c, d, null,monthPriceList,
