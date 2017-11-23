@@ -68,8 +68,9 @@ public class VpSelecTimeAdapter extends PagerAdapter implements View.OnClickList
             cAdapter = new CalendarAdapter(context, c, daysOfSelect, null,monthPriceList,0);
         } else {
             int d = daysOfSelect - CalendarUtils.currentMonthRemainDays() - CalendarUtils.getFlowMonthDays(position - 1);
+            int month = Calendar.getInstance().get(Calendar.MONTH);
             cAdapter = new CalendarAdapter(context, c, d, null,monthPriceList,
-                    CalendarUtils.getDaysInMonth(Calendar.getInstance().get(Calendar.MONTH),Calendar.getInstance().get(Calendar.YEAR)));
+                    CalendarUtils.getAfFlowMonthDays(month,position-1));
         }
         calendarGrid.setAdapter(cAdapter);
         calendarGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {

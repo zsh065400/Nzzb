@@ -61,6 +61,15 @@ public class CalendarUtils {
 		}
 		return totalDays;
 	}
+	public static int getAfFlowMonthDays(int afMonth,int flowMonth) {
+		int totalDays = 0;
+		for (int i = afMonth; i <=afMonth+flowMonth; i++) {
+			Calendar c = Calendar.getInstance();
+			int days = getDaysInMonth(i%12, c.get(Calendar.YEAR)+i/12);
+			totalDays += days;
+		}
+		return totalDays;
+	}
 
 	/**
 	 * Current month remain days.

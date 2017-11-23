@@ -105,6 +105,9 @@ public class CalendarAdapter extends BaseAdapter {
 			holder.tv.setTextSize(context.getResources().getDimension(R.dimen.calendar_item_nonorder_day_size));
 			break;
 		}
+		/*if(d.getName().equals("1")){
+			LogUtil.e(index+"----");
+		}*/
 		//Todo 可以处理单个价格的逻辑
 		if((d.getType()== Day.DayType.NOT_ENABLE && !TextUtils.isEmpty(d.getName()))){
 			index++;

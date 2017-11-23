@@ -19,6 +19,7 @@ import com.lzy.okgo.model.Response;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,6 +36,7 @@ import zzbcar.cckj.com.nzzb.bean.MonthPriceBean;
 import zzbcar.cckj.com.nzzb.utils.CalendarUtils;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
+import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 import zzbcar.cckj.com.nzzb.view.customview.CommonCalendarView;
@@ -109,7 +111,8 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         if (type.equals(DETAIL_KEY)) {
             cardetail = (CarDetailBean.DataBean) bundle.getSerializable("cardetail");
             tvSelectGetAddress.setText(bundle.getString("getAddress"));
-            getPrice();
+            Calendar calendar = Calendar.getInstance();
+            getPrice(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1,0);
         } else {
             tvSelectGetAddress.setText(bundle.getString("getAddress"));
             setVpData();
@@ -181,8 +184,8 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
 
     }
 
-    private void getPrice() {
-        final Calendar calendar = Calendar.getInstance();
+    private void getPrice(final int year, final int month, final int index) {
+        /*final Calendar calendar = Calendar.getInstance();
         OkGo.<String>get(Constant.API_PRICE_MONTH)
                 .params("year", calendar.get(Calendar.YEAR) + "")
                 .params("month", calendar.get(Calendar.MONTH) + 1 + "")
@@ -211,27 +214,48 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                                     }
                                 });
                     }
+                });*/
+        if (monthPriceList==null)
+            monthPriceList = new ArrayList<>();
+        if(index==13){
+            //LogUtil.e(monthPriceList.size()+"");
+            setVpData();
+            return;
+        }
+        OkGo.<String>get(Constant.API_PRICE_MONTH)
+                .params("year",year+"")
+                .params("month",month+"")
+                .params("carId",cardetail.getId()+"")
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(com.lzy.okgo.model.Response<String> response) {
+                        //return list.addAll(getPrice((month<12?year:year+1),(month<12?month+1:1)));
+                        monthPriceList.addAll(GsonUtil.parseJsonWithGson(response.body(), MonthPriceBean.class).getData());
+                        getPrice((month<12?year:year+1),(month<12?month+1:1),index+1);
+                    }
                 });
     }
 
     public void setVpData() {
-        Calendar calendar = Calendar.getInstance();
+        /*Calendar calendar = Calendar.getInstance();
         int daysInMonthNow = CalendarUtils.getDaysInMonth(calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR));
         int daysInMonthLast = CalendarUtils.getDaysInMonth(calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
         int dayNow = calendar.get(Calendar.DAY_OF_MONTH);
-        int days = daysInMonthNow - dayNow + 1 + daysInMonthLast;
-        vpSelecTimeAdapter = new VpSelecTimeAdapter(mContext, days, vpSelectTime, monthPriceList);
-        vpSelectTime.setAdapter(vpSelecTimeAdapter);
-        vpSelecTimeAdapter.setOnCalendarOrderListener(new VpSelecTimeAdapter.OnCalendarOrderListener() {
-            @Override
-            public void onOrder(String orderInfo) {
-                Toast.makeText(mContext, orderInfo, Toast.LENGTH_SHORT).show();
-                chooseDate = orderInfo;
-                tv_picker_date.setText(orderInfo);
-                pvCustomTime.show();
+        int days = daysInMonthNow - dayNow + 1 + daysInMonthLast;*/
+        if (vpSelectTime!=null){
+            vpSelecTimeAdapter = new VpSelecTimeAdapter(mContext, 365, vpSelectTime, monthPriceList);
+            vpSelectTime.setAdapter(vpSelecTimeAdapter);
+            vpSelecTimeAdapter.setOnCalendarOrderListener(new VpSelecTimeAdapter.OnCalendarOrderListener() {
+                @Override
+                public void onOrder(String orderInfo) {
+                    Toast.makeText(mContext, orderInfo, Toast.LENGTH_SHORT).show();
+                    chooseDate = orderInfo;
+                    tv_picker_date.setText(orderInfo);
+                    pvCustomTime.show();
 
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override
@@ -290,8 +314,11 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             finish();
         } else {
             bundle.putSerializable("cardetail", cardetail);
+            bundle.putString("startTime",getTime);
+            bundle.putString("endTime",backTime);
+            bundle.putString("takeAddress",getAddress);
             toActivity(OrderConfirmActivity.class, bundle, true);
-            Toast.makeText(mContext, "租车逻辑", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(mContext, "租车逻辑", Toast.LENGTH_SHORT).show();
             finish();
         }
     }
