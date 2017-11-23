@@ -11,8 +11,10 @@ public class Constant {
     public static final String WEIXIN_APP_ID = "wxad1065edbfa4ed3a";
     public static final String WEIXIN_APP_SECRET = "70943f855a89703a47c1a35c9ee07b05";
 
-    public static final String QQZONE_APP_ID = "100424468";
-    public static final String QQZONE_APP_KEY = "c7394704798a158208a74ab60104f0ba";
+//    public static final String QQZONE_APP_ID = "100424468";
+//    public static final String QQZONE_APP_KEY = "c7394704798a158208a74ab60104f0ba";
+public static final String QQZONE_APP_ID = "1106115695";
+    public static final String QQZONE_APP_KEY = "dOZHD6SHde41ZsKM";
 
     public static final String SINA_APP_KEY = "3921700954";
     public static final String SINA_APP_SERCET = "04b48b094faeb16683c32669824ebdad";
@@ -88,8 +90,12 @@ public class Constant {
     public static final String CHANGE_INFO = SERVE_URL +"zzb/app/member/changeInfo";
     //查询违章
     public static final String QUERRY_TICKET =SERVE_URL+ "zzb/app/car/ticket";
-    //我的收藏
+    //我的收藏查询
     public static final String MY_COLLECT_URL =SERVE_URL+"zzb/app/common/loadCollectCar";
+    //收藏车辆
+    public static final String COLLECT_CAR_URL=SERVE_URL+"zzb/app/common/collectcar";
+    //收藏车辆id
+    public static final String COLLECT_CAR_ID_URL=SERVE_URL+"zzb/app/common/loadCollectList";
     //个人用户信息的统计
     public static final String PERSON_MESSAGE =SERVE_URL+"zzb/app/member/userStatisInfo";
     //价格日历

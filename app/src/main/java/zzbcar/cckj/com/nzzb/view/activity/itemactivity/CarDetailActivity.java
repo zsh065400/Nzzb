@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.lzy.okgo.OkGo;
@@ -48,8 +49,8 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     TextView tvCarRemark;
     @BindView(R.id.tv_car_license_number)
     TextView tvCarLicenseNumber;
-    @BindView(R.id.ll_car_collect)
-    LinearLayout llCarCollect;
+    @BindView(R.id.rb_car_collect)
+    RadioButton rb_car_collect;
     @BindView(R.id.ll_car_price_list)
     LinearLayout llCarPriceList;
     @BindView(R.id.tv_drive_model)
@@ -102,7 +103,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     protected void initListeners() {
         tvCarRent.setOnClickListener(this);
         setBackButon(R.id.iv_back);
-        llCarCollect.setOnClickListener(new View.OnClickListener() {
+        rb_car_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Todo 收藏车辆(未实现，接口状态不明)
@@ -113,6 +114,21 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void collectCar() {
+//        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(this);
+//        OkGo.<String>get(Constant.COLLECT_CAR_URL)
+//                .params("userId",signInfo.getId())
+//                .execute(new StringCallback() {
+//        @Override
+//        public void onSuccess(Response<String> response) {
+//            Toast.makeText(mContext, "已收藏", Toast.LENGTH_SHORT).show();
+//        }
+//    });
+
+
+    }
+
+    private void parseData(String body) {
+
     }
 
     @Override

@@ -178,7 +178,7 @@ public class SearchActivity extends BaseActivity {
 
     /*显示结果对话框*/
     private void showResultView() {
-        if (resultAdapter != null){
+        if (resultAdapter != null) {
             resultAdapter.refresh(queryResult);
             resultAdapter.notifyDataSetChanged();
             return;

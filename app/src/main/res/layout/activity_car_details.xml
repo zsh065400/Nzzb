@@ -426,25 +426,34 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/ll_car_collect"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <!--<LinearLayout-->
+                <!--android:id="@+id/ll_car_collect"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!---->
+                <!--android:orientation="vertical">-->
+
+                <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:id="@+id/imageView3"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:background="@drawable/collect_selector" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:text="收藏"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:textColor="#454444"/>&ndash;&gt;-->
+            <!--</LinearLayout>-->
+            <RadioButton
+                android:id="@+id/rb_car_collect"
+                style="@style/MainRadioButtonStyle"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:drawableTop="@drawable/collect_selector"
+                android:text="收藏" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/collect_selector"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="收藏"
-                    android:textColor="#454444"/>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
