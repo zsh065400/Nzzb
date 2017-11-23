@@ -113,9 +113,10 @@ public class CalendarAdapter extends BaseAdapter {
 			index++;
 		}
 		if(!(d.getType()== Day.DayType.NOT_ENABLE) && !TextUtils.isEmpty(d.getName()) && monthPriceList!=null){
-			SpannableString spannableString = new SpannableString(holder.tv.getText().toString()+"\r¥"+monthPriceList.get(index).getPrice());
+			SpannableString spannableString = new SpannableString(holder.tv.getText().toString()+"\n¥"+monthPriceList.get(index).getPrice());
 			spannableString.setSpan(new ForegroundColorSpan(context.getColor(R.color.divider)), holder.tv.getText().toString().length(),spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 			holder.tv.setText(spannableString);
+			holder.tv.setTextSize(context.getResources().getDimension(R.dimen.calendar_item_order_day_size));
 			index++;
 		}
 		return v;

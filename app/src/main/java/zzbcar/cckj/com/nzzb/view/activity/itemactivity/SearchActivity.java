@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -162,7 +163,12 @@ public class SearchActivity extends BaseActivity {
                 final QueryBean queryBean = GsonUtil.parseJsonWithGson(response.body(), QueryBean.class);
                 if (queryBean.getErrno() == 0) {
                     queryResult = queryBean.getData();
-                    showResultView();
+                    if(queryResult.size()!=0){
+                        showResultView();
+                    }else{
+                        Toast.makeText(mContext, "没有找到您想要的车辆", Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
 
                 }
