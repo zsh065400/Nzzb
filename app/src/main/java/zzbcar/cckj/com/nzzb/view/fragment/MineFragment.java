@@ -123,6 +123,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                                 if (errno != 0) {
                                     handler.sendEmptyMessage(1);
                                 } else {
+
                                     Picasso.with(mActivity).load(Uri.fromFile(cropfile)).fit().into(iv_minfragment_head_pic);
                                     SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mActivity, "User", ""), SigninBean.class);
                                     user.getData().getMember().setAvatar(hearUrl);
@@ -191,14 +192,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         final String avatar = signInfo.getAvatar();
         if (avatar.equals("") || avatar.equals(":")) {
             Toast.makeText(mActivity, "头像地址错误，且Picasso加载有异常", Toast.LENGTH_SHORT).show();
+
         } else {
+
+
             LogUtil.e(avatar + "保存的头像");
             Picasso.with(mActivity).load(avatar)
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_launcher)
                     .into(ivUserHead);
+
         }
-        toCollectView();
+  if(avatar==null){
+      toCollectView();
+  }
+
         /*车主认证状态*/
         if (signInfo.getAuthStatus() == 1) {
             tv_minfragment_car_identifi.setText("车主已认证");
@@ -339,8 +347,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private void setViewInfo(PeresonMessageBean.DataBean permessBean) {
 
-        tv_collectcar_counts.setText(permessBean.getCollectCount()+" 辆");
-        tv_ordercar_counts.setText(permessBean.getOrderCount()+" 单");
+        tv_collectcar_counts.setText(permessBean.getCollectCount() + " 辆");
+        tv_ordercar_counts.setText(permessBean.getOrderCount() + " 单");
 
     }
 
