@@ -1,6 +1,7 @@
 package zzbcar.cckj.com.nzzb.view.activity;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.RadioGroup;
 
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -93,6 +94,12 @@ public class MainActivity extends BaseActivity {
     protected void setStatusBar() {
         StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
+    //切换导航栏
+    public void  setViewPager(){
+        rgMain.check(R.id.rb_find_car);
+
+    }
+
 
 }
 

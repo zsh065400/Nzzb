@@ -163,8 +163,9 @@
         <activity android:name=".view.activity.itemactivity.MarriedActivity"/>
         <activity android:name=".view.activity.itemactivity.CarListActivity"/>
         <activity android:name=".view.activity.itemactivity.CarDetailActivity"/>
-        <activity android:name=".view.activity.itemactivity.OrderConfirmActivity">
-        </activity>
+        <activity android:name=".view.activity.itemactivity.OrderConfirmActivity"/>
+        <activity android:name=".view.activity.itemactivity.CarStatusActivity"/>
+
         <activity android:name=".view.activity.itemactivity.LocationListActivity"/>
 
         <service

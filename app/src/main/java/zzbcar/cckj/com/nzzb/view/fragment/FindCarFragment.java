@@ -156,12 +156,12 @@ public class FindCarFragment extends BaseFragment {
         startTask();
         getCarBrandData();
     }
-
     @Override
     protected void initListeners() {
         ibErweima.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
             }
         });

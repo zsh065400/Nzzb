@@ -198,7 +198,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     .error(R.mipmap.ic_launcher)
                     .into(ivUserHead);
         }
-        toCollectView();
+//        toCollectView();
         /*车主认证状态*/
         if (signInfo.getAuthStatus() == 1) {
             tv_minfragment_car_identifi.setText("车主已认证");
@@ -321,21 +321,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
-    private void toCollectView() {
-        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(getContext());
-        OkGo.<String>get(Constant.PERSON_MESSAGE)
-//                .params("userId",signInfo.getId())
-                .params("userId", 1)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        PeresonMessageBean.DataBean permessBean = GsonUtil.parseJsonWithGson(response.body(), PeresonMessageBean.class).getData();
-                        setViewInfo(permessBean);
-
-                    }
-
-                });
-    }
+//    private void toCollectView() {
+//        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(getContext());
+//        OkGo.<String>get(Constant.PERSON_MESSAGE)
+////                .params("userId",signInfo.getId())
+//                .params("userId", 1)
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        PeresonMessageBean.DataBean permessBean = GsonUtil.parseJsonWithGson(response.body(), PeresonMessageBean.class).getData();
+//                        setViewInfo(permessBean);
+//
+//                    }
+//
+//                });
+//    }
 
     private void setViewInfo(PeresonMessageBean.DataBean permessBean) {
 
