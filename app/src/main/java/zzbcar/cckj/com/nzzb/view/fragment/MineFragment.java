@@ -195,7 +195,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
         } else {
 
-
             LogUtil.e(avatar + "保存的头像");
             Picasso.with(mActivity).load(avatar)
                     .placeholder(R.mipmap.ic_launcher)
@@ -203,10 +202,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     .into(ivUserHead);
 
         }
+
   if(avatar==null){
       toCollectView();
   }
-
         /*车主认证状态*/
         if (signInfo.getAuthStatus() == 1) {
             tv_minfragment_car_identifi.setText("车主已认证");
