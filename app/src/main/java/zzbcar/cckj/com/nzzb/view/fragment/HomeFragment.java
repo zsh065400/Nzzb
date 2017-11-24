@@ -246,6 +246,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initDatas() {
+
         OkGo.<String>get(Constant.API_MAIN_PAGE).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
