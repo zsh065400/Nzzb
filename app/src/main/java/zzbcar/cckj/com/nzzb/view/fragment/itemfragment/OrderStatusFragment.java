@@ -128,7 +128,7 @@ public class OrderStatusFragment extends BaseFragment {
             OkGo.<String>get(Constant.API_GET_USER_ORDER)
                     .params("userId",signInfo.getId())
 //                   .params("status", String.valueOf(status))
-                    .params("token",SPUtils.getToken(mActivity))
+                    .params("token", SPUtils.getToken(mActivity))
                     .execute(new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {

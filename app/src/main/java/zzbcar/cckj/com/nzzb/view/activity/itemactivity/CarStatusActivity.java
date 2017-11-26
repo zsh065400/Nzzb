@@ -77,6 +77,8 @@ public class CarStatusActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
 
+
+
         return R.layout.activity_details;
     }
 
@@ -88,13 +90,16 @@ public class CarStatusActivity extends BaseActivity {
     @Override
     protected void initDatas() {
         //接受详情页面数据
+
         databean = (UserOrderBean) getIntent().getExtras().getSerializable("data");
         int position = getIntent().getExtras().getInt("position", 0);
+        databean = (UserOrderBean) getIntent().getSerializableExtra("data");
         //获取订单对象
         List<UserOrderBean.DataBean> data = databean.getData();
         UserOrderBean.DataBean.CarBean car = data.get(position).getCar();
         //显示数据
         Picasso.with(mContext).load(car.getImgs()).placeholder(R.mipmap.ic_launcher)
+
                 .error(R.mipmap.ic_launcher).fit().into(ivCar);//车图片
         tvCarName.setText(car.getBrandName());//车名
         tvCarAddress.setText(car.getPlateNo());//车牌
@@ -104,6 +109,15 @@ public class CarStatusActivity extends BaseActivity {
         tvReturnAddress.setText(data.get(position).getReturnAddress());//还车地址
         tvZuntTime.setText("");//租赁时长
         carZujin.setText((int) data.get(position).getTotalAmount()+"");//租金
+        tvCarName.setText(car.getBrandName());//车名
+        tvCarAddress.setText(car.getPlateNo());//车牌
+        tvCarDetail.setText("");//2017款/4座/自动
+//        tvCarModelName.setText(car.getModel());
+        tvTakeAddress.setText(data.get(position).getTakeAddress());//取车地址
+        tvReturnAddress.setText(data.get(position).getReturnAddress());//还车地址
+        tvZuntTime.setText("");//租赁时长
+        carZujin.setText("");//租金
+
         tvZuntFormula.setText("");//租金计算公式
         tvIllegalMemory.setText("");//违章押金
         tvOfflineMemory.setText("");//线下保证金
