@@ -426,33 +426,26 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <!--<LinearLayout-->
-                <!--android:id="@+id/ll_car_collect"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:gravity="center"-->
-                <!---->
-                <!--android:orientation="vertical">-->
+<LinearLayout
+    android:layout_marginLeft="5dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_cardetail_collect"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/collect_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="3dp"
+        android:id="@+id/tv_car_collect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收藏" />
+</LinearLayout>
 
-                <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:id="@+id/imageView3"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:background="@drawable/collect_selector" />&ndash;&gt;-->
-
-                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:text="收藏"&ndash;&gt;-->
-                    <!--&lt;!&ndash;android:textColor="#454444"/>&ndash;&gt;-->
-            <!--</LinearLayout>-->
-            <RadioButton
-                android:id="@+id/rb_car_collect"
-                style="@style/MainRadioButtonStyle"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/collect_selector"
-                android:text="收藏" />
 
 
             <LinearLayout

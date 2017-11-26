@@ -23,6 +23,7 @@ public static final String QQZONE_APP_ID = "1106115695";
     /****************接口首页*********************/
     /****************Test*********************/
     public static final String SERVE_URL = "http://www.zzbcar.com/";
+//    public static final String SERVE_URL = "http://192.168.1.253:8080/";
 
     /*登录*/
     public static final String API_SIGN = SERVE_URL + "zzb/app/member/login";

@@ -21,7 +21,6 @@ import java.util.Map;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.bean.AliPayInfoBean;
-import zzbcar.cckj.com.nzzb.bean.AliPayResultBean;
 import zzbcar.cckj.com.nzzb.bean.OrderBean;
 import zzbcar.cckj.com.nzzb.bean.WxPayInfoBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;

@@ -1,6 +1,7 @@
 package zzbcar.cckj.com.nzzb.view.activity;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.RadioGroup;
 
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -14,6 +15,7 @@ import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.main.MainViewPagerAdapter;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.fragment.FindCarFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.HomeFragment;
@@ -36,7 +38,6 @@ public class MainActivity extends BaseActivity {
     protected void initViews() {
         initViewPagers();
     }
-
     @Override
     protected void initListeners() {
         /*切换页面*/
@@ -93,6 +94,18 @@ public class MainActivity extends BaseActivity {
     protected void setStatusBar() {
         StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
+    //切换导航栏
+    public void  setViewPager(){
+        rgMain.check(R.id.rb_find_car);
 
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SPUtils.saveString(this,"User","");
+
+    }
 }
 

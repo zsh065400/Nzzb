@@ -114,6 +114,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             OkGo.<String>get(Constant.CHANGE_INFO)
                     .params("userId", signInfo.getId())
                     .params("avatar", hearUrl)
+                    .params("token",SPUtils.getToken(mActivity))
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
@@ -203,9 +204,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
         }
 
-  if(avatar==null){
+
+
       toCollectView();
-  }
         /*车主认证状态*/
         if (signInfo.getAuthStatus() == 1) {
             tv_minfragment_car_identifi.setText("车主已认证");
@@ -328,11 +329,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+
     private void toCollectView() {
         SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(getContext());
         OkGo.<String>get(Constant.PERSON_MESSAGE)
-//                .params("userId",signInfo.getId())
-                .params("userId", 1)
+                .params("userId",signInfo.getId())
+//                .params("userId", 1)
+                .params("token",SPUtils.getToken(mActivity))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

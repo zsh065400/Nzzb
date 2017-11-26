@@ -20,6 +20,7 @@ public class SigninBean implements Serializable {
     private DataBean data;
     private String message;
 
+
     public int getErrno() {
         return errno;
     }
@@ -49,6 +50,14 @@ public class SigninBean implements Serializable {
          * member : {"authFailMsg":"","authStatus":0,"avatar":"","gender":0,"id":11,"idCard":"","mobile":"15133625934","name":"","nickName":"","qq":"","qqOpenId":"","status":0,"wxOpenId":"","wxPubOpenId":""}
          * sysdata : {"city":[{"id":1,"name":"重庆"},{"id":2,"name":"杭州"},{"id":3,"name":"北京"},{"id":4,"name":"上海"},{"id":5,"name":"武汉"},{"id":6,"name":"宁波"},{"id":7,"name":"成都"},{"id":8,"name":"三亚"},{"id":9,"name":"苏州"}],"now":1510300626,"trafficDeposit":0}
          */
+        private String token;
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
 
         private MemberBean member;
         private SysdataBean sysdata;

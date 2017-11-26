@@ -36,6 +36,17 @@
         <attr name="awv_scaleX" format="float" />
     </declare-styleable>
 
+    //自定义togglebutten
+    <declare-styleable name="ToggleButton">
+        <attr name="onColor" format="color" />
+        <attr name="offColor" format="color" />
+        <attr name="btnWidth" format="integer" />
+        <attr name="btnHeight" format="integer" />
+        <attr name="circleRadius" format="integer" />
+        <attr name="lineHeight" format="integer" />
+    </declare-styleable>
+
+
 
 
 

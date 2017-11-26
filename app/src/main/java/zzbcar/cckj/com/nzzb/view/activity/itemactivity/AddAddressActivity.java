@@ -151,12 +151,14 @@ public class AddAddressActivity extends BaseActivity implements View.OnClickList
         params.put("linkman",name);
         params.put("mobile",phone);
         params.put("addr",addres1);
+        params.put("token",SPUtils.getToken(mContext));
         params.put("addrdetail",addres2);
         params.put("latitude",latitude);
         params.put("longitude",longitude);
 
         OkGo.<String>get(Constant.ADD_ADDR)
                 .params(params)
+
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {

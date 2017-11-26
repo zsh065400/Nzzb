@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -50,8 +49,8 @@ public class FindCarFragment extends BaseFragment {
     TextView tvHomeLocalCity;
     @BindView(R.id.ll_choose_city)
     LinearLayout llChooseCity;
-    @BindView(R.id.ib_erweima)
-    ImageButton ibErweima;
+//    @BindView(R.id.ib_erweima)
+//    ImageButton ibErweima;
     @BindView(R.id.search_find)
     LinearLayout searchFind;
     private OkManager manager = new OkManager();
@@ -156,15 +155,16 @@ public class FindCarFragment extends BaseFragment {
         startTask();
         getCarBrandData();
     }
-
     @Override
     protected void initListeners() {
-        ibErweima.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
+//        ibErweima.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+
         searchFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

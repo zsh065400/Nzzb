@@ -4,8 +4,10 @@ package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +17,7 @@ import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnItemSelectedListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,13 +46,18 @@ import zzbcar.cckj.com.nzzb.widget.NoScrollViewPager;
  * Created by Admin on 2017/11/4.
  */
 
-public class SelecTimeActivity extends BaseActivity implements View.OnClickListener {
+public class SelecTimeActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     @BindView(R.id.vp_select_time)
     NoScrollViewPager vpSelectTime;
     @BindView(R.id.tv_sure_send_car)
     TextView tvSureSendCar;
     @BindView(R.id.tv_select_getAddress)
     TextView tvSelectGetAddress;
+
+    @BindView(R.id.swh_status_sendcar)
+    Switch swh_status_sendcar;
+    @BindView(R.id.swh_status_pullcar)
+    Switch swh_status_pullcar;
     private TextView tv_get_car_time;
     private TextView tv_back_car_time;
     private ImageView iv_swicth;
@@ -96,9 +104,12 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         });
         ll_get_car.setOnClickListener(this);
         ll_back_car.setOnClickListener(this);
+        swh_status_pullcar.setOnClickListener(this);
+        swh_status_sendcar.setOnClickListener(this);
         ll_get_car.setEnabled(false);
         tvSureSendCar.setOnClickListener(this);
         tvSelectGetAddress.setOnClickListener(this);
+
     }
 
     @Override
@@ -109,7 +120,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             cardetail = (CarDetailBean.DataBean) bundle.getSerializable("cardetail");
             tvSelectGetAddress.setText(bundle.getString("getAddress"));
             Calendar calendar = Calendar.getInstance();
-            getPrice(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1,0);
+            getPrice(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
         } else {
             tvSelectGetAddress.setText(bundle.getString("getAddress"));
             setVpData();
@@ -182,30 +193,30 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void getPrice(final int year, final int month, final int index) {
-       //递归获取往后一年的价格。
-        if (monthPriceList==null)
+        //递归获取往后一年的价格。
+        if (monthPriceList == null)
             monthPriceList = new ArrayList<>();
-        if(index==13){
+        if (index == 13) {
             setVpData();
             return;
         }
         OkGo.<String>get(Constant.API_PRICE_MONTH)
-                .params("year",year+"")
-                .params("month",month+"")
-                .params("carId",cardetail.getId()+"")
+                .params("year", year + "")
+                .params("month", month + "")
+                .params("carId", cardetail.getId() + "")
                 .execute(new StringCallback() {
                     @Override
-                    public void onSuccess(com.lzy.okgo.model.Response<String> response) {
+                    public void onSuccess(Response<String> response) {
                         //return list.addAll(getPrice((month<12?year:year+1),(month<12?month+1:1)));
                         monthPriceList.addAll(GsonUtil.parseJsonWithGson(response.body(), MonthPriceBean.class).getData());
-                        getPrice((month<12?year:year+1),(month<12?month+1:1),index+1);
+                        getPrice((month < 12 ? year : year + 1), (month < 12 ? month + 1 : 1), index + 1);
                     }
                 });
     }
 
     public void setVpData() {
 
-        if (vpSelectTime!=null){
+        if (vpSelectTime != null) {
             vpSelecTimeAdapter = new VpSelecTimeAdapter(mContext, 365, vpSelectTime, monthPriceList);
             vpSelectTime.setAdapter(vpSelecTimeAdapter);
             vpSelecTimeAdapter.setOnCalendarOrderListener(new VpSelecTimeAdapter.OnCalendarOrderListener() {
@@ -246,8 +257,8 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.tv_select_getAddress:
                 Intent intent = new Intent(mContext, SetAddressActivity.class);
-                intent.putExtra("type",SetAddressActivity.GET_CAR);
-                startActivityForResult(intent,150);
+                intent.putExtra("type", SetAddressActivity.GET_CAR);
+                startActivityForResult(intent, 150);
                 break;
         }
     }
@@ -255,7 +266,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     private void submitTime() {
         String getTime = tv_get_car_time.getText().toString();
         String backTime = tv_back_car_time.getText().toString();
-        String getAddress =tvSelectGetAddress.getText().toString();
+        String getAddress = tvSelectGetAddress.getText().toString();
         if (getTime.equals("请设置取车时间")) {
             Toast.makeText(this, "请设置取车时间", Toast.LENGTH_SHORT).show();
             return;
@@ -264,7 +275,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             Toast.makeText(this, "请设置还车时间", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(type.equals(DETAIL_KEY) && getAddress.equals("请点击设置送车上门地址")){
+        if (type.equals(DETAIL_KEY) && getAddress.equals("请点击设置送车上门地址")) {
             Toast.makeText(this, "请点击设置送车上门地址", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -277,9 +288,9 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             finish();
         } else {
             bundle.putSerializable("cardetail", cardetail);
-            bundle.putString("startTime",getTime);
-            bundle.putString("endTime",backTime);
-            bundle.putString("takeAddress",getAddress);
+            bundle.putString("startTime", getTime);
+            bundle.putString("endTime", backTime);
+            bundle.putString("takeAddress", getAddress);
             toActivity(OrderConfirmActivity.class, bundle, true);
             //Toast.makeText(mContext, "租车逻辑", Toast.LENGTH_SHORT).show();
             finish();
@@ -403,9 +414,30 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             String address = data.getStringExtra("address");
             tvSelectGetAddress.setText(address);
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        switch (compoundButton.getId()) {
+            case R.id.swh_status_pullcar:
+                if (compoundButton.isChecked()) {
+                    Toast.makeText(SelecTimeActivity.this, "开关:ON", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SelecTimeActivity.this, "开关:OFF", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.swh_status_sendcar:
+                if (compoundButton.isChecked()) {
+                    Toast.makeText(SelecTimeActivity.this, "开关:ON", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SelecTimeActivity.this, "开关:OFF", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
         }
     }
 }

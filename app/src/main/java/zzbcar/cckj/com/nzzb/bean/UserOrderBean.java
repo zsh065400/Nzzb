@@ -47,7 +47,7 @@ public class UserOrderBean implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * abolishMoney : 0
          * abolishTime : null
@@ -352,7 +352,7 @@ public class UserOrderBean implements Serializable {
             this.userName = userName;
         }
 
-        public static class CarBean {
+        public static class CarBean implements Serializable{
             /**
              * addr : 杭州市庆春路58号
              * age : 18
@@ -406,6 +406,7 @@ public class UserOrderBean implements Serializable {
             private int mileage;
             private int model;
             private String modelName;
+            private int modelYear;
             private String name;
             private String onShelfTime;
             private String orderCount;
@@ -552,13 +553,22 @@ public class UserOrderBean implements Serializable {
             }
 
             public String getModelName() {
+
                 return modelName;
             }
 
             public void setModelName(String modelName) {
+
                 this.modelName = modelName;
             }
 
+            public int getModelYear() {
+                return modelYear;
+            }
+
+            public void setModelYear(int modelYear) {
+                this.modelYear = modelYear;
+            }
             public String getName() {
                 return name;
             }

@@ -229,7 +229,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 /*跳转详情页面*/
                 final Intent intent = new Intent(mActivity, CarDetailActivity.class);
                 intent.putExtra("carid", activityDatas.get(position).getId());
-
                 startActivity(intent);
             }
         });
@@ -317,6 +316,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 intent.putExtra("carlist", (Serializable) carDatas);
                 // TODO: 2017/11/15 商务用车为2
                 intent.putExtra("useType", 1);
+
                 break;
             case R.id.tv_wedding:
                 intent = new Intent(mActivity, MarriedActivity.class);

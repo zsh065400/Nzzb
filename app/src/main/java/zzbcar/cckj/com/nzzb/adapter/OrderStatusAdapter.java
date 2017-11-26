@@ -52,7 +52,7 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
         ImageView ivCar = holder.getView(R.id.iv_car);
 
         final UserOrderBean.DataBean.CarBean car = dataBean.getCar();
-        Picasso.with(mContext).load(car.getImgs()).placeholder(R.mipmap.ic_launcher)
+        Picasso.with(mContext).load(car.getPics()).placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.a).fit().into(ivCar);//车图片
         holder.setText(R.id.tv_car_name, car.getCarName());//车名
         holder.setText(R.id.tv_car_model_name, userType[car.getUseType() - 1]);//使用类型

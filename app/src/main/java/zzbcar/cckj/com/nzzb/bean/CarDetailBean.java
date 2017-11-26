@@ -110,7 +110,7 @@ public class CarDetailBean implements Serializable {
         private String ownerName;
         private String pics;
         private String plateNo;
-        private int price;
+        private double price;
         private double receivePercent;
         private String remark;
         private int seatNum;
@@ -329,7 +329,7 @@ public class CarDetailBean implements Serializable {
             this.plateNo = plateNo;
         }
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 

@@ -1,5 +1,10 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -50,6 +55,11 @@ public class CarFriendIdentifiActivity extends BaseActivity implements View.OnCl
         new TitleBuilder(this).setTitleText("填写信息").setRightIco(R.mipmap.call_service).setRightIcoListening(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13295815771"));
+                if (ActivityCompat.checkSelfPermission(CarFriendIdentifiActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                startActivity(intent);
             }
         }).setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
             @Override

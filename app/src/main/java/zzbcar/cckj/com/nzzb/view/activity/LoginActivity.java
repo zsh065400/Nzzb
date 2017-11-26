@@ -46,7 +46,6 @@ import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 
 
-
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.et_phone_number)
     EditText etPhoneNumber;
@@ -242,6 +241,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }
         });
     }
+
+
 
     private void doSignin(final String type, String param) {
         final String url = OkHttpUtil.obtainGetUrl(Constant.API_SIGN,
@@ -467,6 +468,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 case QQ:
                     qqOpenId = openid;
                     doSignin("2", openid);
+
                     break;
                 case WEIXIN:
                     wxOpenId = openid;

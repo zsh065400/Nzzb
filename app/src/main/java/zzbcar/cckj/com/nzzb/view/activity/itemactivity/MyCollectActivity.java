@@ -46,8 +46,8 @@ public class MyCollectActivity extends BaseActivity {
     protected void initDatas() {
         SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(this);
         OkGo.<String>get(Constant.MY_COLLECT_URL)
-//                .params("userId",signInfo.getId())
-                .params("userId",1)
+                .params("userId",signInfo.getId())
+//                .params("userId",1)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
