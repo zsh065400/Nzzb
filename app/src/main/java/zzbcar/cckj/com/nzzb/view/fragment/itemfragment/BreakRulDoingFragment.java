@@ -53,6 +53,7 @@ public class BreakRulDoingFragment extends BaseFragment {
                 .params("userId",signInfo.getId())
 //                .params("userId",1)
                 .params("status",0)
+                .params("token",SPUtils.getToken(mActivity))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -63,9 +64,11 @@ public class BreakRulDoingFragment extends BaseFragment {
 
     private void parseData(String body) {
         List<TicketBean.DataBean> dataList = GsonUtil.parseJsonWithGson(body, TicketBean.class).getData();
-        if (dataList.size()==0){
-            Toast.makeText(mActivity, "暂无违章数据", Toast.LENGTH_SHORT).show();
-            return;
+        if(dataList!=null){
+            if (dataList.size()==0){
+                Toast.makeText(mActivity, "暂无违章数据", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
         rvBreakDoing.setLayoutManager(new LinearLayoutManager(mActivity));
         TicketAdapter ticketAdapter = new TicketAdapter(mActivity, dataList);

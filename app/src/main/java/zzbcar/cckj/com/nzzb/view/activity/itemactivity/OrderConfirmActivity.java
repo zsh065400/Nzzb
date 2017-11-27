@@ -192,6 +192,7 @@ public class OrderConfirmActivity extends BaseActivity {
                 "type", String.valueOf(cardetail.getUseType()),
                 "startTime", startTime,
                 "endTime", endTime,
+                    "channel","1",
                 "takeAddress", getAddress,
                 "takeHome", "0",
                 "token",SPUtils.getToken(mContext),

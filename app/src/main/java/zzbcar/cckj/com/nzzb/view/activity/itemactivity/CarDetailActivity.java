@@ -86,6 +86,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     private int collectFlag = 0;
     private Location loc_now = new Location(30.671249, 104.098863, "s");
     private Location loc_end = new Location(30.862644, 103.663077, "e");
+
     /**
      * 判断是否安装目标应用
      *
@@ -131,6 +132,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     @BindView(R.id.civ_head_portrait)
     CircleImageView civ_head_portrait;
     public static final String RENT_KEY = "rent";//来自于RentActivity的跳转。
+    private String[] transmissionCase = {"双离合", "手自动一体", "ISR", "AMT", "自动"};
 
     @Override
     protected void initViews() {
@@ -164,22 +166,21 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             OkGo.<String>get(Constant.COLLECT_CAR_URL)
                     .params("userId", signInfo.getId())
                     .params("token", SPUtils.getToken(mContext))
-                    .params("toCollect", collectFlag + "")
+                    .params("toCollect", collectFlag)
                     .params("carId", carDetailBean.getId())
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
                             collectFlag = (collectFlag == 0 ? 1 : 0);
-                            iv_cardetail_collect.setBackgroundResource(collectFlag == 0 ? R.drawable.collect_normal : R.drawable.collect);
+                            iv_cardetail_collect.setBackgroundResource(collectFlag == 0 ? R.drawable.collect : R.drawable.collect_normal);
 
 
-                            Toast.makeText(mContext, collectFlag == 0 ? "取消收藏成功" : "收藏成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, collectFlag == 0 ? "收藏成功" : "取消收藏成功", Toast.LENGTH_SHORT).show();
                         }
                     });
-
         } else {
-//            Toast.makeText(mContext, collectFlag == 0 ? "取消收藏失败" : "收藏失败", Toast.LENGTH_SHORT).show();
             Toast.makeText(mContext, "请登录后再试", Toast.LENGTH_SHORT).show();
+            toActivity(CarDetailActivity.class, true);
         }
 
 
@@ -227,7 +228,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                             //解析数据获取收藏列表 collectList
                             UserCollectBean userCollectBean = GsonUtil.parseJsonWithGson(response.body(), UserCollectBean.class);
                             List<Integer> collectCarList = userCollectBean.getData();
-                            if (collectCarList.contains(carDetailBean.getId() + "")) {
+                            if (collectCarList.contains(new Integer(carDetailBean.getId()))) {
                                 collectFlag = 0;
                                 iv_cardetail_collect.setBackgroundResource(R.drawable.collect);
                             } else {
@@ -246,7 +247,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     private void initWeekPrice(String carid) {
         OkGo.<String>get(Constant.API_CAR_WEEK_PRICE)
                 .params("carId", carid)
-                .params("token",SPUtils.getToken(mContext))
+                .params("token", SPUtils.getToken(mContext))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -297,9 +298,10 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         tvCarModelName.setText(carDetailBean.getModelName());
         tvCarPrice.setText(carDetailBean.getPrice() + "");
         tvCarLicenseNumber.setText(carDetailBean.getPlateNo());
-//         tv_cardetail_seatnum.setText(carDetailBean.getSeatNum());
-//        tv_cardrtail_handblock.setText(carDetailBean.getTransmissionCase());
+        tv_cardetail_seatnum.setText(carDetailBean.getSeatNum() + "座");
+        tv_cardrtail_handblock.setText(carDetailBean.getTransmissionCase() + "");
         tvCarAddr.setText(carDetailBean.getAddr());
+        tv_cardetail_engineer.setText(carDetailBean.getEngineLiter());
         tvCarOwnerName.setText("车主" + carDetailBean.getOwnerName());
         tvAcceptOrderRate.setText(String.valueOf(carDetailBean.getReceivePercent()));
         tvCollectTimes.setText(String.valueOf(carDetailBean.getCollectCount()));
@@ -375,10 +377,10 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                 NativeDialog msgDialog = new NativeDialog(this, loc_now, loc_end);
                 msgDialog.show();
 
-break;
+                break;
             case R.id.iv_share:
                 openShared();
-                    break;
+                break;
 
 
         }
@@ -392,6 +394,7 @@ break;
                 .setCallback(shareListener)
                 .open();
     }
+
     private UMShareListener shareListener = new UMShareListener() {
         /**
          * @descrption 分享开始的回调

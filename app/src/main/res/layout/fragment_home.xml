@@ -16,11 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="270dp">
 
-            <zzbcar.cckj.com.nzzb.view.customview.Gradient
-                android:id="@+id/gradient"
-                android:layout_width="match_parent"
-                android:layout_height="270dp"/>
-
             <RelativeLayout
                 android:id="@+id/top_bar"
                 android:layout_width="match_parent"
@@ -98,6 +93,11 @@
 
             </LinearLayout>
 
+            <zzbcar.cckj.com.nzzb.view.customview.Gradient
+                android:id="@+id/gradient"
+                android:layout_width="match_parent"
+                android:layout_height="270dp" />
+
         </FrameLayout>
 
         <LinearLayout
@@ -129,6 +129,7 @@
                 app:mvTextColor="#191919"/>
 
             <TextView
+                android:id="@+id/tv_home_clicktosee_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
