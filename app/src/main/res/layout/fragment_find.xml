@@ -63,14 +63,14 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"/>
 
-                <!--<ImageButton-->
-                    <!--android:id="@+id/ib_erweima"-->
-                    <!--android:layout_width="22dp"-->
-                    <!--android:layout_height="30dp"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:layout_marginLeft="5dp"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:background="@mipmap/icon_service_1"/>-->
+                <ImageButton
+                    android:id="@+id/ib_sort"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@mipmap/icon_service_1"/>
 
             </LinearLayout>
         </LinearLayout>

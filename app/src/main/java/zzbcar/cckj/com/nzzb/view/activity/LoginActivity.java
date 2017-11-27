@@ -265,7 +265,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         toNextActivity();
                         finish();
                         /*此处判断可改换成更加稳妥的*/
-                    } else if ((type.equals("1") || type.equals("2")) && errno == 1) {
+                    } else if ((type.equals("1") || type.equals("2")) && errno == 3) {
                         asyncShowToast("请在当前页面使用手机登陆即可自动绑定");
                         changeSignStatus(0);
                     } else {
@@ -280,6 +280,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             });
         }
     }
+
+    // TODO: 2017/11/26 后台逻辑变动，需要重新调整
 
     /**
      * 因接口问题，当三方登录未与手机号绑定时，需要改换登录策略
@@ -468,7 +470,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 case QQ:
                     qqOpenId = openid;
                     doSignin("2", openid);
-
                     break;
                 case WEIXIN:
                     wxOpenId = openid;

@@ -10,16 +10,17 @@ import java.util.List;
 
 public class SigninBean implements Serializable {
     private static final long serialVersionUID = -7574926208944529152L;
+
+
     /**
      * errno : 0
-     * data : {"member":{"authFailMsg":"","authStatus":0,"avatar":"","gender":0,"id":11,"idCard":"","mobile":"15133625934","name":"","nickName":"","qq":"","qqOpenId":"","status":0,"wxOpenId":"","wxPubOpenId":""},"sysdata":{"city":[{"id":1,"name":"重庆"},{"id":2,"name":"杭州"},{"id":3,"name":"北京"},{"id":4,"name":"上海"},{"id":5,"name":"武汉"},{"id":6,"name":"宁波"},{"id":7,"name":"成都"},{"id":8,"name":"三亚"},{"id":9,"name":"苏州"}],"now":1510300626,"trafficDeposit":0}}
+     * data : {"member":{"authFailMsg":"","authStatus":0,"avatar":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/headimg/1511185739418.jpg","gender":0,"id":13,"idCard":"","mobile":"15133625934","name":"","nickName":"","qq":"","qqOpenId":"","status":0,"wxOpenId":"ojHZd04TajmkZVzt4oo6-V5Lj7xU","wxPubOpenId":""},"sysdata":{"city":[{"id":1,"name":"重庆市"},{"id":2,"name":"杭州市"},{"id":3,"name":"北京市"},{"id":4,"name":"上海市"},{"id":5,"name":"武汉市"},{"id":6,"name":"宁波市"},{"id":7,"name":"成都市"},{"id":8,"name":"三亚市"},{"id":9,"name":"苏州市"},{"id":10,"name":"温州市"}],"now":1511763599,"trafficDeposit":0},"token":"4eef2fdc2a2f4cacbe4efd6e8e7a8305"}
      * message : 请求成功
      */
 
     private int errno;
     private DataBean data;
     private String message;
-
 
     public int getErrno() {
         return errno;
@@ -47,20 +48,14 @@ public class SigninBean implements Serializable {
 
     public static class DataBean {
         /**
-         * member : {"authFailMsg":"","authStatus":0,"avatar":"","gender":0,"id":11,"idCard":"","mobile":"15133625934","name":"","nickName":"","qq":"","qqOpenId":"","status":0,"wxOpenId":"","wxPubOpenId":""}
-         * sysdata : {"city":[{"id":1,"name":"重庆"},{"id":2,"name":"杭州"},{"id":3,"name":"北京"},{"id":4,"name":"上海"},{"id":5,"name":"武汉"},{"id":6,"name":"宁波"},{"id":7,"name":"成都"},{"id":8,"name":"三亚"},{"id":9,"name":"苏州"}],"now":1510300626,"trafficDeposit":0}
+         * member : {"authFailMsg":"","authStatus":0,"avatar":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/headimg/1511185739418.jpg","gender":0,"id":13,"idCard":"","mobile":"15133625934","name":"","nickName":"","qq":"","qqOpenId":"","status":0,"wxOpenId":"ojHZd04TajmkZVzt4oo6-V5Lj7xU","wxPubOpenId":""}
+         * sysdata : {"city":[{"id":1,"name":"重庆市"},{"id":2,"name":"杭州市"},{"id":3,"name":"北京市"},{"id":4,"name":"上海市"},{"id":5,"name":"武汉市"},{"id":6,"name":"宁波市"},{"id":7,"name":"成都市"},{"id":8,"name":"三亚市"},{"id":9,"name":"苏州市"},{"id":10,"name":"温州市"}],"now":1511763599,"trafficDeposit":0}
+         * token : 4eef2fdc2a2f4cacbe4efd6e8e7a8305
          */
-        private String token;
-        public String getToken() {
-            return token;
-        }
-
-        public void setToken(String token) {
-            this.token = token;
-        }
 
         private MemberBean member;
         private SysdataBean sysdata;
+        private String token;
 
         public MemberBean getMember() {
             return member;
@@ -78,13 +73,21 @@ public class SigninBean implements Serializable {
             this.sysdata = sysdata;
         }
 
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
         public static class MemberBean {
             /**
              * authFailMsg :
              * authStatus : 0
-             * avatar :
+             * avatar : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/headimg/1511185739418.jpg
              * gender : 0
-             * id : 11
+             * id : 13
              * idCard :
              * mobile : 15133625934
              * name :
@@ -92,7 +95,7 @@ public class SigninBean implements Serializable {
              * qq :
              * qqOpenId :
              * status : 0
-             * wxOpenId :
+             * wxOpenId : ojHZd04TajmkZVzt4oo6-V5Lj7xU
              * wxPubOpenId :
              */
 
@@ -226,8 +229,8 @@ public class SigninBean implements Serializable {
 
         public static class SysdataBean {
             /**
-             * city : [{"id":1,"name":"重庆"},{"id":2,"name":"杭州"},{"id":3,"name":"北京"},{"id":4,"name":"上海"},{"id":5,"name":"武汉"},{"id":6,"name":"宁波"},{"id":7,"name":"成都"},{"id":8,"name":"三亚"},{"id":9,"name":"苏州"}]
-             * now : 1510300626
+             * city : [{"id":1,"name":"重庆市"},{"id":2,"name":"杭州市"},{"id":3,"name":"北京市"},{"id":4,"name":"上海市"},{"id":5,"name":"武汉市"},{"id":6,"name":"宁波市"},{"id":7,"name":"成都市"},{"id":8,"name":"三亚市"},{"id":9,"name":"苏州市"},{"id":10,"name":"温州市"}]
+             * now : 1511763599
              * trafficDeposit : 0
              */
 
@@ -262,7 +265,7 @@ public class SigninBean implements Serializable {
             public static class CityBean {
                 /**
                  * id : 1
-                 * name : 重庆
+                 * name : 重庆市
                  */
 
                 private int id;

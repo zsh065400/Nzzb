@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.UserOrderBean;
+import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 /**
@@ -76,15 +77,13 @@ public class CarStatusActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-
-
-
         return R.layout.activity_details;
     }
 
     @Override
     protected void initViews() {
-
+        StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
+        setBackButon(R.id.iv_back);
     }
 
     @Override
@@ -137,7 +136,6 @@ public class CarStatusActivity extends BaseActivity {
     @OnClick(R.id.tv_car_status)
     public void onViewClicked() {
         // 车的类型  例如我要还车  跳转相应的界面
-
 
     }
 }
