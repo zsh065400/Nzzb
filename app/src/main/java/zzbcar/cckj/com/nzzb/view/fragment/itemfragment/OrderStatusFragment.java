@@ -16,7 +16,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.OrderStatusAdapter;
 import zzbcar.cckj.com.nzzb.adapter.base.BaseRecycleViewAdapter;
@@ -27,7 +26,7 @@ import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.view.activity.MainActivity;
-import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarStatusActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.OrderStatusActivity;
 import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
 
 /**
@@ -73,7 +72,6 @@ public class OrderStatusFragment extends BaseFragment {
     private String[] orderStatus = {"下单", "已付款", "未取车", "", "已取车", "已还车", "已收车", "已取消", "已取消", "已关闭", "交易成功"};
 
     private SigninBean.DataBean.MemberBean signInfo;
-    private UserOrderBean orderBean1;
 
     private String url = Constant.API_GET_USER_ORDER + "?status=";
 
@@ -137,11 +135,11 @@ public class OrderStatusFragment extends BaseFragment {
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            orderBean1 = GsonUtil.parseJsonWithGson(response.body(), UserOrderBean.class);
-                            final int errno = orderBean1.getErrno();
+                            UserOrderBean orderBean = GsonUtil.parseJsonWithGson(response.body(), UserOrderBean.class);
+                            final int errno = orderBean.getErrno();
                             Log.d(TAG, "onSuccess: " + response.body());
                             if (errno == 0) {
-                                final List<UserOrderBean.DataBean> data = orderBean1.getData();
+                                final List<UserOrderBean.DataBean> data = orderBean.getData();
                                 initOrderList(data);
                             }
                         }
@@ -168,15 +166,10 @@ public class OrderStatusFragment extends BaseFragment {
             @Override
             public void onItemClick(View v, int position) {
                 /*根据不同的订单类型进行不同的操作*/
-                //Intent intent = new Intent(getActivity(),CarStatusActivity.class);
-                //把数据传过去
-//                UserOrderBean.DataBean dataBean = orderBean.get(position);
+                UserOrderBean.DataBean dataBean = orderBean.get(position);
                 Bundle bundle = new Bundle();
-                //intent.putExtra("data", orderBean1);
-                bundle.putSerializable("data", orderBean1);
-                bundle.putInt("position", position);
-                toActivity(CarStatusActivity.class, bundle);
-
+                bundle.putSerializable("data", dataBean);
+                toActivity(OrderStatusActivity.class, bundle);
             }
         });
         recyclerView.setAdapter(orderStatusAdapter);
