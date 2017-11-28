@@ -300,7 +300,7 @@ public class OrderBean implements Serializable {
             return trafficDepositMoney;
         }
 
-        public void setTrafficDepositMoney(int trafficDepositMoney) {
+        public void setTrafficDepositMoney(double trafficDepositMoney) {
             this.trafficDepositMoney = trafficDepositMoney;
         }
 

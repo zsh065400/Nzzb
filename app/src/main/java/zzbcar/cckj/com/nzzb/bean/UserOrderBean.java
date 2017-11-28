@@ -116,7 +116,7 @@ public class UserOrderBean implements Serializable {
             return abolishMoney;
         }
 
-        public void setAbolishMoney(int abolishMoney) {
+        public void setAbolishMoney(double abolishMoney) {
             this.abolishMoney = abolishMoney;
         }
 
@@ -324,7 +324,7 @@ public class UserOrderBean implements Serializable {
             return trafficDepositMoney;
         }
 
-        public void setTrafficDepositMoney(int trafficDepositMoney) {
+        public void setTrafficDepositMoney(double trafficDepositMoney) {
             this.trafficDepositMoney = trafficDepositMoney;
         }
 

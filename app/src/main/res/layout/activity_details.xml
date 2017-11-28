@@ -57,10 +57,12 @@
             android:orientation="vertical">
             <!--倒计时-->
             <LinearLayout
+                android:id="@+id/ll_count_down_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#eee"
                 android:gravity="center"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView
@@ -79,7 +81,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
                     android:text="29:59"
-                    android:textColor="#464646"
+                    android:textColor="#f53131"
                     android:textSize="26sp" />
             </LinearLayout>
 

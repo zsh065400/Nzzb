@@ -74,11 +74,11 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
                 view.setText("我要还车");
                 break;
             case 5:
-                view.setText("确认还车");
-                break;
+//                view.setText("确认还车");
+//                break;
             case 6:
-                view.setText("确认收车");
-                break;
+//                view.setText("确认收车");
+//                break;
             case 7:
             case 8:
             case 9:
