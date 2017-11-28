@@ -52,7 +52,7 @@
             android:orientation="vertical">
 
             <!--订单号-->
-            <!--<LinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal">
@@ -75,7 +75,7 @@
                     android:textColor="#767676"
                     android:textSize="15dp"/>
 
-            </LinearLayout>-->
+            </LinearLayout>
 
             <include layout="@layout/default_line_1dp"/>
 

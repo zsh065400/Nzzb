@@ -57,7 +57,7 @@ public class HomeMessageActivity extends BaseActivity {
         });
 
         MainPageBean.DataBean.MarqueeBean marqueeBean = (MainPageBean.DataBean.MarqueeBean) getIntent().getSerializableExtra("marquee");
-//        marqueeBean.getId();
+        String content = marqueeBean.getContent();
         WebSettings settings = wvHomeMessage.getSettings();
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         settings.setDomStorageEnabled(true);
@@ -66,7 +66,7 @@ public class HomeMessageActivity extends BaseActivity {
         settings.setDisplayZoomControls(false);
         settings.setDefaultTextEncodingName("utf-8");
         settings.setAppCacheEnabled(true);
-        wvHomeMessage.loadUrl(marqueeBean.getContent());
+        wvHomeMessage.loadUrl(content);
 
     }
 

@@ -16,6 +16,11 @@
             android:layout_width="match_parent"
             android:layout_height="270dp">
 
+            <zzbcar.cckj.com.nzzb.view.customview.Gradient
+                android:id="@+id/gradient"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"/>
+
             <RelativeLayout
                 android:id="@+id/top_bar"
                 android:layout_width="match_parent"
@@ -92,11 +97,6 @@
                     android:textSize="15dp"/>
 
             </LinearLayout>
-
-            <zzbcar.cckj.com.nzzb.view.customview.Gradient
-                android:id="@+id/gradient"
-                android:layout_width="match_parent"
-                android:layout_height="270dp" />
 
         </FrameLayout>
 

@@ -81,7 +81,7 @@ public class UserOrderBean implements Serializable {
          * userName :
          */
 
-        private int abolishMoney;
+        private double abolishMoney;
         private Object abolishTime;
         private CarBean car;
         private int carId;
@@ -107,12 +107,12 @@ public class UserOrderBean implements Serializable {
         private String takeMapLocation;
         private Object takeTime;
         private double totalAmount;
-        private int trafficDepositMoney;
+        private double trafficDepositMoney;
         private int type;
         private int userId;
         private String userName;
 
-        public int getAbolishMoney() {
+        public double getAbolishMoney() {
             return abolishMoney;
         }
 
@@ -320,7 +320,7 @@ public class UserOrderBean implements Serializable {
             this.totalAmount = totalAmount;
         }
 
-        public int getTrafficDepositMoney() {
+        public double getTrafficDepositMoney() {
             return trafficDepositMoney;
         }
 
@@ -396,7 +396,7 @@ public class UserOrderBean implements Serializable {
             private String carName;
             private int collectCount;
             private String createTime;
-            private int deposit;
+            private double deposit;
             private int distance;
             private String engineLiter;
             private int id;
@@ -480,7 +480,7 @@ public class UserOrderBean implements Serializable {
                 this.createTime = createTime;
             }
 
-            public int getDeposit() {
+            public double getDeposit() {
                 return deposit;
             }
 

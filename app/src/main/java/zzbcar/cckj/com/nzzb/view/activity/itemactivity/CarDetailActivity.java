@@ -287,8 +287,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                 .error(R.mipmap.ic_launcher)
                 .into(iv_car_detail_brand);
 
-        if (!TextUtils.isEmpty(carDetailBean.getOwnerName()))
-
+        if (!TextUtils.isEmpty(carDetailBean.getOwnerName()) && !TextUtils.isEmpty(carDetailBean.getOwnerAvatar()))
             Picasso.with(mContext).load(carDetailBean.getOwnerAvatar())
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_launcher)
@@ -310,17 +309,6 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         tvDriveModel.setText(carDetailBean.getUseType() == 1 ? "自驾" : "商务");
     }
 
-    @Override
-    protected void setStatusBar() {
-        StatusBarUtil.setTransparentForImageViewInFragment(this, null);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     private String getWeekDay(int week) {
         String weekDay = "";

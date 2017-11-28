@@ -349,7 +349,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.tv_home_clicktosee_detail:
                  intent=new Intent(mActivity,HomeMessageActivity.class);
-               intent=intent.putExtra("marquee",  marqueeDatas.get(1));
+                 intent=intent.putExtra("marquee",  marqueeDatas.get(1));
                 break;
             case R.id.iv_service:
                 intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13295815771"));
