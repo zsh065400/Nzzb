@@ -106,6 +106,8 @@ public class OrderConfirmActivity extends BaseActivity {
         cardetail = (CarDetailBean.DataBean) bundle.getSerializable("cardetail");
         startTime = getFormatTime(bundle.getString("getTime") + ":00");
         endTime = getFormatTime(bundle.getString("backTime") + ":00");
+
+
         getAddress = bundle.getString("getAddress");
         final String userJson = SPUtils.getString(mContext, "User", "");
         if (userJson != "") {
@@ -192,6 +194,9 @@ public class OrderConfirmActivity extends BaseActivity {
                 "type", String.valueOf(cardetail.getUseType()),
                 "startTime", startTime,
                 "endTime", endTime,
+                "channel","1",
+//                "city",SPUtils.getString(mContext,Constant.SP_LAST_LOCATION, ""),
+                "city","3",
                 "takeAddress", getAddress,
                 "takeHome", "0",
                 "token",SPUtils.getToken(mContext),

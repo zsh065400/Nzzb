@@ -75,7 +75,7 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
-                <data android:scheme="tencent100424468"/>
+                <data android:scheme="tencent1106313801"/>
             </intent-filter>
         </activity>
         <activity
@@ -164,7 +164,7 @@
         <activity android:name=".view.activity.itemactivity.CarListActivity"/>
         <activity android:name=".view.activity.itemactivity.CarDetailActivity"/>
         <activity android:name=".view.activity.itemactivity.OrderConfirmActivity"/>
-        <activity android:name=".view.activity.itemactivity.CarStatusActivity"/>
+        <activity android:name=".view.activity.itemactivity.OrderStatusActivity"/>
 
         <activity android:name=".view.activity.itemactivity.LocationListActivity"/>
 
@@ -181,6 +181,7 @@
         <activity android:name=".view.activity.itemactivity.ProtocolActivity"/>
         <activity android:name=".view.activity.itemactivity.MyCollectActivity"/>
         <activity android:name=".view.activity.itemactivity.MyOrderActivity"/>
+        <activity android:name=".view.activity.itemactivity.HomeMessageActivity"/>
     </application>
 
 </manifest>

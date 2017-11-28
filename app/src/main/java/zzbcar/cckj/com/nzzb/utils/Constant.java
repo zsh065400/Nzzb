@@ -13,8 +13,8 @@ public class Constant {
 
 //    public static final String QQZONE_APP_ID = "100424468";
 //    public static final String QQZONE_APP_KEY = "c7394704798a158208a74ab60104f0ba";
-public static final String QQZONE_APP_ID = "1106115695";
-    public static final String QQZONE_APP_KEY = "dOZHD6SHde41ZsKM";
+public static final String QQZONE_APP_ID = "1106313801";
+    public static final String QQZONE_APP_KEY = "bz7PCjrvT9gCxCve";
 
     public static final String SINA_APP_KEY = "3921700954";
     public static final String SINA_APP_SERCET = "04b48b094faeb16683c32669824ebdad";
@@ -78,7 +78,11 @@ public static final String QQZONE_APP_ID = "1106115695";
     //品牌
     public static final String CAR_BRAND_URL = SERVE_URL + "zzb/app/car/brand";
 
-    public static final String CAR_DEFAULT_URL = SERVE_URL + "zzb/app/car/queryCarByCondition?pageNum=0&pageSize=10";
+    /*取换车*/
+    public static final String API_TAKE_RETURN_CAR = SERVE_URL + "zzb/app/order/carop";
+
+
+
     public static final String LOCATION_SELECT_URL = SERVE_URL + "zzb/app/common/citys";
     //查询订单
     public static final String SELECT_ORDER_URL=SERVE_URL+"zzb/app/order/query";
@@ -103,6 +107,7 @@ public static final String QQZONE_APP_ID = "1106115695";
     public static final String API_PRICE_MONTH = SERVE_URL+"zzb/app/bus/monthprice";
     //提交车主
     public static final String API_ADD_OWNER = SERVE_URL+"zzb/app/bus/addOwnerContact";
+
     public static final String SP_LAST_LOCATION = "last_location";
     //纬度
     public static final String SP_LATITUDE = "latitude";

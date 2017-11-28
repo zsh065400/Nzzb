@@ -38,8 +38,8 @@ public class JourneyFragment extends BaseFragment implements TabLayout.OnTabSele
         //设置TabLayout点击事件
         journet_tab_layou.setOnTabSelectedListener(this);
         fragments.add(new OrderStatusFragment("0,1,2"));
-        fragments.add(new OrderStatusFragment("3,5,6"));
-        fragments.add(new OrderStatusFragment("10"));
+        fragments.add(new OrderStatusFragment("3"));
+        fragments.add(new OrderStatusFragment("5,6,10"));
         fragments.add(new OrderStatusFragment("7,8,9"));
         viewPagerAdapter = new MyViewPagerAdapter(mActivity.getSupportFragmentManager(), titles, fragments);
         journey_view_pager.setAdapter(viewPagerAdapter);

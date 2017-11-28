@@ -1,7 +1,6 @@
 package zzbcar.cckj.com.nzzb.view.activity;
 
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.widget.RadioGroup;
 
 import com.tencent.mm.opensdk.openapi.IWXAPI;

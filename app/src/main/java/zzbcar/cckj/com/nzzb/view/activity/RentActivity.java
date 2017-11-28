@@ -19,7 +19,6 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.CarBrandAdapter;
 import zzbcar.cckj.com.nzzb.adapter.CarSeriesItemAdapter;
@@ -36,6 +35,7 @@ import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.OkManager;
+import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelecTimeActivity;
@@ -187,7 +187,10 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onLocationNearSort() {
                 /*依据距离定位*/
-                asyncShowToast("暂未开发");
+//                asyncShowToast("暂未开发");
+                String longtiude = SPUtils.getString(mContext, Constant.SP_LONGITUDE, "");
+                String latitude = SPUtils.getString(mContext, Constant.SP_LATITUDE, "");
+                params.setLoc(longtiude + "," + latitude);
                 doCarQuery(params.buildUrl());
             }
 
@@ -373,7 +376,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
             /*右上角排序选择*/
             case R.id.iv_rentcar_sorder:
 
-                popWindow.showPopupWindow(findViewById(R.id.iv_rentcar_sorder));
+                popWindow.showPopupWindow(view);
                 break;
             /*价格*/
             case R.id.ll_price:
@@ -418,7 +421,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 //startActivity(intent);
                 Bundle bundle = new Bundle();
                 bundle.putString("type", SelecTimeActivity.RENT_KEY);
-                bundle.putString("getAddress",tv_rent_address.getText().toString());
+                bundle.putString("getAddress", tv_rent_address.getText().toString());
                 toActivityWithResult(SelecTimeActivity.class, bundle, 0);
                 break;
 
@@ -464,16 +467,9 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
     private void toCarDetail(int id) {
         final Intent intent = new Intent(mContext, CarDetailActivity.class);
         intent.putExtra("carid", id);
-        intent.putExtra("type",CarDetailActivity.RENT_KEY);
-        intent.putExtra("getAddress",tv_rent_address.getText().toString());
+        intent.putExtra("type", CarDetailActivity.RENT_KEY);
+        intent.putExtra("getAddress", tv_rent_address.getText().toString());
         startActivity(intent);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     private class ParamsBuilder {
@@ -610,10 +606,5 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                     "pageNum", pageNum,
                     "pageSize", pageSize);
         }
-    }
-
-    @Override
-    protected void setStatusBar() {
-        StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
 }

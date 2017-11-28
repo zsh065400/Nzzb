@@ -53,7 +53,6 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     TextView tvSureSendCar;
     @BindView(R.id.tv_select_getAddress)
     TextView tvSelectGetAddress;
-
     @BindView(R.id.swh_status_sendcar)
     Switch swh_status_sendcar;
     @BindView(R.id.swh_status_pullcar)
@@ -239,6 +238,8 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             case R.id.ll_get_car:
                 ll_get_car.setEnabled(false);
                 ll_back_car.setEnabled(true);
+                ll_back_car.setBackgroundColor(getColor(R.color.light_while));
+                ll_get_car.setBackgroundColor(getColor(R.color.white));
                 break;
             case R.id.ll_back_car:
                 if (tv_get_car_time.getText().equals("请设置取车时间")) {

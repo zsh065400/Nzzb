@@ -3,6 +3,7 @@ package zzbcar.cckj.com.nzzb.adapter;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -58,8 +59,32 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
         holder.setText(R.id.tv_car_model_name, userType[car.getUseType() - 1]);//使用类型
         holder.setText(R.id.tv_car_address, car.getAddr());//地址
         final int status = dataBean.getStatus();
-        if (status == 7 || status == 8 || status == 9 || status == 10) {
-            holder.getView(R.id.tv_sure_get_car).setVisibility(View.GONE);
+        TextView view = holder.getView(R.id.tv_sure_get_car);
+        switch (status) {
+            case 0:
+                view.setText("确定支付");
+                break;
+            case 1:
+                view.setText("未接单");
+                break;
+            case 2:
+                view.setText("确定取车");
+                break;
+            case 3:
+                view.setText("我要还车");
+                break;
+            case 5:
+//                view.setText("确认还车");
+//                break;
+            case 6:
+//                view.setText("确认收车");
+//                break;
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+                view.setVisibility(View.GONE);
+                break;
         }
     }
 

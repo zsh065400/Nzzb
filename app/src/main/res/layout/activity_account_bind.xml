@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="zzbcar.cckj.com.nzzb.view.activity.itemactivity.AccountBindActivity">
 
-    <include layout="@layout/activity_title"/>
+    <include layout="@layout/activity_title" />
 
     <ImageView
-        android:background="#f5f5f5"
         android:layout_width="match_parent"
-        android:layout_height="15dp" />
+        android:layout_height="15dp"
+        android:background="#f5f5f5" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,33 +39,34 @@
             android:hint="QQ" />
 
         <ImageView
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginRight="10dp"
             android:src="@mipmap/arrow_right" />
 
     </LinearLayout>
 
     <View
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
         android:background="@color/divider" />
 
     <LinearLayout
-android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:src="@mipmap/wx_low"
             android:id="@+id/iv_weixin_bind"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
+            android:src="@mipmap/wx_low"
 
             android:textColor="#595959"
             android:textSize="20sp" />
@@ -80,18 +80,18 @@ android:layout_marginTop="10dp"
             android:hint="微信" />
 
         <ImageView
-
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
             android:layout_gravity="center"
-            android:src="@mipmap/arrow_right"
-            android:layout_width="23dp"
-            android:layout_height="23dp" />
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/arrow_right" />
 
     </LinearLayout>
 
     <View
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
         android:background="@color/divider" />
 </LinearLayout>

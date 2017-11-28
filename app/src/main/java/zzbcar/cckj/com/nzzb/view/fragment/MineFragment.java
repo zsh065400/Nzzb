@@ -31,6 +31,7 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -381,6 +382,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         new ShareAction(mActivity)
                 .withText("至尊宝豪车共享")
                 .withMedia(new UMImage(mActivity, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)))
+                .withMedia(new UMWeb("http://www.baidu.com"))
                 .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN)
                 .setCallback(shareListener)
                 .open();
