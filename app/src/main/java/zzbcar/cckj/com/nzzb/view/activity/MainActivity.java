@@ -94,8 +94,9 @@ public class MainActivity extends BaseActivity {
         StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
     //切换导航栏
-    public void  setViewPager(){
-        rgMain.check(R.id.rb_find_car);
+    public void  setViewPager(int position){
+//        rgMain.check(R.id.rb_find_car);
+        rgMain.check(rgMain.getChildAt(position).getId());
 
     }
 

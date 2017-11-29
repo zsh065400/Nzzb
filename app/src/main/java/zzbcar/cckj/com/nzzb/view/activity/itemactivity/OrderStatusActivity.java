@@ -16,7 +16,6 @@ import com.squareup.picasso.Picasso;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +37,16 @@ import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 public class OrderStatusActivity extends BaseActivity {
 
+
+
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.iv_details)
+    ImageView ivDetails;
+    @BindView(R.id.top_bar)
+    RelativeLayout topBar;
+    @BindView(R.id.tv_car_zj)
+    TextView tvCarZj;
     private UserOrderBean.DataBean databean;
     private int status;
 
@@ -49,6 +58,7 @@ public class OrderStatusActivity extends BaseActivity {
             }
         }
     };
+    private UserOrderBean.DataBean.CarBean carBean;
 
     @Override
     protected int getLayoutId() {
@@ -65,6 +75,8 @@ public class OrderStatusActivity extends BaseActivity {
     protected void initDatas() {
         //接受详情页面数据
         databean = (UserOrderBean.DataBean) getIntent().getExtras().getSerializable("data");
+
+        carBean = databean.getCar();
 
         //显示数据
         status = databean.getStatus();
@@ -111,6 +123,7 @@ public class OrderStatusActivity extends BaseActivity {
     @BindView(R.id.ll_count_down_time)
     View vCountDownTime;
 
+
     @BindView(R.id.tv_time_Surplus)
     TextView tvSurplus;
     @BindView(R.id.tv_time)
@@ -126,6 +139,12 @@ public class OrderStatusActivity extends BaseActivity {
         tvCarName.setText(car.getCarName());
         tvOrderType.setText(useType[car.getUseType() - 1]);
         tvOrderNumber.setText(car.getPlateNo());
+        tvCarPrice.setText(databean.getLeasePrice()+"");
+        tvOrderDeposit.setText(carBean.getDeposit()+"");
+        tvOrderBzj.setText(databean.getOnlineAmount()+"");
+        tvOrderAllMoney.setText(databean.getTotalAmount()+"");
+        tvOrderGetAddrTime.setText(databean.getTakeAddress()+"\n\n"+databean.getStartTime()+"");
+        tvOrderBackAddrTime.setText(databean.getReturnAddress()+"\n\n"+databean.getEndTime()+"");
         switch (status) {
             case 0:
                 tvCarStatus.setText("确定支付");
@@ -204,6 +223,22 @@ public class OrderStatusActivity extends BaseActivity {
             return day + "天" + hour + "时" + min + "分" + sec + "秒";
         else
             return day + "天" + hour + "时" + min + "分";
+
+//        Picasso.with(mContext).load(carBean.getPics()).placeholder(R.mipmap.ic_launcher)
+//                .error(R.mipmap.a).fit().into(ivOrderCarPic);//车图片
+//        tvCarName.setText(carBean.getCarName());
+//        tvOrderNumber.setText(carBean.getPlateNo());
+//        tvOrderGetaddrTime.setText(databean.getTakeAddress()+"\n\n"+databean.getStartTime()+"");
+//        tvOrderBackaddrTime.setText(databean.getReturnAddress()+"\n\n"+databean.getEndTime()+"");
+//        tvOrderId.setText(databean.getOrderNo());
+//        tvCarPrice.setText(databean.getLeasePrice()+"");
+//        tvOrderDeposit.setText(carBean.getDeposit()+"");
+//        tvOrderBzj.setText(databean.getOnlineAmount()+"");
+//        tvOrderAllMoney.setText(databean.getTotalAmount()+"");
+//        tvOrderMark.setText(carBean.getModelYear()+"款 "+"|"+ carBean.getSeatNum()+" "+"|");
+//        tvOrderType.setText(carBean.getUseType()==1?"自驾":"商务");
+
+
     }
 
     @OnClick(R.id.tv_car_status)
@@ -284,5 +319,12 @@ public class OrderStatusActivity extends BaseActivity {
         bundle.putSerializable("payinfo", payInfo);
         toActivity(PayActivity.class, bundle);
         finish();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

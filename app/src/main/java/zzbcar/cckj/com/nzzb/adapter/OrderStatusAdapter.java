@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
@@ -41,6 +43,10 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
     * 4 婚庆
     * */
     private String[] userType = {"自驾", "商务", "", "婚庆"};
+//    private long betweentimeDay;
+   private long betweentimeHour;
+//    private long betweentimeMin;
+//    private long betweentimeSec;
 
     public OrderStatusAdapter(Context context, List<UserOrderBean.DataBean> datas) {
         super(context, datas);
@@ -48,6 +54,28 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
 
     @Override
     protected void convert(MyViewHolder holder, int position, UserOrderBean.DataBean dataBean) {
+        String endTime = dataBean.getEndTime();
+        String startTime = dataBean.getStartTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date end = sdf.parse(endTime);
+            Date start = sdf.parse(startTime);
+            betweentimeHour = (end.getTime() - start.getTime())/1000/60/60;
+//           if(betweentimeDay!=0){
+//               betweentimeHour = betweentimeDay/24;
+//           }
+//            if(betweentimeHour!=0){
+//                betweentimeMin = betweentimeHour/60;
+//            }
+//         if(betweentimeHour!=0){
+//             betweentimeSec = betweentimeMin/60;
+//         }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         holder.setText(R.id.tv_number, "订单编号" + dataBean.getOrderNo());//订单号
         holder.setText(R.id.tv_state, status[dataBean.getStatus()]);//状态
         ImageView ivCar = holder.getView(R.id.iv_car);
@@ -58,6 +86,14 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
         holder.setText(R.id.tv_car_name, car.getCarName());//车名
         holder.setText(R.id.tv_car_model_name, userType[car.getUseType() - 1]);//使用类型
         holder.setText(R.id.tv_car_address, car.getAddr());//地址
+         holder.setText(R.id.tv_time,betweentimeHour+"小时");
+
+        holder.setText(R.id.tv_send_address,dataBean.getTakeAddress());
+        holder.setText(R.id.tv_rec_address,dataBean.getReturnAddress());
+        holder.setText(R.id.tv_send_time,dataBean.getStartTime()+"");
+        holder.setText(R.id.tv_rec_time,dataBean.getEndTime()+"");
+        holder.setText(R.id.tv_car_detail,car.getModelYear()+"款 "+"|"+car.getSeatNum()+"座位 "+"|"+car.getUseType()+"");
+        holder.setText(R.id.tv_car_address,car.getAddr());
         final int status = dataBean.getStatus();
         TextView view = holder.getView(R.id.tv_sure_get_car);
         switch (status) {

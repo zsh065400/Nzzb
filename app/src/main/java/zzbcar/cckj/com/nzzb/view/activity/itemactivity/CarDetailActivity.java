@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,10 +77,10 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     TextView tvAcceptOrder;
     @BindView(R.id.imageView)
     ImageView imageView;
-    @BindView(R.id.iv_to_right)
-    ImageView ivToRight;
     @BindView(R.id.iv_to_right2)
     ImageView ivToRight2;
+    @BindView(R.id.rl_cardetail_service_center)
+    RelativeLayout rlCardetailServiceCenter;
 
     private CarDetailBean.DataBean carDetailBean;
     private String getAddress;
@@ -145,7 +146,9 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         tvCarAddr.setOnClickListener(this);
         llCarPriceList.setOnClickListener(this);
         ivShare.setOnClickListener(this);
+        rlCardetailServiceCenter.setOnClickListener(this);
         setBackButon(R.id.iv_back);
+
         iv_cardetail_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -369,6 +372,9 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             case R.id.iv_share:
                 openShared();
                 break;
+            case R.id.rl_cardetail_service_center:
+                 toActivity(HelpCenterActivity.class,true);
+                break;
 
 
         }
@@ -422,4 +428,10 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         }
     };
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

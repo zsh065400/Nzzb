@@ -183,8 +183,8 @@ public class OrderStatusFragment extends BaseFragment {
 
     @OnClick(R.id.bt_journey_grag_toselect_car)
     public void onViewClicked() {
-        MainActivity mActivity = (MainActivity) this.mActivity;
-        mActivity.setViewPager();
+       MainActivity mActivity = (MainActivity) this.mActivity;
+        mActivity.setViewPager(1);
     }
 }
 

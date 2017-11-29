@@ -38,6 +38,8 @@ public class ProtocolActivity extends BaseActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
         String url = intent.getStringExtra("url");
+
+
         new TitleBuilder(this).setTitleText(title).setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

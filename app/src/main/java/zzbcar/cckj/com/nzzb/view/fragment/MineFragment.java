@@ -53,6 +53,7 @@ import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
+import zzbcar.cckj.com.nzzb.view.activity.MainActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AboutUsActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AccountBindActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BreakRuleActivity;
@@ -61,7 +62,6 @@ import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HelpCenterActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCollectActivity;
-import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyOrderActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PreCarFriendIdentifiActivity;
 import zzbcar.cckj.com.nzzb.view.customview.RoundImageView;
 
@@ -289,7 +289,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.ll_my_order:
-                toActivity(MyOrderActivity.class, true);
+//                toActivity(MyOrderActivity.class, true);
+                MainActivity orderActivity = (MainActivity) this.mActivity;
+                orderActivity.setViewPager(2);
                 break;
             case R.id.ll_my_collect:
                 toActivity(MyCollectActivity.class, true);

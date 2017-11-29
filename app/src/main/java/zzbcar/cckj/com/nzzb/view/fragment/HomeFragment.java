@@ -138,6 +138,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private List<MainPageBean.DataBean.MarqueeBean> marqueeDatas;
     private LocationClient mLocationClient;
     private MyBDLocationListener bdLocationListener;
+    private AlertDialog.Builder builder;
+    private AlertDialog alertDialog;
+    private Intent callIntent;
 
     private void initMarquee(List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
         List<String> marqueeText = new ArrayList<>();
@@ -243,7 +246,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         });
         vpChaozhi.setAdapter(myGoodExperenceAdapter);
         vpChaozhi.setPageTransformer(false, new ScaleTransformer());
-        vpChaozhi.setOffscreenPageLimit(5);
+        vpChaozhi.setOffscreenPageLimit(Integer.MAX_VALUE);
     }
 
 
@@ -308,8 +311,40 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tvChexingAll.setOnClickListener(this);
         tvLocation.setOnClickListener(this);
         tvLocation.setOnClickListener(this);
-        ivService.setOnClickListener(this);
         tvHomeClicktoseeDetail.setOnClickListener(this);
+        //拨打客服电话
+        ivService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                builder = new AlertDialog.Builder(mActivity);
+                alertDialog = builder.setMessage("13295815771")
+                        .setTitle("要拨打电话给客服么?")
+                        .setCancelable(false)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                callService();
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+
+                        }).create();
+                alertDialog.show();
+
+            }
+        });
+    }
+
+    private void callService() {
+        if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        callIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13295815771"));
+        startActivity(callIntent);
     }
 
     @Override
@@ -321,8 +356,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 intent.putExtra("carlist", (Serializable) carDatas);
                 intent.putExtra("useType", 1);
                 break;
-
-
             case R.id.tv_business:
                 intent = new Intent(mActivity, RentActivity.class);
                 intent.putExtra("carlist", (Serializable) carDatas);
@@ -348,18 +381,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 intent = new Intent(mActivity, LocationListActivity.class);
                 break;
             case R.id.tv_home_clicktosee_detail:
-                 intent=new Intent(mActivity,HomeMessageActivity.class);
-                 intent=intent.putExtra("marquee",  marqueeDatas.get(1));
+                intent = new Intent(mActivity, HomeMessageActivity.class);
+                intent = intent.putExtra("marquee", marqueeDatas.get(1));
                 break;
-            case R.id.iv_service:
-                intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13295815771"));
-                if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
 
-                break;
         }
         startActivity(intent);
+
     }
 
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION,

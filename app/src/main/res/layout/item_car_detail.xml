@@ -33,11 +33,26 @@
             android:singleLine="true"
             android:layout_width="wrap_content"
             android:text="奥迪R8" />
+
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.6">
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_car_address"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="2dp"
+                android:textColor="#999999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="拱墅区祥园路355号" />
+            <TextView
+                android:id="@+id/tv_car_detail"
+                android:textColor="#999999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2016款 | 4座 | 自动" />
             <TextView
                 android:id="@+id/tv_car_model_name"
                 android:layout_width="wrap_content"
@@ -52,20 +67,6 @@
                 android:text="自驾"
                 android:textColor="@color/car_model"
                 android:textSize="14sp" />
-            </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_car_detail"
-                android:textColor="#999999"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2016款 | 4座 | 自动" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -79,14 +80,7 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/location_icon" />
 
-                <TextView
-                    android:id="@+id/tv_car_address"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="2dp"
-                    android:textColor="#999999"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="拱墅区祥园路355号" />
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
