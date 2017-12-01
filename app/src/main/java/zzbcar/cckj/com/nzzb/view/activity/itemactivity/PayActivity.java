@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +21,12 @@ import java.util.Map;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.bean.AliPayInfoBean;
-import zzbcar.cckj.com.nzzb.bean.AliPayResultBean;
 import zzbcar.cckj.com.nzzb.bean.OrderBean;
 import zzbcar.cckj.com.nzzb.bean.WxPayInfoBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
+import zzbcar.cckj.com.nzzb.utils.PayResult;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
@@ -32,7 +34,7 @@ import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
  * Created by Admin on 2017/11/6.
  */
 
-public class PayActivity extends BaseActivity {
+public class PayActivity extends BaseActivity implements View.OnClickListener {
     private int minute = 29;
     private int second = 59;
     private static final int SENDING = -1;
@@ -51,15 +53,18 @@ public class PayActivity extends BaseActivity {
                     }
                     break;
                 case 1:
-                    final AliPayResultBean resultBean =
+                    /*final AliPayResultBean resultBean =
                             GsonUtil.parseJsonWithGson((String) msg.obj, AliPayResultBean.class);
-                    final String result = resultBean.getResult();
+                    final String result = resultBean.getResult();*/
+                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                    String result = payResult.getResult();
+                    String resultStatus = payResult.getResultStatus();
                     // TODO: 2017/11/18 支付状态确认
-                    if (result.equals("9000")) {
+                    if (resultStatus.equals("9000")) {
                         Toast.makeText(mContext, "订单支付成功", Toast.LENGTH_SHORT).show();
-                    } else if (result.equals("4000")) {
+                    } else if (resultStatus.equals("4000")) {
                         Toast.makeText(mContext, "订单支付失败", Toast.LENGTH_SHORT).show();
-                    } else if (result.equals("6001")) {
+                    } else if (resultStatus.equals("6001")) {
                         Toast.makeText(mContext, "用户取消", Toast.LENGTH_SHORT).show();
                     }
                     System.out.println(msg.obj);
@@ -76,6 +81,10 @@ public class PayActivity extends BaseActivity {
 
     private final int ALI_PAY = 1;
     private OrderBean.DataBean payInfo;
+    private TextView tv_rend_car_money;
+    private ImageView wxpay_iv;
+    private ImageView alipay_iv;
+    private LinearLayout mSureCommit;
 
     private void doWxPay() {
         /*测试订单*/
@@ -159,9 +168,13 @@ public class PayActivity extends BaseActivity {
     @Override
     protected void initViews() {
         tv_time_remain = (TextView) findViewById(R.id.tv_time_remain);
+        tv_rend_car_money = findViewById(R.id.tv_rend_car_money);
         mAlipay = findViewById(R.id.rl_alipay);
         mWxPay = findViewById(R.id.rl_wxpay);
-        mAlipay.setOnClickListener(new View.OnClickListener() {
+        wxpay_iv = findViewById(R.id.wxpay_iv);
+        alipay_iv = findViewById(R.id.alipay_iv);
+        mSureCommit = findViewById(R.id.ll_sure_pay);
+        /*mAlipay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 doAlipay();
@@ -172,7 +185,10 @@ public class PayActivity extends BaseActivity {
             public void onClick(View v) {
                 doWxPay();
             }
-        });
+        });*/
+        mAlipay.setOnClickListener(this);
+        mWxPay.setOnClickListener(this);
+        mSureCommit.setOnClickListener(this);
         initTime();
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
@@ -201,11 +217,35 @@ public class PayActivity extends BaseActivity {
     @Override
     protected void initDatas() {
         payInfo = (OrderBean.DataBean) getIntent().getExtras().getSerializable("payinfo");
+        tv_rend_car_money.setText("¥ "+payInfo.getLeasePrice());
+        alipay_iv.setEnabled(true);
+        wxpay_iv.setEnabled(false);
         setBackButon(R.id.iv_back);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.rl_alipay:
+                alipay_iv.setEnabled(true);
+                wxpay_iv.setEnabled(false);
+                break;
+            case R.id.rl_wxpay:
+                alipay_iv.setEnabled(false);
+                wxpay_iv.setEnabled(true);
+                break;
+            case R.id.ll_sure_pay:
+                if(alipay_iv.isEnabled()){
+                    doAlipay();
+                }else{
+                    doWxPay();
+                }
+                break;
+        }
     }
 }

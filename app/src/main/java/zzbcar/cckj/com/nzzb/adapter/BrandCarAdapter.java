@@ -1,6 +1,7 @@
 package zzbcar.cckj.com.nzzb.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -35,6 +36,8 @@ public class BrandCarAdapter extends BaseRecycleViewAdapter<QueryBean.DataBean> 
                 .fit()
                 //init()显示到指定控件
                 .into(iv);
+        ImageView iv_type = holder.getView(R.id.iv_car_type);
+        iv_type.setBackgroundResource(dataBean.getUseType()==1?R.mipmap.car_type1:R.mipmap.car_type_2);
     }
 
     @Override

@@ -36,7 +36,6 @@ public class MainActivity extends BaseActivity {
     protected void initViews() {
         initViewPagers();
     }
-
     @Override
     protected void initListeners() {
         /*切换页面*/
@@ -54,6 +53,7 @@ public class MainActivity extends BaseActivity {
                         vpMain.setCurrentItem(2,false);
                         break;
                     case R.id.rb_mine:
+
                         vpMain.setCurrentItem(3,false);
                         break;
                 }
@@ -92,6 +92,19 @@ public class MainActivity extends BaseActivity {
     protected void setStatusBar() {
         StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
+    //切换导航栏
+    public void  setViewPager(int position){
+//        rgMain.check(R.id.rb_find_car);
+        rgMain.check(rgMain.getChildAt(position).getId());
 
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        SPUtils.saveString(this,"User","");
+
+    }
 }
 

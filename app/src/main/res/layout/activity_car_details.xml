@@ -198,9 +198,14 @@
                 android:textSize="12sp"/>
         </RelativeLayout>
 
-        <include layout="@layout/item_week"/>
+        <!--<include layout="@layout/item_week"/>
 
-        <include layout="@layout/item_car_details_date_and_money"/>
+        <include layout="@layout/item_car_details_date_and_money"/>-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/ll_car_price_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -243,14 +248,14 @@
                 android:textColor="#302f2f"
                 android:textSize="18sp"/>
 
-            <ImageView
+            <!--<ImageView-->
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15dp"
-                android:src="@mipmap/arrow_right"/>
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginRight="15dp"-->
+                <!--android:src="@mipmap/arrow_right"/>-->
         </RelativeLayout>
 
         <LinearLayout
@@ -259,6 +264,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_car_detail_brand"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="5dp"
@@ -297,6 +303,7 @@
         </LinearLayout>
 
         <RelativeLayout
+             android:id="@+id/rl_cardetail_service_center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
@@ -420,25 +427,25 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/ll_car_collect"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/collect_selector"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="收藏"
-                    android:textColor="#454444"/>
-            </LinearLayout>
+<LinearLayout
+    android:layout_marginLeft="5dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_cardetail_collect"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/collect_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="3dp"
+        android:id="@+id/tv_car_collect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收藏" />
+</LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"

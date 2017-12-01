@@ -90,6 +90,7 @@ public class CommonAddressActivity extends BaseActivity implements View.OnClickL
         HashMap<String, String> params = new HashMap<>();
         OkGo.<String>get(Constant.GET_ADDR)
                 .params("userId",signInfo.getId()+"")
+                .params("token",SPUtils.getToken(mContext))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
@@ -141,6 +142,7 @@ public class CommonAddressActivity extends BaseActivity implements View.OnClickL
                         OkGo.<String>get(Constant.DEL_ADDR)
                                 .params("userId",signInfo.getId()+"")
                                 .params("addrId",addrList.get(position).getId()+"")
+                                .params("token",SPUtils.getToken(mContext))
                                 .execute(new StringCallback() {
                                     @Override
                                     public void onSuccess(Response<String> response) {

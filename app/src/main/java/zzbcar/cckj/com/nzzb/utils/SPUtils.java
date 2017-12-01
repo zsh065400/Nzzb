@@ -99,4 +99,20 @@ public final class SPUtils {
             return null;
         }
     }
+
+    /*获取登录后的Token*/
+
+    public static String getToken(Context context) {
+        final String user = getString(context, "User", "");
+        if (!user.equals("")) {
+            final SigninBean signinBean = GsonUtil.parseJsonWithGson(user, SigninBean.class);
+            final int errno = signinBean.getErrno();
+            if (errno == 0) {
+                return signinBean.getData().getToken();
+            }
+            return null;
+        } else {
+            return null;
+        }
+    }
 }

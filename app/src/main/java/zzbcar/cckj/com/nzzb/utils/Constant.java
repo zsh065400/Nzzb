@@ -11,8 +11,10 @@ public class Constant {
     public static final String WEIXIN_APP_ID = "wxad1065edbfa4ed3a";
     public static final String WEIXIN_APP_SECRET = "70943f855a89703a47c1a35c9ee07b05";
 
-    public static final String QQZONE_APP_ID = "100424468";
-    public static final String QQZONE_APP_KEY = "c7394704798a158208a74ab60104f0ba";
+//    public static final String QQZONE_APP_ID = "100424468";
+//    public static final String QQZONE_APP_KEY = "c7394704798a158208a74ab60104f0ba";
+public static final String QQZONE_APP_ID = "1106313801";
+    public static final String QQZONE_APP_KEY = "bz7PCjrvT9gCxCve";
 
     public static final String SINA_APP_KEY = "3921700954";
     public static final String SINA_APP_SERCET = "04b48b094faeb16683c32669824ebdad";
@@ -21,6 +23,7 @@ public class Constant {
     /****************接口首页*********************/
     /****************Test*********************/
     public static final String SERVE_URL = "http://www.zzbcar.com/";
+//    public static final String SERVE_URL = "http://192.168.1.253:8080/";
 
     /*登录*/
     public static final String API_SIGN = SERVE_URL + "zzb/app/member/login";
@@ -36,7 +39,8 @@ public class Constant {
 
     /*查询车辆信息*/
     public static final String API_CAR_DETAIL = SERVE_URL + "zzb/app/car/queryCar";
-
+    /*查询车辆价格表*/
+    public static final String API_CAR_WEEK_PRICE = SERVE_URL+"zzb/app/bus/week_price";
     /*获取支付*/
     public static final String API_ORDER_PAY = SERVE_URL + "zzb/app/pay/request";
 
@@ -74,7 +78,11 @@ public class Constant {
     //品牌
     public static final String CAR_BRAND_URL = SERVE_URL + "zzb/app/car/brand";
 
-    public static final String CAR_DEFAULT_URL = SERVE_URL + "zzb/app/car/queryCarByCondition?pageNum=0&pageSize=10";
+    /*取换车*/
+    public static final String API_TAKE_RETURN_CAR = SERVE_URL + "zzb/app/order/carop";
+
+
+
     public static final String LOCATION_SELECT_URL = SERVE_URL + "zzb/app/common/citys";
     //查询订单
     public static final String SELECT_ORDER_URL=SERVE_URL+"zzb/app/order/query";
@@ -84,11 +92,21 @@ public class Constant {
     public static final String DEL_ADDR = SERVE_URL + "zzb/app/member/delAddr";
     public static final String SP_LOGIN = "login";
     //用户
-    public static final String CHANGE_INFO = SERVE_URL + "/zzb/app/member/changeInfo";
+    public static final String CHANGE_INFO = SERVE_URL +"zzb/app/member/changeInfo";
     //查询违章
     public static final String QUERRY_TICKET =SERVE_URL+ "zzb/app/car/ticket";
-    //我的订单
-    public static final String MY_ORDER_URL =SERVE_URL+ "zzb/app/order/query";
+    //我的收藏查询
+    public static final String MY_COLLECT_URL =SERVE_URL+"zzb/app/common/loadCollectCar";
+    //收藏车辆
+    public static final String COLLECT_CAR_URL=SERVE_URL+"zzb/app/common/collectcar";
+    //收藏车辆id
+    public static final String COLLECT_CAR_ID_URL=SERVE_URL+"zzb/app/common/loadCollectList";
+    //个人用户信息的统计
+    public static final String PERSON_MESSAGE =SERVE_URL+"zzb/app/member/userStatisInfo";
+    //价格日历
+    public static final String API_PRICE_MONTH = SERVE_URL+"zzb/app/bus/monthprice";
+    //提交车主
+    public static final String API_ADD_OWNER = SERVE_URL+"zzb/app/bus/addOwnerContact";
 
     public static final String SP_LAST_LOCATION = "last_location";
     //纬度

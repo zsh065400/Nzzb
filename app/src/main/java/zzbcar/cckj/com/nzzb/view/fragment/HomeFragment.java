@@ -5,15 +5,21 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -35,6 +41,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.relex.circleindicator.CircleIndicator;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnPermissionDenied;
@@ -59,11 +67,10 @@ import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BrandCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HomeMessageActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.LocationListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
 import zzbcar.cckj.com.nzzb.view.customview.Gradient;
-
-
 
 
 /**
@@ -120,6 +127,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @BindView(R.id.gradient)
     Gradient gradient;
+    @BindView(R.id.tv_home_clicktosee_detail)
+    TextView tvHomeClicktoseeDetail;
+    Unbinder unbinder;
 
     private List<MainPageBean.DataBean.ActivityBean> activityDatas;
     private List<MainPageBean.DataBean.NewCarListBean> newCarDatas;
@@ -128,6 +138,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private List<MainPageBean.DataBean.MarqueeBean> marqueeDatas;
     private LocationClient mLocationClient;
     private MyBDLocationListener bdLocationListener;
+    private AlertDialog.Builder builder;
+    private AlertDialog alertDialog;
+    private Intent callIntent;
 
     private void initMarquee(List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
         List<String> marqueeText = new ArrayList<>();
@@ -228,13 +241,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 /*跳转详情页面*/
                 final Intent intent = new Intent(mActivity, CarDetailActivity.class);
                 intent.putExtra("carid", activityDatas.get(position).getId());
-
                 startActivity(intent);
             }
         });
         vpChaozhi.setAdapter(myGoodExperenceAdapter);
         vpChaozhi.setPageTransformer(false, new ScaleTransformer());
-        vpChaozhi.setOffscreenPageLimit(5);
+        vpChaozhi.setOffscreenPageLimit(Integer.MAX_VALUE);
     }
 
 
@@ -245,6 +257,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initDatas() {
+
         OkGo.<String>get(Constant.API_MAIN_PAGE).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -297,6 +310,41 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tvChaozhiAll.setOnClickListener(this);
         tvChexingAll.setOnClickListener(this);
         tvLocation.setOnClickListener(this);
+        tvLocation.setOnClickListener(this);
+        tvHomeClicktoseeDetail.setOnClickListener(this);
+        //拨打客服电话
+        ivService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                builder = new AlertDialog.Builder(mActivity);
+                alertDialog = builder.setMessage("13295815771")
+                        .setTitle("要拨打电话给客服么?")
+                        .setCancelable(false)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                callService();
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+
+                        }).create();
+                alertDialog.show();
+
+            }
+        });
+    }
+
+    private void callService() {
+        if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        callIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13295815771"));
+        startActivity(callIntent);
     }
 
     @Override
@@ -313,6 +361,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 intent.putExtra("carlist", (Serializable) carDatas);
                 // TODO: 2017/11/15 商务用车为2
                 intent.putExtra("useType", 1);
+
                 break;
             case R.id.tv_wedding:
                 intent = new Intent(mActivity, MarriedActivity.class);
@@ -331,8 +380,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.tv_location:
                 intent = new Intent(mActivity, LocationListActivity.class);
                 break;
+            case R.id.tv_home_clicktosee_detail:
+                intent = new Intent(mActivity, HomeMessageActivity.class);
+                intent = intent.putExtra("marquee", marqueeDatas.get(1));
+                break;
+
         }
         startActivity(intent);
+
     }
 
     @NeedsPermission({Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -383,6 +438,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     void permissionDenied() {
         Toast.makeText(mActivity, "授权失败，请稍后重试", Toast.LENGTH_SHORT).show();
         mActivity.finish();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
     private class MyBDLocationListener implements BDLocationListener {
@@ -449,6 +512,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         if (mLocationClient != null) {
             mLocationClient.unRegisterLocationListener(bdLocationListener);
         }
+        unbinder.unbind();
     }
 
     @Override

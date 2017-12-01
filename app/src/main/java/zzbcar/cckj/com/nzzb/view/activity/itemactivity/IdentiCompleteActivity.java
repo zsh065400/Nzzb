@@ -11,7 +11,7 @@ import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
-import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
+import zzbcar.cckj.com.nzzb.view.activity.MainActivity;
 
 /**
  * Created by Admin on 2017/11/4.
@@ -48,9 +48,8 @@ public class IdentiCompleteActivity extends BaseActivity implements View.OnClick
         Intent intent=null;
         switch (view.getId()){
             case R.id.bt_identifi_complete_rent:
-                intent=new Intent(IdentiCompleteActivity.this,RentActivity.class);
-
-                startActivity(intent);
+                MainActivity mActivity = (MainActivity) this.mContext;
+                mActivity.setViewPager(1);
                 break;
         }
 

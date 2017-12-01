@@ -77,25 +77,15 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_add_times"
-                android:textColor="#4b4a4a"
-                android:layout_marginRight="5dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/iv_to_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+3" />
-
-            <ImageView
-                android:id="@+id/iv_to_right"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/arrow_right" />
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_to_right"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_marginRight="15dp"-->
+                <!--android:layout_marginLeft="8dp"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@mipmap/arrow_right" />-->
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

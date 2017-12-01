@@ -1,9 +1,12 @@
 package zzbcar.cckj.com.nzzb.view.fragment.itemfragment;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -12,6 +15,7 @@ import com.lzy.okgo.model.Response;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.OrderStatusAdapter;
 import zzbcar.cckj.com.nzzb.adapter.base.BaseRecycleViewAdapter;
@@ -19,7 +23,10 @@ import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.bean.UserOrderBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
+import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.view.activity.MainActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.OrderStatusActivity;
 import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
 
 /**
@@ -33,6 +40,8 @@ public class OrderStatusFragment extends BaseFragment {
 
     @BindView(R.id.order_empty)
     View empty;
+    @BindView(R.id.bt_journey_grag_toselect_car)
+    Button btJourneyGragToselectCar;
 
     private OrderStatusAdapter orderStatusAdapter;
 
@@ -93,10 +102,12 @@ public class OrderStatusFragment extends BaseFragment {
     public OrderStatusFragment() {
     }
 
+    private String queryStatus = "";
+
     @SuppressLint("ValidFragment")
     public OrderStatusFragment(String status) {
         /*组成当前界面需要查询的链接*/
-        url = url + status;
+        this.queryStatus = status;
     }
 
     @Override
@@ -111,27 +122,35 @@ public class OrderStatusFragment extends BaseFragment {
 
     /*查询订单*/
     private void queryUserOrder() {
-
-       if (signInfo!=null){
-           url = url + "&userId=" + signInfo.getId();
-           OkGo.<String>get(url).execute(new StringCallback() {
-               @Override
-               public void onSuccess(Response<String> response) {
-                   final UserOrderBean orderBean = GsonUtil.parseJsonWithGson(response.body(), UserOrderBean.class);
-                   final int errno = orderBean.getErrno();
-                   if (errno == 0) {
-                       final List<UserOrderBean.DataBean> data = orderBean.getData();
-                       initOrderList(data);
-                   }
-               }
-           });
-       }else{
-           empty.setVisibility(View.VISIBLE);
-       }
+        if (signInfo != null) {
+            final String url = OkHttpUtil.obtainGetUrl(Constant.API_GET_USER_ORDER,
+                    "status", queryStatus,
+                    "userId", String.valueOf(signInfo.getId()),
+                    "token", SPUtils.getToken(mActivity));
+            Log.d(TAG, "queryUserOrder: " + url);
+            OkGo.<String>get(url)
+//                    .params("userId", signInfo.getId())
+//                    .params("status", queryStatus)
+//                    .params("token", SPUtils.getToken(mActivity))
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            UserOrderBean orderBean = GsonUtil.parseJsonWithGson(response.body(), UserOrderBean.class);
+                            final int errno = orderBean.getErrno();
+                            Log.d(TAG, "onSuccess: " + response.body());
+                            if (errno == 0) {
+                                final List<UserOrderBean.DataBean> data = orderBean.getData();
+                                initOrderList(data);
+                            }
+                        }
+                    });
+        } else {
+            empty.setVisibility(View.VISIBLE);
+        }
     }
 
     /*显示订单列表*/
-    private void initOrderList(List<UserOrderBean.DataBean> data) {
+    private void initOrderList(final List<UserOrderBean.DataBean> data) {
         if (data == null || data.size() == 0) {
             empty.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
@@ -139,12 +158,18 @@ public class OrderStatusFragment extends BaseFragment {
         }
         empty.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
+
         this.orderBean = data;
+        Log.e(TAG, "initOrderList: data" + data);
         orderStatusAdapter = new OrderStatusAdapter(mActivity, orderBean);
         orderStatusAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 /*根据不同的订单类型进行不同的操作*/
+                UserOrderBean.DataBean dataBean = orderBean.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("data", dataBean);
+                toActivity(OrderStatusActivity.class, bundle);
             }
         });
         recyclerView.setAdapter(orderStatusAdapter);
@@ -153,6 +178,13 @@ public class OrderStatusFragment extends BaseFragment {
     @Override
     public void initViews(View view) {
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_order_list);
+    }
+
+
+    @OnClick(R.id.bt_journey_grag_toselect_car)
+    public void onViewClicked() {
+       MainActivity mActivity = (MainActivity) this.mActivity;
+        mActivity.setViewPager(1);
     }
 }
 

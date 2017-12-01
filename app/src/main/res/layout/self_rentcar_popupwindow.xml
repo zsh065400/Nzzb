@@ -7,7 +7,7 @@
     android:layout_alignParentRight="true"
     android:layout_width="120dp"
     android:layout_height="wrap_content"
-    android:background="@color/global_bg"
+    android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 

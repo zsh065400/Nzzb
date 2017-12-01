@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f5f5f5">
-
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff"
@@ -24,13 +19,13 @@
 
             <!--顶部搜索栏-->
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:orientation="horizontal"
                 android:paddingBottom="10dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
-                android:paddingTop="15dp"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="?android:attr/actionBarSize">
+                android:paddingTop="15dp">
 
                 <LinearLayout
                     android:id="@+id/ll_choose_city"
@@ -49,28 +44,28 @@
                         android:gravity="center_vertical"
                         android:text="杭州"
                         android:textColor="@color/Zzb_BG"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <include
                     android:id="@+id/search_find"
                     layout="@layout/searchview"
                     android:layout_width="0dp"
-                    android:clickable="true"
-                    android:focusable="true"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"/>
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical" />
 
                 <ImageButton
-                    android:id="@+id/ib_erweima"
-                    android:layout_width="22dp"
+                    android:id="@+id/ib_sort"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="10dp"
-                    android:background="@mipmap/icon_service_1"/>
+                    android:background="@mipmap/icon_sorder" />
 
             </LinearLayout>
         </LinearLayout>
@@ -110,14 +105,11 @@
 
         </LinearLayout>
 
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <!--<zzbcar.cckj.com.nzzb.view.customview.MeasureGridView-->
-        <!--android:numColumns="2"-->
-        <!--android:id="@+id/gv_findcarfragment_defaut"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
 
-        <!--</zzbcar.cckj.com.nzzb.view.customview.MeasureGridView>-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_list_items"
             android:layout_width="match_parent"
@@ -125,5 +117,5 @@
             android:padding="5dp">
 
         </android.support.v7.widget.RecyclerView>
-    </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

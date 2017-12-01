@@ -61,9 +61,23 @@ public class CalendarUtils {
 		}
 		return totalDays;
 	}
+	/*
+	* 计算天数
+	* afMonth 开始月份
+	* flowMonth 往后加几个月份（数量）
+	* */
+	public static int getAfFlowMonthDays(int afMonth,int flowMonth) {
+		int totalDays = 0;
+		for (int i = afMonth; i <=afMonth+flowMonth; i++) {
+			Calendar c = Calendar.getInstance();
+			int days = getDaysInMonth(i%12, c.get(Calendar.YEAR)+i/12);
+			totalDays += days;
+		}
+		return totalDays;
+	}
 
 	/**
-	 * Current month remain days.
+	 * 当前月有几天
 	 *
 	 * @return the int
 	 */

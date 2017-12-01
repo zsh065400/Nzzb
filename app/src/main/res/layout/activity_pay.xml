@@ -71,12 +71,10 @@
         <include layout="@layout/item_divider"/>
 
         <RelativeLayout
+            android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp">
+            android:layout_marginLeft="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -96,16 +94,15 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#e9e6e6">
 
             <TextView
+                android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
                 android:text="选择支付方式"
                 android:textSize="16sp"/>
         </LinearLayout>
@@ -113,6 +110,7 @@
         <include layout="@layout/item_divider"/>
 
         <RelativeLayout
+            android:padding="10dp"
             android:id="@+id/rl_alipay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,6 +126,7 @@
                 android:src="@mipmap/zhifubao"/>
 
             <TextView
+                android:textStyle="bold"
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -138,18 +137,20 @@
                 android:textSize="16sp"/>
 
             <ImageView
+                android:id="@+id/alipay_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:src="@mipmap/noselect"/>
+                android:layout_marginRight="10dp"
+                android:src="@drawable/yes_or_no_selelct_pay"/>
 
         </RelativeLayout>
 
         <include layout="@layout/item_divider"/>
 
         <RelativeLayout
+            android:padding="10dp"
             android:id="@+id/rl_wxpay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -165,6 +166,7 @@
                 android:src="@mipmap/wxpay"/>
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -174,11 +176,12 @@
                 android:textSize="16sp"/>
 
             <ImageView
+                android:id="@+id/wxpay_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/yes_or_no_selelct_pay"/>
         </RelativeLayout>
 

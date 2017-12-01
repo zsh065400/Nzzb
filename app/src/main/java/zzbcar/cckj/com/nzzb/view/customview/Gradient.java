@@ -26,7 +26,7 @@ public class Gradient extends RelativeLayout {
     private int couot;
     private int currentIndex;//当前的页面
     private LinearLayout linearLayout;
-    private long time=2500;//动画间隔时间
+    private long time=5000;//动画间隔时间
     public Animation zoomOutAwayAnim;
     public Animation zoomOutNearAnim;
     private int size;
@@ -115,7 +115,7 @@ public class Gradient extends RelativeLayout {
 
         ret = new AnimationSet(false);
         // 创建一个淡出的动画
-        anim = new AlphaAnimation(1f, 0f);
+        anim = new AlphaAnimation(1f, 0.2f);
         anim.setDuration(time);
         anim.setInterpolator(new DecelerateInterpolator());
         ret.addAnimation(anim);
@@ -132,7 +132,7 @@ public class Gradient extends RelativeLayout {
         Animation anim;
         ret = new AnimationSet(false);
         // 创建一个淡入的动画
-        anim = new AlphaAnimation(0f, 1f);
+        anim = new AlphaAnimation(0.2f, 1f);
         anim.setDuration(time);
         anim.setInterpolator(new LinearInterpolator());
         ret.addAnimation(anim);

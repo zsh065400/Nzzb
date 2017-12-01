@@ -31,6 +31,7 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,9 +39,12 @@ import org.json.JSONObject;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.bean.MyCollectBean;
+import zzbcar.cckj.com.nzzb.bean.PeresonMessageBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
@@ -49,6 +53,7 @@ import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
+import zzbcar.cckj.com.nzzb.view.activity.MainActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AboutUsActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AccountBindActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BreakRuleActivity;
@@ -57,7 +62,7 @@ import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HelpCenterActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCollectActivity;
-import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyOrderActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PersonDataActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PreCarFriendIdentifiActivity;
 import zzbcar.cckj.com.nzzb.view.customview.RoundImageView;
 
@@ -76,6 +81,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private RelativeLayout rl_my_help_center;
     private RelativeLayout rl_my_about_us;
     private TextView tv_minfragment_car_identifi;
+    private TextView tv_collectcar_counts;
+    private TextView tv_ordercar_counts;
     private ImageView iv_mine_fragment_carowener_recruit;
     private RoundImageView iv_minfragment_head_pic;
     private AlertDialog dialog;
@@ -84,13 +91,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private static final int PHOTO_REQUEST_CUT = 3;
     private String path = Environment.getExternalStorageDirectory().getPath() + File.separator + "zzbcar" + File.separator + "icon";
     private File cropfile;
-    private Handler handler = new Handler(){
+    private List<MyCollectBean.DataBean> dataBeans;
+
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
                     String hearUrl = Constant.SERVER_PHOTO_HEAD + Constant.HEAD_KEYPATH + cropfile.getName();
-                    LogUtil.e(hearUrl+"头像地址");
+                    LogUtil.e(hearUrl + "头像地址");
                     submitHeadUrl(hearUrl);
                     break;
                 case 1:
@@ -100,31 +109,34 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
     };
 
+
     private void submitHeadUrl(final String hearUrl) {
         final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mActivity);
-        if (signInfo!=null)
-        OkGo.<String>get(Constant.CHANGE_INFO)
-                .params("userId",signInfo.getId())
-                .params("avatar",hearUrl)
-                .execute(new StringCallback() {
-                    @Override
-                    public void onSuccess(Response<String> response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response.body());
-                            int errno = jsonObject.getInt("errno");
-                            if(errno!=0){
-                                handler.sendEmptyMessage(1);
-                            }else{
-                                Picasso.with(mActivity).load(Uri.fromFile(cropfile)).fit().into(iv_minfragment_head_pic);
-                                SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mActivity, "User", ""), SigninBean.class);
-                                user.getData().getMember().setAvatar(hearUrl);
-                                SPUtils.saveString(mActivity,"User",GsonUtil.getGson().toJson(user));
+        if (signInfo != null)
+            OkGo.<String>get(Constant.CHANGE_INFO)
+                    .params("userId", signInfo.getId())
+                    .params("avatar", hearUrl)
+                    .params("token",SPUtils.getToken(mActivity))
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onSuccess(Response<String> response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.body());
+                                int errno = jsonObject.getInt("errno");
+                                if (errno != 0) {
+                                    handler.sendEmptyMessage(1);
+                                } else {
+
+                                    Picasso.with(mActivity).load(Uri.fromFile(cropfile)).fit().into(iv_minfragment_head_pic);
+                                    SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mActivity, "User", ""), SigninBean.class);
+                                    user.getData().getMember().setAvatar(hearUrl);
+                                    SPUtils.saveString(mActivity, "User", GsonUtil.getGson().toJson(user));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
     }
 
     @BindView(R.id.iv_minfragment_head_pic)
@@ -161,6 +173,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initDatas() {
+
         rl_my_card.setOnClickListener(this);
         rl_my_address.setOnClickListener(this);
         rl_my_account_bind.setOnClickListener(this);
@@ -175,7 +188,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         ll_my_order.setOnClickListener(this);
 
 
-
     }
 
     /*初始化登录信息*/
@@ -183,19 +195,30 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         final String avatar = signInfo.getAvatar();
         if (avatar.equals("") || avatar.equals(":")) {
             Toast.makeText(mActivity, "头像地址错误，且Picasso加载有异常", Toast.LENGTH_SHORT).show();
+
         } else {
-            LogUtil.e(avatar+"保存的头像");
+
+            LogUtil.e(avatar + "保存的头像");
             Picasso.with(mActivity).load(avatar)
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_launcher)
                     .into(ivUserHead);
+
         }
+
+
+
+
+      toCollectView();
+
+//        toCollectView();
+
         /*车主认证状态*/
         if (signInfo.getAuthStatus() == 1) {
             tv_minfragment_car_identifi.setText("车主已认证");
-        }else if(signInfo.getAuthStatus() == 0){
+        } else if (signInfo.getAuthStatus() == 0) {
             tv_minfragment_car_identifi.setText("车主未认证");
-        }else if(signInfo.getAuthStatus() == 3){
+        } else if (signInfo.getAuthStatus() == 3) {
             tv_minfragment_car_identifi.setText("车主认证失败");
         }
         tvUserPhone.setText(signInfo.getMobile());
@@ -204,8 +227,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void initViews(View view) {
-        ll_my_order = (LinearLayout)view.findViewById(R.id.ll_my_order);
-        ll_my_collect = (LinearLayout)view.findViewById(R.id.ll_my_collect);
+        ll_my_order = (LinearLayout) view.findViewById(R.id.ll_my_order);
+        ll_my_collect = (LinearLayout) view.findViewById(R.id.ll_my_collect);
 
         rl_my_card = (RelativeLayout) view.findViewById(R.id.rl_my_card);
         rl_my_address = (RelativeLayout) view.findViewById(R.id.rl_my_address);
@@ -216,6 +239,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         rl_my_about_us = (RelativeLayout) view.findViewById(R.id.rl_my_about_us);
 
         tv_minfragment_car_identifi = (TextView) view.findViewById(R.id.tv_minfragment_car_identifi);
+        tv_ordercar_counts = (TextView) view.findViewById(R.id.tv_ordercar_counts);
+        tv_collectcar_counts = (TextView) view.findViewById(R.id.tv_collectcar_counts);
         iv_mine_fragment_carowener_recruit = view.findViewById(R.id.iv_mine_fragment_carowener_recruit);
 
         iv_minfragment_head_pic = (RoundImageView) view.findViewById(R.id.iv_minfragment_head_pic);
@@ -223,6 +248,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         iv_minfragment_head_pic = (RoundImageView) view.findViewById(R.id.iv_minfragment_head_pic);
 
         StatusBarUtil.setViewTopPadding(mActivity, view, R.id.top_bar);
+
+
     }
 
     @Override
@@ -241,13 +268,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.rl_my_address:
-                toActivity(CommonAddressActivity.class,true);
+                toActivity(CommonAddressActivity.class, true);
                 break;
             case R.id.rl_my_account_bind:
-                toActivity(AccountBindActivity.class,true);
+                toActivity(AccountBindActivity.class, true);
                 break;
             case R.id.rl_my_break_rules:
-                toActivity(BreakRuleActivity.class,true);
+                toActivity(BreakRuleActivity.class, true);
                 break;
             case R.id.rl_my_invite_friends:
 //                intent = new Intent(mActivity, InviteFriendsActivity.class);
@@ -263,23 +290,29 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.ll_my_order:
-                intent = new Intent(mActivity, MyOrderActivity.class);
-                startActivity(intent);
+//                toActivity(MyOrderActivity.class, true);
+                MainActivity orderActivity = (MainActivity) this.mActivity;
+                orderActivity.setViewPager(2);
                 break;
             case R.id.ll_my_collect:
-                intent = new Intent(mActivity, MyCollectActivity.class);
-                startActivity(intent);
+                toActivity(MyCollectActivity.class, true);
+
                 break;
             case R.id.tv_minfragment_car_identifi:
-                toActivity(CarIdentifiActivity.class,true);
+                toActivity(CarIdentifiActivity.class, true);
                 break;
             case R.id.iv_mine_fragment_carowener_recruit:
                 intent = new Intent(mActivity, PreCarFriendIdentifiActivity.class);
                 startActivity(intent);
                 break;
             case R.id.iv_minfragment_head_pic:
-                if (isSignin) DialogtoUpPic();
-                else toActivity(LoginActivity.class);
+//                if (isSignin) {
+//                    DialogtoUpPic();
+//                }
+//                else {
+//                    toActivity(LoginActivity.class);
+//                }
+                  toActivity(PersonDataActivity.class,true);
                 break;
 
             case R.id.tv_minfragment_phone_number:
@@ -309,11 +342,55 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+
+    private void toCollectView() {
+        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(getContext());
+        OkGo.<String>get(Constant.PERSON_MESSAGE)
+                .params("userId",signInfo.getId())
+//                .params("userId", 1)
+                .params("token",SPUtils.getToken(mActivity))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        PeresonMessageBean.DataBean permessBean = GsonUtil.parseJsonWithGson(response.body(), PeresonMessageBean.class).getData();
+                        setViewInfo(permessBean);
+
+                    }
+
+                });
+    }
+
+//    private void toCollectView() {
+//        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(getContext());
+//        OkGo.<String>get(Constant.PERSON_MESSAGE)
+////                .params("userId",signInfo.getId())
+//                .params("userId", 1)
+//                .execute(new StringCallback() {
+//                    @Override
+//                    public void onSuccess(Response<String> response) {
+//                        PeresonMessageBean.DataBean permessBean = GsonUtil.parseJsonWithGson(response.body(), PeresonMessageBean.class).getData();
+//                        setViewInfo(permessBean);
+//
+//                    }
+//
+//                });
+//    }
+
+
+    private void setViewInfo(PeresonMessageBean.DataBean permessBean) {
+
+        tv_collectcar_counts.setText(permessBean.getCollectCount() + " 辆");
+        tv_ordercar_counts.setText(permessBean.getOrderCount() + " 单");
+
+    }
+
+
     /*暂时调整到此处，确定逻辑后剪切即可*/
     private void openShared() {
         new ShareAction(mActivity)
                 .withText("至尊宝豪车共享")
                 .withMedia(new UMImage(mActivity, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)))
+                .withMedia(new UMWeb("http://www.baidu.com"))
                 .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN)
                 .setCallback(shareListener)
                 .open();
@@ -434,34 +511,34 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void setPicToView(Intent picdata) {
-            OssUtils.initOss(mActivity).asyncPutObject(OssUtils.putImage(cropfile, Constant.HEAD_KEYPATH), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-                @Override
-                public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
-                    Message obtain = Message.obtain();
-                    obtain.obj = putObjectResult;
-                    obtain.what = 0;
-                    handler.sendMessage(obtain);
-                }
+        OssUtils.initOss(mActivity).asyncPutObject(OssUtils.putImage(cropfile, Constant.HEAD_KEYPATH), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+            @Override
+            public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
+                Message obtain = Message.obtain();
+                obtain.obj = putObjectResult;
+                obtain.what = 0;
+                handler.sendMessage(obtain);
+            }
 
-                @Override
-                public void onFailure(PutObjectRequest putObjectRequest, ClientException clientExcepion, ServiceException serviceException) {
+            @Override
+            public void onFailure(PutObjectRequest putObjectRequest, ClientException clientExcepion, ServiceException serviceException) {
 
-                    // 请求异常
-                    if (clientExcepion != null) {
-                        // 本地异常如网络异常等
-                        handler.sendEmptyMessage(1);
-                        clientExcepion.printStackTrace();
-                    }
-                    if (serviceException != null) {
-                        // 服务异常
-                        handler.sendEmptyMessage(1);
-                        Log.e("ErrorCode", serviceException.getErrorCode());
-                        Log.e("RequestId", serviceException.getRequestId());
-                        Log.e("HostId", serviceException.getHostId());
-                        Log.e("RawMessage", serviceException.getRawMessage());
-                    }
+                // 请求异常
+                if (clientExcepion != null) {
+                    // 本地异常如网络异常等
+                    handler.sendEmptyMessage(1);
+                    clientExcepion.printStackTrace();
                 }
-            });
+                if (serviceException != null) {
+                    // 服务异常
+                    handler.sendEmptyMessage(1);
+                    Log.e("ErrorCode", serviceException.getErrorCode());
+                    Log.e("RequestId", serviceException.getRequestId());
+                    Log.e("HostId", serviceException.getHostId());
+                    Log.e("RawMessage", serviceException.getRawMessage());
+                }
+            }
+        });
 
     }
 

@@ -9,21 +9,24 @@ import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.base.BaseRecycleViewAdapter;
-import zzbcar.cckj.com.nzzb.bean.CarDefaultBean;
+import zzbcar.cckj.com.nzzb.bean.QueryBean;
 
 /**
  * Created by Admin on 2017/11/7.
  */
 
-public class ListItemAdapter extends BaseRecycleViewAdapter<CarDefaultBean.DataBean> {
-    public ListItemAdapter(Context context, List<CarDefaultBean.DataBean> datas) {
+public class ListItemAdapter extends BaseRecycleViewAdapter<QueryBean.DataBean> {
+    public ListItemAdapter(Context context, List<QueryBean.DataBean> datas) {
         super(context, datas);
     }
 
     @Override
-    protected void convert(BaseRecycleViewAdapter<CarDefaultBean.DataBean>.MyViewHolder holder, int position, CarDefaultBean.DataBean dataBean) {
+    protected void convert(BaseRecycleViewAdapter<QueryBean.DataBean>.MyViewHolder holder, int position, QueryBean.DataBean dataBean) {
         holder.setText(R.id.tv_item_car, dataBean.getCarName());
         holder.setText(R.id.tv_item_price, String.format("%s/天", dataBean.getPrice()));
+
+        ImageView iv_type = holder.getView(R.id.iv_car_type);
+        iv_type.setBackgroundResource(dataBean.getUseType()==1?R.mipmap.car_type1:R.mipmap.car_type_2);
         ImageView iv = holder.getView(R.id.iv_item_car);
         Picasso.with(mContext)
                 //load()下载图片

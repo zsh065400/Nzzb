@@ -1,6 +1,7 @@
 package zzbcar.cckj.com.nzzb.adapter.main;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -38,6 +39,8 @@ public class CarListAdapter extends BaseRecycleViewAdapter<MainPageBean.DataBean
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(imageView);
+        ImageView iv_type = holder.getView(R.id.iv_car_type);
+        iv_type.setBackgroundResource(bean.getUseType()==1?R.mipmap.car_type1:R.mipmap.car_type_2);
     }
 
     @Override

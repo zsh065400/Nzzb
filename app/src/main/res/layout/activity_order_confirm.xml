@@ -91,7 +91,8 @@
                 >
 
                 <ImageView
-                    android:id="@+id/iv_car_pic"
+
+                    android:id="@+id/iv_order_car_pic"
                     android:layout_width="115dp"
                     android:layout_height="84dp"
                     android:scaleType="fitXY"
@@ -112,6 +113,7 @@
                         android:textSize="20dp"/>
 
                     <TextView
+                        android:id="@+id/tv_order_type"
                         android:layout_width="40dp"
                         android:layout_height="20dp"
                         android:layout_marginTop="1dp"
@@ -123,6 +125,7 @@
                         android:textSize="10dp"/>
 
                     <TextView
+                        android:id="@+id/tv_order_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="1dp"
@@ -131,6 +134,7 @@
                         android:textSize="12dp"/>
 
                     <TextView
+                        android:id="@+id/tv_order_mark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2016款 | 4座 | 自动"
@@ -166,6 +170,7 @@
                         android:textSize="12dp"/>
 
                     <TextView
+                        android:id="@+id/tv_order_getaddrTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
@@ -189,6 +194,7 @@
                         android:textSize="12dp"/>
 
                     <TextView
+                        android:id="@+id/tv_order_backaddrTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
@@ -207,11 +213,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="租赁时常："
+                        android:text="租赁时长："
                         android:textColor="#000000"
                         android:textSize="12dp"/>
 
                     <TextView
+                        android:id="@+id/tv_order_allTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
@@ -254,7 +261,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="租金"
+                    android:text="车辆租金"
                     android:textColor="#000000"
                     android:textSize="12dp"/>
 
@@ -292,11 +299,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="押金"
+                    android:text="违章押金"
                     android:textColor="#000000"
                     android:textSize="12dp"/>
 
                 <TextView
+                    android:id="@+id/tv_order_deposit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -321,7 +329,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="租金"
+                    android:text="车辆保证金"
                     android:textColor="#000000"
                     android:textSize="12dp"/>
 
@@ -334,6 +342,7 @@
                     android:textSize="12dp"/>
 
                 <TextView
+                    android:id="@+id/tv_order_bzj"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -346,6 +355,7 @@
             <include layout="@layout/default_line_1dp"/>
 
             <TextView
+                android:id="@+id/tv_order_allMoney"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|bottom"
@@ -396,7 +406,7 @@
             android:gravity="center"
             android:paddingBottom="15dp"
             android:paddingTop="15dp"
-            android:text="去支付"
+            android:text="提交订单"
             android:textColor="#fff"
             android:textSize="16dp"/>
 

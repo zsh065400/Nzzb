@@ -100,7 +100,7 @@ public class OrderBean implements Serializable {
         private String takeMapLocation;
         private Object takeTime;
         private double totalAmount;
-        private int trafficDepositMoney;
+        private double trafficDepositMoney;
         private int type;
         private int userId;
 
@@ -296,11 +296,11 @@ public class OrderBean implements Serializable {
             this.totalAmount = totalAmount;
         }
 
-        public int getTrafficDepositMoney() {
+        public double getTrafficDepositMoney() {
             return trafficDepositMoney;
         }
 
-        public void setTrafficDepositMoney(int trafficDepositMoney) {
+        public void setTrafficDepositMoney(double trafficDepositMoney) {
             this.trafficDepositMoney = trafficDepositMoney;
         }
 
