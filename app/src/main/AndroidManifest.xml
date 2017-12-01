@@ -182,6 +182,7 @@
         <activity android:name=".view.activity.itemactivity.MyCollectActivity"/>
         <activity android:name=".view.activity.itemactivity.MyOrderActivity"/>
         <activity android:name=".view.activity.itemactivity.HomeMessageActivity"/>
+        <activity android:name=".view.activity.itemactivity.PersonDataActivity"/>
     </application>
 
 </manifest>

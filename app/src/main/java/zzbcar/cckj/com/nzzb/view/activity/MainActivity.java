@@ -14,7 +14,6 @@ import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.main.MainViewPagerAdapter;
 import zzbcar.cckj.com.nzzb.base.MyApplication;
 import zzbcar.cckj.com.nzzb.utils.Constant;
-import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.fragment.FindCarFragment;
 import zzbcar.cckj.com.nzzb.view.fragment.HomeFragment;
@@ -104,7 +103,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SPUtils.saveString(this,"User","");
+//        SPUtils.saveString(this,"User","");
 
     }
 }

@@ -53,6 +53,9 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     TextView tvSureSendCar;
     @BindView(R.id.tv_select_getAddress)
     TextView tvSelectGetAddress;
+
+    @BindView(R.id.tv_select_sendAddress)
+    TextView tvSelectSendAddress;
     @BindView(R.id.swh_status_sendcar)
     Switch swh_status_sendcar;
     @BindView(R.id.swh_status_pullcar)
@@ -108,6 +111,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         ll_get_car.setEnabled(false);
         tvSureSendCar.setOnClickListener(this);
         tvSelectGetAddress.setOnClickListener(this);
+        tvSelectSendAddress.setOnClickListener(this);
 
     }
 
@@ -233,6 +237,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        Intent intent=null;
         switch (view.getId()) {
 
             case R.id.ll_get_car:
@@ -257,11 +262,17 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                 submitTime();
                 break;
             case R.id.tv_select_getAddress:
-                Intent intent = new Intent(mContext, SetAddressActivity.class);
+                intent = new Intent(mContext, SetAddressActivity.class);
+                intent.putExtra("type", SetAddressActivity.GET_CAR);
+                startActivityForResult(intent, 150);
+                break;
+            case R.id.tv_select_sendAddress:
+                intent = new Intent(mContext, SetAddressActivity.class);
                 intent.putExtra("type", SetAddressActivity.GET_CAR);
                 startActivityForResult(intent, 150);
                 break;
         }
+
     }
 
     private void submitTime() {
@@ -419,6 +430,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             String address = data.getStringExtra("address");
             tvSelectGetAddress.setText(address);
         }
+
     }
 
     @Override

@@ -62,6 +62,7 @@ import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HelpCenterActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCollectActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PersonDataActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PreCarFriendIdentifiActivity;
 import zzbcar.cckj.com.nzzb.view.customview.RoundImageView;
 
@@ -305,8 +306,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.iv_minfragment_head_pic:
-                if (isSignin) DialogtoUpPic();
-                else toActivity(LoginActivity.class);
+//                if (isSignin) {
+//                    DialogtoUpPic();
+//                }
+//                else {
+//                    toActivity(LoginActivity.class);
+//                }
+                  toActivity(PersonDataActivity.class,true);
                 break;
 
             case R.id.tv_minfragment_phone_number:

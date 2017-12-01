@@ -54,7 +54,7 @@ public class NativeDialog extends Dialog {
     }
     
     private void initApps() {
-    	apps = APPUtil.getMapApps(context);
+    	apps = AppUtil.getMapApps(context);
     	//只显示前5个应用
         if (apps!=null && apps.size()>5) {
 			apps = apps.subList(0, 5);
@@ -187,10 +187,10 @@ public class NativeDialog extends Dialog {
         	String pak = (String)v.getTag();
         	switch (pak) {
 			case "com.baidu.BaiduMap":
-				APPUtil.startNative_Baidu(context,loc_now, loc_end);
+				AppUtil.startNative_Baidu(context,loc_now, loc_end);
 				break;
 			case "com.autonavi.minimap":
-				APPUtil.startNative_Gaode(context,loc_end);
+				AppUtil.startNative_Gaode(context,loc_end);
 				break;
 			}
         	NativeDialog.this.dismiss();

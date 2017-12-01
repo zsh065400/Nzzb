@@ -85,8 +85,6 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     private CarDetailBean.DataBean carDetailBean;
     private String getAddress;
     private int collectFlag = 0;
-    private Location loc_now = new Location(30.671249, 104.098863, "s");
-    private Location loc_end = new Location(30.862644, 103.663077, "e");
 
     /**
      * 判断是否安装目标应用
@@ -192,6 +190,8 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void initDatas() {
+
+
         Intent intent = getIntent();
         String type = intent.getStringExtra("type");
         if (!TextUtils.isEmpty(type)) {
@@ -365,6 +365,11 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                 }
                 break;
             case R.id.tv_car_addr:
+                Location loc_end = new Location(carDetailBean.getLatitude(), carDetailBean.getLongitude(), carDetailBean.getAddr());
+                double now_la = Double.parseDouble(SPUtils.getString(mContext, Constant.SP_LATITUDE, ""));
+                double now_lo = Double.parseDouble(SPUtils.getString(mContext, Constant.SP_LONGITUDE, ""));
+                Location loc_now = new Location(now_la,now_lo,null);
+
                 NativeDialog msgDialog = new NativeDialog(this, loc_now, loc_end);
                 msgDialog.show();
 
