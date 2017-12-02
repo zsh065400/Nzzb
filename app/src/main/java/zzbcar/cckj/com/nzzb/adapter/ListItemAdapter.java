@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
@@ -26,11 +27,11 @@ public class ListItemAdapter extends BaseRecycleViewAdapter<QueryBean.DataBean> 
         holder.setText(R.id.tv_item_price, String.format("%s/天", dataBean.getPrice()));
 
         ImageView iv_type = holder.getView(R.id.iv_car_type);
-        iv_type.setBackgroundResource(dataBean.getUseType()==1?R.mipmap.car_type1:R.mipmap.car_type_2);
+        iv_type.setBackgroundResource(dataBean.getUseType() == 1 ? R.mipmap.car_type1 : R.mipmap.car_type_2);
         ImageView iv = holder.getView(R.id.iv_item_car);
         Picasso.with(mContext)
                 //load()下载图片
-                .load(dataBean.getPics())
+                .load(new File(dataBean.getPics()))
                 //下载中显示的图片
                 .placeholder(R.mipmap.ic_launcher)
                 //下载失败显示的图片

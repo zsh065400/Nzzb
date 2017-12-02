@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -33,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.utils.Constant;
@@ -84,7 +82,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
                     Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
                     break;
                 case 3:
-                    Toast.makeText(mContext, (String)msg.obj, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, (String) msg.obj, Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -92,7 +90,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected int getLayoutId() {
-       getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return R.layout.activity_car_identifi1;
     }
 
@@ -142,37 +140,37 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         String name = etCar1Name.getText().toString().trim();
         String idcardNumber = etCar1Idcard.getText().toString().trim();
         Message obtain = Message.obtain();
-        obtain.what =3;
-        if(TextUtils.isEmpty(name)){
+        obtain.what = 3;
+        if (TextUtils.isEmpty(name)) {
             obtain.obj = "还没有输入姓名";
             handler.sendMessage(obtain);
             return;
         }
-        if(TextUtils.isEmpty(idcardNumber)){
+        if (TextUtils.isEmpty(idcardNumber)) {
             obtain.obj = "还没有输入身份证号";
             handler.sendMessage(obtain);
             return;
         }
-        if(idcardNumber.length()!=18){
+        if (idcardNumber.length() != 18) {
             obtain.obj = "身份证号码长度不符，再检查一下吧";
             handler.sendMessage(obtain);
             return;
         }
-        if(!REGutil.checkIDcardNumber(idcardNumber)){
+        if (!REGutil.checkIDcardNumber(idcardNumber)) {
             obtain.obj = "身份证格式错误，再检查一下吧";
             handler.sendMessage(obtain);
             return;
         }
-        if(idCard.size()!=2){
+        if (idCard.size() != 2) {
             obtain.obj = "还没有上传完身份证照片";
             handler.sendMessage(obtain);
             return;
         }
         Intent intent = new Intent(mContext, CarLicenceActivity.class);
-        intent.putExtra("name",name);
-        intent.putExtra("idCardNumber",idcardNumber);
-        intent.putExtra("idCardUp",idCard.get(0));
-        intent.putExtra("idCardDown",idCard.get(1));
+        intent.putExtra("name", name);
+        intent.putExtra("idCardNumber", idcardNumber);
+        intent.putExtra("idCardUp", idCard.get(0));
+        intent.putExtra("idCardDown", idCard.get(1));
         /*intent.putExtra("idCardUp","");
         intent.putExtra("idCardDown","");*/
         startActivity(intent);
@@ -275,7 +273,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
 
     private void upload(File file) {
         showWaitDialog();
-        OssUtils.initOss(this).asyncPutObject(OssUtils.putImage(file,Constant.IDCARD_KEYPATH), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+        OssUtils.initOss(this).asyncPutObject(OssUtils.putImage(file, Constant.IDCARD_KEYPATH), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
                 Message obtain = Message.obtain();
@@ -325,10 +323,4 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         progressDialog.show();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

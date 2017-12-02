@@ -15,7 +15,7 @@ public class UserOrderBean implements Serializable {
 
     /**
      * errno : 0
-     * data : [{"abolishMoney":0,"abolishTime":null,"car":{"addr":"杭州市庆春路58号","age":18,"brand":27,"brandName":"阿斯顿马丁","carName":"阿斯顿马丁V8","collectCount":0,"createTime":"2017-10-24 15:31:33","deposit":22,"distance":0,"engineLiter":"V6","id":18,"imgs":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg","latitude":30.154682,"longitude":120.444372,"mileage":0,"model":43,"modelName":"V8软顶敞篷","name":"V8软顶敞篷","onShelfTime":"2017-10-24 15:31:33","orderCount":"4","owner":0,"ownerName":"","pics":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzb/car/car_car/20120809135707632.jpg","plateNo":"19","price":0.01,"receivePercent":1,"seatNum":2,"series":36,"seriesName":"V8","status":1,"transmissionCase":1,"useCity":"重庆,杭州,北京","useType":1},"carId":18,"createTime":"2017-11-18 15:01:37","detail":"自尊宝自驾 阿斯顿马丁V8 (2017-11-18 15:06:00~2017-11-19 15:01:00)自主取车","endTime":"2017-11-19 15:01:28","id":66,"leasePrice":0.02,"onlineAmount":0.02,"orderNo":"ZJ1111800001800001304SZ","payStatus":0,"returnAddrId":0,"returnAddress":"杭州市庆春路58号","returnHome":0,"returnMapLocation":"120.444372,30.154682","returnTime":null,"startTime":"2017-11-18 15:06:28","status":0,"subject":"自尊宝自驾 阿斯顿马丁V8","takeAddrId":0,"takeAddress":"杭州市庆春路58号","takeHome":0,"takeMapLocation":"120.444372,30.154682","takeTime":null,"totalAmount":22.02,"trafficDepositMoney":0,"type":1,"userId":13,"userName":""},{"abolishMoney":0,"abolishTime":null,"car":{"addr":"杭州市庆春路58号","age":0,"brand":26,"brandName":"保时捷","carName":"保时捷911","collectCount":0,"createTime":"2017-10-24 15:28:03","deposit":22,"distance":0,"engineLiter":"V6","id":17,"imgs":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg","latitude":30.154682,"longitude":120.444372,"mileage":0,"model":39,"modelName":"911软顶敞篷","name":"911软顶敞篷","onShelfTime":"2017-10-24 15:28:03","orderCount":"1","owner":0,"ownerName":"","pics":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzb/car/car_car/3264x2448-161710_10191392970630147_55808efe09bfafe98f2676361dc820a6.jpg","plateNo":"19","price":0.01,"receivePercent":1,"seatNum":2,"series":33,"seriesName":"911","status":1,"transmissionCase":0,"useCity":"重庆,杭州,北京","useType":1},"carId":17,"createTime":"2017-11-18 15:29:50","detail":"自尊宝自驾 保时捷911 (2017-11-18 15:34:00~2017-11-19 15:29:00)自主取车","endTime":"2017-11-19 15:29:41","id":67,"leasePrice":0.02,"onlineAmount":0.02,"orderNo":"ZJ111180000170000130WFS","payStatus":1,"returnAddrId":0,"returnAddress":"杭州市庆春路58号","returnHome":0,"returnMapLocation":"120.444372,30.154682","returnTime":null,"startTime":"2017-11-18 15:34:41","status":0,"subject":"自尊宝自驾 保时捷911","takeAddrId":0,"takeAddress":"杭州市庆春路58号","takeHome":0,"takeMapLocation":"120.444372,30.154682","takeTime":null,"totalAmount":22.02,"trafficDepositMoney":0,"type":1,"userId":13,"userName":""}]
+     * data : [{"abolishMoney":0,"abolishTime":null,"car":{"addr":"杭州市庆春路58号","age":5,"brand":18,"brandLogo":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/brand/Audi.png","brandName":"奥迪","carName":"奥迪R8","collectCount":1,"createTime":"2017-10-12 11:59:03","deposit":20000,"distance":0,"engineLiter":"V6","id":2,"imgs":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg","latitude":30.278001,"longitude":120.168069,"mileage":50000,"model":9,"modelName":"R8","modelYear":2016,"name":"奥迪 S8 2016款 4.0 TFSI quattro","onShelfTime":"2017-11-10 14:41:55","orderCount":"61","owner":5,"ownerAvatar":"https://zzb-2017.oss-cn-hangzhou.aliyuncs.com/1511698798ios.jpg","ownerName":"21","pics":"http://living-2016.oss-cn-hangzhou.aliyuncs.com/7f40bce7e9992e64a3197d2082f4acc8.png","plateNo":"浙AK136A","price":0.01,"receivePercent":0.25,"remark":"测试车辆","seatNum":2,"series":13,"seriesName":"R8","status":1,"transmissionCase":0,"useCity":"重庆市,杭州市,北京市","useType":1},"carId":2,"city":3,"createTime":"2017-12-02 10:33:25","detail":"自尊宝自驾 奥迪R8 (2017-12-04 10:32:00~2017-12-09 10:32:00)自主取车","endTime":"2017-12-09 10:32:00","id":202,"leasePrice":0.06,"onlineAmount":0.06999999999999999,"orderNo":"ZJ112020000020000140BYJ","payStatus":1,"remark":"","returnAddrId":0,"returnAddress":"杭州市庆春路58号","returnHome":0,"returnMapLocation":"120.168069,30.278001","returnTime":null,"rtdepositTime":null,"startTime":"2017-12-04 10:32:00","status":0,"subject":"自尊宝自驾 奥迪R8","takeAddrId":0,"takeAddress":"杭州市庆春路58号","takeHome":0,"takeMapLocation":"120.168069,30.278001","takeTime":null,"totalAmount":20000.07,"trafficDepositMoney":0.01,"trafficPunlishMoney":0,"type":1,"userId":14,"userName":""}]
      * message : 请求成功
      */
 
@@ -51,40 +51,45 @@ public class UserOrderBean implements Serializable {
         /**
          * abolishMoney : 0
          * abolishTime : null
-         * car : {"addr":"杭州市庆春路58号","age":18,"brand":27,"brandName":"阿斯顿马丁","carName":"阿斯顿马丁V8","collectCount":0,"createTime":"2017-10-24 15:31:33","deposit":22,"distance":0,"engineLiter":"V6","id":18,"imgs":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg","latitude":30.154682,"longitude":120.444372,"mileage":0,"model":43,"modelName":"V8软顶敞篷","name":"V8软顶敞篷","onShelfTime":"2017-10-24 15:31:33","orderCount":"4","owner":0,"ownerName":"","pics":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzb/car/car_car/20120809135707632.jpg","plateNo":"19","price":0.01,"receivePercent":1,"seatNum":2,"series":36,"seriesName":"V8","status":1,"transmissionCase":1,"useCity":"重庆,杭州,北京","useType":1}
-         * carId : 18
-         * createTime : 2017-11-18 15:01:37
-         * detail : 自尊宝自驾 阿斯顿马丁V8 (2017-11-18 15:06:00~2017-11-19 15:01:00)自主取车
-         * endTime : 2017-11-19 15:01:28
-         * id : 66
-         * leasePrice : 0.02
-         * onlineAmount : 0.02
-         * orderNo : ZJ1111800001800001304SZ
-         * payStatus : 0
+         * car : {"addr":"杭州市庆春路58号","age":5,"brand":18,"brandLogo":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/brand/Audi.png","brandName":"奥迪","carName":"奥迪R8","collectCount":1,"createTime":"2017-10-12 11:59:03","deposit":20000,"distance":0,"engineLiter":"V6","id":2,"imgs":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg","latitude":30.278001,"longitude":120.168069,"mileage":50000,"model":9,"modelName":"R8","modelYear":2016,"name":"奥迪 S8 2016款 4.0 TFSI quattro","onShelfTime":"2017-11-10 14:41:55","orderCount":"61","owner":5,"ownerAvatar":"https://zzb-2017.oss-cn-hangzhou.aliyuncs.com/1511698798ios.jpg","ownerName":"21","pics":"http://living-2016.oss-cn-hangzhou.aliyuncs.com/7f40bce7e9992e64a3197d2082f4acc8.png","plateNo":"浙AK136A","price":0.01,"receivePercent":0.25,"remark":"测试车辆","seatNum":2,"series":13,"seriesName":"R8","status":1,"transmissionCase":0,"useCity":"重庆市,杭州市,北京市","useType":1}
+         * carId : 2
+         * city : 3
+         * createTime : 2017-12-02 10:33:25
+         * detail : 自尊宝自驾 奥迪R8 (2017-12-04 10:32:00~2017-12-09 10:32:00)自主取车
+         * endTime : 2017-12-09 10:32:00
+         * id : 202
+         * leasePrice : 0.06
+         * onlineAmount : 0.06999999999999999
+         * orderNo : ZJ112020000020000140BYJ
+         * payStatus : 1
+         * remark :
          * returnAddrId : 0
          * returnAddress : 杭州市庆春路58号
          * returnHome : 0
-         * returnMapLocation : 120.444372,30.154682
+         * returnMapLocation : 120.168069,30.278001
          * returnTime : null
-         * startTime : 2017-11-18 15:06:28
+         * rtdepositTime : null
+         * startTime : 2017-12-04 10:32:00
          * status : 0
-         * subject : 自尊宝自驾 阿斯顿马丁V8
+         * subject : 自尊宝自驾 奥迪R8
          * takeAddrId : 0
          * takeAddress : 杭州市庆春路58号
          * takeHome : 0
-         * takeMapLocation : 120.444372,30.154682
+         * takeMapLocation : 120.168069,30.278001
          * takeTime : null
-         * totalAmount : 22.02
-         * trafficDepositMoney : 0
+         * totalAmount : 20000.07
+         * trafficDepositMoney : 0.01
+         * trafficPunlishMoney : 0
          * type : 1
-         * userId : 13
+         * userId : 14
          * userName :
          */
 
-        private double abolishMoney;
+        private int abolishMoney;
         private Object abolishTime;
         private CarBean car;
         private int carId;
+        private int city;
         private String createTime;
         private String detail;
         private String endTime;
@@ -93,11 +98,13 @@ public class UserOrderBean implements Serializable {
         private double onlineAmount;
         private String orderNo;
         private int payStatus;
+        private String remark;
         private int returnAddrId;
         private String returnAddress;
         private int returnHome;
         private String returnMapLocation;
         private Object returnTime;
+        private Object rtdepositTime;
         private String startTime;
         private int status;
         private String subject;
@@ -108,15 +115,16 @@ public class UserOrderBean implements Serializable {
         private Object takeTime;
         private double totalAmount;
         private double trafficDepositMoney;
+        private int trafficPunlishMoney;
         private int type;
         private int userId;
         private String userName;
 
-        public double getAbolishMoney() {
+        public int getAbolishMoney() {
             return abolishMoney;
         }
 
-        public void setAbolishMoney(double abolishMoney) {
+        public void setAbolishMoney(int abolishMoney) {
             this.abolishMoney = abolishMoney;
         }
 
@@ -142,6 +150,14 @@ public class UserOrderBean implements Serializable {
 
         public void setCarId(int carId) {
             this.carId = carId;
+        }
+
+        public int getCity() {
+            return city;
+        }
+
+        public void setCity(int city) {
+            this.city = city;
         }
 
         public String getCreateTime() {
@@ -208,6 +224,14 @@ public class UserOrderBean implements Serializable {
             this.payStatus = payStatus;
         }
 
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
         public int getReturnAddrId() {
             return returnAddrId;
         }
@@ -246,6 +270,14 @@ public class UserOrderBean implements Serializable {
 
         public void setReturnTime(Object returnTime) {
             this.returnTime = returnTime;
+        }
+
+        public Object getRtdepositTime() {
+            return rtdepositTime;
+        }
+
+        public void setRtdepositTime(Object rtdepositTime) {
+            this.rtdepositTime = rtdepositTime;
         }
 
         public String getStartTime() {
@@ -328,6 +360,14 @@ public class UserOrderBean implements Serializable {
             this.trafficDepositMoney = trafficDepositMoney;
         }
 
+        public int getTrafficPunlishMoney() {
+            return trafficPunlishMoney;
+        }
+
+        public void setTrafficPunlishMoney(int trafficPunlishMoney) {
+            this.trafficPunlishMoney = trafficPunlishMoney;
+        }
+
         public int getType() {
             return type;
         }
@@ -355,48 +395,53 @@ public class UserOrderBean implements Serializable {
         public static class CarBean implements Serializable{
             /**
              * addr : 杭州市庆春路58号
-             * age : 18
-             * brand : 27
-             * brandName : 阿斯顿马丁
-             * carName : 阿斯顿马丁V8
-             * collectCount : 0
-             * createTime : 2017-10-24 15:31:33
-             * deposit : 22
+             * age : 5
+             * brand : 18
+             * brandLogo : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/brand/Audi.png
+             * brandName : 奥迪
+             * carName : 奥迪R8
+             * collectCount : 1
+             * createTime : 2017-10-12 11:59:03
+             * deposit : 20000
              * distance : 0
              * engineLiter : V6
-             * id : 18
+             * id : 2
              * imgs : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg
-             * latitude : 30.154682
-             * longitude : 120.444372
-             * mileage : 0
-             * model : 43
-             * modelName : V8软顶敞篷
-             * name : V8软顶敞篷
-             * onShelfTime : 2017-10-24 15:31:33
-             * orderCount : 4
-             * owner : 0
-             * ownerName :
-             * pics : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzb/car/car_car/20120809135707632.jpg
-             * plateNo : 19
+             * latitude : 30.278001
+             * longitude : 120.168069
+             * mileage : 50000
+             * model : 9
+             * modelName : R8
+             * modelYear : 2016
+             * name : 奥迪 S8 2016款 4.0 TFSI quattro
+             * onShelfTime : 2017-11-10 14:41:55
+             * orderCount : 61
+             * owner : 5
+             * ownerAvatar : https://zzb-2017.oss-cn-hangzhou.aliyuncs.com/1511698798ios.jpg
+             * ownerName : 21
+             * pics : http://living-2016.oss-cn-hangzhou.aliyuncs.com/7f40bce7e9992e64a3197d2082f4acc8.png
+             * plateNo : 浙AK136A
              * price : 0.01
-             * receivePercent : 1
+             * receivePercent : 0.25
+             * remark : 测试车辆
              * seatNum : 2
-             * series : 36
-             * seriesName : V8
+             * series : 13
+             * seriesName : R8
              * status : 1
-             * transmissionCase : 1
-             * useCity : 重庆,杭州,北京
+             * transmissionCase : 0
+             * useCity : 重庆市,杭州市,北京市
              * useType : 1
              */
 
             private String addr;
             private int age;
             private int brand;
+            private String brandLogo;
             private String brandName;
             private String carName;
             private int collectCount;
             private String createTime;
-            private double deposit;
+            private int deposit;
             private int distance;
             private String engineLiter;
             private int id;
@@ -411,11 +456,13 @@ public class UserOrderBean implements Serializable {
             private String onShelfTime;
             private String orderCount;
             private int owner;
+            private String ownerAvatar;
             private String ownerName;
             private String pics;
             private String plateNo;
             private double price;
             private double receivePercent;
+            private String remark;
             private int seatNum;
             private int series;
             private String seriesName;
@@ -446,6 +493,14 @@ public class UserOrderBean implements Serializable {
 
             public void setBrand(int brand) {
                 this.brand = brand;
+            }
+
+            public String getBrandLogo() {
+                return brandLogo;
+            }
+
+            public void setBrandLogo(String brandLogo) {
+                this.brandLogo = brandLogo;
             }
 
             public String getBrandName() {
@@ -480,7 +535,7 @@ public class UserOrderBean implements Serializable {
                 this.createTime = createTime;
             }
 
-            public double getDeposit() {
+            public int getDeposit() {
                 return deposit;
             }
 
@@ -553,12 +608,10 @@ public class UserOrderBean implements Serializable {
             }
 
             public String getModelName() {
-
                 return modelName;
             }
 
             public void setModelName(String modelName) {
-
                 this.modelName = modelName;
             }
 
@@ -569,6 +622,7 @@ public class UserOrderBean implements Serializable {
             public void setModelYear(int modelYear) {
                 this.modelYear = modelYear;
             }
+
             public String getName() {
                 return name;
             }
@@ -599,6 +653,14 @@ public class UserOrderBean implements Serializable {
 
             public void setOwner(int owner) {
                 this.owner = owner;
+            }
+
+            public String getOwnerAvatar() {
+                return ownerAvatar;
+            }
+
+            public void setOwnerAvatar(String ownerAvatar) {
+                this.ownerAvatar = ownerAvatar;
             }
 
             public String getOwnerName() {
@@ -639,6 +701,14 @@ public class UserOrderBean implements Serializable {
 
             public void setReceivePercent(double receivePercent) {
                 this.receivePercent = receivePercent;
+            }
+
+            public String getRemark() {
+                return remark;
+            }
+
+            public void setRemark(String remark) {
+                this.remark = remark;
             }
 
             public int getSeatNum() {

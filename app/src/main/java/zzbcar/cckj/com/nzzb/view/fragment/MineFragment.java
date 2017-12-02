@@ -332,6 +332,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                                 ivUserHead.setImageResource(R.mipmap.ic_launcher);
                                 tvUserPhone.setText("请登陆");
                                 view.setVisibility(View.GONE);
+                                tv_minfragment_car_identifi.setText("车主未认证");
                                 isSignin = false;
                                 signInfo = null;
                             }

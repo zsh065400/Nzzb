@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.BaseBean;
@@ -36,7 +35,6 @@ import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
  */
 
 public class OrderStatusActivity extends BaseActivity {
-
 
 
     @BindView(R.id.iv_back)
@@ -139,12 +137,12 @@ public class OrderStatusActivity extends BaseActivity {
         tvCarName.setText(car.getCarName());
         tvOrderType.setText(useType[car.getUseType() - 1]);
         tvOrderNumber.setText(car.getPlateNo());
-        tvCarPrice.setText(databean.getLeasePrice()+"");
-        tvOrderDeposit.setText(carBean.getDeposit()+"");
-        tvOrderBzj.setText(databean.getOnlineAmount()+"");
-        tvOrderAllMoney.setText(databean.getTotalAmount()+"");
-        tvOrderGetAddrTime.setText(databean.getTakeAddress()+"\n\n"+databean.getStartTime()+"");
-        tvOrderBackAddrTime.setText(databean.getReturnAddress()+"\n\n"+databean.getEndTime()+"");
+        tvCarPrice.setText(databean.getLeasePrice() + "");
+        tvOrderDeposit.setText(carBean.getDeposit() + "");
+        tvOrderBzj.setText(databean.getOnlineAmount() + "");
+        tvOrderAllMoney.setText(databean.getTotalAmount() + "");
+        tvOrderGetAddrTime.setText(databean.getTakeAddress() + "\n\n" + databean.getStartTime() + "");
+        tvOrderBackAddrTime.setText(databean.getReturnAddress() + "\n\n" + databean.getEndTime() + "");
         switch (status) {
             case 0:
                 tvCarStatus.setText("确定支付");
@@ -263,6 +261,13 @@ public class OrderStatusActivity extends BaseActivity {
         }
     }
 
+    @OnClick(R.id.iv_details)
+    public void toOrderDetail() {
+        final Bundle bundle = new Bundle();
+        bundle.putSerializable("details", databean);
+        toActivity(OrderTrackingActivity.class, bundle);
+    }
+
     /*取还车*/
     private void takeReturnCar(final String type) {
         /*经纬度*/
@@ -321,10 +326,4 @@ public class OrderStatusActivity extends BaseActivity {
         finish();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

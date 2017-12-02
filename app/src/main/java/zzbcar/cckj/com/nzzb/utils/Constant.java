@@ -81,7 +81,8 @@ public static final String QQZONE_APP_ID = "1106313801";
     /*取换车*/
     public static final String API_TAKE_RETURN_CAR = SERVE_URL + "zzb/app/order/carop";
 
-
+    /*绑定第三方账号*/
+    public static final String API_BIND_THIRD = SERVE_URL + "zzb/app/member/thirdBind";
 
     public static final String LOCATION_SELECT_URL = SERVE_URL + "zzb/app/common/citys";
     //查询订单

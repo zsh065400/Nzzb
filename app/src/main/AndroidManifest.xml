@@ -31,11 +31,13 @@
         </meta-data>
 
         <activity android:name=".view.activity.MainActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
+            <!-- </intent-filter> -->
         </activity>
 
         <!-- 三方集成 -->
@@ -123,13 +125,11 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".view.activity.SplshActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN"/>
-
-
-             <category android:name="android.intent.category.LAUNCHER"/>
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity android:name=".view.activity.GuideActivity"/>
         <activity android:name=".view.activity.TestActivity"/>
@@ -165,7 +165,6 @@
         <activity android:name=".view.activity.itemactivity.CarDetailActivity"/>
         <activity android:name=".view.activity.itemactivity.OrderConfirmActivity"/>
         <activity android:name=".view.activity.itemactivity.OrderStatusActivity"/>
-
         <activity android:name=".view.activity.itemactivity.LocationListActivity"/>
 
         <service
@@ -183,6 +182,8 @@
         <activity android:name=".view.activity.itemactivity.MyOrderActivity"/>
         <activity android:name=".view.activity.itemactivity.HomeMessageActivity"/>
         <activity android:name=".view.activity.itemactivity.PersonDataActivity"/>
+        <activity android:name=".view.activity.itemactivity.OrderTrackingActivity">
+        </activity>
     </application>
 
 </manifest>

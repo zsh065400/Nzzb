@@ -73,8 +73,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private String mPhone;
     private String mCode;
 
-    private String qqOpenId;
-    private String wxOpenId;
+    //    private String qqOpenId;
+//    private String wxOpenId;
+    /*1为QQ,2为微信*/
+    private String thridType;
+    private String openId;
 
     @Override
     protected int getLayoutId() {
@@ -94,8 +97,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         initCall();
     }
+
     /**
-     *  拨打热线电话
+     * 拨打热线电话
      */
     private void initCall() {
         tvCall.setText("如需帮助可拨打至尊宝豪车共享服务热线");
@@ -119,7 +123,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                     }
                 });
-                builder.setNegativeButton("取消",null);
+                builder.setNegativeButton("取消", null);
                 builder.show();
             }
         };
@@ -203,11 +207,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     Toast.makeText(mContext, "手机号或验证码为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (((TextView) view).getText().toString().equals("确认")) {
-                    doSignin("0", String.format("%s-%s", mPhone, mCode));
-                } else {
-                    bindPhone();
-                }
+//                if (((TextView) view).getText().toString().equals("确认")) {
+                doSignin("0", String.format("%s-%s", mPhone, mCode));
+//                } else {
+////                    bindPhone();
+//                    bindThird("1", openId);
+//                }
                 break;
             case R.id.tv_get_code:
                 getVerifyCode();
@@ -242,8 +247,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
     }
 
-
-
     private void doSignin(final String type, String param) {
         final String url = OkHttpUtil.obtainGetUrl(Constant.API_SIGN,
                 "type", type,
@@ -254,12 +257,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             OkGo.<String>get(url).tag(TAG).execute(new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
-                    final SigninBean bean = GsonUtil.parseJsonWithGson(response.body(), SigninBean.class);
+                    final String body = response.body();
+                    final SigninBean bean = GsonUtil.parseJsonWithGson(body, SigninBean.class);
                     /*缓存用户数据，可用于自动登录等*/
                     final int errno = bean.getErrno();
                     if (errno == 0) {
-                        SPUtils.saveString(mContext, "User", response.body());
-                        Log.d(TAG, "onSuccess: " + response.body());
+                        SPUtils.saveString(mContext, "User", body);
+                        /*如果之前使用第三方登录，则自动绑定*/
+                        bindThird(thridType, openId, bean);
                         asyncShowToast("登陆成功");
                         /*登陆成功后跳转*/
                         toNextActivity();
@@ -298,15 +303,44 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             tvSignin.setEnabled(true);
     }
 
+    private void bindThird(String type, String param, SigninBean signinBean) {
+        if (openId == null || openId.equals("")) {
+            return;
+        }
+        final int id = signinBean.getData().getMember().getId();
+        final String token = signinBean.getData().getToken();
+        final String url = OkHttpUtil.obtainGetUrl(Constant.API_BIND_THIRD,
+                "userId", id + "",
+                "token", token,
+                "type", type,
+                "param", param);
+        OkGo.<String>get(url).tag(TAG).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                final BaseBean bean = GsonUtil.parseJsonWithGson(response.body(), BaseBean.class);
+                if (bean.getErrno() == 0) {
+                    asyncShowToast("用户信息已关联，下次可直接登录");
+                } else asyncShowToast(bean.getMessage());
+                openId = null;
+            }
+
+            @Override
+            public void onError(Response<String> response) {
+                asyncShowToast(response.getException().getLocalizedMessage());
+                openId = null;
+            }
+        });
+    }
+
     /**
      * 第三方授权后通过该方法绑定手机号
      */
     private void bindPhone() {
         final String url = OkHttpUtil.obtainGetUrl(Constant.API_BIND_QQWX,
                 "mobile", mPhone,
-                "authCode", mCode,
-                "qq", qqOpenId,
-                "wxOpenId", wxOpenId);
+                "authCode", mCode);
+//                "qq", qqOpenId,
+//                "wxOpenId", wxOpenId);
         OkGo.<String>get(url).tag(TAG).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
@@ -465,23 +499,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             for (Map.Entry<String, String> entry : data.entrySet()) {
                 Log.d(TAG, "onComplete: " + entry.getKey() + ":" + entry.getValue());
             }
-            final String openid = data.get("openid");
+//            final String openid = data.get("openid");
+            openId = data.get("openid");
             switch (platform) {
                 case QQ:
-                    qqOpenId = openid;
-                    doSignin("2", openid);
+//                    qqOpenId = openid;
+                    doSignin("2", openId);
+                    thridType = "1";
                     break;
                 case WEIXIN:
-                    wxOpenId = openid;
-                    doSignin("1", openid);
+//                    wxOpenId = openid;
+                    doSignin("1", openId);
+                    thridType = "2";
                     break;
             }
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(mContext, "登录成功，昵称：" + data.get("screen_name"), Toast.LENGTH_LONG).show();
-                }
-            });
+            asyncShowToast("登录成功，昵称：" + data.get("screen_name"));
         }
 
         /**
