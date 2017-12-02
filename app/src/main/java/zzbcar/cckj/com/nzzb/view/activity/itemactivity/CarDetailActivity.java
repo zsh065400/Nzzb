@@ -84,6 +84,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     private CarDetailBean.DataBean carDetailBean;
     private String getAddress;
+
     private int collectFlag = 0;
 
     /**
@@ -300,9 +301,16 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         tvCarModelName.setText(carDetailBean.getModelName());
         tvCarPrice.setText(carDetailBean.getPrice() + "");
         tvCarLicenseNumber.setText(carDetailBean.getPlateNo());
+
         tv_cardetail_seatnum.setText(carDetailBean.getSeatNum() + "座");
-        tv_cardrtail_handblock.setText(carDetailBean.getTransmissionCase() + "");
+
+
+        tv_cardrtail_handblock.setText (transmissionCase[carDetailBean.getTransmissionCase()]+"");
+
+
         tvCarAddr.setText(carDetailBean.getAddr());
+
+
         tv_cardetail_engineer.setText(carDetailBean.getEngineLiter());
         tvCarOwnerName.setText("车主" + carDetailBean.getOwnerName());
         tvAcceptOrderRate.setText(String.valueOf(carDetailBean.getReceivePercent()));

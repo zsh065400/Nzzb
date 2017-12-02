@@ -247,12 +247,15 @@ public class OrderStatusActivity extends BaseActivity {
         switch (status) {
             case 0:/*去支付*/
                 convertOrderInfo();
+                tvCarStatus.setText("确认支付");
                 break;
             case 2:/*取车*/
                 takeReturnCar("1");
+                tvCarStatus.setText("待取车");
                 break;
             case 3:/*还车*/
                 takeReturnCar("2");
+                tvCarStatus.setText("我要还车");
                 break;
             case 5:
                 tvCarStatus.setText("确认还车");

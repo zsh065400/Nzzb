@@ -33,6 +33,7 @@ public class MyGoodExperenceAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
+
         return mDatas.size();
     }
 

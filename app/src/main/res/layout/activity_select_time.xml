@@ -115,18 +115,21 @@
                             android:layout_marginLeft="10dp"
                             android:background="@drawable/point_selecter" />
 
+
                         <TextView
+                            android:layout_marginLeft="8dp"
+                            android:id="@+id/tv_set_selfGetcar_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginLeft="6dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_toRightOf="@+id/point_outdoor_pickcat"
-                            android:text="送车上门地址"
+                            android:text="自行取车地址"
                             android:textColor="#494747"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"
+                            android:layout_alignBaseline="@+id/swh_status_sendcar"
+                            android:layout_alignBottom="@+id/swh_status_sendcar"
+                            android:layout_toRightOf="@+id/point_outdoor_pickcat"
+                            android:layout_toEndOf="@+id/point_outdoor_pickcat" />
                         <Switch
+                          android:checked="true"
                            android:layout_marginRight="8dp"
                             android:id="@+id/swh_status_sendcar"
                             android:layout_width="wrap_content"
@@ -148,15 +151,22 @@
                     android:layout_marginTop="5dp">
 
                     <TextView
-                        android:maxLines="1"
                         android:id="@+id/tv_select_getAddress"
+                        android:enabled="false"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="25dp"
-                        android:text="请点击设置送车上门地址"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:text="创意工厂48幢"
                         android:textColor="#494747"
                         android:textSize="14sp" />
+
+                    <ImageView
+                       android:visibility="gone"
+                        android:background="@mipmap/arrow_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
 
                     <TextView
                         android:layout_marginLeft="10dp"
@@ -183,18 +193,20 @@
                         android:background="@drawable/point_selecter" />
 
                     <TextView
+                        android:id="@+id/tv_set_selfRepaycar_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="6dp"
+                        android:layout_marginLeft="8dp"
                         android:layout_marginTop="5dp"
                         android:layout_toRightOf="@+id/point_indoor_pickcat"
-                        android:text="上门取车地址"
+                        android:text="自行还车地址"
                         android:textColor="#494747"
                         android:textSize="14sp" />
 
                     <Switch
+                        android:checked="true"
                         android:layout_marginRight="8dp"
                         android:layout_alignParentRight="true"
                         android:id="@+id/swh_status_pullcar"
@@ -206,28 +218,42 @@
                         android:track="@drawable/track_selctor" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="5dp">
 
                     <TextView
+                        android:enabled="false"
                         android:id="@+id/tv_select_sendAddress"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="25dp"
-                        android:text="杭州市下城区xxx"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:text="创意工厂48幢"
                         android:textColor="#494747"
                         android:textSize="14sp" />
 
+                    <ImageView
+
+                        android:visibility="gone"
+                        android:background="@mipmap/arrow_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="上门取车" />
+                        android:text="上门收车" />
 
-                </RelativeLayout>
+                </LinearLayout>
+
+
 
                 <LinearLayout
                     android:id="@+id/ll_sure_pay"

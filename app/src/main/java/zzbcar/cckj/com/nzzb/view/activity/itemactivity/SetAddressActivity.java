@@ -78,6 +78,7 @@ public class SetAddressActivity extends BaseActivity {
     private double latitude;
     private double longitude;
     public static final String GET_CAR = "get_car";//选择取车地址的跳转类型
+    public static final String SEND_CAR = "send_car";//选择还车地址的跳转类型
     public static final String CHOOSE_ADDR = "choose_addr";//直接选择地址的跳转类型
     @Override
     protected int getLayoutId() {
@@ -96,6 +97,11 @@ public class SetAddressActivity extends BaseActivity {
         if(type.equals(GET_CAR)){
             etSetaddress.setHint("请输入取车地址");
         }else{
+            etSetaddress.setHint("请输入地址搜索");
+        }
+        if(type.equals((SEND_CAR))){
+            etSetaddress.setHint("请输入还车地址");
+        }else {
             etSetaddress.setHint("请输入地址搜索");
         }
         initLocation();

@@ -416,6 +416,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         HomeFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+
     }
 
     @OnShowRationale({Manifest.permission.ACCESS_COARSE_LOCATION,

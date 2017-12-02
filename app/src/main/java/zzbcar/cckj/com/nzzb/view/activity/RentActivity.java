@@ -163,7 +163,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
             }
         });
 
-        rgTransmission.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rgTransmission.setOnCheckedChangeListener(
+                new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 /*暂时用不到*/
@@ -437,6 +438,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
             case R.id.tv_type_commit:
                 doCarQuery(params.buildUrl());
                 ll_type_pick.performClick();
+                ll_type_pick.setVisibility(View.GONE);
                 break;
         }
 
