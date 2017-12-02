@@ -26,7 +26,6 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -47,6 +46,7 @@ import zzbcar.cckj.com.nzzb.bean.MyCollectBean;
 import zzbcar.cckj.com.nzzb.bean.PeresonMessageBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OssUtils;
@@ -126,8 +126,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                                 if (errno != 0) {
                                     handler.sendEmptyMessage(1);
                                 } else {
-
-                                    Picasso.with(mActivity).load(Uri.fromFile(cropfile)).fit().into(iv_minfragment_head_pic);
+//                                    Picasso.with(mActivity).load(Uri.fromFile(cropfile)).fit().into(iv_minfragment_head_pic);
+                                    GlideApp
+                                            .with(mActivity)
+                                            .load(Uri.fromFile(cropfile))
+                                            .centerCrop()
+                                            .placeholder(R.mipmap.ic_launcher)
+                                            .error(R.mipmap.ic_launcher)
+                                            .into(iv_minfragment_head_pic);
                                     SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mActivity, "User", ""), SigninBean.class);
                                     user.getData().getMember().setAvatar(hearUrl);
                                     SPUtils.saveString(mActivity, "User", GsonUtil.getGson().toJson(user));
@@ -199,7 +205,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         } else {
 
             LogUtil.e(avatar + "保存的头像");
-            Picasso.with(mActivity).load(avatar)
+//            Picasso.with(mActivity).load(avatar)
+//                    .placeholder(R.mipmap.ic_launcher)
+//                    .error(R.mipmap.ic_launcher)
+//                    .into(ivUserHead);
+            GlideApp
+                    .with(mActivity)
+                    .load(avatar)
+                    .centerCrop()
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_launcher)
                     .into(ivUserHead);

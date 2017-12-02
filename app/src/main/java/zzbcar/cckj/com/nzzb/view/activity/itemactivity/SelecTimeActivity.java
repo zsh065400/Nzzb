@@ -60,6 +60,10 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     Switch swh_status_sendcar;
     @BindView(R.id.swh_status_pullcar)
     Switch swh_status_pullcar;
+    @BindView(R.id.tv_set_selfGetcar_address)
+    TextView tvSetSelfGetcarAddress;
+    @BindView(R.id.tv_set_selfRepaycar_address)
+    TextView tvSetSelfRepaycarAddress;
     private TextView tv_get_car_time;
     private TextView tv_back_car_time;
     private ImageView iv_swicth;
@@ -80,12 +84,11 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     private String type;
     private CarDetailBean.DataBean cardetail;
     private List<MonthPriceBean.DataBean> monthPriceList;
-
+    private boolean QuCheAddress = true;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_select_time;
     }
-
     @Override
     protected void initViews() {
         initTimePicker();
@@ -93,39 +96,53 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         tv_back_car_time = (TextView) findViewById(R.id.tv_back_car_time);
         ll_get_car = (LinearLayout) findViewById(R.id.ll_get_car);
         ll_back_car = (LinearLayout) findViewById(R.id.ll_back_car);
+
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
     @Override
     protected void initListeners() {
-        new TitleBuilder(this).setTitleText("选择时间").setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        new TitleBuilder(this).setTitleText("选择时间").setLeftIco(R.mipmap.row_back).setLeftIcoListening(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+                    }
+                });
         ll_get_car.setOnClickListener(this);
         ll_back_car.setOnClickListener(this);
-        swh_status_pullcar.setOnClickListener(this);
-        swh_status_sendcar.setOnClickListener(this);
         ll_get_car.setEnabled(false);
         tvSureSendCar.setOnClickListener(this);
         tvSelectGetAddress.setOnClickListener(this);
         tvSelectSendAddress.setOnClickListener(this);
 
+
     }
 
     @Override
     protected void initDatas() {
+
+        swh_status_pullcar.setOnCheckedChangeListener(this);
+        swh_status_sendcar.setOnCheckedChangeListener(this);
+        swh_status_sendcar.setChecked(false);
+        swh_status_pullcar.setChecked(false);
+
         Bundle bundle = getIntent().getExtras();
         type = bundle.getString("type");
         if (type.equals(DETAIL_KEY)) {
             cardetail = (CarDetailBean.DataBean) bundle.getSerializable("cardetail");
-            tvSelectGetAddress.setText(bundle.getString("getAddress"));
+	    if(!bundle.getString("getAddress").equals("请点击设置送车上门地址")){
+			swh_status_sendcar.setChecked(true);
+			tvSelectGetAddress.setText(bundle.getString("getAddress"));
+		}
+
             Calendar calendar = Calendar.getInstance();
             getPrice(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
         } else {
-            tvSelectGetAddress.setText(bundle.getString("getAddress"));
+            	if(!bundle.getString("getAddress").equals("请点击设置送车上门地址")){
+			swh_status_sendcar.setChecked(true);
+			tvSelectGetAddress.setText(bundle.getString("getAddress"));
+		}
             setVpData();
         }
         /*this.calendarView.init(new CommonCalendarView.DatePickerController() {
@@ -237,7 +254,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Intent intent=null;
+        Intent intent = null;
         switch (view.getId()) {
 
             case R.id.ll_get_car:
@@ -262,14 +279,16 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                 submitTime();
                 break;
             case R.id.tv_select_getAddress:
+                QuCheAddress=true;
                 intent = new Intent(mContext, SetAddressActivity.class);
                 intent.putExtra("type", SetAddressActivity.GET_CAR);
-                startActivityForResult(intent, 150);
+                startActivityForResult(intent, 0);
                 break;
             case R.id.tv_select_sendAddress:
+                QuCheAddress=false;
                 intent = new Intent(mContext, SetAddressActivity.class);
-                intent.putExtra("type", SetAddressActivity.GET_CAR);
-                startActivityForResult(intent, 150);
+                intent.putExtra("type", SetAddressActivity.SEND_CAR);
+                startActivityForResult(intent, 1);
                 break;
         }
 
@@ -279,6 +298,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         String getTime = tv_get_car_time.getText().toString();
         String backTime = tv_back_car_time.getText().toString();
         String getAddress = tvSelectGetAddress.getText().toString();
+        String sendAddress = tvSelectSendAddress.getText().toString();
         if (getTime.equals("请设置取车时间")) {
             Toast.makeText(this, "请设置取车时间", Toast.LENGTH_SHORT).show();
             return;
@@ -287,14 +307,16 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             Toast.makeText(this, "请设置还车时间", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (type.equals(DETAIL_KEY) && getAddress.equals("请点击设置送车上门地址")) {
-            Toast.makeText(this, "请点击设置送车上门地址", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if (type.equals(DETAIL_KEY) && getAddress.equals("请点击设置送车上门地址")) {
+//            Toast.makeText(this, "请点击设置送车上门地址", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
         Bundle bundle = new Bundle();
         bundle.putString("getTime", getTime);
         bundle.putString("backTime", backTime);
         bundle.putString("getAddress", getAddress);
+        bundle.putString("sendAddress", sendAddress);
+
         if (type.equals(RENT_KEY)) {
             setResult(RESULT_OK, new Intent().putExtras(bundle));
             finish();
@@ -303,6 +325,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             bundle.putString("startTime", getTime);
             bundle.putString("endTime", backTime);
             bundle.putString("takeAddress", getAddress);
+            bundle.putString("sendAddress", sendAddress);
             toActivity(OrderConfirmActivity.class, bundle, true);
             //Toast.makeText(mContext, "租车逻辑", Toast.LENGTH_SHORT).show();
             finish();
@@ -414,7 +437,6 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             return false;
         }
     }
-
     @Override
     public void onBackPressed() {
         if (type.equals(RENT_KEY)) {
@@ -422,34 +444,52 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         }
         finish();
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             String address = data.getStringExtra("address");
-            tvSelectGetAddress.setText(address);
+            if(requestCode==0){
+                swh_status_pullcar.setEnabled(true);
+
+                tvSelectGetAddress.setText(address);
+            }else if(requestCode==1){
+                swh_status_sendcar.setEnabled(true);
+
+                tvSelectSendAddress.setText(address);
+            }
+
         }
+
+
 
     }
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
         switch (compoundButton.getId()) {
             case R.id.swh_status_pullcar:
-                if (compoundButton.isChecked()) {
-                    Toast.makeText(SelecTimeActivity.this, "开关:ON", Toast.LENGTH_SHORT).show();
+                tvSelectSendAddress.setEnabled(b);
+                if (b) {
+                    tvSetSelfRepaycarAddress.setText("上门收车地址");
+                    tvSelectSendAddress.setText("请点击设置上门收车地址");
                 } else {
-                    Toast.makeText(SelecTimeActivity.this, "开关:OFF", Toast.LENGTH_SHORT).show();
+
+                    tvSetSelfRepaycarAddress.setText("自行还车地址");
+                    tvSelectSendAddress.setText("华源创意工长48幢");
                 }
                 break;
-            case R.id.swh_status_sendcar:
-                if (compoundButton.isChecked()) {
-                    Toast.makeText(SelecTimeActivity.this, "开关:ON", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(SelecTimeActivity.this, "开关:OFF", Toast.LENGTH_SHORT).show();
-                }
 
+            case R.id.swh_status_sendcar:
+                tvSelectGetAddress.setEnabled(b);
+                if (!b) {
+                    tvSetSelfGetcarAddress.setText("自行取车地址");
+                    tvSelectGetAddress.setText("华源创意工长48幢");
+                } else {
+                    tvSetSelfGetcarAddress.setText("送车上门地址");
+                    tvSelectGetAddress.setText("请点击设置送车上门地址");
+                }
                 break;
         }
     }

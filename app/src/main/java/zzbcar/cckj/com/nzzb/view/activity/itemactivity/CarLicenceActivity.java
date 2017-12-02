@@ -33,7 +33,6 @@ import com.bigkoo.pickerview.listener.CustomListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -49,6 +48,7 @@ import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.bean.CardBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
@@ -394,12 +394,26 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
     }
 
     private void setIdCarDownToView(Intent data) {
-        Picasso.with(this).load(Uri.fromFile(cropfile)).fit().into(ivCarlicenceDown);
+//        Picasso.with(this).load(Uri.fromFile(cropfile)).fit().into(ivCarlicenceDown);
+        GlideApp
+                .with(mContext)
+                .load(Uri.fromFile(cropfile))
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(ivCarlicenceDown);
         upload(cropfile);
     }
 
     private void setIdCarUPToView(Intent data) {
-        Picasso.with(this).load(Uri.fromFile(cropfile)).fit().into(ivCarlicenceUp);
+//        Picasso.with(this).load(Uri.fromFile(cropfile)).fit().into(ivCarlicenceUp);
+        GlideApp
+                .with(mContext)
+                .load(Uri.fromFile(cropfile))
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(ivCarlicenceUp);
         upload(cropfile);
     }
 

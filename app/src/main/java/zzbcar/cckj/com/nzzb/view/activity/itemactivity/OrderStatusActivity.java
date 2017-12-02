@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +23,7 @@ import zzbcar.cckj.com.nzzb.bean.BaseBean;
 import zzbcar.cckj.com.nzzb.bean.OrderBean;
 import zzbcar.cckj.com.nzzb.bean.UserOrderBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
@@ -133,7 +133,14 @@ public class OrderStatusActivity extends BaseActivity {
     private void initOrderInfo() {
         tvOrderId.setText(String.valueOf(databean.getOrderNo()));
         UserOrderBean.DataBean.CarBean car = databean.getCar();
-        Picasso.with(this).load(car.getPics()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).fit().into(ivCarPic);
+//        Picasso.with(this).load(car.getPics()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).fit().into(ivCarPic);
+        GlideApp
+                .with(mContext)
+                .load(car.getPics())
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(ivCarPic);
         tvCarName.setText(car.getCarName());
         tvOrderType.setText(useType[car.getUseType() - 1]);
         tvOrderNumber.setText(car.getPlateNo());
@@ -245,12 +252,15 @@ public class OrderStatusActivity extends BaseActivity {
         switch (status) {
             case 0:/*去支付*/
                 convertOrderInfo();
+                tvCarStatus.setText("确认支付");
                 break;
             case 2:/*取车*/
                 takeReturnCar("1");
+                tvCarStatus.setText("待取车");
                 break;
             case 3:/*还车*/
                 takeReturnCar("2");
+                tvCarStatus.setText("我要还车");
                 break;
             case 5:
                 tvCarStatus.setText("确认还车");

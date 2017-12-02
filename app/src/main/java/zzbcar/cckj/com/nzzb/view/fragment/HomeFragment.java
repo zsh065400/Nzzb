@@ -33,7 +33,6 @@ import com.baidu.location.LocationClientOption;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.squareup.picasso.Picasso;
 import com.sunfusheng.marqueeview.MarqueeView;
 
 import java.io.Serializable;
@@ -58,6 +57,7 @@ import zzbcar.cckj.com.nzzb.adapter.main.GridItemAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.NewCarAdapter;
 import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
@@ -148,10 +148,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         for (MainPageBean.DataBean.MarqueeBean bean : marqueeDatas) {
             marqueeText.add(bean.getTitle());
             ImageView imageView = new ImageView(mActivity);
-            Picasso.with(mActivity).load(bean.getPicUrl())
+//            Picasso.with(mActivity).load(bean.getPicUrl())
+//                    .placeholder(R.mipmap.ic_launcher)
+//                    .error(R.mipmap.ic_launcher)
+//                    .fit()
+//                    .into(imageView);
+            GlideApp
+                    .with(mActivity)
+                    .load(bean.getPicUrl())
+                    .centerCrop()
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_launcher)
-                    .fit()
                     .into(imageView);
             marqueeImage.add(imageView);
         }
@@ -416,6 +423,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         HomeFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+
     }
 
     @OnShowRationale({Manifest.permission.ACCESS_COARSE_LOCATION,

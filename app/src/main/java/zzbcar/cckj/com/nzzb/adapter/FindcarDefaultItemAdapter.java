@@ -8,16 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.SearchCarDefaultBean;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 
 public class FindcarDefaultItemAdapter extends BaseAdapter {
 
-    private List<SearchCarDefaultBean.DataBean> objects ;
+    private List<SearchCarDefaultBean.DataBean> objects;
 
     private Context context;
     private LayoutInflater layoutInflater;
@@ -25,7 +24,7 @@ public class FindcarDefaultItemAdapter extends BaseAdapter {
     public FindcarDefaultItemAdapter(List<SearchCarDefaultBean.DataBean> objects, Context context) {
         this.objects = objects;
         this.context = context;
-        layoutInflater=LayoutInflater.from(context);
+        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -49,27 +48,32 @@ public class FindcarDefaultItemAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.findcar_default_item, null);
             convertView.setTag(new ViewHolder(convertView));
         }
-        initializeViews((SearchCarDefaultBean.DataBean)getItem(position), (ViewHolder) convertView.getTag());
+        initializeViews((SearchCarDefaultBean.DataBean) getItem(position), (ViewHolder) convertView.getTag());
         return convertView;
     }
 
     private void initializeViews(SearchCarDefaultBean.DataBean object, ViewHolder holder) {
 
-        //TODO implement
-                  holder.tvFindcarDefaultDetail.setText(object.getName());
-            holder.tvFindcarDefaultMoney.setText(object.getPics());
-            Picasso.with(context).load(object.getPics()).into(holder.ivFindcarDefault);
-        }
+        holder.tvFindcarDefaultDetail.setText(object.getName());
+        holder.tvFindcarDefaultMoney.setText(object.getPics());
+        GlideApp
+                .with(context)
+                .load(object.getPics())
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(holder.ivFindcarDefault);
+    }
 
-        protected class ViewHolder {
-            private ImageView ivFindcarDefault;
-            private TextView tvFindcarDefaultDetail;
-            private TextView tvFindcarDefaultMoney;
+    protected class ViewHolder {
+        private ImageView ivFindcarDefault;
+        private TextView tvFindcarDefaultDetail;
+        private TextView tvFindcarDefaultMoney;
 
-            public ViewHolder(View view) {
-                ivFindcarDefault = (ImageView) view.findViewById(R.id.iv_findcar_default);
-                tvFindcarDefaultDetail = (TextView) view.findViewById(R.id.tv_findcar_default_detail);
-                tvFindcarDefaultMoney = (TextView) view.findViewById(R.id.tv_findcar_default_money);
+        public ViewHolder(View view) {
+            ivFindcarDefault = (ImageView) view.findViewById(R.id.iv_findcar_default);
+            tvFindcarDefaultDetail = (TextView) view.findViewById(R.id.tv_findcar_default_detail);
+            tvFindcarDefaultMoney = (TextView) view.findViewById(R.id.tv_findcar_default_money);
 
         }
     }

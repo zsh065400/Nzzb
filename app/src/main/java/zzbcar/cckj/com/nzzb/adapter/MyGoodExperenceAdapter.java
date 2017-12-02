@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.MainPageBean;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 
 /**
  * Created by Admin on 2017/11/9.
@@ -33,6 +32,7 @@ public class MyGoodExperenceAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
+
         return mDatas.size();
     }
 
@@ -56,10 +56,12 @@ public class MyGoodExperenceAdapter extends PagerAdapter {
         TextView name = (TextView) view.findViewById(R.id.tv_chaozhi_name);
         TextView price = (TextView) view.findViewById(R.id.tv_chaozhi_price);
         ImageView iv_type = view.findViewById(R.id.iv_car_type);
-        Picasso.with(mContext).load(bean.getPicUrl())
+        GlideApp
+                .with(mContext)
+                .load(bean.getPicUrl())
+                .centerCrop()
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
-                .fit()
                 .into(pic);
         //iv_type.setBackgroundResource(bean.get==1?R.mipmap.car_type1:R.mipmap.car_type_2);
         name.setText(bean.getCarName());

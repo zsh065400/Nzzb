@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.squareup.picasso.Picasso;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -35,6 +34,7 @@ import zzbcar.cckj.com.nzzb.bean.WeekPriceBean;
 import zzbcar.cckj.com.nzzb.map.Location;
 import zzbcar.cckj.com.nzzb.map.NativeDialog;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
@@ -84,6 +84,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     private CarDetailBean.DataBean carDetailBean;
     private String getAddress;
+
     private int collectFlag = 0;
 
     /**
@@ -281,17 +282,26 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     private void setViewInfo(CarDetailBean detailBean) {
         carDetailBean = detailBean.getData().get(0);
-        Picasso.with(mContext).load(carDetailBean.getPics())
+        GlideApp
+                .with(mContext)
+                .load(carDetailBean.getPics())
+                .centerCrop()
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(ivCarPic);
-        Picasso.with(mContext).load(carDetailBean.getBrandLogo())
+        GlideApp
+                .with(mContext)
+                .load(carDetailBean.getPics())
+                .centerCrop()
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(iv_car_detail_brand);
 
         if (!TextUtils.isEmpty(carDetailBean.getOwnerName()) && !TextUtils.isEmpty(carDetailBean.getOwnerAvatar()))
-            Picasso.with(mContext).load(carDetailBean.getOwnerAvatar())
+            GlideApp
+                    .with(mContext)
+                    .load(carDetailBean.getPics())
+                    .centerCrop()
                     .placeholder(R.mipmap.ic_launcher)
                     .error(R.mipmap.ic_launcher)
                     .into(civ_head_portrait);
@@ -300,9 +310,16 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         tvCarModelName.setText(carDetailBean.getModelName());
         tvCarPrice.setText(carDetailBean.getPrice() + "");
         tvCarLicenseNumber.setText(carDetailBean.getPlateNo());
+
         tv_cardetail_seatnum.setText(carDetailBean.getSeatNum() + "座");
-        tv_cardrtail_handblock.setText(carDetailBean.getTransmissionCase() + "");
+
+
+        tv_cardrtail_handblock.setText(transmissionCase[carDetailBean.getTransmissionCase()] + "");
+
+
         tvCarAddr.setText(carDetailBean.getAddr());
+
+
         tv_cardetail_engineer.setText(carDetailBean.getEngineLiter());
         tvCarOwnerName.setText("车主" + carDetailBean.getOwnerName());
         tvAcceptOrderRate.setText(String.valueOf(carDetailBean.getReceivePercent()));
@@ -368,7 +385,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                 Location loc_end = new Location(carDetailBean.getLatitude(), carDetailBean.getLongitude(), carDetailBean.getAddr());
                 double now_la = Double.parseDouble(SPUtils.getString(mContext, Constant.SP_LATITUDE, ""));
                 double now_lo = Double.parseDouble(SPUtils.getString(mContext, Constant.SP_LONGITUDE, ""));
-                Location loc_now = new Location(now_la,now_lo,null);
+                Location loc_now = new Location(now_la, now_lo, null);
 
                 NativeDialog msgDialog = new NativeDialog(this, loc_now, loc_end);
                 msgDialog.show();
@@ -378,7 +395,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                 openShared();
                 break;
             case R.id.rl_cardetail_service_center:
-                 toActivity(HelpCenterActivity.class,true);
+                toActivity(HelpCenterActivity.class, true);
                 break;
 
 

@@ -26,7 +26,7 @@
                     android:layout_height="110dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/car"/>
                 <ImageView
                     android:layout_alignParentLeft="true"

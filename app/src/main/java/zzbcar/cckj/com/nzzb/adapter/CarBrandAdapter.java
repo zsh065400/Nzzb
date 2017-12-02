@@ -8,12 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.CarBean;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 
 public class CarBrandAdapter extends BaseAdapter {
 
@@ -57,7 +56,13 @@ public class CarBrandAdapter extends BaseAdapter {
     private void initializeViews(CarBean.DataBean data, ViewHolder holder) {
         //TODO implement
         holder.tvCar.setText(data.getName());
-        Picasso.with(context).load(data.getLogo()).into(holder.ivCar);
+        GlideApp
+                .with(context)
+                .load(data.getLogo())
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(holder.ivCar);
     }
 
     protected class ViewHolder {

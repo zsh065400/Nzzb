@@ -24,7 +24,6 @@ import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -35,6 +34,7 @@ import butterknife.BindView;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.utils.REGutil;
@@ -236,7 +236,14 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void setIdCarDownToView(Intent data) {
-        Picasso.with(this).load(Uri.fromFile(cropfile)).fit().into(iv_identificar_idcar_down);
+//        Picasso.with(this).load(Uri.fromFile(cropfile)).fit().into(iv_identificar_idcar_down);
+        GlideApp
+                .with(mContext)
+                .load(Uri.fromFile(cropfile))
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(iv_identificar_idcar_down);
         upload(cropfile);
     }
 
@@ -263,7 +270,14 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
             Bitmap bitmap = bundle.getParcelable("data");
             iv_identificar_idcar_up.setScaleType(ImageView.ScaleType.CENTER_CROP);
             iv_identificar_idcar_up.setImageBitmap(bitmap);*/
-        Picasso.with(this).load(Uri.fromFile(cropfile)).fit().into(iv_identificar_idcar_up);
+//        Picasso.with(this).load(Uri.fromFile(cropfile)).fit().into(iv_identificar_idcar_up);
+        GlideApp
+                .with(mContext)
+                .load(Uri.fromFile(cropfile))
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(iv_identificar_idcar_up);
         upload(cropfile);
 
 

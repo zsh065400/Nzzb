@@ -1,7 +1,6 @@
 package zzbcar.cckj.com.nzzb.adapter;
 
 
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.BrandCarBean;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 
 public class GridviewItemAdapter extends BaseAdapter {
 
@@ -57,8 +55,13 @@ public class GridviewItemAdapter extends BaseAdapter {
     }
 
     private void initializeViews(BrandCarBean.DataBean object, ViewHolder holder) {
-        //TODO implement
-        Picasso.with(context).load(object.getLogo()).into(holder.ivGridBrandItem);
+        GlideApp
+                .with(context)
+                .load(object.getLogo())
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(holder.ivGridBrandItem);
     }
 
     protected class ViewHolder {

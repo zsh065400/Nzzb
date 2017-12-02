@@ -8,13 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.CarBean;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 
 public class AaAdapter extends BaseAdapter {
 
@@ -49,19 +48,25 @@ public class AaAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.car_brand, null);
             convertView.setTag(new ViewHolder(convertView));
         }
-        initializeViews((CarBean.DataBean) getItem(position), (ViewHolder) convertView.getTag(),position);
+        initializeViews((CarBean.DataBean) getItem(position), (ViewHolder) convertView.getTag(), position);
         return convertView;
     }
 
-    private void initializeViews(CarBean.DataBean object, ViewHolder holder,int position) {
+    private void initializeViews(CarBean.DataBean object, ViewHolder holder, int position) {
         //TODO implement
         holder.tvCar.setText(object.getName());
-        Picasso.with(context).load(object.getLogo()).into(holder.ivCar);
+        GlideApp
+                .with(context)
+                .load(object.getLogo())
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(holder.ivCar);
     }
 
     protected class ViewHolder {
         private ImageView ivCar;
-    private TextView tvCar;
+        private TextView tvCar;
 
         public ViewHolder(View view) {
             ivCar = (ImageView) view.findViewById(R.id.iv_car);

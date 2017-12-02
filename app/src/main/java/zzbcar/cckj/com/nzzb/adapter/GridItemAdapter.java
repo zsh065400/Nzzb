@@ -7,12 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.BrandCarBean;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 
 /**
  * gridview适配器
@@ -63,7 +62,10 @@ public class GridItemAdapter extends BaseAdapter {
             mv = (MyViewHolder) convertView.getTag();
         }
 
-        Picasso.with(mContext).load(mViews.get(position).getLogo())
+        GlideApp
+                .with(mContext)
+                .load(mViews.get(position).getLogo())
+//                .centerCrop()
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(mv.iv_grid_brand_item);

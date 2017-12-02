@@ -5,8 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +12,7 @@ import java.util.List;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.base.BaseRecycleViewAdapter;
 import zzbcar.cckj.com.nzzb.bean.UserOrderBean;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 
 /**
  * Created by Admin on 2017/11/6.
@@ -81,8 +80,13 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
         ImageView ivCar = holder.getView(R.id.iv_car);
 
         final UserOrderBean.DataBean.CarBean car = dataBean.getCar();
-        Picasso.with(mContext).load(car.getPics()).placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.a).fit().into(ivCar);//车图片
+        GlideApp
+                .with(mContext)
+                .load(car.getPics())
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(ivCar);
         holder.setText(R.id.tv_car_name, car.getCarName());//车名
         holder.setText(R.id.tv_car_model_name, userType[car.getUseType() - 1]);//使用类型
         holder.setText(R.id.tv_car_address, car.getAddr());//地址

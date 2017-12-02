@@ -154,7 +154,6 @@
             android:windowSoftInputMode="stateVisible|adjustResize"/>
         <activity android:name=".view.activity.itemactivity.IdentiCompleteActivity"/>
         <activity android:name=".view.activity.itemactivity.CarFriendIdentifiActivity"/>
-        <activity android:name=".view.activity.itemactivity.SelecTimeActivity"/>
         <activity android:name=".view.activity.LoginActivity"/>
         <activity android:name=".view.activity.itemactivity.PreCarFriendIdentifiActivity"/>
         <activity android:name=".view.activity.itemactivity.SetAddressActivity"/>
@@ -182,8 +181,8 @@
         <activity android:name=".view.activity.itemactivity.MyOrderActivity"/>
         <activity android:name=".view.activity.itemactivity.HomeMessageActivity"/>
         <activity android:name=".view.activity.itemactivity.PersonDataActivity"/>
-        <activity android:name=".view.activity.itemactivity.OrderTrackingActivity">
-        </activity>
+        <activity android:name=".view.activity.itemactivity.OrderTrackingActivity"/>
+            <activity android:name=".view.activity.itemactivity.SelecTimeActivity"/>
     </application>
 
 </manifest>

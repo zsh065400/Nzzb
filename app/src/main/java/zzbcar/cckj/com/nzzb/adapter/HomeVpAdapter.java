@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.LunbobBean;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 
 /**
  * Created by Admin on 2017/11/1.
@@ -48,7 +47,13 @@ public class HomeVpAdapter extends PagerAdapter {
        ImageView imagtView= (ImageView) layoutInflater.inflate(R.layout.vp_item, container,false);
       container.addView(imagtView);
         LunbobBean.DataBean dataBean = mLunBoBeanList.get(position % mEntitySize);
-        Picasso.with(context).load(dataBean.getPicUrl()).into(imagtView);
+        GlideApp
+                .with(container)
+                .load(dataBean.getPicUrl())
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(imagtView);
         return imagtView;
     }
 

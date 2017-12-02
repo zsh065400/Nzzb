@@ -77,9 +77,6 @@
 
             </LinearLayout>
 
-            <include layout="@layout/default_line_1dp"/>
-
-            <!--车辆信息-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="109dp"
@@ -87,8 +84,7 @@
                 android:paddingBottom="3dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:paddingTop="13dp"
-                >
+                android:paddingTop="13dp">
 
                 <ImageView
 
@@ -96,12 +92,13 @@
                     android:layout_width="115dp"
                     android:layout_height="84dp"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@mipmap/ic_launcher" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
@@ -110,7 +107,7 @@
                         android:layout_height="wrap_content"
                         android:text="奥迪R8"
                         android:textColor="#000000"
-                        android:textSize="20dp"/>
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/tv_order_type"
@@ -122,7 +119,7 @@
                         android:padding="2dp"
                         android:text="自 驾"
                         android:textColor="#59aaf4"
-                        android:textSize="10dp"/>
+                        android:textSize="10dp" />
 
                     <TextView
                         android:id="@+id/tv_order_number"
@@ -131,7 +128,7 @@
                         android:layout_marginTop="1dp"
                         android:text="浙A****J"
                         android:textColor="#989898"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp" />
 
                     <TextView
                         android:id="@+id/tv_order_mark"
@@ -139,11 +136,21 @@
                         android:layout_height="wrap_content"
                         android:text="2016款 | 4座 | 自动"
                         android:textColor="#989898"
-                        android:textSize="12dp"/>
+                        android:textSize="12dp" />
 
                 </LinearLayout>
 
+                <ImageView
+                    android:id="@+id/iv_order_connect_us"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/connect_us" />
+
             </LinearLayout>
+
+            <include layout="@layout/default_line_1dp"/>
+
+            <!--车辆信息-->
 
             <include layout="@layout/default_line_1dp"/>
 
@@ -165,7 +172,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="自行取车："
+                        android:text="取车地址："
                         android:textColor="#000000"
                         android:textSize="12dp"/>
 
@@ -189,7 +196,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="自行还车："
+                        android:text="还车地址："
                         android:textColor="#000000"
                         android:textSize="12dp"/>
 

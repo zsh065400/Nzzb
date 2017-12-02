@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/iv_grid_brand_item"
-    android:scaleType="fitCenter"
-    android:layout_width="55dp"
-    android:layout_height="55dp"
-    android:src="@drawable/car">
+<FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
+        android:id="@+id/iv_grid_brand_item"
+        android:scaleType="fitCenter"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/car">
 
-</ImageView>
+    </ImageView>
+</FrameLayout>

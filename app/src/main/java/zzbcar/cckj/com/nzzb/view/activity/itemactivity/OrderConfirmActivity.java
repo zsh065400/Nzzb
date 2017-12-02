@@ -1,6 +1,13 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +17,6 @@ import android.widget.Toast;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
-import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,6 +32,7 @@ import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.bean.TimeBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.EncryptUtils;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
@@ -60,6 +67,8 @@ public class OrderConfirmActivity extends BaseActivity {
     TextView tvOrderBzj;
     @BindView(R.id.tv_order_allMoney)
     TextView tvOrderAllMoney;
+    @BindView(R.id.iv_order_connect_us)
+    ImageView ivOrderConnectUs;
     /*车辆信息*/
     private CarDetailBean.DataBean cardetail;
     /*订单信息*/
@@ -69,9 +78,11 @@ public class OrderConfirmActivity extends BaseActivity {
     private String endTime;
     private ImageView iv_order_car_pic;
     private String getAddress;
+    private String sendAddress;
     private double amount;
     private Bundle bundle;
     private SigninBean bean;
+    private AlertDialog alertDialog;
 
     @Override
     protected int getLayoutId() {
@@ -97,6 +108,42 @@ public class OrderConfirmActivity extends BaseActivity {
             }
         });
         setBackButon(R.id.iv_back);
+
+        ivOrderConnectUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ConnectUs();
+            }
+        });
+
+    }
+
+    private void ConnectUs() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        AlertDialog alertDialog = builder.setMessage("13295815771")
+                .setTitle("要拨打电话给客服么?")
+                .setCancelable(false)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        callService();
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+
+                }).create();
+        alertDialog.show();
+    }
+
+    private void callService() {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "13295815771"));
+        startActivity(callIntent);
     }
 
     @Override
@@ -109,6 +156,7 @@ public class OrderConfirmActivity extends BaseActivity {
 
 
         getAddress = bundle.getString("getAddress");
+        sendAddress = bundle.getString("sendAddress");
         final String userJson = SPUtils.getString(mContext, "User", "");
         if (userJson != "") {
             bean = GsonUtil.parseJsonWithGson(userJson, SigninBean.class);
@@ -145,19 +193,27 @@ public class OrderConfirmActivity extends BaseActivity {
     }
 
     private void initOrderData() {
-        Picasso.with(mContext)
+//        Picasso.with(mContext)
+//                .load(cardetail.getPics())
+//                .fit()
+//                .into(iv_order_car_pic);
+        GlideApp
+                .with(mContext)
                 .load(cardetail.getPics())
-                .fit()
+                .centerCrop()
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
                 .into(iv_order_car_pic);
         tvCarName.setText(cardetail.getCarName());
         tvOrderNumber.setText(cardetail.getPlateNo());
         tvOrderGetaddrTime.setText(getAddress + "\n" + bundle.getString("getTime"));
-        tvOrderBackaddrTime.setText(getAddress + "\n" + bundle.getString("backTime"));
+        tvOrderBackaddrTime.setText(sendAddress + "\n" + bundle.getString("backTime"));
         tvOrderDeposit.setText(bean.getData().getSysdata().getTrafficDeposit() + "元");
         tvCarPrice.setText(amount + "元");
         tvOrderBzj.setText(cardetail.getDeposit() + "元");
-        tvOrderAllMoney.setText("合计："+(bean.getData().getSysdata().getTrafficDeposit()+amount)+"元");
-        tvOrderType.setText(cardetail.getUseType()==1?"自 驾":"商 务");
+        tvOrderAllMoney.setText("合计：" + (bean.getData().getSysdata().getTrafficDeposit() + amount) + "元");
+        tvOrderType.setText(cardetail.getUseType() == 1 ? "自 驾" : "商 务");
+        //    tvOrderType.setText(cardetail.getUseType()==1?R.mipmap.car_type1:R.mipmap.car_type_2);
     }
 
     /*获取服务器时间，开单校准*/
@@ -194,12 +250,12 @@ public class OrderConfirmActivity extends BaseActivity {
                 "type", String.valueOf(cardetail.getUseType()),
                 "startTime", startTime,
                 "endTime", endTime,
-                "channel","1",
+                "channel", "1",
 //                "city",SPUtils.getString(mContext,Constant.SP_LAST_LOCATION, ""),
-                "city","3",
+                "city", "3",
                 "takeAddress", getAddress,
                 "takeHome", "0",
-                "token",SPUtils.getToken(mContext),
+                "token", SPUtils.getToken(mContext),
                 //"returnAddress", "杭州拱墅区翠苑13栋",
                 "takeTime", startTime,
                 "returnHome", "0",
