@@ -6,12 +6,14 @@ import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -130,6 +132,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @BindView(R.id.tv_home_clicktosee_detail)
     TextView tvHomeClicktoseeDetail;
     Unbinder unbinder;
+
+    @BindView(R.id.scroll_home)
+    NestedScrollView scrollView;
 
     private List<MainPageBean.DataBean.ActivityBean> activityDatas;
     private List<MainPageBean.DataBean.NewCarListBean> newCarDatas;
@@ -305,6 +310,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initViews(View view) {
         StatusBarUtil.setViewTopPadding(mActivity, view, R.id.top_bar);
+        final int height = topBar.getHeight();
+        view.setMinimumHeight(height);
     }
 
 
@@ -344,7 +351,31 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
             }
         });
+        /*滑动改变颜色*/
+        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                /*以图片为基准，超过图片高度则固定颜色*/
+                if (scrollY >= gradient.getTop() + gradient.getMeasuredHeight()) {
+                    topBar.setBackgroundColor(Color.rgb(10,27,43));
+                    /*其余情况动态计算百分比改变颜色*/
+                } else if (scrollY>=0) {
+                    //计算透明度，滑动到的距离（即当前滑动坐标）/图片高度（底部坐标）
+                    float persent = scrollY * 1f / (gradient.getTop() + gradient.getMeasuredHeight());
+                    //255==1，即不透明，计算动态透明度
+                    int alpha = (int) (255 * persent);
+                    //计算颜色值，将16进制颜色值转换为rgb颜色后填入
+                    int color = Color.argb(alpha,10,27,43);
+                    //动态设置
+                    topBar.setBackgroundColor(color);
+                }
+            }
+        });
     }
+
+
+    @BindView(R.id.top_bar)
+    View topBar;
 
     private void callService() {
         if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
