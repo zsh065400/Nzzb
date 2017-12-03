@@ -91,7 +91,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                 case 0:
                     progressDialog.dismiss();
                     PutObjectResult obj = (PutObjectResult) msg.obj;
-                    String carLicence = Constant.SERVER_PHOTO_HEAD + Constant.CARLICENCE_KEYPATH + cropfile.getName();
+                    String carLicence = Constant.SERVER_PHOTO_HEAD + Constant.CARLICENCE_KEYPATH +idSeparator+ cropfile.getName();
                     if (isUp) {
                         cardLicence.add(0, carLicence);
                     } else {
@@ -111,6 +111,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
     File tempFile = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
     private File cropfile;
     private ProgressDialog progressDialog;
+    private String idSeparator;
 
     @Override
     protected int getLayoutId() {
@@ -143,6 +144,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                 finish();
             }
         });
+        idSeparator = SPUtils.getSignInfo(mContext).getId()+"/";
 
     }
 
@@ -436,7 +438,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
 
     private void upload(File file) {
         showWaitDialog();
-        OssUtils.initOss(this).asyncPutObject(OssUtils.putImage(file, Constant.CARLICENCE_KEYPATH), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+        OssUtils.initOss(this).asyncPutObject(OssUtils.putImage(file, Constant.CARLICENCE_KEYPATH+idSeparator), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
                 Message obtain = Message.obtain();
