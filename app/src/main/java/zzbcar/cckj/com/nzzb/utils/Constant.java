@@ -84,6 +84,9 @@ public static final String QQZONE_APP_ID = "1106313801";
     /*绑定第三方账号*/
     public static final String API_BIND_THIRD = SERVE_URL + "zzb/app/member/thirdBind";
 
+    /*解绑第三方账号*/
+    public static final String API_UNBIND_THIRD = SERVE_URL + "zzb/app/member/unbind";
+
     public static final String LOCATION_SELECT_URL = SERVE_URL + "zzb/app/common/citys";
     //查询订单
     public static final String SELECT_ORDER_URL=SERVE_URL+"zzb/app/order/query";
