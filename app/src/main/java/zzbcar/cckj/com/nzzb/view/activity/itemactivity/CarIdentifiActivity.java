@@ -107,6 +107,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void initDatas() {
+        LogUtil.e(SPUtils.getToken(mContext));
         bt_identicar_nest.setOnClickListener(this);
         iv_identificar_idcar_down.setOnClickListener(this);
         iv_identificar_idcar_up.setOnClickListener(this);

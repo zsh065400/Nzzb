@@ -40,6 +40,7 @@ import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
+import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 
 
 /**
@@ -182,7 +183,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                     });
         } else {
             Toast.makeText(mContext, "请登录后再试", Toast.LENGTH_SHORT).show();
-            toActivity(CarDetailActivity.class, true);
+            toActivity(LoginActivity.class);
         }
 
 
@@ -455,5 +456,9 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+    @Override
+    protected void setStatusBar() {
+        StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
 }
