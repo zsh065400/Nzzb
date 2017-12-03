@@ -120,10 +120,10 @@ public static final String QQZONE_APP_ID = "1106313801";
     public static final String ACCESS_PAS = "eN01vFRyf3uBe6KxM1R2Abdzy0QcPw";
     public static final String END_POINT = "http://oss-cn-hangzhou.aliyuncs.com";
     public static final String BUCKET = "zzb-2017";
-    public static final String IDCARD_KEYPATH = "zzbcar/idcard/";
-    public static final String CARLICENCE_KEYPATH = "zzbcar/car/";
+    public static final String IDCARD_KEYPATH = "zzbcar/auth/";
+    public static final String CARLICENCE_KEYPATH = "zzbcar/auth/";
     public static final String SERVER_PHOTO_HEAD = "http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/";
-    public static final String HEAD_KEYPATH = "headimg/";
+    public static final String HEAD_KEYPATH = "zzbcar/headimg/";
 
     //加载的网页链接
     //用户协议

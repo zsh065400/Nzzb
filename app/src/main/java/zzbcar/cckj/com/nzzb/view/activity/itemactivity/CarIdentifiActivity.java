@@ -38,6 +38,7 @@ import zzbcar.cckj.com.nzzb.utils.GlideApp;
 import zzbcar.cckj.com.nzzb.utils.LogUtil;
 import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.utils.REGutil;
+import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
@@ -68,7 +69,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
                 case 0:
                     progressDialog.dismiss();
                     PutObjectResult obj = (PutObjectResult) msg.obj;
-                    String idCardTemp = Constant.SERVER_PHOTO_HEAD + Constant.IDCARD_KEYPATH + cropfile.getName();
+                    String idCardTemp = Constant.SERVER_PHOTO_HEAD + Constant.IDCARD_KEYPATH+idSeparator + cropfile.getName();
 
                     if (isUp) {
                         idCard.add(0, idCardTemp);
@@ -87,6 +88,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
             }
         }
     };
+    private String idSeparator;
 
     @Override
     protected int getLayoutId() {
@@ -110,6 +112,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         iv_identificar_idcar_up.setOnClickListener(this);
 
         new TitleBuilder(this).setTitleText("车友认证").setLeftIco(R.mipmap.row_back).setLeftIcoListening(leftReturnListener);
+        idSeparator = SPUtils.getSignInfo(mContext).getId()+"/";
     }
 
 
@@ -287,7 +290,8 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
 
     private void upload(File file) {
         showWaitDialog();
-        OssUtils.initOss(this).asyncPutObject(OssUtils.putImage(file, Constant.IDCARD_KEYPATH), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+
+        OssUtils.initOss(this).asyncPutObject(OssUtils.putImage(file, Constant.IDCARD_KEYPATH+idSeparator), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
                 Message obtain = Message.obtain();
