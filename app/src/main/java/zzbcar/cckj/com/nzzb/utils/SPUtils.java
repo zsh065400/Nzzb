@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.google.gson.Gson;
+
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
 
 public final class SPUtils {
@@ -97,6 +99,21 @@ public final class SPUtils {
             return null;
         } else {
             return null;
+        }
+    }
+
+    /**
+     * 修改用户登录信息
+     */
+    public static void putSignInfo(Context context, SigninBean.DataBean.MemberBean signInfo) {
+        final String user = getString(context, "User", "");
+        if (!user.equals("")) {
+            final SigninBean signinBean = GsonUtil.parseJsonWithGson(user, SigninBean.class);
+            final int errno = signinBean.getErrno();
+            if (errno == 0) {
+                signinBean.getData().setMember(signInfo);
+                saveString(context, "User", new Gson().toJson(signinBean));
+            }
         }
     }
 

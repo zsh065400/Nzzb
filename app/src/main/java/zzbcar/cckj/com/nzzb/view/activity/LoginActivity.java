@@ -264,7 +264,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     if (errno == 0) {
                         SPUtils.saveString(mContext, "User", body);
                         /*如果之前使用第三方登录，则自动绑定*/
-                        bindThird(thridType, openId, bean);
+                        final SigninBean.DataBean.MemberBean member = bean.getData().getMember();
+                        if (TextUtils.isEmpty(member.getQqOpenId()) && thridType.equals("1"))
+                            bindThird(thridType, openId, bean);
+                        else if (TextUtils.isEmpty(member.getWxOpenId()) && thridType.equals("2"))
+                            bindThird(thridType, openId, bean);
                         asyncShowToast("登陆成功");
                         /*登陆成功后跳转*/
                         toNextActivity();
@@ -286,7 +290,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    // TODO: 2017/11/26 后台逻辑变动，需要重新调整
 
     /**
      * 因接口问题，当三方登录未与手机号绑定时，需要改换登录策略
@@ -303,7 +306,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             tvSignin.setEnabled(true);
     }
 
-    private void bindThird(String type, String param, SigninBean signinBean) {
+    private void bindThird(final String type, String param, final SigninBean signinBean) {
         if (openId == null || openId.equals("")) {
             return;
         }
@@ -319,6 +322,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void onSuccess(Response<String> response) {
                 final BaseBean bean = GsonUtil.parseJsonWithGson(response.body(), BaseBean.class);
                 if (bean.getErrno() == 0) {
+                    final SigninBean.DataBean.MemberBean member = signinBean.getData().getMember();
+                    if (type.equals("1")) {
+                        member.setQqOpenId(openId);
+                    } else {
+                        member.setWxOpenId(openId);
+                    }
+                    SPUtils.putSignInfo(LoginActivity.this, member);
                     asyncShowToast("用户信息已关联，下次可直接登录");
                 } else asyncShowToast(bean.getMessage());
                 openId = null;

@@ -131,7 +131,7 @@ public class AccountBindActivity extends BaseActivity implements View.OnClickLis
         mShareAPI.getPlatformInfo(this, SHARE_MEDIA.QQ, authListener);
     }
 
-    private void bindThird(final String type, String param) {
+    private void bindThird(final String type, final String param) {
         final String url = OkHttpUtil.obtainGetUrl(Constant.API_BIND_THIRD,
                 "userId", String.valueOf(signInfo.getId()),
                 "token", token,
@@ -145,9 +145,11 @@ public class AccountBindActivity extends BaseActivity implements View.OnClickLis
                     asyncShowToast("绑定成功，下次可直接登录");
                     if (type.equals("1")) {
                         isQQBind = true;
+                        signInfo.setQqOpenId(param);
                         changeStatus(type, isQQBind);
                     } else {
                         isWxBind = true;
+                        signInfo.setWxOpenId(param);
                         changeStatus(type, isWxBind);
                     }
                 } else asyncShowToast(bean.getMessage());
@@ -175,6 +177,7 @@ public class AccountBindActivity extends BaseActivity implements View.OnClickLis
                     if (type.equals("1")) {
                         isQQBind = false;
                         changeStatus(type, isQQBind);
+
                     } else {
                         isWxBind = false;
                         changeStatus(type, isWxBind);
@@ -196,6 +199,8 @@ public class AccountBindActivity extends BaseActivity implements View.OnClickLis
                 } else {
                     ivQQBind.setImageResource(R.mipmap.qq_low);
                     tvQQInfo.setText("QQ未绑定");
+                    signInfo.setQq("");
+                    signInfo.setQqOpenId("");
                 }
                 break;
 
@@ -206,9 +211,12 @@ public class AccountBindActivity extends BaseActivity implements View.OnClickLis
                 } else {
                     ivWxBind.setImageResource(R.mipmap.wx_low);
                     tvWxInfo.setText("微信未绑定");
+                    signInfo.setWxOpenId("");
+                    signInfo.setWxPubOpenId("");
                 }
                 break;
         }
+        SPUtils.putSignInfo(AccountBindActivity.this, signInfo);
     }
 
     /**
