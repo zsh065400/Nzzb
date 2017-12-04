@@ -169,7 +169,6 @@ public class OrderConfirmActivity extends BaseActivity {
     }
 
     /*逻辑调用位置需要优化，此处根据后台逻辑暂定*/
-    // TODO: 2017/11/13 梳理api调用逻辑和界面关系
     /*计算租金*/
     private void calcPrice() {
         //startTime = getCurrentTime(false);

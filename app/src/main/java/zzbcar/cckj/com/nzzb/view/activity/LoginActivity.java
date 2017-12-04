@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     //    private String qqOpenId;
 //    private String wxOpenId;
     /*1为QQ,2为微信*/
-    private String thridType;
+    private String thirdType;
     private String openId;
 
     @Override
@@ -265,10 +265,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         SPUtils.saveString(mContext, "User", body);
                         /*如果之前使用第三方登录，则自动绑定*/
                         final SigninBean.DataBean.MemberBean member = bean.getData().getMember();
-                        if (TextUtils.isEmpty(member.getQqOpenId()) && thridType.equals("1"))
-                            bindThird(thridType, openId, bean);
-                        else if (TextUtils.isEmpty(member.getWxOpenId()) && thridType.equals("2"))
-                            bindThird(thridType, openId, bean);
+                        if (TextUtils.isEmpty(member.getQqOpenId()) && thirdType != null && thirdType.equals("1"))
+                            bindThird(thirdType, openId, bean);
+                        else if (TextUtils.isEmpty(member.getWxOpenId()) && thirdType != null && thirdType.equals("2"))
+                            bindThird(thirdType, openId, bean);
                         asyncShowToast("登陆成功");
                         /*登陆成功后跳转*/
                         toNextActivity();
@@ -515,12 +515,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 case QQ:
 //                    qqOpenId = openid;
                     doSignin("2", openId);
-                    thridType = "1";
+                    thirdType = "1";
                     break;
                 case WEIXIN:
 //                    wxOpenId = openid;
                     doSignin("1", openId);
-                    thridType = "2";
+                    thirdType = "2";
                     break;
             }
             asyncShowToast("登录成功，昵称：" + data.get("screen_name"));

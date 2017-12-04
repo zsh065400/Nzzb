@@ -22,18 +22,18 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
 
     /*
     * 订单状态：
-    * 0 下单
-    * 1 付款
-    * 2 接单未取车
-    * 3 取车
-    * 5 用户还车
-    * 6 车主收车
+    * 0 下单(付款根据payStatus字段)
+    * //1 付款
+    * 2 已接单未取车
+    * 3 已取车未还车
+    * 5 已还车（显示押金未退）
+    * 6 确认收车
     * 7 用户取消
     * 8 后台取消
-    * 9 关闭
+    * 9 关闭（未成交，取消）
     * 10 交易成功
     * */
-    private String[] status = {"已下单", "已付款", "未取车", "已取车", "", "已还车", "已收车", "已取消", "已取消", "已关闭", "交易成功"};
+    private String[] status = {"", "", "待取车", "已取车", "", "押金未退", "已收车", "已取消", "已取消", "已关闭", "交易成功"};
 
     /*使用类型
     *
@@ -42,10 +42,6 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
     * 4 婚庆
     * */
     private String[] userType = {"自驾", "商务", "", "婚庆"};
-//    private long betweentimeDay;
-   private long betweentimeHour;
-//    private long betweentimeMin;
-//    private long betweentimeSec;
 
     public OrderStatusAdapter(Context context, List<UserOrderBean.DataBean> datas) {
         super(context, datas);
@@ -59,24 +55,37 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
         try {
             Date end = sdf.parse(endTime);
             Date start = sdf.parse(startTime);
-            betweentimeHour = (end.getTime() - start.getTime())/1000/60/60;
-//           if(betweentimeDay!=0){
-//               betweentimeHour = betweentimeDay/24;
-//           }
-//            if(betweentimeHour!=0){
-//                betweentimeMin = betweentimeHour/60;
-//            }
-//         if(betweentimeHour!=0){
-//             betweentimeSec = betweentimeMin/60;
-//         }
-
-
+            long nd = 1000 * 24 * 60 * 60;
+            long betweentime = end.getTime() - start.getTime();
+            final long betweenDay = betweentime / nd;
+            if (betweenDay != 0) {
+                holder.setText(R.id.tv_time, betweenDay + "天");
+            } else {
+                long nh = 1000 * 60 * 60;
+                final long betweenHour = betweentime % nd / nh;
+                if (betweenHour != 0) {
+                    holder.setText(R.id.tv_time, betweenHour + "小时");
+                } else {
+                    long nm = 1000 * 60;
+                    final long betweenMinu = betweentime % nd % nh / nm;
+                    holder.setText(R.id.tv_time, betweenMinu + "分钟");
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         holder.setText(R.id.tv_number, "订单编号" + dataBean.getOrderNo());//订单号
-        holder.setText(R.id.tv_state, status[dataBean.getStatus()]);//状态
+        final int status = dataBean.getStatus();
+        final int payStatus = dataBean.getPayStatus();
+        if (status == 0) {
+            if (payStatus == 0)
+                holder.setText(R.id.tv_state, "待支付");//状态
+            else
+                holder.setText(R.id.tv_state, "未接单");//状态
+        } else {
+            holder.setText(R.id.tv_state, this.status[status]);//状态
+        }
         ImageView ivCar = holder.getView(R.id.iv_car);
 
         final UserOrderBean.DataBean.CarBean car = dataBean.getCar();
@@ -90,31 +99,32 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
         holder.setText(R.id.tv_car_name, car.getCarName());//车名
         holder.setText(R.id.tv_car_model_name, userType[car.getUseType() - 1]);//使用类型
         holder.setText(R.id.tv_car_address, car.getAddr());//地址
-         holder.setText(R.id.tv_time,betweentimeHour+"小时");
 
-        holder.setText(R.id.tv_send_address,dataBean.getTakeAddress());
-        holder.setText(R.id.tv_rec_address,dataBean.getReturnAddress());
-        holder.setText(R.id.tv_send_time,dataBean.getStartTime()+"");
-        holder.setText(R.id.tv_rec_time,dataBean.getEndTime()+"");
-        holder.setText(R.id.tv_car_detail,car.getModelYear()+"款 "+"|"+car.getSeatNum()+"座位 "+"|"+car.getUseType()+"");
-        holder.setText(R.id.tv_car_address,car.getAddr());
-        final int status = dataBean.getStatus();
+        holder.setText(R.id.tv_send_address, dataBean.getTakeAddress());
+        holder.setText(R.id.tv_rec_address, dataBean.getReturnAddress());
+        holder.setText(R.id.tv_send_time, dataBean.getStartTime() + "");
+        holder.setText(R.id.tv_rec_time, dataBean.getEndTime() + "");
+        holder.setText(R.id.tv_car_detail, car.getModelYear() + "款 " + "|" + car.getSeatNum() + "座位 " + "|" + car.getUseType() + "");
+        holder.setText(R.id.tv_car_address, car.getAddr());
         TextView view = holder.getView(R.id.tv_sure_get_car);
         switch (status) {
             case 0:
-                view.setText("确定支付");
-                break;
-            case 1:
-                view.setText("未接单");
+                if (payStatus == 0)
+                    view.setText("确定支付");
+                else
+                    view.setVisibility(View.GONE);
                 break;
             case 2:
                 view.setText("确定取车");
                 break;
+//            case 1:
+//                view.setText("未接单");
+//                break;
             case 3:
-                view.setText("我要还车");
+                view.setText("确定还车");
                 break;
             case 5:
-//                view.setText("确认还车");
+//                view.setText("确定还车");
 //                break;
             case 6:
 //                view.setText("确认收车");
