@@ -58,8 +58,8 @@ public class OrderStatusFragment extends BaseFragment {
 
     /*
     * 订单状态：
-    * 0 下单
-    * 1 付款
+    * 0 下单未付款
+    * //1 付款
     * 2 接单未取车
     * 3 取车
     * 5 用户还车

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -80,6 +81,9 @@ public class OrderStatusActivity extends BaseActivity {
         status = databean.getStatus();
 
         initOrderInfo();
+        if (databean.getStatus() == 0 || databean.getStatus() == 1 || databean.getStatus() == 2) {
+            tvOrderCancel.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -115,6 +119,8 @@ public class OrderStatusActivity extends BaseActivity {
     TextView tvOrderAllMoney;/*合计*/
     @BindView(R.id.tv_car_status)
     TextView tvCarStatus;/*车辆状态操作*/
+    @BindView(R.id.tv_order_cancel)
+    TextView tvOrderCancel;/*取消订单*/
     @BindView(R.id.iv_order_car_pic)
     ImageView ivCarPic;
 
@@ -150,20 +156,24 @@ public class OrderStatusActivity extends BaseActivity {
         tvOrderAllMoney.setText(databean.getTotalAmount() + "");
         tvOrderGetAddrTime.setText(databean.getTakeAddress() + "\n\n" + databean.getStartTime() + "");
         tvOrderBackAddrTime.setText(databean.getReturnAddress() + "\n\n" + databean.getEndTime() + "");
+        final int payStatus = databean.getPayStatus();
         switch (status) {
             case 0:
-                tvCarStatus.setText("确定支付");
+                if (payStatus == 0)
+                    tvCarStatus.setText("确定支付");
+                else
+                    tvCarStatus.setVisibility(View.GONE);
                 break;
-            case 1:
-                tvCarStatus.setText("待接单");
-                tvCarStatus.setEnabled(false);
-                break;
+//            case 1:
+//                tvCarStatus.setText("待接单");
+//                tvCarStatus.setEnabled(false);
+//                break;
             case 2:
                 tvCarStatus.setText("确定取车");
                 break;
             case 3:
                 calcTime();
-                tvCarStatus.setText("我要还车");
+                tvCarStatus.setText("确定还车");
                 break;
             case 5:
 //                tvCarStatus.setText("确认还车");
@@ -249,26 +259,50 @@ public class OrderStatusActivity extends BaseActivity {
     @OnClick(R.id.tv_car_status)
     public void onViewClicked() {
         // 车的类型  例如我要还车  跳转相应的界面
+        final int payStatus = databean.getPayStatus();
         switch (status) {
             case 0:/*去支付*/
                 convertOrderInfo();
-                tvCarStatus.setText("确认支付");
+                tvCarStatus.setText("确定支付");
                 break;
             case 2:/*取车*/
                 takeReturnCar("1");
-                tvCarStatus.setText("待取车");
+                tvCarStatus.setText("确定取车");
                 break;
             case 3:/*还车*/
                 takeReturnCar("2");
-                tvCarStatus.setText("我要还车");
+                tvCarStatus.setText("确定还车");
                 break;
             case 5:
-                tvCarStatus.setText("确认还车");
+//                tvCarStatus.setText("确认还车");
                 break;
             case 6:
-                tvCarStatus.setText("确认收车");
+//                tvCarStatus.setText("确认收车");
                 break;
         }
+    }
+
+    @OnClick(R.id.tv_order_cancel)
+    public void cancelOrder() {
+        // TODO: 2017/12/4 违约需添加逻辑
+        if (databean.getStatus() == 2) {
+            Toast.makeText(OrderStatusActivity.this, "已接单需添加违约逻辑", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        final String url = OkHttpUtil.obtainGetUrl(Constant.API_CANCEL_ORDER,
+                "orderId", String.valueOf(databean.getId()),
+                "token", SPUtils.getToken(this));
+        OkGo.<String>get(url).execute(new StringCallback() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                final String body = response.body();
+                final BaseBean baseBean = GsonUtil.parseJsonWithGson(body, BaseBean.class);
+                if (baseBean.getErrno() == 0) {
+                    asyncShowToast("取消订单成功");
+                    finish();
+                }
+            }
+        });
     }
 
     @OnClick(R.id.iv_details)
