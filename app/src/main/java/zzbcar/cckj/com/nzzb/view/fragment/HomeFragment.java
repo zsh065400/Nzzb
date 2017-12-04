@@ -290,7 +290,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 initFreshCarType(newCarDatas);
                 initCarTypeList(brandDatas);
                 initCarType(carDatas);
-                initMarquee(marqueeDatas);
+             initMarquee(marqueeDatas);
+
             }
 
             @Override
@@ -301,6 +302,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         });
         initLocation();
     }
+
+
 
     @TargetApi(Build.VERSION_CODES.M)
     private void initLocation() {
