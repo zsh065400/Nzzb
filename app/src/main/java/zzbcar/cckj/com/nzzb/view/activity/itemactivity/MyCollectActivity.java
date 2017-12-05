@@ -1,5 +1,6 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.MyCollectAdapter;
+import zzbcar.cckj.com.nzzb.adapter.base.BaseRecycleViewAdapter;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
 import zzbcar.cckj.com.nzzb.bean.MyCollectBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
@@ -28,6 +30,7 @@ import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
 public class MyCollectActivity extends BaseActivity {
     private RecyclerView rv_car_mycollect;
+    private List<MyCollectBean.DataBean> dataList;
 
     @Override
     protected int getLayoutId() {
@@ -65,12 +68,22 @@ public class MyCollectActivity extends BaseActivity {
     }
 
     private void parseData(String body) {
-        List<MyCollectBean.DataBean> dataList = GsonUtil.parseJsonWithGson(body, MyCollectBean.class).getData();
+        dataList = GsonUtil.parseJsonWithGson(body, MyCollectBean.class).getData();
         if (dataList.size()==0){
             Toast.makeText(mContext, "还没有收藏可查询哦", Toast.LENGTH_SHORT).show();
             return;
         }
         MyCollectAdapter myCollectAdapter = new MyCollectAdapter(mContext, dataList);
+        myCollectAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+
+
+                final Intent intent = new Intent(mContext, CarDetailActivity.class);
+                intent.putExtra("carid", dataList.get(position).getId());
+                startActivity(intent);
+            }
+        });
         rv_car_mycollect.setAdapter(myCollectAdapter);
 
     }

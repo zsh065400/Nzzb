@@ -6,10 +6,10 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:background="@drawable/shape_full_lose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:background="@color/Zzb_BG"
 
         android:orientation="vertical">
 
@@ -28,32 +28,31 @@
 
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+
             android:background="@color/divider"
             android:padding="10dp" />
 
         <RelativeLayout
 
-            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp">
+            android:layout_marginTop="5dp"
+            android:padding="8dp">
 
             <TextView
-                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="查看详情"
                 android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/iv_homemarquee_rowright"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="5dp"
 
                 android:src="@mipmap/arrow_right" />
         </RelativeLayout>

@@ -208,6 +208,8 @@ public class OrderConfirmActivity extends BaseActivity {
         tvOrderGetaddrTime.setText(getAddress + "\n" + bundle.getString("getTime"));
         tvOrderBackaddrTime.setText(sendAddress + "\n" + bundle.getString("backTime"));
         tvOrderDeposit.setText(bean.getData().getSysdata().getTrafficDeposit() + "元");
+
+
         tvCarPrice.setText(amount + "元");
         tvOrderBzj.setText(cardetail.getDeposit() + "元");
         tvOrderAllMoney.setText("合计：" + (bean.getData().getSysdata().getTrafficDeposit() + amount) + "元");

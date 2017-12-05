@@ -135,10 +135,11 @@ public class OrderStatusActivity extends BaseActivity {
 
 
     private String[] useType = {"自驾", "商务", "", "婚庆"};
-
+    private String[] transmissionCase = {"双离合", "手自动一体", "ISR", "AMT", "自动"};
     private void initOrderInfo() {
         tvOrderId.setText(String.valueOf(databean.getOrderNo()));
         UserOrderBean.DataBean.CarBean car = databean.getCar();
+
 //        Picasso.with(this).load(car.getPics()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).fit().into(ivCarPic);
         GlideApp
                 .with(mContext)
@@ -151,12 +152,19 @@ public class OrderStatusActivity extends BaseActivity {
         tvOrderType.setText(useType[car.getUseType() - 1]);
         tvOrderNumber.setText(car.getPlateNo());
         tvCarPrice.setText(databean.getLeasePrice() + "");
-        tvOrderDeposit.setText(carBean.getDeposit() + "");
-        tvOrderBzj.setText(databean.getOnlineAmount() + "");
-        tvOrderAllMoney.setText(databean.getTotalAmount() + "");
+        tvOrderBzj.setText(carBean.getDeposit() + "");
+
+
+        tvOrderDeposit.setText(databean.getTrafficDepositMoney() + "");
+
+        tvOrderAllMoney.setText(databean.getOnlineAmount() + "");
         tvOrderGetAddrTime.setText(databean.getTakeAddress() + "\n\n" + databean.getStartTime() + "");
         tvOrderBackAddrTime.setText(databean.getReturnAddress() + "\n\n" + databean.getEndTime() + "");
+
         final int payStatus = databean.getPayStatus();
+
+
+
         switch (status) {
             case 0:
                 if (payStatus == 0)

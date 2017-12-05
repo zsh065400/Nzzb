@@ -59,16 +59,15 @@ import zzbcar.cckj.com.nzzb.adapter.main.GridItemAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.NewCarAdapter;
 import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
-import zzbcar.cckj.com.nzzb.utils.GlideApp;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.ScaleTransformer;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
+import zzbcar.cckj.com.nzzb.view.activity.MainActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BrandCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
-import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HomeMessageActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.LocationListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
@@ -147,29 +146,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private AlertDialog alertDialog;
     private Intent callIntent;
 
-    private void initMarquee(List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
-        List<String> marqueeText = new ArrayList<>();
-        List<ImageView> marqueeImage = new ArrayList<>();
-        for (MainPageBean.DataBean.MarqueeBean bean : marqueeDatas) {
-            marqueeText.add(bean.getTitle());
-            ImageView imageView = new ImageView(mActivity);
-//            Picasso.with(mActivity).load(bean.getPicUrl())
+//    private void initMarquee(List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
+//        List<String> marqueeText = new ArrayList<>();
+//        List<ImageView> marqueeImage = new ArrayList<>();
+//        for (MainPageBean.DataBean.MarqueeBean bean : marqueeDatas) {
+//            marqueeText.add(bean.getTitle());
+//            ImageView imageView = new ImageView(mActivity);
+////            Picasso.with(mActivity).load(bean.getPicUrl())
+////                    .placeholder(R.mipmap.ic_launcher)
+////                    .error(R.mipmap.ic_launcher)
+////                    .fit()
+////                    .into(imageView);
+//            GlideApp
+//                    .with(mActivity)
+//                    .load(bean.getPicUrl())
+//                    .centerCrop()
 //                    .placeholder(R.mipmap.ic_launcher)
 //                    .error(R.mipmap.ic_launcher)
-//                    .fit()
 //                    .into(imageView);
-            GlideApp
-                    .with(mActivity)
-                    .load(bean.getPicUrl())
-                    .centerCrop()
-                    .placeholder(R.mipmap.ic_launcher)
-                    .error(R.mipmap.ic_launcher)
-                    .into(imageView);
-            marqueeImage.add(imageView);
-        }
-        marqueeView.startWithList(marqueeText);
-        gradient.setImageViews(marqueeImage);
-    }
+//            marqueeImage.add(imageView);
+//        }
+//        marqueeView.startWithList(marqueeText);
+//        gradient.setImageViews(marqueeImage);
+//    }
 
     /**
      * 汽车类型
@@ -290,7 +289,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 initFreshCarType(newCarDatas);
                 initCarTypeList(brandDatas);
                 initCarType(carDatas);
-             initMarquee(marqueeDatas);
+
+
+
+
+//                initMarquee(marqueeDatas);
+                initMarquee();
 
             }
 
@@ -304,6 +308,26 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
 
+
+
+    private void initMarquee() {
+        //创建imageview
+        ImageView imageView = new ImageView(mActivity);
+        imageView.setImageResource(R.mipmap.image1);
+        ImageView imageView2 = new ImageView(mActivity);
+        imageView2.setImageResource(R.mipmap.image2);
+        ImageView imageView3 = new ImageView(mActivity);
+        imageView3.setImageResource(R.mipmap.image3);
+        ImageView imageView4 = new ImageView(mActivity);
+        imageView4.setImageResource(R.mipmap.image4);
+        List<ImageView> list = new ArrayList<>();
+        list.add(imageView);
+        list.add(imageView2);
+        list.add(imageView3);
+        list.add(imageView4);
+        //设置图片即可
+        gradient.setImageViews(list);
+    }
 
     @TargetApi(Build.VERSION_CODES.M)
     private void initLocation() {
@@ -327,7 +351,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tvChaozhiAll.setOnClickListener(this);
         tvChexingAll.setOnClickListener(this);
         tvLocation.setOnClickListener(this);
-        tvLocation.setOnClickListener(this);
+
         tvHomeClicktoseeDetail.setOnClickListener(this);
         //拨打客服电话
         ivService.setOnClickListener(new View.OnClickListener() {
@@ -351,29 +375,41 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
                         }).create();
                 alertDialog.show();
+                alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY);
 
             }
         });
+
+
+
+
+
+
         /*滑动改变颜色*/
         scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 /*以图片为基准，超过图片高度则固定颜色*/
                 if (scrollY >= gradient.getTop() + gradient.getMeasuredHeight()) {
-                    topBar.setBackgroundColor(Color.rgb(10,27,43));
+                    topBar.setBackgroundColor(Color.rgb(10, 27, 43));
                     /*其余情况动态计算百分比改变颜色*/
-                } else if (scrollY>=0) {
+                } else if (scrollY >= 0) {
                     //计算透明度，滑动到的距离（即当前滑动坐标）/图片高度（底部坐标）
                     float persent = scrollY * 1f / (gradient.getTop() + gradient.getMeasuredHeight());
                     //255==1，即不透明，计算动态透明度
                     int alpha = (int) (255 * persent);
                     //计算颜色值，将16进制颜色值转换为rgb颜色后填入
-                    int color = Color.argb(alpha,10,27,43);
+                    int color = Color.argb(alpha, 10, 27, 43);
                     //动态设置
                     topBar.setBackgroundColor(color);
                 }
             }
         });
+    }
+
+    private void toFindFragment() {
+        MainActivity mActivity = (MainActivity) this.mActivity;
+        mActivity.setViewPager(1);
     }
 
 
@@ -396,38 +432,42 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 intent = new Intent(mActivity, RentActivity.class);
                 intent.putExtra("carlist", (Serializable) carDatas);
                 intent.putExtra("useType", 1);
+                startActivity(intent);
                 break;
             case R.id.tv_business:
                 intent = new Intent(mActivity, RentActivity.class);
                 intent.putExtra("carlist", (Serializable) carDatas);
                 // TODO: 2017/11/15 商务用车为2
                 intent.putExtra("useType", 1);
-
+                startActivity(intent);
                 break;
             case R.id.tv_wedding:
                 intent = new Intent(mActivity, MarriedActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.tv_xinxian_all://暂时替代
-//                intent = new Intent(mActivity, LoginActivity.class);
-//                break;
+                toFindFragment();
             case R.id.tv_chaozhi_all://暂时替代
-//                intent = new Intent(mActivity, PayActivity.class);
-//                break;
+                toFindFragment();
             case R.id.tv_chexing_all:
-                intent = new Intent(mActivity, CarListActivity.class);
-                intent.putExtra("carlist", (Serializable) carDatas);
+//                intent = new Intent(mActivity, CarListActivity.class);
+//                intent.putExtra("carlist", (Serializable) carDatas);
+                toFindFragment();
+
                 break;
             case R.id.tv_location:
                 intent = new Intent(mActivity, LocationListActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_home_clicktosee_detail:
                 intent = new Intent(mActivity, HomeMessageActivity.class);
                 intent = intent.putExtra("marquee", marqueeDatas.get(1));
+                startActivity(intent);
                 break;
 
         }
-        startActivity(intent);
+
 
     }
 

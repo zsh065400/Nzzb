@@ -15,6 +15,7 @@ import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.CarBean;
 import zzbcar.cckj.com.nzzb.utils.GlideApp;
 
+
 public class AaAdapter extends BaseAdapter {
 
     private List<CarBean.DataBean> objects = new ArrayList<CarBean.DataBean>();

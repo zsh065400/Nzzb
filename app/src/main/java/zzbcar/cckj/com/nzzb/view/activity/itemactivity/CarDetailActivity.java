@@ -2,6 +2,7 @@ package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -117,6 +118,8 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     @BindView(R.id.tv_cardetail_engineer)
     TextView tv_cardetail_engineer;
+    @BindView(R.id.tv_cardetail_money_line)
+    TextView tv_cardetail_money_line;
     @BindView(R.id.tv_cardetail_seatnum)
     TextView tv_cardetail_seatnum;
     @BindView(R.id.tv_cardrtail_handblock)
@@ -220,6 +223,10 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
             }
         });
+
+        tv_cardetail_money_line.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        tv_cardetail_money_line.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
+
     }
 
     private void getCollectStatus() {
@@ -264,7 +271,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     private void parseWeekData(List<WeekPriceBean.DataBean> data) {
         llCarPriceList.removeAllViews();
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 0; i < data.size()-1; i++) {
             View inflate = getLayoutInflater().inflate(R.layout.car_detail_week_item, null, false);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
             inflate.setLayoutParams(lp);
