@@ -282,15 +282,15 @@
                     android:textColor="#000000"
                     android:textSize="12dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@id/tv_car_price"
-                    android:ellipsize="marquee"
-                    android:text="7000元 × 1天"
-                    android:textColor="#989898"
-                    android:textSize="12dp"/>
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:layout_toLeftOf="@id/tv_car_price"-->
+                    <!--android:ellipsize="marquee"-->
+                    <!--android:text="7000元 × 1天"-->
+                    <!--android:textColor="#989898"-->
+                    <!--android:textSize="12dp"/>-->
 
             </RelativeLayout>
 

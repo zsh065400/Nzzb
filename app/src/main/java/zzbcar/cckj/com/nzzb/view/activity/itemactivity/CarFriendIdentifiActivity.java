@@ -119,7 +119,7 @@ public class CarFriendIdentifiActivity extends BaseActivity implements View.OnCl
         OkGo.<String>get(url).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                Toast.makeText(mContext, "提交成功"+response.body(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "提交成功", Toast.LENGTH_SHORT).show();
 
 
             }

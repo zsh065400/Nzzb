@@ -3,12 +3,27 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+<LinearLayout
+    android:id="@+id/ll_location_city_item"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <Button
+    <TextView
+        android:padding="10dp"
         android:layout_marginLeft="20dp"
         android:text="xxxxxx"
-        android:textSize="18sp"
-        android:id="@+id/bt_location_city_item"
+        android:textSize="15sp"
+        android:id="@+id/tv_location_city_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <View
+        android:layout_marginTop="8dp"
+        android:background="@color/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+</LinearLayout>
+
 </LinearLayout>

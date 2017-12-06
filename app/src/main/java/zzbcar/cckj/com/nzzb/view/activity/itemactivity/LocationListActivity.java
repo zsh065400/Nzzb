@@ -37,7 +37,7 @@ public class LocationListActivity extends BaseActivity {
     protected void initViews() {
         rv_location_list = (RecyclerView) findViewById(R.id.rv_location_list);
 
-        rv_location_list.setLayoutManager(new GridLayoutManager(mContext, 4, GridLayoutManager.VERTICAL, false));
+        rv_location_list.setLayoutManager(new GridLayoutManager(mContext, 1, GridLayoutManager.VERTICAL, false));
 
         manager = new OkManager();
         manager.asyncJsonByURL(Constant.LOCATION_SELECT_URL, new OkManager.Func1() {

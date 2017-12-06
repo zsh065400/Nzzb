@@ -5,7 +5,13 @@
     android:layout_height="match_parent"
     android:background="@mipmap/become_driver">
 
-    
+    <ImageView
+        android:id="@+id/iv_pre_carfrienf_back"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:background="@mipmap/row_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/bt_mine_fragment_becomedriver"
         android:textSize="18sp"

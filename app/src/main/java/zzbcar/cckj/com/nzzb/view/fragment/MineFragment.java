@@ -116,7 +116,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             OkGo.<String>get(Constant.CHANGE_INFO)
                     .params("userId", signInfo.getId())
                     .params("avatar", hearUrl)
-                    .params("token",SPUtils.getToken(mActivity))
+                    .params("token", SPUtils.getToken(mActivity))
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
@@ -220,9 +220,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
 
 
-
-
-      toCollectView();
+        toCollectView();
 
 //        toCollectView();
 
@@ -325,7 +323,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 //                else {
 //                    toActivity(LoginActivity.class);
 //                }
-                  toActivity(PersonDataActivity.class,true);
+                toActivity(PersonDataActivity.class, true);
                 break;
 
             case R.id.tv_minfragment_phone_number:
@@ -360,14 +358,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private void toCollectView() {
         SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(getContext());
         OkGo.<String>get(Constant.PERSON_MESSAGE)
-                .params("userId",signInfo.getId())
+                .params("userId", signInfo.getId())
 //                .params("userId", 1)
-                .params("token",SPUtils.getToken(mActivity))
+                .params("token", SPUtils.getToken(mActivity))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        PeresonMessageBean.DataBean permessBean = GsonUtil.parseJsonWithGson(response.body(), PeresonMessageBean.class).getData();
-                        setViewInfo(permessBean);
+                        PeresonMessageBean permessBean = GsonUtil.parseJsonWithGson(response.body(), PeresonMessageBean.class);
+                        if (permessBean.getErrno() == 0)
+                            setViewInfo(permessBean.getData());
 
                     }
 

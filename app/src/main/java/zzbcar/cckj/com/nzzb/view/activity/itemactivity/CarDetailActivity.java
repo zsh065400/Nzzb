@@ -2,6 +2,7 @@ package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -40,6 +41,7 @@ import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
+import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 
 
 /**
@@ -116,6 +118,8 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     @BindView(R.id.tv_cardetail_engineer)
     TextView tv_cardetail_engineer;
+    @BindView(R.id.tv_cardetail_money_line)
+    TextView tv_cardetail_money_line;
     @BindView(R.id.tv_cardetail_seatnum)
     TextView tv_cardetail_seatnum;
     @BindView(R.id.tv_cardrtail_handblock)
@@ -182,7 +186,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                     });
         } else {
             Toast.makeText(mContext, "请登录后再试", Toast.LENGTH_SHORT).show();
-            toActivity(CarDetailActivity.class, true);
+            toActivity(LoginActivity.class);
         }
 
 
@@ -219,6 +223,10 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
             }
         });
+
+        tv_cardetail_money_line.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        tv_cardetail_money_line.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
+
     }
 
     private void getCollectStatus() {
@@ -263,7 +271,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     private void parseWeekData(List<WeekPriceBean.DataBean> data) {
         llCarPriceList.removeAllViews();
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 0; i < data.size()-1; i++) {
             View inflate = getLayoutInflater().inflate(R.layout.car_detail_week_item, null, false);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
             inflate.setLayoutParams(lp);
@@ -365,20 +373,20 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             case R.id.tv_immediately_rent_car:
                 if (carDetailBean != null) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("type", SelecTimeActivity.DETAIL_KEY);
+                    bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
                     bundle.putSerializable("cardetail", carDetailBean);
                     bundle.putString("getAddress", getAddress);
-                    toActivity(SelecTimeActivity.class, bundle);
+                    toActivity(SelectTimeActivity.class, bundle);
                 }
                 break;
 
             case R.id.ll_car_price_list:
                 if (carDetailBean != null) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("type", SelecTimeActivity.DETAIL_KEY);
+                    bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
                     bundle.putSerializable("cardetail", carDetailBean);
                     bundle.putString("getAddress", getAddress);
-                    toActivity(SelecTimeActivity.class, bundle);
+                    toActivity(SelectTimeActivity.class, bundle);
                 }
                 break;
             case R.id.tv_car_addr:
@@ -455,5 +463,9 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+    @Override
+    protected void setStatusBar() {
+        StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
 }

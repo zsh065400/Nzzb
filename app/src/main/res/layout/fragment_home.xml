@@ -1,61 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#0a1b2b"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:layout_gravity="bottom"
-            android:paddingBottom="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="10dp">
-
-            <TextView
-                android:id="@+id/tv_location"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:drawablePadding="1dp"
-                android:drawableRight="@drawable/ic_expand_white_24dp"
-                android:gravity="center"
-                android:text="杭州"
-                android:textColor="@color/white"
-                android:textSize="17dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="至尊宝"
-                android:textColor="@color/Zzb_BG"
-                android:textSize="20dp"/>
-
-            <ImageView
-                android:id="@+id/iv_service"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/main_service"/>
-
-        </RelativeLayout>
-    </RelativeLayout>
-
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent">
@@ -73,7 +25,7 @@
                 <zzbcar.cckj.com.nzzb.view.customview.Gradient
                     android:id="@+id/gradient"
                     android:layout_width="match_parent"
-                    android:layout_height="270dp"/>
+                    android:layout_height="270dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -320,5 +272,53 @@
 
     </android.support.v4.widget.NestedScrollView>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_gravity="bottom"
+            android:background="@android:color/transparent"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:drawablePadding="1dp"
+                android:drawableRight="@drawable/ic_expand_white_24dp"
+                android:gravity="center"
+                android:text="杭州"
+                android:textColor="@color/white"
+                android:textSize="17dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="至尊宝"
+                android:textColor="@color/Zzb_BG"
+                android:textSize="20dp"/>
+
+            <ImageView
+                android:id="@+id/iv_service"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/main_service"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>
 

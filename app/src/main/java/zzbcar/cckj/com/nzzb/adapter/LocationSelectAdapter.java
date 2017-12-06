@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -37,8 +37,8 @@ public class LocationSelectAdapter extends RecyclerView.Adapter<LocationSelectAd
 
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, final int i) {
-           myViewHolder.bt_location_city_item.setText(data.get(i).getName());
-        myViewHolder.bt_location_city_item.setOnClickListener(new View.OnClickListener() {
+           myViewHolder.tv_location_city_item.setText(data.get(i).getName());
+        myViewHolder.tv_location_city_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.OnRecycleItemClick(view,data.get(i));
@@ -50,15 +50,16 @@ public class LocationSelectAdapter extends RecyclerView.Adapter<LocationSelectAd
 
     @Override
     public int getItemCount() {
+
         return data.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-       private Button bt_location_city_item;
+       private TextView tv_location_city_item;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            bt_location_city_item = itemView.findViewById(R.id.bt_location_city_item);
+            tv_location_city_item = itemView.findViewById(R.id.tv_location_city_item);
 
         }
     }

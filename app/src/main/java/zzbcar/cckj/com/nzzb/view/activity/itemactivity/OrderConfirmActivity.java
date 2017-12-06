@@ -169,7 +169,6 @@ public class OrderConfirmActivity extends BaseActivity {
     }
 
     /*逻辑调用位置需要优化，此处根据后台逻辑暂定*/
-    // TODO: 2017/11/13 梳理api调用逻辑和界面关系
     /*计算租金*/
     private void calcPrice() {
         //startTime = getCurrentTime(false);
@@ -209,6 +208,8 @@ public class OrderConfirmActivity extends BaseActivity {
         tvOrderGetaddrTime.setText(getAddress + "\n" + bundle.getString("getTime"));
         tvOrderBackaddrTime.setText(sendAddress + "\n" + bundle.getString("backTime"));
         tvOrderDeposit.setText(bean.getData().getSysdata().getTrafficDeposit() + "元");
+
+
         tvCarPrice.setText(amount + "元");
         tvOrderBzj.setText(cardetail.getDeposit() + "元");
         tvOrderAllMoney.setText("合计：" + (bean.getData().getSysdata().getTrafficDeposit() + amount) + "元");

@@ -167,7 +167,8 @@ public class FindCarFragment extends BaseFragment {
         }
         if (itemAdapter == null) {
             itemAdapter = new ListItemAdapter(mActivity, data);
-            itemAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
+            itemAdapter.setOnItemClickListener(
+                    new BaseRecycleViewAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View v, int position) {
                     /*跳转详情页面*/
