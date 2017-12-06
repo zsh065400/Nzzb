@@ -35,7 +35,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@color/white"
+                        android:background="#f5f5f5"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -92,10 +92,15 @@
                     android:layout_height="15dp"
                     android:background="#e9e6e6"/>
 
-                <zzbcar.cckj.com.nzzb.widget.NoScrollViewPager
-                    android:id="@+id/vp_select_time"
+                <!--<zzbcar.cckj.com.nzzb.widget.NoScrollViewPager-->
+                <!--android:id="@+id/vp_select_time"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="380dp"/>-->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/plan_time_calender"
                     android:layout_width="match_parent"
-                    android:layout_height="380dp"/>
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

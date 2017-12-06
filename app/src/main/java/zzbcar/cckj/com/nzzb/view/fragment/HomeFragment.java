@@ -438,7 +438,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 intent = new Intent(mActivity, RentActivity.class);
                 intent.putExtra("carlist", (Serializable) carDatas);
                 // TODO: 2017/11/15 商务用车为2
-                intent.putExtra("useType", 1);
+                intent.putExtra("useType", 2);
                 startActivity(intent);
                 break;
             case R.id.tv_wedding:

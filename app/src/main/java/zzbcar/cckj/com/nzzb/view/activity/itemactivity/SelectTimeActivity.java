@@ -3,9 +3,11 @@ package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -18,18 +20,21 @@ import com.bigkoo.pickerview.listener.OnItemSelectedListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.xq.calendartest.MonthTimeAdapter;
+import com.xq.calendartest.entity.DayTimeEntity;
+import com.xq.calendartest.entity.MonthTimeEntity;
+import com.xq.calendartest.entity.UpdataCalendar;
+import com.xq.calendartest.utils.SharePreferences;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.VpSelecTimeAdapter;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
@@ -39,16 +44,14 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
-import zzbcar.cckj.com.nzzb.view.customview.CommonCalendarView;
-import zzbcar.cckj.com.nzzb.widget.NoScrollViewPager;
 
 /**
  * Created by Admin on 2017/11/4.
  */
 
 public class SelectTimeActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-    @BindView(R.id.vp_select_time)
-    NoScrollViewPager vpSelectTime;
+    //    @BindView(R.id.vp_select_time)
+//    NoScrollViewPager vpSelectTime;
     @BindView(R.id.tv_sure_send_car)
     TextView tvSureSendCar;
     @BindView(R.id.tv_select_getAddress)
@@ -66,12 +69,8 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
     TextView tvSetSelfRepaycarAddress;
     private TextView tv_get_car_time;
     private TextView tv_back_car_time;
-    private ImageView iv_swicth;
-    private ImageView red_point;
-    private LinearLayout ll_get_car;
-    private LinearLayout ll_back_car;
-    private CommonCalendarView calendarView;
-    private Map<String, List> mYearMonthMap = new HashMap<>();
+    //    private LinearLayout ll_get_car;
+//    private LinearLayout ll_back_car;
     private TimePickerView pvCustomTime;
     private String chooseDate = "";
     private String chooseTime = "";
@@ -84,7 +83,11 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
     private String type;
     private CarDetailBean.DataBean cardetail;
     private List<MonthPriceBean.DataBean> monthPriceList;
-    private boolean QuCheAddress = true;
+    private boolean QuCheAddress;
+    /*0为start，1为stop*/
+    private int chooseType = 0;
+    private int count = 0;
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected int getLayoutId() {
@@ -96,10 +99,29 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         initTimePicker();
         tv_get_car_time = (TextView) findViewById(R.id.tv_get_car_time);
         tv_back_car_time = (TextView) findViewById(R.id.tv_back_car_time);
-        ll_get_car = (LinearLayout) findViewById(R.id.ll_get_car);
-        ll_back_car = (LinearLayout) findViewById(R.id.ll_back_car);
+//        ll_get_car = (LinearLayout) findViewById(R.id.ll_get_car);
+//        ll_back_car = (LinearLayout) findViewById(R.id.ll_back_car);
 
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
+
+
+        /*新加*/
+        isPreferences = new SharePreferences(this);
+        EventBus.getDefault().register(this);
+        recycle = (RecyclerView) findViewById(R.id.plan_time_calender);
+        // 上下文
+//垂直布局,
+        layoutManager = new LinearLayoutManager(this,   // 上下文
+                LinearLayout.HORIZONTAL,  //垂直布局,
+                false);
+        recycle.setLayoutManager(layoutManager);
+        recycle.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                scrollState = newState;
+            }
+        });
+
     }
 
     @Override
@@ -111,19 +133,138 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                         finish();
                     }
                 });
-        ll_get_car.setOnClickListener(this);
-        ll_back_car.setOnClickListener(this);
-        ll_get_car.setEnabled(false);
         tvSureSendCar.setOnClickListener(this);
         tvSelectGetAddress.setOnClickListener(this);
         tvSelectSendAddress.setOnClickListener(this);
-
-
     }
+
+    //直接显示第n个item内容
+    public static void MoveToPosition(LinearLayoutManager manager, RecyclerView mRecyclerView, int n) {
+        int firstItem = manager.findFirstVisibleItemPosition();
+        int lastItem = manager.findLastVisibleItemPosition();
+        if (n <= firstItem) {
+            mRecyclerView.scrollToPosition(n);
+        } else if (n <= lastItem) {
+            int top = mRecyclerView.getChildAt(n - firstItem).getTop();
+            mRecyclerView.scrollBy(0, top);
+        } else {
+            mRecyclerView.scrollToPosition(n);
+        }
+    }
+
+    /*EventBus事件*/
+    public void onEventMainThread(UpdataCalendar event) {
+        if (scrollState == RecyclerView.SCROLL_STATE_IDLE)
+            adapter.notifyDataSetChanged();
+    }
+
+    private void initNewCalendar() {
+        startDay = new DayTimeEntity(0, 0, 0, 0, 0.0);
+        stopDay = new DayTimeEntity(-1, -1, -1, -1, 0.0);
+        datas = new ArrayList<>();
+
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH) + 1;
+
+        /*控制显示的月数*/
+        datas.add(new MonthTimeEntity(year, month, monthPriceList.get(0)));                //
+        for (int i = 0; i < 12; i++) {
+            MonthTimeEntity monthTimeEntity = new MonthTimeEntity();
+            if (month >= 12) {//明年
+                year = c.get(Calendar.YEAR) + 1;
+                month = 1;
+                monthTimeEntity.setYear(year);
+                monthTimeEntity.setMonth(month);
+            } else {
+                month = month + 1;
+                monthTimeEntity.setYear(year);
+                monthTimeEntity.setMonth(month);
+            }
+            monthTimeEntity.setPriceBean(monthPriceList.get(i + 1));
+            datas.add(monthTimeEntity);
+        }
+
+        adapter = new MonthTimeAdapter(datas, SelectTimeActivity.this);
+        recycle.setAdapter(adapter);
+        /*模拟viewpager*/
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(recycle);
+
+        adapter.setOnDayItemClickListener(new MonthTimeAdapter.OnDayItemClickListener() {
+            @Override
+            public void OnDayItemClick(View view, int position) {
+                isPreferences.updateSp("start_month_position", startDay.getMonthPosition());
+                isPreferences.updateSp("start_day_position", startDay.getDayPosition());
+                isPreferences.updateSp("end_month_position", stopDay.getMonthPosition());
+                isPreferences.updateSp("end_day_position", stopDay.getDayPosition());
+
+                isPreferences.updateSp("start_year", startDay.getYear());
+                isPreferences.updateSp("start_month", startDay.getMonth());
+                isPreferences.updateSp("start_day", startDay.getDay());
+
+                isPreferences.updateSp("end_year", stopDay.getYear());
+                isPreferences.updateSp("end_month", stopDay.getMonth());
+                isPreferences.updateSp("end_day", stopDay.getDay());
+
+                String timeStop = String.format("%s-%s-%s", stopDay.getYear(), stopDay.getMonth(), stopDay.getDay());
+                System.out.println(timeStop);
+                chooseDate = timeStop;
+                tv_picker_date.setText(chooseDate);
+                chooseType = 1;
+                pvCustomTime.show();
+            }
+
+            @Override
+            public void onStartClick(View view, int position) {
+                String timeStart = String.format("%s-%s-%s", startDay.getYear(), startDay.getMonth(), startDay.getDay());
+                System.out.println(timeStart);
+                chooseDate = timeStart;
+                tv_picker_date.setText(chooseDate);
+                chooseType = 0;
+                pvCustomTime.show();
+            }
+
+            @Override
+            public void onReChoose(View view, int position) {
+                isCommit = false;
+                tv_back_car_time.setText("请设置还车时间");
+                tv_get_car_time.setText("请设置取车时间");
+                tv_picker_date.setText("");
+                tv_picker_time.setText("");
+
+                String timeStart = String.format("%s-%s-%s", startDay.getYear(), startDay.getMonth(), startDay.getDay());
+                System.out.println(timeStart);
+                chooseDate = timeStart;
+                tv_picker_date.setText(chooseDate);
+                chooseType = 0;
+                pvCustomTime.show();
+            }
+
+            @Override
+            public void onSameDay(View view, int position) {
+                String timeStop = String.format("%s-%s-%s", stopDay.getYear(), stopDay.getMonth(), stopDay.getDay());
+                System.out.println(timeStop);
+                chooseDate = timeStop;
+                tv_picker_date.setText(chooseDate);
+                chooseType = 1;
+                pvCustomTime.show();
+            }
+        });
+    }
+
+    /*新修改*/
+    private SharePreferences isPreferences;
+    private RecyclerView recycle;
+    private MonthTimeAdapter adapter;
+    private ArrayList<MonthTimeEntity> datas;
+
+    public static DayTimeEntity startDay;
+    public static DayTimeEntity stopDay;
+    private int scrollState;
 
     @Override
     protected void initDatas() {
-
         swh_status_pullcar.setOnCheckedChangeListener(this);
         swh_status_sendcar.setOnCheckedChangeListener(this);
         swh_status_sendcar.setChecked(false);
@@ -137,81 +278,14 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                 swh_status_sendcar.setChecked(true);
                 tvSelectGetAddress.setText(bundle.getString("getAddress"));
             }
-
-            Calendar calendar = Calendar.getInstance();
-            getPrice(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
         } else {
             if (!bundle.getString("getAddress").equals("请点击设置送车上门地址")) {
                 swh_status_sendcar.setChecked(true);
                 tvSelectGetAddress.setText(bundle.getString("getAddress"));
             }
-            setVpData();
         }
-        /*this.calendarView.init(new CommonCalendarView.DatePickerController() {
-            @Override
-            public int getMaxYear() {
-                return 2018;
-            }
-
-            @Override
-            public void onDayOfMonthSelected(int year, int month, int day) {
-                Toast.makeText(SelectTimeActivity.this, String.format("%s-%s-%s", year, StringUtils.leftPad(String.valueOf(month), 2, "0"),
-                        StringUtils.leftPad(String.valueOf(day), 2, "0")), Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onDayOfMonthAndDataSelected(int year, int month, int day, List obj) {
-                if (obj == null) {
-                    return;
-                }
-                String priceDate = String.format("%s-%s-%s", year,
-                        StringUtils.leftPad(month + "", 2, "0"), StringUtils.leftPad(String.valueOf(day), 2, "0"));
-                for (int i = 0; i < obj.size(); i++) {
-                    final ProductDatePrice datePrice = (ProductDatePrice) obj.get(i);
-                    if (datePrice == null) {
-                        continue;
-                    }
-                    if (TextUtils.equals(datePrice.getPriceDate(), priceDate)) {
-                        Toast.makeText(SelectTimeActivity.this, datePrice.getPriceDate(), Toast.LENGTH_SHORT).show();
-                        final TimePickerDialog timePickerDialog = new TimePickerDialog(SelectTimeActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                if (!ll_get_car.isEnabled()) {
-                                    tv_back_car_time.setText(datePrice.getPriceDate() + " " + hourOfDay + ":" + minute);
-                                    ll_back_car.setEnabled(false);
-                                    ll_get_car.setEnabled(true);
-                                } else {
-                                    tv_back_car_time.setText(datePrice.getPriceDate() + " " + hourOfDay + ":" + minute);
-                                    ll_back_car.setEnabled(false);
-                                    ll_get_car.setEnabled(true);
-                                }
-
-
-                            }
-                        }, Calendar.HOUR_OF_DAY, Calendar.MINUTE, true);
-                    }
-                }
-            }
-
-            @Override
-            public void showOtherFields(Object obj, View view, int gridItemYear, int gridItemMonth, int gridItemDay) {
-                //当你设置了数据源之后，界面渲染会循环调用showOtherFields方法，在该方法中实现同一日期设置界面显示效果。
-                ProductDatePrice productDatePrice = (ProductDatePrice) obj;
-                if (TextUtils.equals(productDatePrice.getPriceDate(), String.format("%s-%s-%s", gridItemYear,
-                        StringUtils.leftPad(gridItemMonth + "", 2, "0"), StringUtils.leftPad(String.valueOf(gridItemDay), 2, "0")))) {
-                    CommonCalendarView.GridViewHolder viewHolder = (CommonCalendarView.GridViewHolder) view.getTag();
-                    viewHolder.mPriceTv.setText(String.format("¥ %s", productDatePrice.getPrice()));
-                    view.setEnabled(true);
-                    viewHolder.mTextView.setEnabled(true);
-                }
-            }
-
-            @Override
-            public Map<String, List> getDataSource() {
-                return mYearMonthMap;
-            }
-        });*/
-
+        Calendar calendar = Calendar.getInstance();
+        getPrice(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
     }
 
     private void getPrice(final int year, final int month, final int index) {
@@ -219,7 +293,8 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         if (monthPriceList == null)
             monthPriceList = new ArrayList<>();
         if (index == 13) {
-            setVpData();
+            initNewCalendar();
+            MoveToPosition(layoutManager, recycle, isPreferences.getSp().getInt("start_month_position", 0));
             return;
         }
         OkGo.<String>get(Constant.API_PRICE_MONTH)
@@ -229,52 +304,17 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        //return list.addAll(getPrice((month<12?year:year+1),(month<12?month+1:1)));
+//                        return list.addAll(getPrice((month<12?year:year+1),(month<12?month+1:1)));
                         monthPriceList.addAll(GsonUtil.parseJsonWithGson(response.body(), MonthPriceBean.class).getData());
                         getPrice((month < 12 ? year : year + 1), (month < 12 ? month + 1 : 1), index + 1);
                     }
                 });
     }
 
-    public void setVpData() {
-        if (vpSelectTime != null) {
-            vpSelecTimeAdapter = new VpSelecTimeAdapter(mContext, 365, vpSelectTime, monthPriceList);
-            vpSelectTime.setAdapter(vpSelecTimeAdapter);
-            vpSelecTimeAdapter.setOnCalendarOrderListener(new VpSelecTimeAdapter.OnCalendarOrderListener() {
-                @Override
-                public void onOrder(String orderInfo) {
-                    //Toast.makeText(mContext, orderInfo, Toast.LENGTH_SHORT).show();
-                    chooseDate = orderInfo;
-                    tv_picker_date.setText(orderInfo);
-                    pvCustomTime.show();
-                }
-            });
-        }
-    }
-
     @Override
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
-
-            case R.id.ll_get_car:
-                ll_get_car.setEnabled(false);
-                ll_back_car.setEnabled(true);
-                ll_back_car.setBackgroundColor(getColor(R.color.light_while));
-                ll_get_car.setBackgroundColor(getColor(R.color.white));
-                break;
-            case R.id.ll_back_car:
-                if (tv_get_car_time.getText().equals("请设置取车时间")) {
-                    Toast.makeText(this, "请设置取车时间", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                ll_back_car.setEnabled(false);
-                ll_get_car.setEnabled(true);
-                chooseDate = "";
-                chooseTime = "";
-                ll_back_car.setBackgroundColor(getColor(R.color.white));
-                ll_get_car.setBackgroundColor(getColor(R.color.light_while));
-                break;
             case R.id.tv_sure_send_car:
                 submitTime();
                 break;
@@ -336,49 +376,53 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         //控制时间范围(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
         //因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
         final Calendar selectedDate = Calendar.getInstance();//系统当前时间
-        Calendar startDate = Calendar.getInstance();
+        final Calendar startDate = Calendar.getInstance();
         startDate.set(2014, 1, 23);
         Calendar endDate = Calendar.getInstance();
         endDate.set(2027, 2, 28);
         //时间选择器 ，自定义布局
-        pvCustomTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
-            @Override
-            public void onTimeSelect(Date date, View v) {//选中事件回调
-                //btn_CustomTime.setText(getTime(date));
-                chooseTime = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
-                if (isCommit) {
-                    final String selectTime = chooseDate + " " + chooseTime;
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    /*如果当前时间在选择时间后*/
-                    if (checkDateAfter(format.format(new Date()), selectTime)) {
-                        Toast.makeText(mContext, "选择时间不能早与当前时间", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (!ll_get_car.isEnabled()) {
-                        tv_get_car_time.setText(selectTime);
-                    } else {
-                        if (checkDateAfter(selectTime, tv_get_car_time.getText().toString())) {
-                            try {
-                                if (daysBetween(format.parse(tv_get_car_time.getText().toString()),format.parse(selectTime)) < 6) {
-                                    Toast.makeText(mContext, "租赁时长不低于6小时", Toast.LENGTH_SHORT).show();
-                                    return;
-                                } else
-                                    tv_back_car_time.setText(selectTime);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
+        pvCustomTime = new TimePickerView.Builder
+                (this, new TimePickerView.OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {//选中事件回调
+                        //btn_CustomTime.setText(getTime(date));
+                        chooseTime = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
+                        if (isCommit) {
+                            final String selectTime = chooseDate + " " + chooseTime;
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                            /*如果当前时间在选择时间后*/
+                            if (checkDateAfter(format.format(new Date()), selectTime)) {
+                                Toast.makeText(mContext, "选择时间不能早与当前时间", Toast.LENGTH_SHORT).show();
+                                doCancel();
                                 return;
                             }
+                            if (chooseType == 0) {
+                                tv_get_car_time.setText(selectTime);
+                            } else {
+                                if (checkDateAfter(selectTime, tv_get_car_time.getText().toString())) {
+                                    try {
+                                        if (daysBetween(format.parse(tv_get_car_time.getText().toString()), format.parse(selectTime)) < 6) {
+                                            doCancel();
+                                            Toast.makeText(mContext, "租赁时长不低于6小时", Toast.LENGTH_SHORT).show();
+                                            return;
+                                        } else
+                                            tv_back_car_time.setText(selectTime);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                        doCancel();
+                                        return;
+                                    }
+                                } else {
+                                    Toast.makeText(mContext, "还车时间不能在取车时间之前", Toast.LENGTH_SHORT).show();
+                                    doCancel();
+                                }
+                            }
+                            isCommit = false;
                         } else {
-                            Toast.makeText(mContext, "还车时间不能在取车时间之前", Toast.LENGTH_SHORT).show();
+                            tv_picker_time.setText(chooseTime);
                         }
                     }
-
-                    isCommit = false;
-                } else {
-                    tv_picker_time.setText(chooseTime);
-                }
-            }
-        })
+                })
                 .setDate(selectedDate)
                 .setRangDate(startDate, endDate)
                 .setOutSideCancelable(false)
@@ -410,9 +454,9 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                                 isCommit = true;
                                 pvCustomTime.returnData();
                                 pvCustomTime.dismiss();
-                                if (tv_back_car_time.getText().equals("请设置还车时间")) {
-                                    ll_back_car.performClick();
-                                }
+//                                if (tv_back_car_time.getText().equals("请设置还车时间")) {
+//                                    ll_back_car.performClick();
+//                                }
                             }
                         });
                         tv_cancel_add.setOnClickListener(new View.OnClickListener() {
@@ -420,6 +464,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                             public void onClick(View view) {
                                 pvCustomTime.dismiss();
                                 chooseTime = "";
+                                doCancel();
                             }
                         });
                     }
@@ -435,11 +480,15 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                 .build();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    private void doCancel() {
+        if (chooseType == 0) {
+            clearStart();
+
+        } else {
+            clearStop();
+
+        }
+        EventBus.getDefault().post(new UpdataCalendar());
     }
 
     private String getTime(Date date) {//可根据需要自行截取数据显示
@@ -506,8 +555,6 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
             }
 
         }
-
-
     }
 
     @Override
@@ -537,5 +584,41 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        /*重置信息*/
+        isPreferences.updateSp("start_month_position", 0);
+        isPreferences.updateSp("start_day_position", 0);
+
+        isPreferences.updateSp("start_year", 0);
+        isPreferences.updateSp("start_month", 0);
+        isPreferences.updateSp("start_day", 0);
+
+        isPreferences.updateSp("end_month_position", -1);
+        isPreferences.updateSp("end_day_position", -1);
+
+        isPreferences.updateSp("end_year", -1);
+        isPreferences.updateSp("end_month", -1);
+        isPreferences.updateSp("end_day", -1);
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    private void clearStop() {
+        stopDay.setDay(-1);
+        stopDay.setMonth(-1);
+        stopDay.setYear(-1);
+        stopDay.setMonthPosition(-1);
+        stopDay.setDayPosition(-1);
+    }
+
+    private void clearStart() {
+        startDay.setDay(0);
+        startDay.setMonth(0);
+        startDay.setYear(0);
+        startDay.setMonthPosition(0);
+        startDay.setDayPosition(0);
     }
 }

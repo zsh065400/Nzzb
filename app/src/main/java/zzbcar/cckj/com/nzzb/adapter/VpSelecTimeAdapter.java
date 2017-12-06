@@ -80,7 +80,7 @@ public class VpSelecTimeAdapter extends PagerAdapter implements View.OnClickList
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("test Tag", "onItemClick: " + position + ":" + id);
+                Log.d("test Tag", "onStartClick: " + position + ":" + id);
                 Calendar cl = (Calendar) c.clone();
                 cl.set(Calendar.DAY_OF_MONTH, 1);
                 int day = position + 2 - cl.get(Calendar.DAY_OF_WEEK);
