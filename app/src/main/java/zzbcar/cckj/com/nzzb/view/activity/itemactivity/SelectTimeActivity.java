@@ -46,7 +46,7 @@ import zzbcar.cckj.com.nzzb.widget.NoScrollViewPager;
  * Created by Admin on 2017/11/4.
  */
 
-public class SelecTimeActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class SelectTimeActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     @BindView(R.id.vp_select_time)
     NoScrollViewPager vpSelectTime;
     @BindView(R.id.tv_sure_send_car)
@@ -85,10 +85,12 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     private CarDetailBean.DataBean cardetail;
     private List<MonthPriceBean.DataBean> monthPriceList;
     private boolean QuCheAddress = true;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_select_time;
     }
+
     @Override
     protected void initViews() {
         initTimePicker();
@@ -131,18 +133,18 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         type = bundle.getString("type");
         if (type.equals(DETAIL_KEY)) {
             cardetail = (CarDetailBean.DataBean) bundle.getSerializable("cardetail");
-	    if(!bundle.getString("getAddress").equals("请点击设置送车上门地址")){
-			swh_status_sendcar.setChecked(true);
-			tvSelectGetAddress.setText(bundle.getString("getAddress"));
-		}
+            if (!bundle.getString("getAddress").equals("请点击设置送车上门地址")) {
+                swh_status_sendcar.setChecked(true);
+                tvSelectGetAddress.setText(bundle.getString("getAddress"));
+            }
 
             Calendar calendar = Calendar.getInstance();
             getPrice(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, 0);
         } else {
-            	if(!bundle.getString("getAddress").equals("请点击设置送车上门地址")){
-			swh_status_sendcar.setChecked(true);
-			tvSelectGetAddress.setText(bundle.getString("getAddress"));
-		}
+            if (!bundle.getString("getAddress").equals("请点击设置送车上门地址")) {
+                swh_status_sendcar.setChecked(true);
+                tvSelectGetAddress.setText(bundle.getString("getAddress"));
+            }
             setVpData();
         }
         /*this.calendarView.init(new CommonCalendarView.DatePickerController() {
@@ -153,7 +155,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
 
             @Override
             public void onDayOfMonthSelected(int year, int month, int day) {
-                Toast.makeText(SelecTimeActivity.this, String.format("%s-%s-%s", year, StringUtils.leftPad(String.valueOf(month), 2, "0"),
+                Toast.makeText(SelectTimeActivity.this, String.format("%s-%s-%s", year, StringUtils.leftPad(String.valueOf(month), 2, "0"),
                         StringUtils.leftPad(String.valueOf(day), 2, "0")), Toast.LENGTH_LONG).show();
             }
 
@@ -170,8 +172,8 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                         continue;
                     }
                     if (TextUtils.equals(datePrice.getPriceDate(), priceDate)) {
-                        Toast.makeText(SelecTimeActivity.this, datePrice.getPriceDate(), Toast.LENGTH_SHORT).show();
-                        final TimePickerDialog timePickerDialog = new TimePickerDialog(SelecTimeActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                        Toast.makeText(SelectTimeActivity.this, datePrice.getPriceDate(), Toast.LENGTH_SHORT).show();
+                        final TimePickerDialog timePickerDialog = new TimePickerDialog(SelectTimeActivity.this, new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 if (!ll_get_car.isEnabled()) {
@@ -235,7 +237,6 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void setVpData() {
-
         if (vpSelectTime != null) {
             vpSelecTimeAdapter = new VpSelecTimeAdapter(mContext, 365, vpSelectTime, monthPriceList);
             vpSelectTime.setAdapter(vpSelecTimeAdapter);
@@ -246,7 +247,6 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                     chooseDate = orderInfo;
                     tv_picker_date.setText(orderInfo);
                     pvCustomTime.show();
-
                 }
             });
         }
@@ -279,13 +279,13 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                 submitTime();
                 break;
             case R.id.tv_select_getAddress:
-                QuCheAddress=true;
+                QuCheAddress = true;
                 intent = new Intent(mContext, SetAddressActivity.class);
                 intent.putExtra("type", SetAddressActivity.GET_CAR);
                 startActivityForResult(intent, 0);
                 break;
             case R.id.tv_select_sendAddress:
-                QuCheAddress=false;
+                QuCheAddress = false;
                 intent = new Intent(mContext, SetAddressActivity.class);
                 intent.putExtra("type", SetAddressActivity.SEND_CAR);
                 startActivityForResult(intent, 1);
@@ -335,7 +335,7 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
     private void initTimePicker() {
         //控制时间范围(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
         //因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
-        Calendar selectedDate = Calendar.getInstance();//系统当前时间
+        final Calendar selectedDate = Calendar.getInstance();//系统当前时间
         Calendar startDate = Calendar.getInstance();
         startDate.set(2014, 1, 23);
         Calendar endDate = Calendar.getInstance();
@@ -347,11 +347,27 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                 //btn_CustomTime.setText(getTime(date));
                 chooseTime = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
                 if (isCommit) {
+                    final String selectTime = chooseDate + " " + chooseTime;
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    /*如果当前时间在选择时间后*/
+                    if (checkDateAfter(format.format(new Date()), selectTime)) {
+                        Toast.makeText(mContext, "选择时间不能早与当前时间", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     if (!ll_get_car.isEnabled()) {
-                        tv_get_car_time.setText(chooseDate + " " + chooseTime);
+                        tv_get_car_time.setText(selectTime);
                     } else {
-                        if (checkDateAfter(chooseDate + " " + chooseTime, tv_get_car_time.getText().toString())) {
-                            tv_back_car_time.setText(chooseDate + " " + chooseTime);
+                        if (checkDateAfter(selectTime, tv_get_car_time.getText().toString())) {
+                            try {
+                                if (daysBetween(format.parse(tv_get_car_time.getText().toString()),format.parse(selectTime)) < 6) {
+                                    Toast.makeText(mContext, "租赁时长不低于6小时", Toast.LENGTH_SHORT).show();
+                                    return;
+                                } else
+                                    tv_back_car_time.setText(selectTime);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                                return;
+                            }
                         } else {
                             Toast.makeText(mContext, "还车时间不能在取车时间之前", Toast.LENGTH_SHORT).show();
                         }
@@ -394,6 +410,9 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
                                 isCommit = true;
                                 pvCustomTime.returnData();
                                 pvCustomTime.dismiss();
+                                if (tv_back_car_time.getText().equals("请设置还车时间")) {
+                                    ll_back_car.performClick();
+                                }
                             }
                         });
                         tv_cancel_add.setOnClickListener(new View.OnClickListener() {
@@ -428,6 +447,9 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         return format.format(date);
     }
 
+    /**
+     * 计算是date1是否在date2的后面
+     */
     private boolean checkDateAfter(String date1, String date2) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
@@ -437,6 +459,29 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
             return false;
         }
     }
+
+    /**
+     * 计算两个日期之间相差的小时数
+     *
+     * @param smdate 较小的时间
+     * @param bdate  较大的时间
+     * @return 相差天数
+     * @throws ParseException
+     */
+    public static int daysBetween(Date smdate, Date bdate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        smdate = sdf.parse(sdf.format(smdate));
+        bdate = sdf.parse(sdf.format(bdate));
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(smdate);
+        long time1 = cal.getTimeInMillis();
+        cal.setTime(bdate);
+        long time2 = cal.getTimeInMillis();
+        long between_days = (time2 - time1) / (1000 * 60 * 60);//改动此处计算相差周期
+
+        return Integer.parseInt(String.valueOf(between_days));
+    }
+
     @Override
     public void onBackPressed() {
         if (type.equals(RENT_KEY)) {
@@ -444,23 +489,23 @@ public class SelecTimeActivity extends BaseActivity implements View.OnClickListe
         }
         finish();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             String address = data.getStringExtra("address");
-            if(requestCode==0){
+            if (requestCode == 0) {
                 swh_status_pullcar.setEnabled(true);
 
                 tvSelectGetAddress.setText(address);
-            }else if(requestCode==1){
+            } else if (requestCode == 1) {
                 swh_status_sendcar.setEnabled(true);
 
                 tvSelectSendAddress.setText(address);
             }
 
         }
-
 
 
     }

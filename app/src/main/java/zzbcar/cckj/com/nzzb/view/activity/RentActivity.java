@@ -38,7 +38,7 @@ import zzbcar.cckj.com.nzzb.utils.OkManager;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
-import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelecTimeActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelectTimeActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SetAddressActivity;
 import zzbcar.cckj.com.nzzb.widget.RadioGroupEx;
 
@@ -421,9 +421,9 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 //intent = new Intent(this, );
                 //startActivity(intent);
                 Bundle bundle = new Bundle();
-                bundle.putString("type", SelecTimeActivity.RENT_KEY);
+                bundle.putString("type", SelectTimeActivity.RENT_KEY);
                 bundle.putString("getAddress", tv_rent_address.getText().toString());
-                toActivityWithResult(SelecTimeActivity.class, bundle, 0);
+                toActivityWithResult(SelectTimeActivity.class, bundle, 0);
                 break;
 
             /*价格选择完毕*/

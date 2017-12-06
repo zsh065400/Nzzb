@@ -7,41 +7,58 @@ package zzbcar.cckj.com.nzzb.utils;
  */
 public class Day {
 
-	public Day(String name, DayType type, boolean isOrdered) {
-		setName(name);
-		setType(type);
-		setOrdered(isOrdered);
-	}
+    public Day(String name, DayType type, boolean isOrdered) {
+        setName(name);
+        setType(type);
+        setOrdered(isOrdered);
+    }
 
-	public enum DayType {
-		TODAY, TOMORROW, T_D_A_T, ENABLE, NOT_ENABLE
-	}
+    public enum DayType {
+        TODAY, TOMORROW, T_D_A_T, ENABLE, NOT_ENABLE
+    }
 
-	private String name;
-	private DayType type;
-	private boolean isOrdered;
+    private String name;
+    private DayType type;
+    private boolean isOrdered;
 
-	public boolean isOrdered() {
-		return isOrdered;
-	}
+    /*
+    * 0 :  未选中或未在选中范围中的
+    * 1 ： 起始日期
+    * 2 ： 结束日期
+    * 3 ： 选中范围中的日期
+    * 4 ： 起始和选中为同一天
+    * */
+    private int between = 0;
 
-	public void setOrdered(boolean isOrdered) {
-		this.isOrdered = isOrdered;
-	}
+    public void setBetween(int between) {
+        this.between = between;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public int getBetween() {
+        return between;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public boolean isOrdered() {
+        return isOrdered;
+    }
 
-	public DayType getType() {
-		return type;
-	}
+    public void setOrdered(boolean isOrdered) {
+        this.isOrdered = isOrdered;
+    }
 
-	public void setType(DayType type) {
-		this.type = type;
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public DayType getType() {
+        return type;
+    }
+
+    public void setType(DayType type) {
+        this.type = type;
+    }
 }

@@ -182,7 +182,7 @@
         <activity android:name=".view.activity.itemactivity.HomeMessageActivity"/>
         <activity android:name=".view.activity.itemactivity.PersonDataActivity"/>
         <activity android:name=".view.activity.itemactivity.OrderTrackingActivity"/>
-            <activity android:name=".view.activity.itemactivity.SelecTimeActivity"/>
+            <activity android:name=".view.activity.itemactivity.SelectTimeActivity"/>
     </application>
 
 </manifest>

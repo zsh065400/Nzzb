@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <ScrollView
-
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="56dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="56dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -26,7 +23,7 @@
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/first" />
+                    android:src="@mipmap/first"/>
 
                 <RelativeLayout
                     android:id="@+id/top_bar"
@@ -44,7 +41,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentLeft="true"
                             android:scaleType="fitCenter"
-                            android:src="@mipmap/row_back" />
+                            android:src="@mipmap/row_back"/>
 
                         <ImageView
                             android:id="@+id/iv_share"
@@ -52,7 +49,7 @@
                             android:layout_height="match_parent"
                             android:layout_alignParentRight="true"
                             android:scaleType="fitCenter"
-                            android:src="@mipmap/icon_share" />
+                            android:src="@mipmap/icon_share"/>
 
                     </RelativeLayout>
                 </RelativeLayout>
@@ -73,7 +70,7 @@
                     android:layout_marginTop="10dp"
                     android:text="法拉利 458"
                     android:textColor="#000"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:id="@+id/tv_drive_model"
@@ -85,7 +82,7 @@
                     android:background="#000"
                     android:text="自"
                     android:textColor="#fff"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"/>
 
                 <TextView
                     android:id="@+id/tv_car_license_number"
@@ -96,7 +93,7 @@
                     android:layout_marginRight="10dp"
                     android:text="浙A****2"
                     android:textColor="#999797"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
             </RelativeLayout>
 
             <TextView
@@ -105,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="2014款 2.0L"
-                android:textColor="#000" />
+                android:textColor="#000"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -119,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:text="¥"
                     android:textColor="#d40808"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"/>
 
                 <TextView
                     android:id="@+id/tv_car_price"
@@ -127,14 +124,14 @@
                     android:layout_height="wrap_content"
                     android:text="1024"
                     android:textColor="#d40808"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="/天"
                     android:textColor="#d40808"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"/>
 
                 <TextView
                     android:id="@+id/tv_cardetail_money_line"
@@ -143,7 +140,7 @@
                     android:layout_marginLeft="3dp"
                     android:text="(市场价:2000元)"
                     android:textColor="#5b5a5a"
-                    android:textSize="10sp" />
+                    android:textSize="10sp"/>
 
             </LinearLayout>
 
@@ -158,7 +155,7 @@
                 android:gravity="center_vertical"
                 android:text="满30天打7折"
                 android:textColor="@color/car_model"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/tv_car_addr"
@@ -174,7 +171,7 @@
                 android:gravity="center_vertical"
                 android:lines="1"
                 android:text="杭州市余杭区打卡机辅导费似懂非懂是"
-                android:textSize="13sp" />
+                android:textSize="13sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -193,7 +190,7 @@
                     android:layout_marginTop="15dp"
                     android:text="可租用时间"
                     android:textColor="#302f2f"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -202,7 +199,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15sp"
                     android:text="部分时段可租"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
             </RelativeLayout>
 
             <!--<include layout="@layout/item_week"/>
@@ -219,7 +216,7 @@
                 android:layout_height="5dp"
                 android:background="#ededed"></LinearLayout>
 
-            <include layout="@layout/item_dar_details_order_datails" />
+            <include layout="@layout/item_dar_details_order_datails"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -228,7 +225,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#ededed"></LinearLayout>
 
-            <include layout="@layout/item_car_details_good_things" />
+            <include layout="@layout/item_car_details_good_things"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -250,7 +247,7 @@
                     android:layout_marginTop="5dp"
                     android:text="车辆描述"
                     android:textColor="#302f2f"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <!--<ImageView-->
 
@@ -276,7 +273,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/icon_logo_baoma" />
+                    android:src="@mipmap/icon_logo_baoma"/>
 
                 <TextView
                     android:id="@+id/tv_car_remark"
@@ -287,7 +284,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_weight="4"
                     android:maxLines="3"
-                    android:text="干的啥发给对方刚给的发个梵蒂冈梵蒂冈地方个梵蒂冈电饭锅地方刮大风刮大风搞得发个电饭锅的时代个个人个二广东人个我的个人观感" />
+                    android:text="干的啥发给对方刚给的发个梵蒂冈梵蒂冈地方个梵蒂冈电饭锅地方刮大风刮大风搞得发个电饭锅的时代个个人个二广东人个我的个人观感"/>
             </LinearLayout>
 
             <LinearLayout
@@ -297,7 +294,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#ededed"></LinearLayout>
 
-            <include layout="@layout/item_car_details_self_find_car" />
+            <include layout="@layout/item_car_details_self_find_car"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -319,7 +316,7 @@
                     android:layout_marginTop="5dp"
                     android:text="服务中心"
                     android:textColor="#302f2f"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -330,7 +327,7 @@
                     android:layout_toLeftOf="@+id/iv_to_right2"
                     android:text="用车流程、用车费用、保障方案"
                     android:textColor="#595959"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
 
                 <ImageView
                     android:id="@+id/iv_to_right2"
@@ -339,7 +336,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
-                    android:src="@mipmap/arrow_right" />
+                    android:src="@mipmap/arrow_right"/>
             </RelativeLayout>
 
             <LinearLayout
@@ -356,7 +353,7 @@
                 android:layout_marginTop="5dp"
                 android:text="保险保障"
                 android:textColor="#302f2f"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -382,13 +379,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="5dp"
-                        android:src="@mipmap/icon_service_7" />
+                        android:src="@mipmap/icon_service_7"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="顶级道路救援" />
+                        android:text="顶级道路救援"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -403,13 +400,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="5dp"
-                        android:src="@mipmap/icon_service_7" />
+                        android:src="@mipmap/icon_service_7"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="无忧保险服务" />
+                        android:text="无忧保险服务"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -422,12 +419,12 @@
     </ScrollView>
 
     <LinearLayout
-        android:background="@color/Zzb_BG"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:background="@color/Zzb_BG"
 
         android:gravity="center"
         android:orientation="horizontal">
@@ -443,14 +440,14 @@
                 android:id="@+id/iv_cardetail_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/collect_normal" />
+                android:background="@drawable/collect_normal"/>
 
             <TextView
                 android:id="@+id/tv_car_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="收藏" />
+                android:text="收藏"/>
         </LinearLayout>
 
         <LinearLayout
@@ -471,7 +468,7 @@
                 android:gravity="center"
                 android:text="立即租车"
                 android:textColor="#fff"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
         </LinearLayout>
     </LinearLayout>
 

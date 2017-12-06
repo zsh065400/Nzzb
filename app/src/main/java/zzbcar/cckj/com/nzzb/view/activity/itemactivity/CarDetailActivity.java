@@ -373,20 +373,20 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             case R.id.tv_immediately_rent_car:
                 if (carDetailBean != null) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("type", SelecTimeActivity.DETAIL_KEY);
+                    bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
                     bundle.putSerializable("cardetail", carDetailBean);
                     bundle.putString("getAddress", getAddress);
-                    toActivity(SelecTimeActivity.class, bundle);
+                    toActivity(SelectTimeActivity.class, bundle);
                 }
                 break;
 
             case R.id.ll_car_price_list:
                 if (carDetailBean != null) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("type", SelecTimeActivity.DETAIL_KEY);
+                    bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
                     bundle.putSerializable("cardetail", carDetailBean);
                     bundle.putString("getAddress", getAddress);
-                    toActivity(SelecTimeActivity.class, bundle);
+                    toActivity(SelectTimeActivity.class, bundle);
                 }
                 break;
             case R.id.tv_car_addr:
