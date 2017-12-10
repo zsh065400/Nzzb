@@ -120,6 +120,36 @@ public class UserOrderBean implements Serializable {
         private int userId;
         private String userName;
 
+        public int getTimeoutMoney() {
+            return timeoutMoney;
+        }
+
+        public void setTimeoutMoney(int timeoutMoney) {
+            this.timeoutMoney = timeoutMoney;
+        }
+
+        public int getExceedMoney() {
+            return exceedMoney;
+        }
+
+        public void setExceedMoney(int exceedMoney) {
+            this.exceedMoney = exceedMoney;
+        }
+
+        private int timeoutMoney;
+        private int exceedMoney;
+
+        public int getLastReturnMoney() {
+            return lastReturnMoney;
+        }
+
+        public void setLastReturnMoney(int lastReturnMoney) {
+            this.lastReturnMoney = lastReturnMoney;
+        }
+
+        private int lastReturnMoney;
+
+
         public int getAbolishMoney() {
             return abolishMoney;
         }

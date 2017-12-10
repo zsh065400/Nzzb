@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,12 +40,14 @@ public abstract class BaseActivity extends FragmentActivity {
         initViews();
         initListeners();
         initDatas();
+        MyApplication.appManager.addActivity(this);
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume: " + TAG);
     }
 
     @Override
@@ -52,6 +55,7 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onDestroy();
         mContext = null;
         mResources = null;
+        MyApplication.appManager.finishActivity(this);
     }
 
     /**
@@ -105,6 +109,7 @@ public abstract class BaseActivity extends FragmentActivity {
             @Override
             public void run() {
                 Toast.makeText(mContext, text, Toast.LENGTH_SHORT).show();
+
             }
         });
     }

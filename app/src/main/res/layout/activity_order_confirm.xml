@@ -228,10 +228,11 @@
                         android:id="@+id/tv_order_allTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ellipsize="marquee"
                         android:text="18小时"
                         android:textColor="#989898"
                         android:textSize="12dp"/>
+
+
 
                 </LinearLayout>
 

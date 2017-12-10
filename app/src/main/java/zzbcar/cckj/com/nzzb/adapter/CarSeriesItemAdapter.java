@@ -64,6 +64,7 @@ public class CarSeriesItemAdapter extends BaseAdapter {
 
         public ViewHolder(View view) {
             tvRentcarCarseries = (TextView) view.findViewById(R.id.tv_rentcar_carseries);
+
         }
     }
 }

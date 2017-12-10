@@ -69,6 +69,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
                     }
                     System.out.println(msg.obj);
                     finish();
+                    MyApplication.appManager.finishActivity(CarDetailActivity.class);
                     break;
             }
             super.handleMessage(msg);
@@ -98,7 +99,6 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
                 final String body = response.body();
                 final WxPayInfoBean wxPayInfoBean = GsonUtil.parseJsonWithGson(body, WxPayInfoBean.class);
                 if (wxPayInfoBean.getErrno() == 0) {
-                    // TODO: 2017/11/13 微信支付金额不能过小
                     final WxPayInfoBean.DataBean data = wxPayInfoBean.getData();
                     System.out.println(data);
                     excuteRealWxPay(data);
@@ -217,7 +217,10 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initDatas() {
         payInfo = (OrderBean.DataBean) getIntent().getExtras().getSerializable("payinfo");
-        tv_rend_car_money.setText("¥ "+payInfo.getLeasePrice());
+        double leasePrice = payInfo.getLeasePrice();
+        double trafficDepositMoney = payInfo.getTrafficDepositMoney();
+        double TotalMoney=leasePrice+trafficDepositMoney;
+        tv_rend_car_money.setText("¥ "+TotalMoney);
         alipay_iv.setEnabled(true);
         wxpay_iv.setEnabled(false);
         setBackButon(R.id.iv_back);

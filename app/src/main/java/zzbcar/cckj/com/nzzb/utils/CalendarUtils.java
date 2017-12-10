@@ -1,9 +1,9 @@
 package zzbcar.cckj.com.nzzb.utils;
 
-import zzbcar.cckj.com.nzzb.utils.Day.DayType;
-
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import zzbcar.cckj.com.nzzb.utils.Day.DayType;
 
 
 public class CalendarUtils {

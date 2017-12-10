@@ -58,6 +58,7 @@ import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 public class CarLicenceActivity extends BaseActivity implements View.OnClickListener {
 
 
+
     @BindView(R.id.tv_choose_date)
     TextView tvChooseDate;
     @BindView(R.id.iv_carlicence_up)
@@ -95,6 +96,9 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                     if (isUp) {
                         cardLicence.add(0, carLicence);
                     } else {
+                       if(cardLicence.size()==0){
+                           cardLicence.add(0,"");
+                       }
                         cardLicence.add(1, carLicence);
                     }
                     LogUtil.e(carLicence);
@@ -112,6 +116,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
     private File cropfile;
     private ProgressDialog progressDialog;
     private String idSeparator;
+    private SigninBean.DataBean.MemberBean signInfo;
 
     @Override
     protected int getLayoutId() {
@@ -128,6 +133,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initDatas() {
+        signInfo = SPUtils.getSignInfo(mContext);
         initTimePicker();
         getCardData();
         initCustomOptionPicker();
@@ -163,7 +169,9 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                 // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
                 /*btn_Time.setText(getTime(date));*/
                 TextView tv = (TextView) v;
-                tv.setText(getTime(date));
+               tv.setText(getTime(date));
+
+
             }
         })
                 //年月日时分秒 的显示与否，不设置则默认全部显示
@@ -243,10 +251,13 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.tv_choose_date:
                 pvTime.show(view);
+
                 break;
+
             case R.id.iv_carlicence_up:
                 isUp = true;
                 showDialog();
+
                 break;
             case R.id.iv_carlicence_down:
                 isUp = false;
@@ -276,7 +287,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
             Toast.makeText(mContext, "请输入驾龄", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (cardLicence.size() != 2) {
+        if (cardLicence.get(0).length()==0&&cardLicence.get(1).length()==0) {
             Toast.makeText(mContext, "还没有上传完驾驶证", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -285,8 +296,10 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
         HashMap<String, String> params = new HashMap<>();
         params.put("userId",signInfo.getId()+"");
         params.put("idcard1", idCardUp);
+
         params.put("idcard1", idCardUp);
         params.put("idcard2", idCardDown);
+
         params.put("idno", idCardNumber);
         params.put("name", name);
         params.put("licenseDate", carDate);
@@ -296,13 +309,17 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
         params.put("drvPic2", cardLicence.get(1));
         OkGo.<String>post(Constant.USER_AUTH)
                 .params(params)
+                .params("token",SPUtils.getToken(mContext))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
 
-                        Intent intent = new Intent(mContext, IdentiCompleteActivity.class);
-                        startActivity(intent);
-                        finish();
+
+                       Log.e("哼 出错啦。。", response.body().toString());
+
+                            showBuilderToast();
+
+                  //    finish();
                     }
 
                     @Override
@@ -313,6 +330,25 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                         finish();
                     }
                 });
+    }
+
+    private void showBuilderToast() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog alertDialog = builder.setMessage("您的资料已提交，请耐心等候并随时留意审核状态")
+                .setTitle("提示")
+                .setCancelable(false)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                      finish();
+
+
+                    }
+                }).create();
+        alertDialog.show();
+
     }
 
     private void showDialog() {
@@ -355,6 +391,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initListeners() {
+
         tvChooseDate.setOnClickListener(this);
         ivCarlicenceUp.setOnClickListener(this);
         ivCarlicenceDown.setOnClickListener(this);
@@ -387,12 +424,15 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                     if (isUp) {
                         setIdCarUPToView(data);
                     } else {
+
                         setIdCarDownToView(data);
                     }
                 }
 
                 break;
+
         }
+
     }
 
     private void setIdCarDownToView(Intent data) {

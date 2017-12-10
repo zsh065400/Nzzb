@@ -1,6 +1,7 @@
 package zzbcar.cckj.com.nzzb.view.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -13,9 +14,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.TimePickerView;
 import com.jaygoo.widget.RangeSeekBar;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,6 +48,8 @@ import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelectTimeActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.SetAddressActivity;
 import zzbcar.cckj.com.nzzb.widget.RadioGroupEx;
 
+import static zzbcar.cckj.com.nzzb.R.id.tv_start_time;
+
 public class RentActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.ll_brand)
@@ -50,7 +58,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
     LinearLayout ll_price;
     @BindView(R.id.ll_type)
     LinearLayout ll_type;
-    @BindView(R.id.tv_start_time)
+    @BindView(tv_start_time)
     TextView tvStartTime;
     @BindView(R.id.tv_end_time)
     TextView tvEndTime;
@@ -112,14 +120,23 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
     public boolean IsBrandShow = true;
     private static final int CHOOSE_ADDRESS = 100;
 
+
     private CarSeriesItemAdapter carSeriesAdapter;
     private CarBrandAdapter carBrandAdapter;
 
     private CarListAdapter carAdapter;
     private CarQueryAdapter queryAdapter;
     private List<MainPageBean.DataBean.CarListBean> carListDatas;
-
     private PopWindow popWindow;
+    private boolean QucheTime = true;
+    private static final int SELECTIME = 200;
+    private String time;
+    private TimePickerView pickerView;
+    private boolean isCommit = false;
+    private String chooseDate = "";
+    private String chooseTime = "";
+    /*0为start，1为stop*/
+    private int chooseType = 0;
 
     @Override
     protected int getLayoutId() {
@@ -149,7 +166,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
         tvSeatsCommit.setOnClickListener(this);
         tvPriceCommit.setOnClickListener(this);
-
+        tvStartTime.setOnClickListener(this);
+        tvEndTime.setOnClickListener(this);
         rvCarQuery.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
@@ -165,11 +183,11 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
         rgTransmission.setOnCheckedChangeListener(
                 new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
                 /*暂时用不到*/
-            }
-        });
+                    }
+                });
 
         rgSeats.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -222,10 +240,12 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initDatas() {
+        initTimePicker();
         final Intent intent = getIntent();
         carListDatas = (List<MainPageBean.DataBean.CarListBean>) intent.getSerializableExtra("carlist");
         final int useType = intent.getIntExtra("useType", 1);
         params.setUseType(String.valueOf(useType));
+
         initRecycleView(carListDatas);
     }
 
@@ -311,6 +331,10 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                     LogUtil.e(params.buildUrl() + "请求url");
                     doCarQuery(params.buildUrl());
                     ll_whole_brand.performClick();
+
+                    ll_whole_brand.setVisibility(View.INVISIBLE);
+
+
                 }
             });
         } else {
@@ -330,6 +354,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
         carBrandAdapter = new CarBrandAdapter(brandData, this);
         lv_car_brand.setAdapter(carBrandAdapter);
         lv_car_brand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 params.setBrand(String.valueOf(brandData.get(i).getId()));
@@ -440,8 +466,89 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 ll_type_pick.performClick();
                 ll_type_pick.setVisibility(View.GONE);
                 break;
+
+            case tv_start_time:
+                pickerView.show(view);
+                break;
+            case R.id.tv_end_time:
+                pickerView.show(view);
+                break;
         }
 
+    }
+
+    private String startTime = "";
+    private String endTime = "";
+
+    private void initTimePicker() {
+        //控制时间范围(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
+        //因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
+        Calendar selectedDate = Calendar.getInstance();
+        final Calendar startDate = Calendar.getInstance();
+        startDate.set(1900, 0, 23);
+        final Calendar endDate = Calendar.getInstance();
+        endDate.set(2019, 11, 28);
+        //时间选择器
+        //选中事件回调
+// 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
+/*btn_Time.setText(getTime(date));*///年月日时分秒 的显示与否，不设置则默认全部显示
+//                .setBackgroundId(0x00FFFFFF) //设置外部遮罩颜色
+        pickerView = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                //选中事件回调
+                // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
+                /*btn_Time.setText(getTime(date));*/
+                TextView tv = (TextView) v;
+                final String time = getTime(date);
+                tv.setText(time);
+                if (v.getId() == R.id.tv_start_time) {
+                    startTime = time;
+                } else if (v.getId() == R.id.tv_end_time) {
+                    endTime = time;
+                }
+                if (!startTime.equals("") && !endTime.equals("")) {
+                    if (checkDateAfter(endTime, startTime)){
+                        params.setSpan(startTime + "~" + endTime);
+                        doCarQuery(params.buildUrl());
+                    }else{
+                        asyncShowToast("还车日期在取车日期前");
+                    }
+                }
+
+                if (tvStartTime.getText().equals("取车时间")) {
+                    Toast.makeText(mContext, "请设置取车时间", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (tvEndTime.getText().equals("还车时间")) {
+                    Toast.makeText(mContext, "请设置还车时间", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        })
+                //年月日时分秒 的显示与否，不设置则默认全部显示
+                .setType(new boolean[]{true, true, true, false, false, false})
+                .setLabel("", "", "", "", "", "")
+                .isCenterLabel(false)
+                .setDividerColor(Color.DKGRAY)
+                .setContentSize(21)
+                .setDate(selectedDate)
+                .setRangDate(startDate, endDate)
+//                .setBackgroundId(0x00FFFFFF) //设置外部遮罩颜色
+                .setDecorView(null)
+                .setSubmitColor(0xff24AD9D)
+                .setCancelColor(0xff24AD9D)
+                .setOutSideCancelable(false)
+                .isDialog(true)
+                .build();
+    }
+
+
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        //"YYYY-MM-DD HH:MM:SS"        "yyyy-MM-dd"
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
     }
 
     @Override
@@ -462,6 +569,16 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                     tv_rent_address.setText(address);
                 }
                 break;
+
+            case SELECTIME:
+                if (resultCode == RESULT_OK) {
+                    if (requestCode == 0) {
+
+                        tvStartTime.setText(time);
+                    } else if (requestCode == 1) {
+                        tvEndTime.setText(time);
+                    }
+                }
         }
 
     }
@@ -609,8 +726,46 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                     "pageSize", pageSize);
         }
     }
+
     @Override
     protected void setStatusBar() {
         StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
+
+
+    /**
+     * 计算是date1是否在date2的后面
+     */
+    private boolean checkDateAfter(String date1, String date2) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return format.parse(date1).after(format.parse(date2));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 计算两个日期之间相差的小时数
+     *
+     * @param smdate 较小的时间
+     * @param bdate  较大的时间
+     * @return 相差天数
+     * @throws ParseException
+     */
+    public static int daysBetween(Date smdate, Date bdate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        smdate = sdf.parse(sdf.format(smdate));
+        bdate = sdf.parse(sdf.format(bdate));
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(smdate);
+        long time1 = cal.getTimeInMillis();
+        cal.setTime(bdate);
+        long time2 = cal.getTimeInMillis();
+        long between_days = (time2 - time1) / (1000 * 60 * 60);//改动此处计算相差周期
+
+        return Integer.parseInt(String.valueOf(between_days));
+    }
+
 }

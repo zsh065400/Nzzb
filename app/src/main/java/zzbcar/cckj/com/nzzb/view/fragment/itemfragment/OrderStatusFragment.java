@@ -158,7 +158,6 @@ public class OrderStatusFragment extends BaseFragment {
         }
         empty.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
-
         this.orderBean = data;
         Log.e(TAG, "initOrderList: data" + data);
         orderStatusAdapter = new OrderStatusAdapter(mActivity, orderBean);

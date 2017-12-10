@@ -1,8 +1,9 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
-import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import java.util.List;
 
@@ -19,7 +20,10 @@ import zzbcar.cckj.com.nzzb.view.activity.MainActivity;
 
 public class IdentiCompleteActivity extends BaseActivity implements View.OnClickListener{
     private Button bt_identifi_complete_rent;
+    private FrameLayout fl_complate_success_maim;
     private List<MainPageBean.DataBean.CarListBean> carDatas;
+    private Fragment mContentFragment;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_identicar_complete;
@@ -28,6 +32,7 @@ public class IdentiCompleteActivity extends BaseActivity implements View.OnClick
     @Override
     protected void initViews() {
         bt_identifi_complete_rent = (Button) findViewById(R.id.bt_identifi_complete_rent);
+        fl_complate_success_maim = (FrameLayout) findViewById(R.id.fl_complate_success_maim);
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
@@ -45,13 +50,15 @@ public class IdentiCompleteActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        Intent intent=null;
+
         switch (view.getId()){
             case R.id.bt_identifi_complete_rent:
-                MainActivity mActivity = (MainActivity) this.mContext;
+
+                MainActivity mActivity = MainActivity.getMainActivity();
                 mActivity.setViewPager(1);
+
                 break;
         }
-
+        finish();
     }
 }

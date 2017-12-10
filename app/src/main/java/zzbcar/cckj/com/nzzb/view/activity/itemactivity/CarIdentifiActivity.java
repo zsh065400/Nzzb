@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -73,11 +74,17 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
 
                     if (isUp) {
                         idCard.add(0, idCardTemp);
-                    } else {
-                        idCard.add(1, idCardTemp);
+                    } else{
+                        if(idCard.size()==0){
+                            idCard.add(0, "");
+                        }
+                             idCard.add(1, idCardTemp);
+
+
                     }
                     LogUtil.e(idCardTemp);
                     break;
+
                 case 1:
                     progressDialog.dismiss();
                     Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
@@ -165,10 +172,11 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
             handler.sendMessage(obtain);
             return;
         }
-        if (idCard.size() != 2) {
+        if (idCard.get(0).length()==0 && idCard.get(1).length()==0) {
             obtain.obj = "还没有上传完身份证照片";
             handler.sendMessage(obtain);
             return;
+
         }
         Intent intent = new Intent(mContext, CarLicenceActivity.class);
         intent.putExtra("name", name);
@@ -182,40 +190,50 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void showDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle("选择图片")
-                .setPositiveButton("拍照", new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // TODO Auto-generated method stub
-                        dialog.dismiss();
+            new AlertDialog.Builder(this)
+                    .setTitle("选择图片")
+                    .setPositiveButton("拍照", new DialogInterface.OnClickListener() {
 
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // TODO Auto-generated method stub
+                            dialog.dismiss();
 
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
-                        Log.e("file", tempFile.toString());
-                        startActivityForResult(intent, PHOTO_REQUEST_TAKEPHOTO);
-                    }
-                })
-                .setNegativeButton("相册", new DialogInterface.OnClickListener() {
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // TODO Auto-generated method stub
-                        dialog.dismiss();
-                        Intent intent = new Intent(Intent.ACTION_PICK, null);
-                        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                        startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
-                    }
-                }).show();
-    }
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+                            Log.e("file", tempFile.toString());
+                            startActivityForResult(intent, PHOTO_REQUEST_TAKEPHOTO);
+                        }
+                    })
+                    .setNegativeButton("相册", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // TODO Auto-generated method stub
+                            dialog.dismiss();
+                            Intent intent = new Intent(Intent.ACTION_PICK, null);
+                            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                            startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
+                        }
+                    }).show();
+        }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PHOTO_REQUEST_TAKEPHOTO:
-                startPhotoZoom(Uri.fromFile(tempFile), 150);
+                if (requestCode == PHOTO_REQUEST_TAKEPHOTO && resultCode == RESULT_OK) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+                        startPhotoZoom(Uri.fromFile(tempFile), 150);
+                    }
+
+                }
+
                 break;
 
             case PHOTO_REQUEST_GALLERY:
@@ -254,6 +272,11 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     private void startPhotoZoom(Uri uri, int size) {
         Log.e("zoom", "begin");
         Intent intent = new Intent("com.android.camera.action.CROP");
+
+        //这段代码判断，在安卓7.0以前版本是不需要的。特此注意。不然这里也会抛出异常
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("scale", true);
@@ -262,6 +285,8 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         if (!file.exists()) {
             file.mkdirs();
         }
+
+
         cropfile = new File(file.getPath(), System.currentTimeMillis() + ".jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cropfile));
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
