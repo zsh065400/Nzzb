@@ -69,6 +69,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
                     }
                     System.out.println(msg.obj);
                     finish();
+                    MyApplication.appManager.finishActivity(CarDetailActivity.class);
                     break;
             }
             super.handleMessage(msg);
@@ -98,7 +99,6 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
                 final String body = response.body();
                 final WxPayInfoBean wxPayInfoBean = GsonUtil.parseJsonWithGson(body, WxPayInfoBean.class);
                 if (wxPayInfoBean.getErrno() == 0) {
-                    // TODO: 2017/11/13 微信支付金额不能过小
                     final WxPayInfoBean.DataBean data = wxPayInfoBean.getData();
                     System.out.println(data);
                     excuteRealWxPay(data);

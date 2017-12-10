@@ -23,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.CarDetailBean;
 import zzbcar.cckj.com.nzzb.bean.OrderBean;
@@ -69,8 +68,9 @@ public class OrderConfirmActivity extends BaseActivity {
     TextView tvOrderAllMoney;
     @BindView(R.id.iv_order_connect_us)
     ImageView ivOrderConnectUs;
-    @BindView(R.id.tv_order_really_time)
-    TextView tvOrderReallyTime;
+//    @BindView(R.id.tv_order_really_time)
+//    TextView tvOrderReallyTime;
+
     /*车辆信息*/
     private CarDetailBean.DataBean cardetail;
     /*订单信息*/
@@ -338,12 +338,5 @@ public class OrderConfirmActivity extends BaseActivity {
             e.printStackTrace();
         }
         return sdf.format(parse);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

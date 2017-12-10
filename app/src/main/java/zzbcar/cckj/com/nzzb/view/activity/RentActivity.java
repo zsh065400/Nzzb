@@ -137,6 +137,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
     private String chooseTime = "";
     /*0为start，1为stop*/
     private int chooseType = 0;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_rent;
@@ -468,37 +469,30 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
             case tv_start_time:
                 pickerView.show(view);
-
                 break;
             case R.id.tv_end_time:
-
                 pickerView.show(view);
-
                 break;
         }
 
     }
 
+    private String startTime = "";
+    private String endTime = "";
+
     private void initTimePicker() {
         //控制时间范围(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
         //因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
         Calendar selectedDate = Calendar.getInstance();
-        Calendar startDate = Calendar.getInstance();
+        final Calendar startDate = Calendar.getInstance();
         startDate.set(1900, 0, 23);
-        Calendar endDate = Calendar.getInstance();
+        final Calendar endDate = Calendar.getInstance();
         endDate.set(2019, 11, 28);
         //时间选择器
         //选中事件回调
-
-
-
-
 // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
-
-
 /*btn_Time.setText(getTime(date));*///年月日时分秒 的显示与否，不设置则默认全部显示
 //                .setBackgroundId(0x00FFFFFF) //设置外部遮罩颜色
-
         pickerView = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
@@ -506,17 +500,31 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                 // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
                 /*btn_Time.setText(getTime(date));*/
                 TextView tv = (TextView) v;
-                tv.setText(getTime(date));
+                final String time = getTime(date);
+                tv.setText(time);
+                if (v.getId() == R.id.tv_start_time) {
+                    startTime = time;
+                } else if (v.getId() == R.id.tv_end_time) {
+                    endTime = time;
+                }
+                if (!startTime.equals("") && !endTime.equals("")) {
+                    if (checkDateAfter(endTime, startTime)){
+                        params.setSpan(startTime + "~" + endTime);
+                        doCarQuery(params.buildUrl());
+                    }else{
+                        asyncShowToast("还车日期在取车日期前");
+                    }
+                }
 
-          if(tvStartTime.getText().equals("取车时间")){
-              Toast.makeText(mContext, "请设置取车时间", Toast.LENGTH_SHORT).show();
-                   return;
-          }
+                if (tvStartTime.getText().equals("取车时间")) {
+                    Toast.makeText(mContext, "请设置取车时间", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-          if (tvEndTime.getText().equals("还车时间")){
-              Toast.makeText(mContext, "请设置还车时间", Toast.LENGTH_SHORT).show();
-              return;
-          }
+                if (tvEndTime.getText().equals("还车时间")) {
+                    Toast.makeText(mContext, "请设置还车时间", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
         })
                 //年月日时分秒 的显示与否，不设置则默认全部显示
@@ -729,7 +737,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
      * 计算是date1是否在date2的后面
      */
     private boolean checkDateAfter(String date1, String date2) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
             return format.parse(date1).after(format.parse(date2));
         } catch (ParseException e) {
@@ -737,6 +745,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
             return false;
         }
     }
+
     /**
      * 计算两个日期之间相差的小时数
      *
