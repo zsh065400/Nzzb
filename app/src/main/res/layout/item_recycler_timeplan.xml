@@ -12,7 +12,7 @@
         android:layout_marginTop="10dp"
         android:text="Aug 2017"
         android:textColor="#555555"
-        android:textSize="22sp"
+        android:textSize="18sp"
         />
 
     <LinearLayout
@@ -30,19 +30,19 @@
             android:gravity="center"
             android:text="日"
             android:textColor="#555555"
-            android:textSize="18sp"
+            android:textSize="14sp"
             />
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
 
+            android:gravity="center"
             android:text="一"
             android:textColor="#555555"
-            android:textSize="18sp"
-            />
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -52,7 +52,7 @@
 
             android:text="二"
             android:textColor="#555555"
-            android:textSize="18sp"
+            android:textSize="14sp"
             />
 
         <TextView
@@ -63,7 +63,7 @@
 
             android:text="三"
             android:textColor="#555555"
-            android:textSize="18sp"
+            android:textSize="14sp"
             />
 
         <TextView
@@ -74,7 +74,7 @@
 
             android:text="四"
             android:textColor="#555555"
-            android:textSize="18sp"
+            android:textSize="14sp"
             />
 
         <TextView
@@ -85,7 +85,7 @@
 
             android:text="五"
             android:textColor="#555555"
-            android:textSize="18sp"
+            android:textSize="14sp"
 
             />
 
@@ -97,7 +97,7 @@
 
             android:text="六"
             android:textColor="#555555"
-            android:textSize="18sp"
+            android:textSize="14sp"
             />
     </LinearLayout>
 

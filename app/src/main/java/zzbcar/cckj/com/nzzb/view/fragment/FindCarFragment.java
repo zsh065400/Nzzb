@@ -1,11 +1,14 @@
 package zzbcar.cckj.com.nzzb.view.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -19,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.relex.circleindicator.CircleIndicator;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.GridItemAdapter;
@@ -57,6 +62,13 @@ public class FindCarFragment extends BaseFragment {
     ImageButton ibSort;
     @BindView(R.id.search_find)
     LinearLayout searchFind;
+//    @BindView(R.id.scroll_find_car)
+//    NestedScrollView scrollFindCar;
+    Unbinder unbinder;
+//    @BindView(R.id.TopTitleBar)
+//    LinearLayout TopTitleBar;
+//    @BindView(R.id.ll_findcar_top_bar)
+//    LinearLayout llFindcarTopBar;
     private OkManager manager = new OkManager();
 
     private List<QueryBean.DataBean> carList = new ArrayList<>();
@@ -82,6 +94,7 @@ public class FindCarFragment extends BaseFragment {
 
     @Override
     public void initViews(View view) {
+        StatusBarUtil.setViewTopPadding(mActivity, R.id.top_bar);
         //下部滑动
         rvListItems.setLayoutManager(new GridLayoutManager(mActivity, 2, GridLayoutManager.VERTICAL, false));
         rvListItems.addItemDecoration(new SpacesItemDecoration(new SpaceSize(10, 10, 10, 10)));
@@ -89,9 +102,11 @@ public class FindCarFragment extends BaseFragment {
 
         StatusBarUtil.setViewTopPadding(mActivity, view, R.id.TopTitleBar);
         popWindow = new PopWindow(mActivity);
+
     }
 
-    /**有
+    /**
+     * 有
      * 获得汽车品牌
      */
     private void getCarBrandData() {
@@ -169,14 +184,14 @@ public class FindCarFragment extends BaseFragment {
             itemAdapter = new ListItemAdapter(mActivity, data);
             itemAdapter.setOnItemClickListener(
                     new BaseRecycleViewAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View v, int position) {
+                        @Override
+                        public void onItemClick(View v, int position) {
                     /*跳转详情页面*/
-                    final Intent intent = new Intent(mActivity, CarDetailActivity.class);
-                    intent.putExtra("carid", carList.get(position).getId());
-                    startActivity(intent);
-                }
-            });
+                            final Intent intent = new Intent(mActivity, CarDetailActivity.class);
+                            intent.putExtra("carid", carList.get(position).getId());
+                            startActivity(intent);
+                        }
+                    });
             rvListItems.setAdapter(itemAdapter);
         } else {
             itemAdapter.refresh(data);
@@ -235,12 +250,46 @@ public class FindCarFragment extends BaseFragment {
                 doCarQuery(params.buildUrl());
             }
         });
+
+//        scrollFindCar.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(View view, int iscrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                /*以图片为基准，超过图片高度则固定颜色*/
+//                if (scrollY >= TopTitleBar.getTop() + TopTitleBar.getMeasuredHeight()) {
+//                    llFindcarTopBar.setBackgroundColor(Color.rgb(10, 27, 43));
+//                    /*其余情况动态计算百分比改变颜色*/
+//                } else if (scrollY >= 0) {
+//                    //计算透明度，滑动到的距离（即当前滑动坐标）/图片高度（底部坐标）
+//                    float persent = scrollY * 1f / (TopTitleBar.getTop() + TopTitleBar.getMeasuredHeight());
+//                    //255==1，即不透明，计算动态透明度
+//                    int alpha = (int) (255 * persent);
+//                    //计算颜色值，将16进制颜色值转换为rgb颜色后填入
+//                    int color = Color.argb(alpha, 10, 27, 43);
+//                    //动态设置
+//                    llFindcarTopBar.setBackgroundColor(color);
+//                }
+//            }
+//        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
         tvHomeLocalCity.setText(SPUtils.getString(mActivity, SP_LAST_LOCATION, ""));
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
     private class ParamsBuilder {

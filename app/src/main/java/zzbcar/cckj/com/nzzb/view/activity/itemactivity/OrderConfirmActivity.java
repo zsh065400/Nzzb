@@ -69,6 +69,8 @@ public class OrderConfirmActivity extends BaseActivity {
     TextView tvOrderAllMoney;
     @BindView(R.id.iv_order_connect_us)
     ImageView ivOrderConnectUs;
+    @BindView(R.id.tv_order_really_time)
+    TextView tvOrderReallyTime;
     /*车辆信息*/
     private CarDetailBean.DataBean cardetail;
     /*订单信息*/
@@ -155,6 +157,7 @@ public class OrderConfirmActivity extends BaseActivity {
         endTime = getFormatTime(bundle.getString("backTime") + ":00");
 
 
+
         getAddress = bundle.getString("getAddress");
         sendAddress = bundle.getString("sendAddress");
         final String userJson = SPUtils.getString(mContext, "User", "");
@@ -192,10 +195,33 @@ public class OrderConfirmActivity extends BaseActivity {
     }
 
     private void initOrderData() {
-//        Picasso.with(mContext)
-//                .load(cardetail.getPics())
-//                .fit()
-//                .into(iv_order_car_pic);
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+      try {
+            Date end = sdf.parse(endTime);
+            Date start = sdf.parse(startTime);
+            long nd = 1000 * 24 * 60 * 60;
+            long betweentime = end.getTime() - start.getTime();
+            final long betweenDay = betweentime / nd;
+            if (betweenDay != 0) {
+                tvOrderAllTime.setText(betweenDay + "天");
+            } else {
+                long nh = 1000 * 60 * 60;
+                final long betweenHour = betweentime % nd / nh;
+                if (betweenHour != 0) {
+                    tvOrderAllTime.setText(betweenHour + "小时");
+                } else {
+                    long nm = 1000 * 60;
+                    final long betweenMinu = betweentime % nd % nh / nm;
+                    tvOrderAllTime.setText(betweenMinu + "分钟");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         GlideApp
                 .with(mContext)
                 .load(cardetail.getPics())
@@ -203,15 +229,16 @@ public class OrderConfirmActivity extends BaseActivity {
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(iv_order_car_pic);
+
         tvCarName.setText(cardetail.getCarName());
         tvOrderNumber.setText(cardetail.getPlateNo());
         tvOrderGetaddrTime.setText(getAddress + "\n" + bundle.getString("getTime"));
         tvOrderBackaddrTime.setText(sendAddress + "\n" + bundle.getString("backTime"));
         tvOrderDeposit.setText(bean.getData().getSysdata().getTrafficDeposit() + "元");
 
-
         tvCarPrice.setText(amount + "元");
         tvOrderBzj.setText(cardetail.getDeposit() + "元");
+
         tvOrderAllMoney.setText("合计：" + (bean.getData().getSysdata().getTrafficDeposit() + amount) + "元");
         tvOrderType.setText(cardetail.getUseType() == 1 ? "自 驾" : "商 务");
         //    tvOrderType.setText(cardetail.getUseType()==1?R.mipmap.car_type1:R.mipmap.car_type_2);
@@ -280,6 +307,7 @@ public class OrderConfirmActivity extends BaseActivity {
                     toActivity(PayActivity.class, bundle);
                     finish();
                 } else asyncShowToast(orderBean.getMessage());
+
             }
 
             @Override

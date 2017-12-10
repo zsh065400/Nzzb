@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">至尊宝豪车共享</string>
+
+    <string name="press_again_to_leave">再按一次退出至尊宝</string>
     <string name="monday">一</string>
     <string name="tuesday">二</string>
     <string name="wednesday">三</string>

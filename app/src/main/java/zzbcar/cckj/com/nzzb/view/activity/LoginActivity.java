@@ -44,6 +44,7 @@ import zzbcar.cckj.com.nzzb.utils.NoLineClickSpan;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.ProtocolActivity;
 
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -145,7 +146,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         NoLineClickSpan clickSpan2 = new NoLineClickSpan("#ff4049") {
             @Override
             public void onClick(View widget) {
-                Toast.makeText(LoginActivity.this, "至尊宝豪车共享服务协议", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "至尊宝豪车共享服务协议", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, ProtocolActivity.class);
+                intent.putExtra("title", "平台服务协议");
+                intent.putExtra("url", Constant.PTGZ);
+                startActivity(intent);
+
             }
         };
 

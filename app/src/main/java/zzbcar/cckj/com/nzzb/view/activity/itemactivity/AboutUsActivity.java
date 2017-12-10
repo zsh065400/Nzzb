@@ -61,6 +61,7 @@ public class AboutUsActivity extends BaseActivity implements View.OnClickListene
                 intent1.putExtra("title", "平台规则");
                 intent1.putExtra("url", Constant.PTGZ);
                 startActivity(intent1);
+
                 break;
         }
     }

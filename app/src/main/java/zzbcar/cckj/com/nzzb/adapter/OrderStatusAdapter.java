@@ -34,7 +34,7 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
     * 10 交易成功
     * */
     private String[] status = {"", "", "待取车", "已取车", "", "押金未退", "已收车", "已取消", "已取消", "已关闭", "交易成功"};
-
+    private String[] transmissionCase = {"双离合", "手自动一体", "ISR", "AMT", "自动"};
     /*使用类型
     *
     * 1 自驾
@@ -104,7 +104,7 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
         holder.setText(R.id.tv_rec_address, dataBean.getReturnAddress());
         holder.setText(R.id.tv_send_time, dataBean.getStartTime() + "");
         holder.setText(R.id.tv_rec_time, dataBean.getEndTime() + "");
-        holder.setText(R.id.tv_car_detail, car.getModelYear() + "款 " + "|" + car.getSeatNum() + "座位 " + "|" + car.getUseType() + "");
+        holder.setText(R.id.tv_car_detail, car.getModelYear() + "款 " + "|" + car.getSeatNum() + "座位 " + "|" + transmissionCase[car.getTransmissionCase()] + "");
         holder.setText(R.id.tv_car_address, car.getAddr());
         TextView view = holder.getView(R.id.tv_sure_get_car);
         switch (status) {

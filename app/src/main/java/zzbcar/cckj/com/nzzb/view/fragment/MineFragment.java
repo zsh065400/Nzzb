@@ -3,13 +3,13 @@ package zzbcar.cckj.com.nzzb.view.fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -60,6 +60,7 @@ import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BreakRuleActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarIdentifiActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HelpCenterActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.IdentiCompleteActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCollectActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.PersonDataActivity;
@@ -108,6 +109,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             }
         }
     };
+    private String name;
 
 
     private void submitHeadUrl(final String hearUrl) {
@@ -192,12 +194,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         iv_minfragment_head_pic.setOnClickListener(this);
         ll_my_collect.setOnClickListener(this);
         ll_my_order.setOnClickListener(this);
+        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mActivity);
+
 
 
     }
 
     /*初始化登录信息*/
     private void initSignInfo() {
+        name = signInfo.getName();
         final String avatar = signInfo.getAvatar();
         if (avatar.equals("") || avatar.equals(":")) {
             Toast.makeText(mActivity, "头像地址错误，且Picasso加载有异常", Toast.LENGTH_SHORT).show();
@@ -231,8 +236,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             tv_minfragment_car_identifi.setText("车主未认证");
         } else if (signInfo.getAuthStatus() == 3) {
             tv_minfragment_car_identifi.setText("车主认证失败");
+        }else if (signInfo.getAuthStatus()==2){
+            tv_minfragment_car_identifi.setText("认证中");
         }
-        tvUserPhone.setText(signInfo.getMobile());
+        if (TextUtils.isEmpty(name)) {
+            tvUserPhone.setText(signInfo.getMobile());
+        } else {
+            tvUserPhone.setText(signInfo.getName());
+        }
+
         tvSignout.setVisibility(View.VISIBLE);
     }
 
@@ -310,7 +322,27 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.tv_minfragment_car_identifi:
-                toActivity(CarIdentifiActivity.class, true);
+                if (signInfo.getAuthStatus()==0){
+                    toActivity(CarIdentifiActivity.class, true);
+
+                }else if (signInfo.getAuthStatus()==2){
+
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                    AlertDialog alertDialog = builder.setMessage("您的资料正在审核中,请耐心等待!")
+                            .setTitle("提示")
+                            .setCancelable(false)
+                            .setPositiveButton("确定",null).create();
+                    alertDialog.show();
+
+                }else if(signInfo.getAuthStatus()==1){
+
+                    toActivity(IdentiCompleteActivity.class, true);
+
+                }else if (signInfo.getAuthStatus()==3){
+                    Toast.makeText(mActivity, "认证失败 请重新认证", Toast.LENGTH_SHORT).show();
+                    toActivity(CarIdentifiActivity.class, true);
+                }
+
                 break;
             case R.id.iv_mine_fragment_carowener_recruit:
                 intent = new Intent(mActivity, PreCarFriendIdentifiActivity.class);
@@ -349,6 +381,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                             }
                         })
                         .setNegativeButton("否", null).show();
+
                 break;
         }
 
@@ -369,7 +402,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                             setViewInfo(permessBean.getData());
 
                     }
-
                 });
     }
 
@@ -402,8 +434,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private void openShared() {
         new ShareAction(mActivity)
                 .withText("至尊宝豪车共享")
-                .withMedia(new UMImage(mActivity, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)))
-                .withMedia(new UMWeb("http://www.baidu.com"))
+                .withMedia(new UMImage(mActivity,"http://app.zzbcar.com/zzb/static/share.jpeg" ))
+                .withMedia(new UMWeb("http://app.zzbcar.com/zzb/static/appshare.html"))
                 .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN)
                 .setCallback(shareListener)
                 .open();

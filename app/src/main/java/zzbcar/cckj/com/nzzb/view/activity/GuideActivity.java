@@ -4,7 +4,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ import zzbcar.cckj.com.nzzb.utils.SPUtils;
 
 public class GuideActivity extends BaseActivity {
     //向导图片
-    private int[] imgs = new int[]{R.mipmap.icon_guide1, R.mipmap.icon_guide2, R.mipmap.icon_guide3, R.mipmap.icon_guide4};
+    private int[] imgs = new int[]{R.mipmap.icon_guide1, R.mipmap.icon_guide2, R.mipmap.icon_guide3};
 
     @BindView(R.id.vp_guide_items)
     ViewPager vpGuide;
 
     @BindView(R.id.btn_start)
-    Button btnStart;
+    ImageButton btnStart;
 
     @BindView(R.id.indicator_guide)
     CircleIndicator indicatorGuide;

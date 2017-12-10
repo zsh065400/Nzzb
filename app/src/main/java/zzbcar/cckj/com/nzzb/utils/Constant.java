@@ -9,7 +9,7 @@ public class Constant {
     public static final String KEY_HAS_GUIDE = "key_has_guide";
     /****************社会化组件：登录、分享****************/
     public static final String WEIXIN_APP_ID = "wxad1065edbfa4ed3a";
-    public static final String WEIXIN_APP_SECRET = "70943f855a89703a47c1a35c9ee07b05";
+    public static final String WEIXIN_APP_SECRET = "6f506b7fa8f71f36291ea6496e325736";
 
 //    public static final String QQZONE_APP_ID = "100424468";
 //    public static final String QQZONE_APP_KEY = "c7394704798a158208a74ab60104f0ba";
@@ -30,7 +30,9 @@ public static final String QQZONE_APP_ID = "1106313801";
 
     /*获取短信验证码*/
     public static final String API_GET_CODE = SERVE_URL + "zzb/app/common/smscode";
+    //验证用户有没有认证
 
+    public static final String VERTIFY_IDENTI_URL=SERVE_URL+"zzb/app/member/authInfo ";
     /*下单*/
     public static final String API_ADD_ORDER = SERVE_URL + "zzb/app/order/doOrder";
 
@@ -129,7 +131,9 @@ public static final String QQZONE_APP_ID = "1106313801";
     public static final String IDCARD_KEYPATH = "zzbcar/auth/";
     public static final String CARLICENCE_KEYPATH = "zzbcar/auth/";
     public static final String SERVER_PHOTO_HEAD = "http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/";
+
     public static final String HEAD_KEYPATH = "zzbcar/headimg/";
+    public static final String NiCK_NAME_KEYPATH = "zzbcar/nickname/";
 
     //加载的网页链接
     //用户协议

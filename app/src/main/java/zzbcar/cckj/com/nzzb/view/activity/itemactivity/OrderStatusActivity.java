@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.BaseBean;
@@ -30,6 +31,8 @@ import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
+
+import static zzbcar.cckj.com.nzzb.R.id.tv_order_allTime;
 
 /**
  * Created by liling on 2017/11/24.
@@ -46,6 +49,24 @@ public class OrderStatusActivity extends BaseActivity {
     RelativeLayout topBar;
     @BindView(R.id.tv_car_zj)
     TextView tvCarZj;
+
+    @BindView(R.id.tv_car_overtime)
+    TextView tvCarOvertime;
+    @BindView(R.id.tv_car_super_mileage)
+    TextView tvCarSuperMileage;
+    @BindView(R.id.tv_car_break_rules)
+    TextView tvCarBreakRules;
+    @BindView(R.id.tv_order_really_time)
+    TextView tvOrderReallyTime;
+    @BindView(R.id.tv_jurney_realy_refund)
+    TextView tvJurneyRealyRefund;
+//    @BindView(R.id.tv_car_overtime)
+//    TextView tvCarOvertime;
+//    @BindView(R.id.tv_car_super_mileage)
+//    TextView tvCarSuperMileage;
+//    @BindView(R.id.tv_car_break_rules)
+//    TextView tvCarBreakRules;
+
     private UserOrderBean.DataBean databean;
     private int status;
 
@@ -107,7 +128,7 @@ public class OrderStatusActivity extends BaseActivity {
     TextView tvOrderGetAddrTime;/*取车时间和地址*/
     @BindView(R.id.tv_order_backaddrTime)
     TextView tvOrderBackAddrTime;/*还车时间和地址*/
-    @BindView(R.id.tv_order_allTime)
+    @BindView(tv_order_allTime)
     TextView tvOrderAllTime;/*还车时间*/
     @BindView(R.id.tv_car_price)
     TextView tvCarPrice;/*车辆租金*/
@@ -135,12 +156,66 @@ public class OrderStatusActivity extends BaseActivity {
 
 
     private String[] useType = {"自驾", "商务", "", "婚庆"};
-    private String[] transmissionCase = {"双离合", "手自动一体", "ISR", "AMT", "自动"};
+
     private void initOrderInfo() {
         tvOrderId.setText(String.valueOf(databean.getOrderNo()));
         UserOrderBean.DataBean.CarBean car = databean.getCar();
 
-//        Picasso.with(this).load(car.getPics()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).fit().into(ivCarPic);
+        String endTime = databean.getEndTime();
+        String startTime = databean.getStartTime();
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date end = sdf.parse(endTime);
+            Date start = sdf.parse(startTime);
+            long nd = 1000 * 24 * 60 * 60;
+            long betweentime = end.getTime() - start.getTime();
+            final long betweenDay = betweentime / nd;
+            if (betweenDay != 0) {
+                tvOrderAllTime.setText(betweenDay + "天");
+            } else {
+                long nh = 1000 * 60 * 60;
+                final long betweenHour = betweentime % nd / nh;
+                if (betweenHour != 0) {
+                    tvOrderAllTime.setText(betweenHour + "小时");
+                } else {
+                    long nm = 1000 * 60;
+                    final long betweenMinu = betweentime % nd % nh / nm;
+                    tvOrderAllTime.setText(betweenMinu + "分钟");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Object returnTime = databean.getReturnTime();
+        String createTime = databean.getCreateTime();
+        try {
+            Date end = sdf.parse((String) returnTime);
+            Date start = sdf.parse(createTime);
+            long nd = 1000 * 24 * 60 * 60;
+            long betweentime = end.getTime() - start.getTime();
+            final long betweenDay = betweentime / nd;
+            if (betweenDay != 0) {
+
+
+                tvOrderReallyTime.setText("实际使用时间：" + betweenDay + "天");
+            } else {
+                long nh = 1000 * 60 * 60;
+                final long betweenHour = betweentime % nd / nh;
+                if (betweenHour != 0) {
+                    tvOrderReallyTime.setText("实际使用时间：" + betweenHour + "小时");
+                } else {
+                    long nm = 1000 * 60;
+                    final long betweenMinu = betweentime % nd % nh / nm;
+                    tvOrderReallyTime.setText("实际使用时间：" + betweenMinu + "分钟");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         GlideApp
                 .with(mContext)
                 .load(car.getPics())
@@ -153,16 +228,25 @@ public class OrderStatusActivity extends BaseActivity {
         tvOrderNumber.setText(car.getPlateNo());
         tvCarPrice.setText(databean.getLeasePrice() + "");
         tvOrderBzj.setText(carBean.getDeposit() + "");
-
-
         tvOrderDeposit.setText(databean.getTrafficDepositMoney() + "");
-
         tvOrderAllMoney.setText(databean.getOnlineAmount() + "");
         tvOrderGetAddrTime.setText(databean.getTakeAddress() + "\n\n" + databean.getStartTime() + "");
         tvOrderBackAddrTime.setText(databean.getReturnAddress() + "\n\n" + databean.getEndTime() + "");
 
-        final int payStatus = databean.getPayStatus();
+        //有违章的情况下显示
+        if (databean.getTrafficPunlishMoney() != 0) {
+            tvJurneyRealyRefund.setVisibility(View.VISIBLE);
+            tvCarStatus.setVisibility(View.GONE);
+            tvCarStatus.setVisibility(View.GONE);
+            tvOrderAllMoney.setVisibility(View.GONE);
+            tvCarOvertime.setText(databean.getTimeoutMoney());
+            tvCarSuperMileage.setText(databean.getExceedMoney());
+            tvCarBreakRules.setText(databean.getTrafficPunlishMoney());
+            tvJurneyRealyRefund.setText(databean.getLastReturnMoney());
+        }
 
+
+        final int payStatus = databean.getPayStatus();
 
 
         switch (status) {
@@ -293,6 +377,7 @@ public class OrderStatusActivity extends BaseActivity {
     @OnClick(R.id.tv_order_cancel)
     public void cancelOrder() {
         // TODO: 2017/12/4 违约需添加逻辑
+
         if (databean.getStatus() == 2) {
             Toast.makeText(OrderStatusActivity.this, "已接单需添加违约逻辑", Toast.LENGTH_SHORT).show();
             return;
@@ -378,4 +463,10 @@ public class OrderStatusActivity extends BaseActivity {
         finish();
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

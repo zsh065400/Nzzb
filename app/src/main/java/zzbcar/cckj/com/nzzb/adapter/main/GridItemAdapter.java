@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class GridItemAdapter extends BaseAdapter {
                     LayoutInflater.from(mContext)
                             .inflate(R.layout.gridview_item, parent, false);
             mv.iv_grid_brand_item = convertView.findViewById(R.id.iv_grid_brand_item);
+            mv.tv_home_brand_name = convertView.findViewById(R.id.tv_home_brand_name);
             convertView.setTag(mv);
         } else {
             mv = (MyViewHolder) convertView.getTag();
@@ -71,11 +73,15 @@ public class GridItemAdapter extends BaseAdapter {
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(mv.iv_grid_brand_item);
+
+        mv.tv_home_brand_name.setText(mViews.get(position).getName());
         return convertView;
+
     }
 
     static class MyViewHolder {
         ImageView iv_grid_brand_item;
+        TextView tv_home_brand_name;
     }
 
 }

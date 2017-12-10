@@ -1,7 +1,9 @@
 package zzbcar.cckj.com.nzzb.view.activity;
 
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -26,7 +28,9 @@ public class MainActivity extends BaseActivity {
     RadioGroup rgMain;
     @BindView(R.id.vp_main)
     NoScrollViewPager vpMain;
-
+    private static MainActivity mainActivity;
+    private long backPressTime = 0;
+    private static final int SECOND = 1000;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -100,10 +104,33 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    public MainActivity() {
+        mainActivity = this;
+    }
+
+    public static MainActivity getMainActivity() {
+        return mainActivity;
+    }
+
+
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
 //        SPUtils.saveString(this,"User","");
+
+    }
+
+    @Override
+    public void onBackPressed() {
+       final long uptimeMillis = SystemClock.uptimeMillis();
+        if(uptimeMillis-backPressTime>2*SECOND){
+            backPressTime=uptimeMillis;
+            Toast.makeText(this,  R.string.press_again_to_leave, Toast.LENGTH_SHORT).show();
+        }else {
+            finish();
+        }
 
     }
 }

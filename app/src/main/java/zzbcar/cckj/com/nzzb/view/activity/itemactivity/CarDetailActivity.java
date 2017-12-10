@@ -1,9 +1,10 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import java.io.File;
 import java.util.Date;
@@ -81,6 +83,8 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     ImageView imageView;
     @BindView(R.id.iv_to_right2)
     ImageView ivToRight2;
+    @BindView(R.id.scrollView_cardetail)
+    NestedScrollView scrollView_cardetail;
     @BindView(R.id.rl_cardetail_service_center)
     RelativeLayout rlCardetailServiceCenter;
 
@@ -135,11 +139,14 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     ImageView iv_car_detail_brand;
     @BindView(R.id.civ_head_portrait)
     CircleImageView civ_head_portrait;
+    @BindView(R.id.top_bar)
+    View topBar;
     public static final String RENT_KEY = "rent";//来自于RentActivity的跳转。
     private String[] transmissionCase = {"双离合", "手自动一体", "ISR", "AMT", "自动"};
 
     @Override
     protected void initViews() {
+
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
@@ -162,7 +169,25 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
             }
         });
-
+        scrollView_cardetail.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                  /*以图片为基准，超过图片高度则固定颜色*/
+                  if(scrollX>=ivCarPic.getTop()+ivCarPic.getMeasuredHeight()){
+                      topBar.setBackgroundColor(Color.rgb(10, 27, 43));
+                           /*其余情况动态计算百分比改变颜色*/
+                  }else if (scrollY >= 0) {
+                      //计算透明度，滑动到的距离（即当前滑动坐标）/图片高度（底部坐标）
+                      float persent = scrollY * 1f / (ivCarPic.getTop() + ivCarPic.getMeasuredHeight());
+                      //255==1，即不透明，计算动态透明度
+                      int alpha = (int) (255 * persent);
+                      //计算颜色值，将16进制颜色值转换为rgb颜色后填入
+                      int color = Color.argb(alpha, 10, 27, 43);
+                      //动态设置
+                      topBar.setBackgroundColor(color);
+                  }
+            }
+        });
     }
 
     private void collectCar() {
@@ -369,15 +394,36 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         Intent intent = null;
+        final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mContext);
         switch (view.getId()) {
             case R.id.tv_immediately_rent_car:
-                if (carDetailBean != null) {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
-                    bundle.putSerializable("cardetail", carDetailBean);
-                    bundle.putString("getAddress", getAddress);
-                    toActivity(SelectTimeActivity.class, bundle);
-                }
+
+//                if (carDetailBean != null) {
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
+//                    bundle.putSerializable("cardetail", carDetailBean);
+//                    bundle.putString("getAddress", getAddress);
+//                    toActivity(SelectTimeActivity.class, bundle);
+//                }
+
+                OkGo.<String>get(Constant.VERTIFY_IDENTI_URL)
+                        .params("userId",signInfo.getId())
+                        .params("token",SPUtils.getToken(mContext))
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                if (carDetailBean != null&&signInfo.getAuthStatus()==1) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
+                                    bundle.putSerializable("cardetail", carDetailBean);
+                                    bundle.putString("getAddress", getAddress);
+                                    toActivity(SelectTimeActivity.class, bundle);
+                                }else {
+                                    Toast.makeText(mContext, "亲，您还没有认证，去看看吧！", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
                 break;
 
             case R.id.ll_car_price_list:
@@ -413,7 +459,8 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     private void openShared() {
         new ShareAction(this)
                 .withText("至尊宝豪车共享")
-                .withMedia(new UMImage(this, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)))
+                .withMedia(new UMImage(this, "http://app.zzbcar.com/zzb/static/share.jpeg"))
+                .withMedia(new UMWeb("http://app.zzbcar.com/zzb/static/appshare.html"))
                 .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN)
                 .setCallback(shareListener)
                 .open();

@@ -217,7 +217,10 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initDatas() {
         payInfo = (OrderBean.DataBean) getIntent().getExtras().getSerializable("payinfo");
-        tv_rend_car_money.setText("¥ "+payInfo.getLeasePrice());
+        double leasePrice = payInfo.getLeasePrice();
+        double trafficDepositMoney = payInfo.getTrafficDepositMoney();
+        double TotalMoney=leasePrice+trafficDepositMoney;
+        tv_rend_car_money.setText("¥ "+TotalMoney);
         alipay_iv.setEnabled(true);
         wxpay_iv.setEnabled(false);
         setBackButon(R.id.iv_back);

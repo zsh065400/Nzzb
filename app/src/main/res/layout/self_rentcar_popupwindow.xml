@@ -12,13 +12,14 @@
     android:orientation="vertical" >
 
     <TextView
+         android:drawableLeft="@drawable/selector_sorder_distance"
         android:id="@+id/pop_loc_near"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="12dp"
         android:text="离我最近"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <View
         android:layout_width="wrap_content"
@@ -26,13 +27,14 @@
         android:background="#BDBDBD" />
 
     <TextView
+        android:drawableLeft="@drawable/selector_sorder_price"
         android:id="@+id/pop_price_lower"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="12dp"
         android:text="价格最低"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <View
         android:layout_width="wrap_content"
@@ -40,25 +42,27 @@
         android:background="#BDBDBD" />
 
     <TextView
+        android:drawableLeft="@drawable/selector_sorder_share"
         android:id="@+id/pop_share_many"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="12dp"
         android:text="共享最多"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#BDBDBD" />
 
     <TextView
+        android:drawableLeft="@drawable/selector_sorder_fresh"
         android:id="@+id/pop_niankuan_new"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="12dp"
         android:text="年款最新"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 </LinearLayout>
 </RelativeLayout>

@@ -105,6 +105,7 @@ public abstract class BaseActivity extends FragmentActivity {
             @Override
             public void run() {
                 Toast.makeText(mContext, text, Toast.LENGTH_SHORT).show();
+
             }
         });
     }

@@ -1,6 +1,8 @@
 package zzbcar.cckj.com.nzzb.base;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
 import com.lzy.okgo.OkGo;
@@ -52,6 +54,11 @@ public class MyApplication extends MultiDexApplication {
 //        api.sendReq(req);// 调用支付
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+        }
     }
 
     private void initOkGo() {
