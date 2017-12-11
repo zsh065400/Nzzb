@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item>-->
+        <!--<shape>-->
+            <!--&lt;!&ndash;<corners android:radius="20dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;&gt;</corners>&ndash;&gt;-->
+            <!--<solid android:color="#fd4049"/>-->
+        <!--</shape>-->
+    <!--</item>-->
+
+    <item>
+        <bitmap android:src="@drawable/half_time"/>
+    </item>
+</layer-list>

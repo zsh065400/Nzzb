@@ -162,11 +162,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         iv_cardetail_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Todo 收藏车辆(未实现，接口状态不明)
-
                 collectCar();
-
-
             }
         });
         scrollView_cardetail.setOnScrollChangeListener(new View.OnScrollChangeListener() {
@@ -308,6 +304,10 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             int day = new Date().getDay() + i;
             weekDay.setText(day < 10 ? "0" + day : day + "");
             money.setText(dataBean.getPrice() + "");
+            // TODO: 2017/12/11 添加半天效果
+            if (Math.random() * 10 + 1 - i < 2) {
+                inflate.setBackgroundResource(R.drawable.bg_half_time);
+            }
             llCarPriceList.addView(inflate, i);
         }
     }

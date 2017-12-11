@@ -1,42 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
     <TextView
-        android:layout_gravity="center_horizontal"
-    android:gravity="center_horizontal"
-    android:text="日"
         android:id="@+id/tv_week_price_week"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="日"/>
+
+    <TextView
         android:id="@+id/tv_week_price_weekday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:text="18"
-        android:textColor="#1d1c1c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textColor="#1d1c1c"/>
 
     <LinearLayout
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
         <TextView
-            android:textColor="#bf3030"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="¥"
-            android:textSize="12sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textColor="#bf3030"
+            android:textSize="12sp"/>
+
         <TextView
             android:id="@+id/tv_week_price_money"
-            android:textColor="#bf3030"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="180"
-            android:textSize="12sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textColor="#bf3030"
+            android:textSize="12sp"/>
     </LinearLayout>
 </LinearLayout>
