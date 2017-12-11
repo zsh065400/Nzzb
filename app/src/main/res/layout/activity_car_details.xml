@@ -4,10 +4,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
-
-
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView_cardetail"
         android:layout_width="match_parent"
@@ -30,8 +26,6 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@mipmap/first"/>
-
-
 
             </RelativeLayout>
 

@@ -169,19 +169,19 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                   /*以图片为基准，超过图片高度则固定颜色*/
-                  if(scrollX>=ivCarPic.getTop()+ivCarPic.getMeasuredHeight()){
-                      topBar.setBackgroundColor(Color.rgb(10, 27, 43));
+                if (scrollY >= ivCarPic.getTop() + ivCarPic.getMeasuredHeight()) {
+                    topBar.setBackgroundColor(Color.rgb(10, 27, 43));
                            /*其余情况动态计算百分比改变颜色*/
-                  }else if (scrollY >= 0) {
-                      //计算透明度，滑动到的距离（即当前滑动坐标）/图片高度（底部坐标）
-                      float persent = scrollY * 1f / (ivCarPic.getTop() + ivCarPic.getMeasuredHeight());
-                      //255==1，即不透明，计算动态透明度
-                      int alpha = (int) (255 * persent);
-                      //计算颜色值，将16进制颜色值转换为rgb颜色后填入
-                      int color = Color.argb(alpha, 10, 27, 43);
-                      //动态设置
-                      topBar.setBackgroundColor(color);
-                  }
+                } else if (scrollY >= 0) {
+                    //计算透明度，滑动到的距离（即当前滑动坐标）/图片高度（底部坐标）
+                    float persent = scrollY * 1f / (ivCarPic.getTop() + ivCarPic.getMeasuredHeight());
+                    //255==1，即不透明，计算动态透明度
+                    int alpha = (int) (255 * persent);
+                    //计算颜色值，将16进制颜色值转换为rgb颜色后填入
+                    int color = Color.argb(alpha, 10, 27, 43);
+                    //动态设置
+                    topBar.setBackgroundColor(color);
+                }
             }
         });
     }
@@ -246,7 +246,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         });
 
         tv_cardetail_money_line.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        tv_cardetail_money_line.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
+        tv_cardetail_money_line.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
 
     }
 
@@ -292,7 +292,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     private void parseWeekData(List<WeekPriceBean.DataBean> data) {
         llCarPriceList.removeAllViews();
-        for (int i = 0; i < data.size()-1; i++) {
+        for (int i = 0; i < data.size() - 1; i++) {
             View inflate = getLayoutInflater().inflate(R.layout.car_detail_week_item, null, false);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
             inflate.setLayoutParams(lp);
@@ -407,18 +407,18 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 //                }
 
                 OkGo.<String>get(Constant.VERTIFY_IDENTI_URL)
-                        .params("userId",signInfo.getId())
-                        .params("token",SPUtils.getToken(mContext))
+                        .params("userId", signInfo.getId())
+                        .params("token", SPUtils.getToken(mContext))
                         .execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-                                if (carDetailBean != null&&signInfo.getAuthStatus()==1) {
+                                if (carDetailBean != null && signInfo.getAuthStatus() == 1) {
                                     Bundle bundle = new Bundle();
                                     bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
                                     bundle.putSerializable("cardetail", carDetailBean);
                                     bundle.putString("getAddress", getAddress);
                                     toActivity(SelectTimeActivity.class, bundle);
-                                }else {
+                                } else {
                                     Toast.makeText(mContext, "亲，您还没有认证，去看看吧！", Toast.LENGTH_SHORT).show();
                                 }
 
@@ -511,6 +511,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
     @Override
     protected void setStatusBar() {
         StatusBarUtil.setTransparentForImageViewInFragment(this, null);
