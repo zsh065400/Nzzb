@@ -31,6 +31,8 @@ public class MainActivity extends BaseActivity {
     private static MainActivity mainActivity;
     private long backPressTime = 0;
     private static final int SECOND = 1000;
+    private JourneyFragment mJourneyFragment;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -38,8 +40,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+
         initViewPagers();
     }
+
     @Override
     protected void initListeners() {
         /*切换页面*/
@@ -48,17 +52,17 @@ public class MainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_home:
-                        vpMain.setCurrentItem(0,false);
+                        vpMain.setCurrentItem(0, false);
                         break;
                     case R.id.rb_find_car:
-                        vpMain.setCurrentItem(1,false);
+                        vpMain.setCurrentItem(1, false);
                         break;
                     case R.id.rb_journey:
-                        vpMain.setCurrentItem(2,false);
+                        vpMain.setCurrentItem(2, false);
                         break;
                     case R.id.rb_mine:
 
-                        vpMain.setCurrentItem(3,false);
+                        vpMain.setCurrentItem(3, false);
                         break;
                 }
             }
@@ -69,7 +73,8 @@ public class MainActivity extends BaseActivity {
         final List<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
         fragments.add(new FindCarFragment());
-        fragments.add(new JourneyFragment());
+        mJourneyFragment = new JourneyFragment();
+        fragments.add(mJourneyFragment);
         fragments.add(new MineFragment());
         final MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager(), fragments);
         vpMain.setAdapter(adapter);
@@ -96,11 +101,14 @@ public class MainActivity extends BaseActivity {
     protected void setStatusBar() {
         StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
+
     //切换导航栏
-    public void  setViewPager(int position){
+    public void setViewPager(int position) {
 //        rgMain.check(R.id.rb_find_car);
         rgMain.check(rgMain.getChildAt(position).getId());
-
+        if (position == 2 && mJourneyFragment != null) {
+            mJourneyFragment.changeTab(2);
+        }
     }
 
 
@@ -113,22 +121,20 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
 //        SPUtils.saveString(this,"User","");
-
+        mainActivity=null;
     }
 
     @Override
     public void onBackPressed() {
-       final long uptimeMillis = SystemClock.uptimeMillis();
-        if(uptimeMillis-backPressTime>2*SECOND){
-            backPressTime=uptimeMillis;
-            Toast.makeText(this,  R.string.press_again_to_leave, Toast.LENGTH_SHORT).show();
-        }else {
+        final long uptimeMillis = SystemClock.uptimeMillis();
+        if (uptimeMillis - backPressTime > 2 * SECOND) {
+            backPressTime = uptimeMillis;
+            Toast.makeText(this, R.string.press_again_to_leave, Toast.LENGTH_SHORT).show();
+        } else {
             finish();
         }
 

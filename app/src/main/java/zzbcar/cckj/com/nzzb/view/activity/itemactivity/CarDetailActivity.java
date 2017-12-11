@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -93,6 +94,13 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     private int collectFlag = 0;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
     /**
      * 判断是否安装目标应用
      *
@@ -162,30 +170,26 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         iv_cardetail_collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Todo 收藏车辆(未实现，接口状态不明)
-
                 collectCar();
-
-
             }
         });
         scrollView_cardetail.setOnScrollChangeListener(new View.OnScrollChangeListener() {
             @Override
             public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                   /*以图片为基准，超过图片高度则固定颜色*/
-                  if(scrollX>=ivCarPic.getTop()+ivCarPic.getMeasuredHeight()){
-                      topBar.setBackgroundColor(Color.rgb(10, 27, 43));
+                if (scrollY >= ivCarPic.getTop() + ivCarPic.getMeasuredHeight()) {
+                    topBar.setBackgroundColor(Color.rgb(10, 27, 43));
                            /*其余情况动态计算百分比改变颜色*/
-                  }else if (scrollY >= 0) {
-                      //计算透明度，滑动到的距离（即当前滑动坐标）/图片高度（底部坐标）
-                      float persent = scrollY * 1f / (ivCarPic.getTop() + ivCarPic.getMeasuredHeight());
-                      //255==1，即不透明，计算动态透明度
-                      int alpha = (int) (255 * persent);
-                      //计算颜色值，将16进制颜色值转换为rgb颜色后填入
-                      int color = Color.argb(alpha, 10, 27, 43);
-                      //动态设置
-                      topBar.setBackgroundColor(color);
-                  }
+                } else if (scrollY >= 0) {
+                    //计算透明度，滑动到的距离（即当前滑动坐标）/图片高度（底部坐标）
+                    float persent = scrollY * 1f / (ivCarPic.getTop() + ivCarPic.getMeasuredHeight());
+                    //255==1，即不透明，计算动态透明度
+                    int alpha = (int) (255 * persent);
+                    //计算颜色值，将16进制颜色值转换为rgb颜色后填入
+                    int color = Color.argb(alpha, 10, 27, 43);
+                    //动态设置
+                    topBar.setBackgroundColor(color);
+                }
             }
         });
     }
@@ -250,7 +254,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         });
 
         tv_cardetail_money_line.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        tv_cardetail_money_line.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);
+        tv_cardetail_money_line.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
 
     }
 
@@ -296,7 +300,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     private void parseWeekData(List<WeekPriceBean.DataBean> data) {
         llCarPriceList.removeAllViews();
-        for (int i = 0; i < data.size()-1; i++) {
+        for (int i = 0; i < data.size() - 1; i++) {
             View inflate = getLayoutInflater().inflate(R.layout.car_detail_week_item, null, false);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
             inflate.setLayoutParams(lp);
@@ -308,6 +312,10 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             int day = new Date().getDay() + i;
             weekDay.setText(day < 10 ? "0" + day : day + "");
             money.setText(dataBean.getPrice() + "");
+            // TODO: 2017/12/11 添加半天效果
+            if (Math.random() * 10 + 1 - i < 2) {
+                inflate.setBackgroundResource(R.drawable.bg_half_time);
+            }
             llCarPriceList.addView(inflate, i);
         }
     }
@@ -397,6 +405,36 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mContext);
         switch (view.getId()) {
             case R.id.tv_immediately_rent_car:
+                if (signInfo != null) {
+                    OkGo.<String>get(Constant.VERTIFY_IDENTI_URL)
+                            .params("userId", signInfo.getId())
+                            .params("token", SPUtils.getToken(mContext))
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    Log.e("出租车。。。。", response.body());
+                                    if (carDetailBean != null) {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
+                                        bundle.putSerializable("cardetail", carDetailBean);
+                                        bundle.putString("getAddress", getAddress);
+                                        toActivity(SelectTimeActivity.class, bundle);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onError(Response<String> response) {
+
+                                    Toast.makeText(mContext, "亲，您还没有认证，去看看吧！", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+
+                } else {
+                    Toast.makeText(mContext, "请登录后再试", Toast.LENGTH_SHORT).show();
+                    toActivity(LoginActivity.class);
+                }
 
 //                if (carDetailBean != null) {
 //                    Bundle bundle = new Bundle();
@@ -405,25 +443,6 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 //                    bundle.putString("getAddress", getAddress);
 //                    toActivity(SelectTimeActivity.class, bundle);
 //                }
-
-                OkGo.<String>get(Constant.VERTIFY_IDENTI_URL)
-                        .params("userId",signInfo.getId())
-                        .params("token",SPUtils.getToken(mContext))
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                if (carDetailBean != null&&signInfo.getAuthStatus()==1) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
-                                    bundle.putSerializable("cardetail", carDetailBean);
-                                    bundle.putString("getAddress", getAddress);
-                                    toActivity(SelectTimeActivity.class, bundle);
-                                }else {
-                                    Toast.makeText(mContext, "亲，您还没有认证，去看看吧！", Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-                        });
                 break;
 
             case R.id.ll_car_price_list:
@@ -505,12 +524,6 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         }
     };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
     @Override
     protected void setStatusBar() {
         StatusBarUtil.setTransparentForImageViewInFragment(this, null);

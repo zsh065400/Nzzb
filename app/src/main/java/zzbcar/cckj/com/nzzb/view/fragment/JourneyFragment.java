@@ -60,10 +60,6 @@ public class JourneyFragment extends BaseFragment implements TabLayout.OnTabSele
         StatusBarUtil.setViewTopPadding(mActivity, view, R.id.top_bar);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
@@ -78,5 +74,9 @@ public class JourneyFragment extends BaseFragment implements TabLayout.OnTabSele
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+    public void changeTab(int position) {
+        if (journet_tab_layou != null) journet_tab_layou.getTabAt(position).select();
     }
 }

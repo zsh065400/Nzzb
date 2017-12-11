@@ -4,6 +4,8 @@ package com.xq.calendartest.entity;
  * Created by Administrator on 2017/7/17.
  */
 
+import zzbcar.cckj.com.nzzb.bean.MonthPriceBean;
+
 /**
  * Created by xqx on 2017/1/17.
  * 日历中每一个月中的 每一个天数
@@ -15,22 +17,22 @@ public class DayTimeEntity {
 
     private int monthPosition;    //属于的月份位置，注意是该日期属于的月份在外层列表中的position，不是月份
     private int dayPosition;      //属于的日期位置，注意是该日期在每个月（内层列表）中的位置
-    private double price;
+    private MonthPriceBean.DataBean priceBean;
 
-    public DayTimeEntity(int day, int month, int year, int monthPosition,double price) {
+    public DayTimeEntity(int day, int month, int year, int monthPosition,MonthPriceBean.DataBean priceBean) {
         this.day = day;
         this.month = month;
         this.year = year;
         this.monthPosition = monthPosition;
-        this.price = price;
+        this.priceBean = priceBean;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setPriceBean(MonthPriceBean.DataBean priceBean) {
+        this.priceBean = priceBean;
     }
 
-    public double getPrice() {
-        return price;
+    public MonthPriceBean.DataBean getPriceBean() {
+        return priceBean;
     }
 
     public int getDay() {

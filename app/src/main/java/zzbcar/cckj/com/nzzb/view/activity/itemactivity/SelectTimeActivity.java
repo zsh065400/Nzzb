@@ -2,10 +2,12 @@ package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -38,10 +40,14 @@ import de.greenrobot.event.EventBus;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.adapter.VpSelecTimeAdapter;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
+import zzbcar.cckj.com.nzzb.bean.BaseBean;
 import zzbcar.cckj.com.nzzb.bean.CarDetailBean;
 import zzbcar.cckj.com.nzzb.bean.MonthPriceBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
+import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
+import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.utils.ScreenUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 
@@ -67,6 +73,11 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
     TextView tvSetSelfGetcarAddress;
     @BindView(R.id.tv_set_selfRepaycar_address)
     TextView tvSetSelfRepaycarAddress;
+
+    @BindView(R.id.get_car_line)
+    View getCarLine;
+    @BindView(R.id.back_car_line)
+    View backCarLine;
     private TextView tv_get_car_time;
     private TextView tv_back_car_time;
     //    private LinearLayout ll_get_car;
@@ -88,6 +99,26 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
     private int chooseType = 0;
     private int count = 0;
     private LinearLayoutManager layoutManager;
+
+    @Override
+    protected void onDestroy() {
+        /*重置信息*/
+        isPreferences.updateSp("start_month_position", 0);
+        isPreferences.updateSp("start_day_position", 0);
+
+        isPreferences.updateSp("start_year", 0);
+        isPreferences.updateSp("start_month", 0);
+        isPreferences.updateSp("start_day", 0);
+
+        isPreferences.updateSp("end_month_position", -1);
+        isPreferences.updateSp("end_day_position", -1);
+
+        isPreferences.updateSp("end_year", -1);
+        isPreferences.updateSp("end_month", -1);
+        isPreferences.updateSp("end_day", -1);
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -113,7 +144,12 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
 //垂直布局,
         layoutManager = new LinearLayoutManager(this,   // 上下文
                 LinearLayout.HORIZONTAL,  //垂直布局,
-                false);
+                false) {
+//            @Override
+//            public boolean canScrollHorizontally() {
+//                return false;
+//            }
+        };
         recycle.setLayoutManager(layoutManager);
         recycle.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -159,8 +195,9 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initNewCalendar() {
-        startDay = new DayTimeEntity(0, 0, 0, 0, 0.0);
-        stopDay = new DayTimeEntity(-1, -1, -1, -1, 0.0);
+        MonthPriceBean.DataBean priceBean = new MonthPriceBean.DataBean();
+        startDay = new DayTimeEntity(0, 0, 0, 0, priceBean);
+        stopDay = new DayTimeEntity(-1, -1, -1, -1, priceBean);
         datas = new ArrayList<>();
 
         Calendar c = Calendar.getInstance();
@@ -184,7 +221,6 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
             monthTimeEntity.setPriceBean(monthPriceList.get(i + 1));
             datas.add(monthTimeEntity);
         }
-
         adapter = new MonthTimeAdapter(datas, SelectTimeActivity.this);
         recycle.setAdapter(adapter);
         /*模拟viewpager*/
@@ -213,16 +249,24 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                 tv_picker_date.setText(chooseDate);
                 chooseType = 1;
                 pvCustomTime.show();
+                Log.d(TAG, "OnDayItemClick: ");
             }
 
             @Override
             public void onStartClick(View view, int position) {
                 String timeStart = String.format("%s-%s-%s", startDay.getYear(), startDay.getMonth(), startDay.getDay());
                 System.out.println(timeStart);
+                if (chooseType == 1) {
+                    tv_back_car_time.setText("请设置还车时间");
+                    tv_get_car_time.setText("请设置取车时间");
+                    tv_picker_date.setText("");
+                    tv_picker_time.setText("");
+                }
                 chooseDate = timeStart;
                 tv_picker_date.setText(chooseDate);
                 chooseType = 0;
                 pvCustomTime.show();
+                Log.d(TAG, "onStartClick: ");
             }
 
             @Override
@@ -234,7 +278,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                 tv_picker_time.setText("");
 
                 String timeStart = String.format("%s-%s-%s", startDay.getYear(), startDay.getMonth(), startDay.getDay());
-                System.out.println(timeStart);
+                Log.d(TAG, "onReChoose: ");
                 chooseDate = timeStart;
                 tv_picker_date.setText(chooseDate);
                 chooseType = 0;
@@ -249,6 +293,21 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                 tv_picker_date.setText(chooseDate);
                 chooseType = 1;
                 pvCustomTime.show();
+                Log.d(TAG, "onSameDay: ");
+            }
+        });
+
+        final int width = ScreenUtils.getScreenWidth();
+
+        adapter.setOnLeftRightButtonListener(new MonthTimeAdapter.OnLeftRightButtonListener() {
+            @Override
+            public void onLeftClick() {
+                recycle.smoothScrollBy(-width, 0);
+            }
+
+            @Override
+            public void onRightClick() {
+                recycle.smoothScrollBy(width, 0);
             }
         });
     }
@@ -335,10 +394,10 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
     }
 
     private void submitTime() {
-        String getTime = tv_get_car_time.getText().toString();
-        String backTime = tv_back_car_time.getText().toString();
-        String getAddress = tvSelectGetAddress.getText().toString();
-        String sendAddress = tvSelectSendAddress.getText().toString();
+        final String getTime = tv_get_car_time.getText().toString();
+        final String backTime = tv_back_car_time.getText().toString();
+        final String getAddress = tvSelectGetAddress.getText().toString();
+        final String sendAddress = tvSelectSendAddress.getText().toString();
         if (getTime.equals("请设置取车时间")) {
             Toast.makeText(this, "请设置取车时间", Toast.LENGTH_SHORT).show();
             return;
@@ -347,7 +406,46 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
             Toast.makeText(this, "请设置还车时间", Toast.LENGTH_SHORT).show();
             return;
         }
-//        if (type.equals(DETAIL_KEY) && getAddress.equals("请点击设置送车上门地址")) {
+        final SimpleDateFormat origin = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        final SimpleDateFormat target = new SimpleDateFormat("yyyyMMddHHmmss");
+        try {
+            final String start = target.format(origin.parse(getTime));
+            final String end = target.format(origin.parse(backTime));
+            final String url = OkHttpUtil.obtainGetUrl(Constant.API_CHECK_TIME, "startTime", start,
+                    "endTime", end,
+                    "carId", String.valueOf(cardetail.getId()),
+                    "token", SPUtils.getToken(this));
+            OkGo.<String>get(url).execute(new StringCallback() {
+                @Override
+                public void onSuccess(Response<String> response) {
+                    final String body = response.body();
+                    final BaseBean baseBean = GsonUtil.parseJsonWithGson(body, BaseBean.class);
+                    final int errno = baseBean.getErrno();
+                    if (errno == 0) {
+                        skipToNext(getTime, backTime, getAddress, sendAddress);
+                    } else if (errno == 101) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("getTime", getTime);
+                        bundle.putString("backTime", backTime);
+                        bundle.putString("getAddress", getAddress);
+                        bundle.putString("sendAddress", sendAddress);
+                        bundle.putSerializable("cardetail", cardetail);
+                        asyncShowToast("登陆超时，请重新登录");
+                        toActivity(OrderConfirmActivity.class, bundle, true);
+                    } else {
+                        asyncShowToast("有错误咯");
+                    }
+                }
+            });
+        } catch (ParseException e) {
+            Toast.makeText(SelectTimeActivity.this, "时间异常", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+            return;
+        }
+    }
+
+    private void skipToNext(String getTime, String backTime, String getAddress, String sendAddress) {
+        //        if (type.equals(DETAIL_KEY) && getAddress.equals("请点击设置送车上门地址")) {
 //            Toast.makeText(this, "请点击设置送车上门地址", Toast.LENGTH_SHORT).show();
 //            return;
 //        }
@@ -358,18 +456,14 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         bundle.putString("sendAddress", sendAddress);
         if (type.equals(RENT_KEY)) {
             setResult(RESULT_OK, new Intent().putExtras(bundle));
-            finish();
         } else {
             bundle.putSerializable("cardetail", cardetail);
-            bundle.putString("startTime", getTime);
-            bundle.putString("endTime", backTime);
-            bundle.putString("takeAddress", getAddress);
-            bundle.putString("sendAddress", sendAddress);
             toActivity(OrderConfirmActivity.class, bundle, true);
             //Toast.makeText(mContext, "租车逻辑", Toast.LENGTH_SHORT).show();
-            finish();
         }
+        finish();
     }
+
     private void initTimePicker() {
         //控制时间范围(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
         //因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
@@ -396,6 +490,9 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                             }
                             if (chooseType == 0) {
                                 tv_get_car_time.setText(selectTime);
+                                /*切换指示器颜色*/
+                                getCarLine.setBackgroundColor(Color.WHITE);
+                                backCarLine.setBackgroundColor(Color.RED);
                             } else {
                                 if (checkDateAfter(selectTime, tv_get_car_time.getText().toString())) {
                                     try {
@@ -403,8 +500,12 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                                             doCancel();
                                             Toast.makeText(mContext, "租赁时长不低于6小时", Toast.LENGTH_SHORT).show();
                                             return;
-                                        } else
+                                        } else {
+                                            /*切换指示器颜色*/
+                                            getCarLine.setBackgroundColor(Color.RED);
+                                            backCarLine.setBackgroundColor(Color.WHITE);
                                             tv_back_car_time.setText(selectTime);
+                                        }
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                         doCancel();
@@ -461,6 +562,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                             @Override
                             public void onClick(View view) {
                                 pvCustomTime.dismiss();
+                                isCommit = false;
                                 chooseTime = "";
                                 doCancel();
                             }
@@ -480,13 +582,13 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
 
     private void doCancel() {
         if (chooseType == 0) {
+            /*切换指示器颜色*/
+            getCarLine.setBackgroundColor(Color.RED);
+            backCarLine.setBackgroundColor(Color.WHITE);
             clearStart();
-
-        } else {
+        } else if (chooseType == 1) {
             clearStop();
-
         }
-        EventBus.getDefault().post(new UpdataCalendar());
     }
 
     private String getTime(Date date) {//可根据需要自行截取数据显示
@@ -584,15 +686,12 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        /*重置信息*/
-        isPreferences.updateSp("start_month_position", 0);
-        isPreferences.updateSp("start_day_position", 0);
-
-        isPreferences.updateSp("start_year", 0);
-        isPreferences.updateSp("start_month", 0);
-        isPreferences.updateSp("start_day", 0);
+    private void clearStop() {
+        stopDay.setDay(-1);
+        stopDay.setMonth(-1);
+        stopDay.setYear(-1);
+        stopDay.setMonthPosition(-1);
+        stopDay.setDayPosition(-1);
 
         isPreferences.updateSp("end_month_position", -1);
         isPreferences.updateSp("end_day_position", -1);
@@ -600,16 +699,8 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         isPreferences.updateSp("end_year", -1);
         isPreferences.updateSp("end_month", -1);
         isPreferences.updateSp("end_day", -1);
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
 
-    private void clearStop() {
-        stopDay.setDay(-1);
-        stopDay.setMonth(-1);
-        stopDay.setYear(-1);
-        stopDay.setMonthPosition(-1);
-        stopDay.setDayPosition(-1);
+        EventBus.getDefault().post(new UpdataCalendar());
     }
 
     private void clearStart() {
@@ -618,5 +709,12 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         startDay.setYear(0);
         startDay.setMonthPosition(0);
         startDay.setDayPosition(0);
+        isPreferences.updateSp("start_month_position", 0);
+        isPreferences.updateSp("start_day_position", 0);
+
+        isPreferences.updateSp("start_year", 0);
+        isPreferences.updateSp("start_month", 0);
+        isPreferences.updateSp("start_day", 0);
+        EventBus.getDefault().post(new UpdataCalendar());
     }
 }

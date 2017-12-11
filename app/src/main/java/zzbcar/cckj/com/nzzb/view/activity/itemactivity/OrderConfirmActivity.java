@@ -263,11 +263,13 @@ public class OrderConfirmActivity extends BaseActivity {
                         openOrder(amount, format);
                     }
                 } else {
+
                     asyncShowToast("获取服务器时间失败");
                 }
             }
         });
     }
+
 
     /*开单*/
     private void openOrder(double amount, String time) {

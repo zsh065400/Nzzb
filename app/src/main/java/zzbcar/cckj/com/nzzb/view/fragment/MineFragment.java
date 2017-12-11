@@ -197,7 +197,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mActivity);
 
 
-
     }
 
     /*初始化登录信息*/
@@ -236,7 +235,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             tv_minfragment_car_identifi.setText("车主未认证");
         } else if (signInfo.getAuthStatus() == 3) {
             tv_minfragment_car_identifi.setText("车主认证失败");
-        }else if (signInfo.getAuthStatus()==2){
+        } else if (signInfo.getAuthStatus() == 2) {
             tv_minfragment_car_identifi.setText("认证中");
         }
         if (TextUtils.isEmpty(name)) {
@@ -319,30 +318,32 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.ll_my_collect:
                 toActivity(MyCollectActivity.class, true);
-
                 break;
             case R.id.tv_minfragment_car_identifi:
-                if (signInfo.getAuthStatus()==0){
-                    toActivity(CarIdentifiActivity.class, true);
+                if (signInfo != null) {
+                    if (signInfo.getAuthStatus() == 0) {
+                        toActivity(CarIdentifiActivity.class);
+                    } else if (signInfo.getAuthStatus() == 2) {
 
-                }else if (signInfo.getAuthStatus()==2){
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                        AlertDialog alertDialog = builder.setMessage("您的资料正在审核中,请耐心等待!")
+                                .setTitle("提示")
+                                .setCancelable(false)
+                                .setPositiveButton("确定", null).create();
+                        alertDialog.show();
 
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                    AlertDialog alertDialog = builder.setMessage("您的资料正在审核中,请耐心等待!")
-                            .setTitle("提示")
-                            .setCancelable(false)
-                            .setPositiveButton("确定",null).create();
-                    alertDialog.show();
+                    } else if (signInfo.getAuthStatus() == 1) {
 
-                }else if(signInfo.getAuthStatus()==1){
+                        toActivity(IdentiCompleteActivity.class);
 
-                    toActivity(IdentiCompleteActivity.class, true);
-
-                }else if (signInfo.getAuthStatus()==3){
-                    Toast.makeText(mActivity, "认证失败 请重新认证", Toast.LENGTH_SHORT).show();
-                    toActivity(CarIdentifiActivity.class, true);
+                    } else if (signInfo.getAuthStatus() == 3) {
+                        Toast.makeText(mActivity, "认证失败 请重新认证", Toast.LENGTH_SHORT).show();
+                        toActivity(CarIdentifiActivity.class);
+                    }
+                } else {
+                    Toast.makeText(mActivity, "请登录后再试", Toast.LENGTH_SHORT).show();
+                    toActivity(LoginActivity.class);
                 }
-
                 break;
             case R.id.iv_mine_fragment_carowener_recruit:
                 intent = new Intent(mActivity, PreCarFriendIdentifiActivity.class);
@@ -434,7 +435,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private void openShared() {
         new ShareAction(mActivity)
                 .withText("至尊宝豪车共享")
-                .withMedia(new UMImage(mActivity,"http://app.zzbcar.com/zzb/static/share.jpeg" ))
+                .withMedia(new UMImage(mActivity, "http://app.zzbcar.com/zzb/static/share.jpeg"))
                 .withMedia(new UMWeb("http://app.zzbcar.com/zzb/static/appshare.html"))
                 .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN)
                 .setCallback(shareListener)

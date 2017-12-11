@@ -17,6 +17,7 @@ import java.util.Calendar;
 
 import de.greenrobot.event.EventBus;
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.bean.MonthPriceBean;
 
 import static zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelectTimeActivity.startDay;
 import static zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelectTimeActivity.stopDay;
@@ -71,6 +72,7 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
     @Override
     public void onBindViewHolder(final DayTimeViewHolder holder, final int position) {
         final DayTimeEntity dayTimeEntity = days.get(position);
+        final MonthPriceBean.DataBean priceBean = dayTimeEntity.getPriceBean();
         //显示日期
         if (dayTimeEntity.getDay() != 0) {
             holder.select_txt_day.setText(dayTimeEntity.getDay() + "");
@@ -86,24 +88,21 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                     holder.select_txt_day.setText("今天");
                     currentDay = 1;
                 }
-                // TODO: 2017/12/5 设置价钱
                 holder.select_txt_day.setTextColor(Color.parseColor("#555555"));
                 holder.select_ly_day.setEnabled(true);
-                holder.select_txt_price.setText(String.valueOf(dayTimeEntity.getPrice()));
+                holder.select_txt_price.setText(String.valueOf(priceBean.getPrice()));
             }
-
         } else {
             holder.select_ly_day.setEnabled(false);
         }
 
 
-//            if(isPreferences.getSp().getInt("start_month_position" , -1)!=-1 && isPreferences.getSp().getInt("start_day_position" , -1)!=-1
-//                    && isPreferences.getSp().getInt("end_month_position" , -1) !=-1 && isPreferences.getSp().getInt("end_month_position" , -1)!=-1){
-//
-//                EventBus.getDefault().post(new UpdataCalendar()); // 发消息刷新适配器，目的为了显示日历上各个日期的背景颜色
+//        if (isPreferences.getSp().getInt("start_month_position", -1) != -1 && isPreferences.getSp().getInt("start_day_position", -1) != -1
+//                && isPreferences.getSp().getInt("end_month_position", -1) != -1 && isPreferences.getSp().getInt("end_month_position", -1) != -1) {
+//            EventBus.getDefault().post(new UpdataCalendar()); // 发消息刷新适配器，目的为了显示日历上各个日期的背景颜色
 //
 //                holder.select_ly_day.setBackgroundResource(R.color.blue);
-//            }
+//        }
 
 
         holder.select_ly_day.setOnClickListener(new View.OnClickListener() {
@@ -238,7 +237,6 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
             }
         });
 
-
         if (isPreferences.getSp().getInt("start_month_position", -1) != -1 && isPreferences.getSp().getInt("start_day_position", -1) != -1
                 && isPreferences.getSp().getInt("end_month_position", -1) != -1 && isPreferences.getSp().getInt("end_day_position", -1) != -1) {
 
@@ -255,10 +253,9 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
             stopDay.setDayPosition(isPreferences.getSp().getInt("end_day_position", -1));
 
 
-            EventBus.getDefault().post(new UpdataCalendar()); // 发消息刷新适配器，目的为了显示日历上各个日期的背景颜色
+//            EventBus.getDefault().post(new UpdataCalendar()); // 发消息刷新适配器，目的为了显示日历上各个日期的背景颜色
 
         }
-
 
         if (startDay.getYear() == dayTimeEntity.getYear() && startDay.getMonth() == dayTimeEntity.getMonth() && startDay.getDay() == dayTimeEntity.getDay()
                 && stopDay.getYear() == dayTimeEntity.getYear() && stopDay.getMonth() == dayTimeEntity.getMonth() && stopDay.getDay() == dayTimeEntity.getDay()) {
@@ -287,6 +284,14 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                     holder.select_ly_day.setBackgroundColor(Color.parseColor("#FDEBEB"));
                 } else {
                     holder.select_ly_day.setBackgroundResource(R.color.white);
+                    if (priceBean.getOccupyAllDay() == 1) {
+                        holder.select_txt_day.setTextColor(Color.parseColor("#B5B5B5"));
+                        holder.select_ly_day.setEnabled(false);
+                        holder.select_txt_price.setText("");
+                    } else {
+                        if (priceBean.getOrderIn() == 1)
+                            holder.select_ly_day.setBackgroundResource(R.drawable.bg_half_time);
+                    }
                 }
             } else if (startDay.getMonthPosition() != stopDay.getMonthPosition()) {
                 // 日期和 开始 不是一个月份
@@ -304,13 +309,27 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                     holder.select_ly_day.setBackgroundColor(Color.parseColor("#FDEBEB"));
                 } else {
                     holder.select_ly_day.setBackgroundResource(R.color.white);
+                    if (priceBean.getOccupyAllDay() == 1) {
+                        holder.select_txt_day.setTextColor(Color.parseColor("#B5B5B5"));
+                        holder.select_ly_day.setEnabled(false);
+                        holder.select_txt_price.setText("");
+                    } else {
+                        if (priceBean.getOrderIn() == 1)
+                            holder.select_ly_day.setBackgroundResource(R.drawable.bg_half_time);
+                    }
                 }
             }
-
         } else {
             holder.select_ly_day.setBackgroundResource(R.color.white);
+            if (priceBean.getOccupyAllDay() == 1) {
+                holder.select_txt_day.setTextColor(Color.parseColor("#B5B5B5"));
+                holder.select_ly_day.setEnabled(false);
+                holder.select_txt_price.setText("");
+            } else {
+                if (priceBean.getOrderIn() == 1)
+                    holder.select_ly_day.setBackgroundResource(R.drawable.bg_half_time);
+            }
         }
-
     }
 
     @Override

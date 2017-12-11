@@ -508,10 +508,11 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                     endTime = time;
                 }
                 if (!startTime.equals("") && !endTime.equals("")) {
-                    if (checkDateAfter(endTime, startTime)){
+                    /*判断日期是否合规*/
+                    if (daysBetween(startTime, endTime) >= 0) {
                         params.setSpan(startTime + "~" + endTime);
                         doCarQuery(params.buildUrl());
-                    }else{
+                    } else {
                         asyncShowToast("还车日期在取车日期前");
                     }
                 }
@@ -754,18 +755,22 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
      * @return 相差天数
      * @throws ParseException
      */
-    public static int daysBetween(Date smdate, Date bdate) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        smdate = sdf.parse(sdf.format(smdate));
-        bdate = sdf.parse(sdf.format(bdate));
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(smdate);
-        long time1 = cal.getTimeInMillis();
-        cal.setTime(bdate);
-        long time2 = cal.getTimeInMillis();
-        long between_days = (time2 - time1) / (1000 * 60 * 60);//改动此处计算相差周期
+    public static int daysBetween(String smdate, String bdate) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(sdf.parse(smdate));
+            long time1 = cal.getTimeInMillis();
+            cal.setTime(sdf.parse(bdate));
+            long time2 = cal.getTimeInMillis();
+            long between_days = (time2 - time1) / (1000 * 60 * 60);//改动此处计算相差周期
 
-        return Integer.parseInt(String.valueOf(between_days));
+            return Integer.parseInt(String.valueOf(between_days));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return -1;
+        }
+
     }
 
 }
