@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -92,6 +93,13 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     private String getAddress;
 
     private int collectFlag = 0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 
     /**
      * 判断是否安装目标应用
@@ -397,6 +405,36 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mContext);
         switch (view.getId()) {
             case R.id.tv_immediately_rent_car:
+                if (signInfo != null) {
+                    OkGo.<String>get(Constant.VERTIFY_IDENTI_URL)
+                            .params("userId", signInfo.getId())
+                            .params("token", SPUtils.getToken(mContext))
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    Log.e("出租车。。。。", response.body());
+                                    if (carDetailBean != null) {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
+                                        bundle.putSerializable("cardetail", carDetailBean);
+                                        bundle.putString("getAddress", getAddress);
+                                        toActivity(SelectTimeActivity.class, bundle);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onError(Response<String> response) {
+
+                                    Toast.makeText(mContext, "亲，您还没有认证，去看看吧！", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+
+                } else {
+                    Toast.makeText(mContext, "请登录后再试", Toast.LENGTH_SHORT).show();
+                    toActivity(LoginActivity.class);
+                }
 
 //                if (carDetailBean != null) {
 //                    Bundle bundle = new Bundle();
@@ -405,25 +443,6 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 //                    bundle.putString("getAddress", getAddress);
 //                    toActivity(SelectTimeActivity.class, bundle);
 //                }
-
-                OkGo.<String>get(Constant.VERTIFY_IDENTI_URL)
-                        .params("userId", signInfo.getId())
-                        .params("token", SPUtils.getToken(mContext))
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onSuccess(Response<String> response) {
-                                if (carDetailBean != null && signInfo.getAuthStatus() == 1) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("type", SelectTimeActivity.DETAIL_KEY);
-                                    bundle.putSerializable("cardetail", carDetailBean);
-                                    bundle.putString("getAddress", getAddress);
-                                    toActivity(SelectTimeActivity.class, bundle);
-                                } else {
-                                    Toast.makeText(mContext, "亲，您还没有认证，去看看吧！", Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-                        });
                 break;
 
             case R.id.ll_car_price_list:
@@ -504,13 +523,6 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             asyncShowToast("取消了");
         }
     };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @Override
     protected void setStatusBar() {

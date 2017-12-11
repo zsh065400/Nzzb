@@ -50,7 +50,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="取车"
-                            android:textColor="#535151"/>
+                            android:textColor="#535151" />
 
                         <TextView
                             android:id="@+id/tv_get_car_time"
@@ -60,7 +60,7 @@
                             android:layout_marginTop="2dp"
                             android:text="请设置取车时间"
                             android:textColor="#000"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -83,7 +83,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="还车"
-                            android:textColor="#535151"/>
+                            android:textColor="#535151" />
 
                         <TextView
                             android:id="@+id/tv_back_car_time"
@@ -93,14 +93,14 @@
                             android:layout_marginTop="2dp"
                             android:text="请设置还车时间"
                             android:textColor="#000"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp" />
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="15dp"
+                    android:layout_height="10dp"
                     android:background="#e9e6e6"/>
 
                 <!--<zzbcar.cckj.com.nzzb.widget.NoScrollViewPager-->

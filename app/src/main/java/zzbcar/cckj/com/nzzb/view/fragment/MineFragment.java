@@ -318,34 +318,32 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.ll_my_collect:
                 toActivity(MyCollectActivity.class, true);
-
                 break;
             case R.id.tv_minfragment_car_identifi:
-                if (signInfo == null) {
-                    toActivity(CarIdentifiActivity.class, true);
-                    return;
+                if (signInfo != null) {
+                    if (signInfo.getAuthStatus() == 0) {
+                        toActivity(CarIdentifiActivity.class);
+                    } else if (signInfo.getAuthStatus() == 2) {
+
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                        AlertDialog alertDialog = builder.setMessage("您的资料正在审核中,请耐心等待!")
+                                .setTitle("提示")
+                                .setCancelable(false)
+                                .setPositiveButton("确定", null).create();
+                        alertDialog.show();
+
+                    } else if (signInfo.getAuthStatus() == 1) {
+
+                        toActivity(IdentiCompleteActivity.class);
+
+                    } else if (signInfo.getAuthStatus() == 3) {
+                        Toast.makeText(mActivity, "认证失败 请重新认证", Toast.LENGTH_SHORT).show();
+                        toActivity(CarIdentifiActivity.class);
+                    }
+                } else {
+                    Toast.makeText(mActivity, "请登录后再试", Toast.LENGTH_SHORT).show();
+                    toActivity(LoginActivity.class);
                 }
-                if (signInfo.getAuthStatus() == 0) {
-                    toActivity(CarIdentifiActivity.class, true);
-
-                } else if (signInfo.getAuthStatus() == 2) {
-
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                    AlertDialog alertDialog = builder.setMessage("您的资料正在审核中,请耐心等待!")
-                            .setTitle("提示")
-                            .setCancelable(false)
-                            .setPositiveButton("确定", null).create();
-                    alertDialog.show();
-
-                } else if (signInfo.getAuthStatus() == 1) {
-
-                    toActivity(IdentiCompleteActivity.class, true);
-
-                } else if (signInfo.getAuthStatus() == 3) {
-                    Toast.makeText(mActivity, "认证失败 请重新认证", Toast.LENGTH_SHORT).show();
-                    toActivity(CarIdentifiActivity.class, true);
-                }
-
                 break;
             case R.id.iv_mine_fragment_carowener_recruit:
                 intent = new Intent(mActivity, PreCarFriendIdentifiActivity.class);

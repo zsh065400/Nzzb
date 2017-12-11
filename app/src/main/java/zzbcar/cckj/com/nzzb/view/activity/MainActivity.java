@@ -40,6 +40,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+
         initViewPagers();
     }
 
@@ -124,7 +125,7 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
 //        SPUtils.saveString(this,"User","");
-
+        mainActivity=null;
     }
 
     @Override
