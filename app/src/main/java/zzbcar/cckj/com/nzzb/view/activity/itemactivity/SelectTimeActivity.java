@@ -184,7 +184,6 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
             monthTimeEntity.setPriceBean(monthPriceList.get(i + 1));
             datas.add(monthTimeEntity);
         }
-
         adapter = new MonthTimeAdapter(datas, SelectTimeActivity.this);
         recycle.setAdapter(adapter);
         /*模拟viewpager*/
