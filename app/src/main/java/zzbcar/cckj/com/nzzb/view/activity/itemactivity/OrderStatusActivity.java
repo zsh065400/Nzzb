@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -267,7 +266,7 @@ public class OrderStatusActivity extends BaseActivity {
             final double exceedMoney = databean.getExceedMoney();
             final double trafficPunlishMoney = databean.getTrafficPunlishMoney();
             final double lastReturnMoney = databean.getLastReturnMoney();
-            final double AbolishMoney =  databean.getAbolishMoney();
+            final double AbolishMoney = databean.getAbolishMoney();
             if (timeoutMoney == 0 && exceedMoney == 0 && lastReturnMoney == 0) {
                 llBreakRuls.setVisibility(View.GONE);
             } else {
@@ -417,47 +416,27 @@ public class OrderStatusActivity extends BaseActivity {
     @OnClick(R.id.tv_order_cancel)
     public void cancelOrder() {
         // TODO: 2017/12/4 违约需添加逻辑
-            Toast.makeText(OrderStatusActivity.this, "已接单需添加违约逻辑", Toast.LENGTH_SHORT).show();
-
-            OkGo.<String>get(Constant.BACK_OUT_ORDER)
-                    .params("orderId", databean.getId())
-                    .params("token", SPUtils.getToken(mContext))
-                    .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
-                      Log.e("撤销订单接口请求",response.body().toString());
-                            if (databean.getStatus() == 2) {
-                                 BackOutOrder();
-                                return;
-
-                            }
+        OkGo.<String>get(Constant.BACK_OUT_ORDER)
+                .params("orderId", databean.getId())
+                .params("token", SPUtils.getToken(mContext))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        final String body = response.body();
+                        Log.d(TAG, "onSuccess: " + body);
+                        final BaseBean baseBean = GsonUtil.parseJsonWithGson(body, BaseBean.class);
+                        if (baseBean.getErrno() == 0) {
+                            doCancel(Integer.parseInt(baseBean.getData()));
+                        } else {
+                            asyncShowToast(baseBean.getMessage());
                         }
-                    });
-        final String url = OkHttpUtil.obtainGetUrl(Constant.API_CANCEL_ORDER,
-                "orderId", String.valueOf(databean.getId()),
-                "token", SPUtils.getToken(this));
-        OkGo.<String>get(url).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-
-                Log.e("正常订单撤销接口请求",response.body().toString());
-                final String body = response.body();
-                final BaseBean baseBean = GsonUtil.parseJsonWithGson(body, BaseBean.class);
-                if (baseBean.getErrno() == 0) {
-                    asyncShowToast("取消订单成功");
-                    finish();
-                }
-            }
-        });
+                    }
+                });
     }
 
-    private void BackOutOrder() {
-
-        //在这里弹出dialog？
+    private void doCancel(int money) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        AlertDialog alertDialog = builder.setMessage("1：交易开始72小时内，需扣除订单租金的的50%，交易开始后取消订单，" + "/n" +
-                "扣除租金的100%，最高上限3000." + "/n" +
-                "此次扣除0.01元违约金")
+        AlertDialog alertDialog = builder.setMessage("1：交易开始72小时内，需扣除订单租金的的50%，交易开始后取消订单, 扣除租金的100%，最高上限3000。此次扣除" + money + "元违约金")
                 .setTitle("您确定要取消订单么?")
                 .setCancelable(false)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -469,7 +448,6 @@ public class OrderStatusActivity extends BaseActivity {
                         OkGo.<String>get(url).execute(new StringCallback() {
                             @Override
                             public void onSuccess(Response<String> response) {
-                                Log.e("撤销订单接口请求对话框",response.body().toString());
                                 final String body = response.body();
                                 final BaseBean baseBean = GsonUtil.parseJsonWithGson(body, BaseBean.class);
                                 if (baseBean.getErrno() == 0) {
@@ -478,8 +456,6 @@ public class OrderStatusActivity extends BaseActivity {
                                 }
                             }
                         });
-
-
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override

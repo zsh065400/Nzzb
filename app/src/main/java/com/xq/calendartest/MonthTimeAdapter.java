@@ -25,13 +25,13 @@ public class MonthTimeAdapter extends RecyclerView.Adapter<MonthTimeViewHolder> 
     private Context context;
 
     public interface OnDayItemClickListener {
-        void OnDayItemClick(View view, int position);
+        void OnDayItemClick(View view, int position, MonthPriceBean.DataBean time);
 
-        void onStartClick(View view, int position);
+        void onStartClick(View view, int position, MonthPriceBean.DataBean time);
 
-        void onReChoose(View view, int position);
+        void onReChoose(View view, int position, MonthPriceBean.DataBean time);
 
-        void onSameDay(View view, int position);
+        void onSameDay(View view, int position, MonthPriceBean.DataBean time);
     }
 
     private OnLeftRightButtonListener mOnLeftRightButtonListener;
@@ -94,27 +94,27 @@ public class MonthTimeAdapter extends RecyclerView.Adapter<MonthTimeViewHolder> 
 
         adapter.setOnItemCliCkListener(new DayTimeAdapter.onItemClickListener() {
             @Override
-            public void onItemCallback(View view, int position) {
+            public void onItemCallback(View view, int position, MonthPriceBean.DataBean time) {
                 if (mOnDayItemClickListener != null)
-                    mOnDayItemClickListener.OnDayItemClick(holder.itemView, position);
+                    mOnDayItemClickListener.OnDayItemClick(holder.itemView, position, time);
             }
 
             @Override
-            public void onStartClick(View view, int position) {
+            public void onStartClick(View view, int position, MonthPriceBean.DataBean time) {
                 if (mOnDayItemClickListener != null)
-                    mOnDayItemClickListener.onStartClick(holder.itemView, position);
+                    mOnDayItemClickListener.onStartClick(holder.itemView, position, time);
             }
 
             @Override
-            public void onReChoose(View view, int position) {
+            public void onReChoose(View view, int position, MonthPriceBean.DataBean time) {
                 if (mOnDayItemClickListener != null)
-                    mOnDayItemClickListener.onReChoose(holder.itemView, position);
+                    mOnDayItemClickListener.onReChoose(holder.itemView, position, time);
             }
 
             @Override
-            public void onSameDay(View view, int position) {
+            public void onSameDay(View view, int position, MonthPriceBean.DataBean time) {
                 if (mOnDayItemClickListener != null)
-                    mOnDayItemClickListener.onSameDay(holder.itemView, position);
+                    mOnDayItemClickListener.onSameDay(holder.itemView, position, time);
             }
         });
 

@@ -1,6 +1,7 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -83,7 +84,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
     View backCarLine;
     private TextView tv_get_car_time;
     private TextView tv_back_car_time;
-        private LinearLayout ll_get_car;
+    private LinearLayout ll_get_car;
     private LinearLayout ll_back_car;
     private TimePickerView pvCustomTime;
     private String chooseDate = "";
@@ -103,6 +104,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
     private int count = 0;
     private LinearLayoutManager layoutManager;
     private ProgressDialog progressDialog;
+    private TextView mTvCanNotRent;
 
 
     @Override
@@ -150,16 +152,15 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
 
     private void showWaitDialog() {
 
-        WindowManager.LayoutParams lp=getWindow().getAttributes();
-        lp.dimAmount=0.5f;
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.dimAmount = 0.5f;
         getWindow().setAttributes(lp);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            progressDialog = new ProgressDialog(this);
-            progressDialog.setProgressStyle(R.style.MaterialDialog);
-            progressDialog.setMessage("正在加载");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setProgressStyle(R.style.MaterialDialog);
+        progressDialog.setMessage("正在加载");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
 
     }
@@ -198,6 +199,9 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
             adapter.notifyDataSetChanged();
     }
 
+    private String occupyTm1 = "00:00";
+    private String occupyTm2 = "00:00";
+
     private void initNewCalendar() {
         MonthPriceBean.DataBean priceBean = new MonthPriceBean.DataBean();
         startDay = new DayTimeEntity(0, 0, 0, 0, priceBean);
@@ -233,7 +237,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
 
         adapter.setOnDayItemClickListener(new MonthTimeAdapter.OnDayItemClickListener() {
             @Override
-            public void OnDayItemClick(View view, int position) {
+            public void OnDayItemClick(View view, int position, MonthPriceBean.DataBean time) {
                 isPreferences.updateSp("start_month_position", startDay.getMonthPosition());
                 isPreferences.updateSp("start_day_position", startDay.getDayPosition());
                 isPreferences.updateSp("end_month_position", stopDay.getMonthPosition());
@@ -252,12 +256,16 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                 chooseDate = timeStop;
                 tv_picker_date.setText(chooseDate);
                 chooseType = 1;
+
+                occupyTm1 = time.getOccupyTm1();
+                occupyTm2 = time.getOccupyTm2();
+
                 pvCustomTime.show();
                 Log.d(TAG, "OnDayItemClick: ");
             }
 
             @Override
-            public void onStartClick(View view, int position) {
+            public void onStartClick(View view, int position, MonthPriceBean.DataBean time) {
                 String timeStart = String.format("%s-%s-%s", startDay.getYear(), startDay.getMonth(), startDay.getDay());
                 System.out.println(timeStart);
                 if (chooseType == 1) {
@@ -269,12 +277,16 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                 chooseDate = timeStart;
                 tv_picker_date.setText(chooseDate);
                 chooseType = 0;
+
+                occupyTm1 = time.getOccupyTm1();
+                occupyTm2 = time.getOccupyTm2();
+
                 pvCustomTime.show();
                 Log.d(TAG, "onStartClick: ");
             }
 
             @Override
-            public void onReChoose(View view, int position) {
+            public void onReChoose(View view, int position, MonthPriceBean.DataBean time) {
                 isCommit = false;
                 tv_back_car_time.setText("请设置还车时间");
                 tv_get_car_time.setText("请设置取车时间");
@@ -286,16 +298,24 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                 chooseDate = timeStart;
                 tv_picker_date.setText(chooseDate);
                 chooseType = 0;
+
+                occupyTm1 = time.getOccupyTm1();
+                occupyTm2 = time.getOccupyTm2();
+
                 pvCustomTime.show();
             }
 
             @Override
-            public void onSameDay(View view, int position) {
+            public void onSameDay(View view, int position, MonthPriceBean.DataBean time) {
                 String timeStop = String.format("%s-%s-%s", stopDay.getYear(), stopDay.getMonth(), stopDay.getDay());
                 System.out.println(timeStop);
                 chooseDate = timeStop;
                 tv_picker_date.setText(chooseDate);
                 chooseType = 1;
+
+                occupyTm1 = time.getOccupyTm1();
+                occupyTm2 = time.getOccupyTm2();
+
                 pvCustomTime.show();
                 Log.d(TAG, "onSameDay: ");
             }
@@ -374,7 +394,6 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                         getPrice((month < 12 ? year : year + 1), (month < 12 ? month + 1 : 1), index + 1);
 
 
-
                     }
 
                 });
@@ -383,7 +402,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
             public void run() {
                 progressDialog.dismiss();
             }
-        },2*1000);
+        }, 2 * 1000);
 
     }
 
@@ -421,8 +440,6 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         final String selfRepayAddress = tvSetSelfRepaycarAddress.getText().toString();
 
 
-
-
         if (getTime.equals("请设置取车时间")) {
             Toast.makeText(this, "请设置取车时间", Toast.LENGTH_SHORT).show();
             return;
@@ -448,7 +465,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                     final int errno = baseBean.getErrno();
 
                     if (errno == 0) {
-                        skipToNext(getTime, backTime, getAddress, sendAddress,selfGetAddress,selfRepayAddress);
+                        skipToNext(getTime, backTime, getAddress, sendAddress, selfGetAddress, selfRepayAddress);
                     } else if (errno == 101) {
                         Bundle bundle = new Bundle();
                         bundle.putString("getTime", getTime);
@@ -456,7 +473,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                         bundle.putString("getAddress", getAddress);
                         bundle.putString("sendAddress", sendAddress);
                         bundle.putString("selfGetAddress", selfGetAddress);
-                        bundle.putString("selfRepayAddress",selfRepayAddress);
+                        bundle.putString("selfRepayAddress", selfRepayAddress);
 
 
                         bundle.putSerializable("cardetail", cardetail);
@@ -474,7 +491,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    private void skipToNext(String s, String time, String getTime, String backTime, String getAddress, String sendAddress) {
+    private void skipToNext(String getTime, String backTime, String getAddress, String sendAddress, String selfGetAddress, String selfRepayAddress) {
         //        if (type.equals(DETAIL_KEY) && getAddress.equals("请点击设置送车上门地址")) {
 //            Toast.makeText(this, "请点击设置送车上门地址", Toast.LENGTH_SHORT).show();
 //            return;
@@ -484,6 +501,8 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         bundle.putString("backTime", backTime);
         bundle.putString("getAddress", getAddress);
         bundle.putString("sendAddress", sendAddress);
+        bundle.putString("selfGetAddress", selfGetAddress);
+        bundle.putString("selfRepayAddress", selfRepayAddress);
         if (type.equals(RENT_KEY)) {
             setResult(RESULT_OK, new Intent().putExtras(bundle));
         } else {
@@ -505,8 +524,12 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         //时间选择器 ，自定义布局
         pvCustomTime = new TimePickerView.Builder
                 (this, new TimePickerView.OnTimeSelectListener() {
+                    @SuppressLint("ResourceAsColor")
                     @Override
                     public void onTimeSelect(Date date, View v) {//选中事件回调
+                        if (occupyTm1 != null && occupyTm1.equals("")) occupyTm1 = "00:00";
+                        if (occupyTm2 != null && occupyTm2.equals("")) occupyTm2 = "00:00";
+                        mTvCanNotRent.setText(String.format("不可租时间段%s - %s", occupyTm1, occupyTm2));
                         //btn_CustomTime.setText(getTime(date));
                         chooseTime = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes());
                         if (isCommit) {
@@ -523,7 +546,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                                 /*切换指示器颜色*/
                                 getCarLine.setBackgroundColor(Color.WHITE);
                                 backCarLine.setBackgroundColor(Color.RED);
-                                 ll_back_car.setBackgroundColor(Color.WHITE);
+                                ll_back_car.setBackgroundColor(Color.WHITE);
                                 ll_get_car.setBackgroundColor(R.color.select_time_bg);
 
 
@@ -571,6 +594,10 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                         tv_picker_time = v.findViewById(R.id.tv_picker_time);
                         WheelView hour = v.findViewById(R.id.hour);
                         WheelView second = v.findViewById(R.id.min);
+                        mTvCanNotRent = v.findViewById(R.id.tv_can_not_rent);
+                        if (occupyTm1 != null && occupyTm1.equals("")) occupyTm1 = "00:00";
+                        if (occupyTm2 != null && occupyTm2.equals("")) occupyTm2 = "00:00";
+                        mTvCanNotRent.setText(String.format("不可租时间段%s - %s", occupyTm1, occupyTm2));
                         hour.setOnItemSelectedListener(new OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(int i) {
@@ -616,6 +643,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                 .build();
     }
 
+    @SuppressLint("ResourceAsColor")
     private void doCancel() {
         if (chooseType == 0) {
             /*切换指示器颜色*/
@@ -756,6 +784,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         isPreferences.updateSp("start_day", 0);
         EventBus.getDefault().post(new UpdataCalendar());
     }
+
     @Override
     protected void onDestroy() {
         /*重置信息*/

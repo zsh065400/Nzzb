@@ -18,12 +18,10 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.CarDetailBean;
 import zzbcar.cckj.com.nzzb.bean.OrderBean;
@@ -95,6 +93,7 @@ public class OrderConfirmActivity extends BaseActivity {
     private SigninBean bean;
     private AlertDialog alertDialog;
     private CarDetailBean.DataBean carDetailBean;
+    private int mBetween;
 
     @Override
     protected int getLayoutId() {
@@ -170,11 +169,12 @@ public class OrderConfirmActivity extends BaseActivity {
         /*确认租车信息，同步更新界面，可加loading*/
         bundle = getIntent().getExtras();
         cardetail = (CarDetailBean.DataBean) bundle.getSerializable("cardetail");
-        startTime = getFormatTime(bundle.getString("getTime") + ":00");
-        endTime = getFormatTime(bundle.getString("backTime") + ":00");
+        startTime = bundle.getString("getTime") + ":00";
+        endTime = bundle.getString("backTime") + ":00";
+        /*取还车*/
         getAddress = bundle.getString("getAddress");
         sendAddress = bundle.getString("sendAddress");
-
+        /*自行取还车*/
         selfGetAddress = bundle.getString("selfGetAddress");
         selfRepayAddress = bundle.getString("selfRepayAddress");
 
@@ -188,6 +188,8 @@ public class OrderConfirmActivity extends BaseActivity {
             finish();
         }
         calcPrice();
+
+        mBetween = SPUtils.getInt(this, "Between", 0);
     }
 
     /*逻辑调用位置需要优化，此处根据后台逻辑暂定*/
@@ -204,6 +206,7 @@ public class OrderConfirmActivity extends BaseActivity {
             @Override
             public void onSuccess(Response<String> response) {
                 final String body = response.body();
+                Log.d(TAG, "onSuccess: " + body);
                 final PriceListBean priceListBean = GsonUtil.parseJsonWithGson(body, PriceListBean.class);
                 if (priceListBean.getErrno() == 0) {
                     amount = priceListBean.getData().getAmount();
@@ -281,7 +284,7 @@ public class OrderConfirmActivity extends BaseActivity {
                         asyncShowToast("校时失败，无法提交订单");
                     } else {
                         final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                        final String format = sdf.format(date);
+                        final String format = sdf.format(new Date(currentTime*1000 + mBetween * 1000));
                         openOrder(amount, format);
                     }
                 } else {
@@ -354,22 +357,15 @@ public class OrderConfirmActivity extends BaseActivity {
         }
     }
 
-    private String getFormatTime(String data) {
-        final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date parse = null;
-        try {
-            parse = formatter.parse(data);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return sdf.format(parse);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+//    private String getFormatTime(String data) {
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date parse = null;
+//        try {
+//            parse = formatter.parse(data);
+//            return sdf.format(parse);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//            return "";
+//        }
+//    }
 }

@@ -30,6 +30,7 @@ import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import java.util.Date;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -263,8 +264,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             OkGo.<String>get(url).tag(TAG).execute(new StringCallback() {
                 @Override
                 public void onSuccess(Response<String> response) {
-
-
                     final String body = response.body();
                     final SigninBean bean = GsonUtil.parseJsonWithGson(body, SigninBean.class);
                     /*缓存用户数据，可用于自动登录等*/
@@ -277,6 +276,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             bindThird(thirdType, openId, bean);
                         else if (TextUtils.isEmpty(member.getWxOpenId()) && thirdType != null && thirdType.equals("2"))
                             bindThird(thirdType, openId, bean);
+                        final int serverTime = bean.getData().getSysdata().getNow();
+                        final Date date = new Date();
+                        final long currentTime = date.getTime() / 1000;
+                        SPUtils.saveInt(LoginActivity.this, "Between", (int) (serverTime - currentTime));
                         asyncShowToast("登陆成功");
                         /*登陆成功后跳转*/
                         toNextActivity();
@@ -285,7 +288,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     } else if ((type.equals("1") || type.equals("2")) && errno == 3) {
                         asyncShowToast("请在当前页面使用手机登陆即可自动绑定");
                         changeSignStatus(0);
-                    } else{
+                    } else {
 
                         asyncShowToast(bean.getMessage());
                     }
@@ -367,10 +370,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 if (bean.getErrno() == 0) {
                     asyncShowToast("绑定成功,使用该手机号或该第三方即可登录");
                     changeSignStatus(1);
-                }
-
-
-                else {
+                } else {
                     asyncShowToast(bean.getMessage());
                 }
             }

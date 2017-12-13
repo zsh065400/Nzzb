@@ -27,7 +27,6 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
 import java.io.File;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,8 +48,6 @@ import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
-
-
 
 
 /**
@@ -169,6 +166,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
+
     @Override
     protected void initListeners() {
         vpCarPic.addOnPageChangeListener(this);
@@ -297,7 +295,6 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                             }
 
 
-
                         }
                     });
         }
@@ -328,12 +325,14 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             TextView weekDay = inflate.findViewById(R.id.tv_week_price_weekday);
             TextView money = inflate.findViewById(R.id.tv_week_price_money);
             WeekPriceBean.DataBean dataBean = data.get(i);
+
+            final String day = dataBean.getDate().split(" ")[0].split("-")[2];
+
             week.setText(getWeekDay(dataBean.getWeekday()));
-            int day = new Date().getDay() + i;
-            weekDay.setText(day < 10 ? "0" + day : day + "");
+            weekDay.setText(day);
             money.setText(dataBean.getPrice() + "");
             // TODO: 2017/12/11 添加半天效果
-            if (Math.random() * 10 + 1 - i < 2) {
+            if (dataBean.getOrderIn() == 1) {
                 inflate.setBackgroundResource(R.drawable.bg_half_time);
             }
             llCarPriceList.addView(inflate, i);

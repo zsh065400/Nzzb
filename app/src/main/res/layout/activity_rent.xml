@@ -67,7 +67,7 @@
                 android:layout_marginRight="3dp"
                 android:text="取车时间"
                 android:textColor="#b71212"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="20dp"
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="3dp"
                 android:text="还车时间"
                 android:textColor="#b71212"
-                android:textSize="14dp" />
+                android:textSize="14dp"/>
         </LinearLayout>
 
         <TextView
@@ -144,7 +144,7 @@
                 android:drawablePadding="3dp"
                 android:drawableRight="@mipmap/icon_arrow_bottom_filter_orange"
                 android:text="价格"
-                android:textColor="#313131" />
+                android:textColor="#313131"/>
         </LinearLayout>
 
         <LinearLayout
@@ -245,12 +245,13 @@
                 android:background="@color/white"
                 app:cellMode="other"
                 app:cells="1"
-                app:min="0"
-                app:max="8000"
                 app:lineColorEdge="@color/colorSeekBarDefault"
                 app:lineColorSelected="@color/colorAccent"
                 app:markTextArray="@array/markArray"
+                app:max="10000"
+                app:min="0"
                 app:progressHintMode="alwaysHide"
+                app:reserve="200"
                 app:seekBarMode="range"
                 app:textPadding="15dp"
                 app:thumbResId="@drawable/seekbar_thumb"
@@ -272,12 +273,12 @@
             android:id="@+id/ll_type_pick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:background="#fff"
             android:orientation="vertical"
-            android:visibility="invisible"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:visibility="invisible">
 
             <TextView
                 android:layout_width="wrap_content"

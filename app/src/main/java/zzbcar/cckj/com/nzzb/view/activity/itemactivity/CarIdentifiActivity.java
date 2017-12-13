@@ -33,6 +33,7 @@ import java.util.Date;
 import butterknife.BindView;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.base.TitleBuilder;
+import zzbcar.cckj.com.nzzb.bean.SigninBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GlideApp;
 import zzbcar.cckj.com.nzzb.utils.LogUtil;
@@ -72,16 +73,17 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
                 case 0:
                     progressDialog.dismiss();
                     PutObjectResult obj = (PutObjectResult) msg.obj;
-                    String idCardTemp = Constant.SERVER_PHOTO_HEAD + Constant.IDCARD_KEYPATH+idSeparator + cropfile.getName();
-
+                    String idCardTemp = Constant.SERVER_PHOTO_HEAD + Constant.IDCARD_KEYPATH + idSeparator + cropfile.getName();
                     if (isUp) {
                         idCard.set(0, idCardTemp);
-                    } else{
-                             idCard.set(1, idCardTemp);
+                    } else {
+                        idCard.set(1, idCardTemp);
                     }
                     LogUtil.e(idCardTemp);
+                    final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(CarIdentifiActivity.this);
+                    signInfo.setAuthStatus(2);
+                    SPUtils.putSignInfo(CarIdentifiActivity.this, signInfo);
                     break;
-
                 case 1:
                     progressDialog.dismiss();
                     Toast.makeText(mContext, "上传失败", Toast.LENGTH_SHORT).show();
@@ -98,13 +100,10 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     protected int getLayoutId() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return R.layout.activity_car_identifi1;
-
-
     }
 
     @Override
     protected void initViews() {
-
         bt_identicar_nest = (Button) findViewById(R.id.bt_identicar_nest);
         iv_identificar_idcar_up = (ImageView) findViewById(R.id.iv_identificar_idcar_up);
         iv_identificar_idcar_down = (ImageView) findViewById(R.id.iv_identificar_idcar_down);
@@ -124,7 +123,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         iv_identificar_idcar_up.setOnClickListener(this);
 
         new TitleBuilder(this).setTitleText("车友认证").setLeftIco(R.mipmap.row_back).setLeftIcoListening(leftReturnListener);
-        idSeparator = SPUtils.getSignInfo(mContext).getId()+"/";
+        idSeparator = SPUtils.getSignInfo(mContext).getId() + "/";
 
     }
 
@@ -178,7 +177,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
             return;
         }
 
-        if (idCard.get(0).length()==0 || idCard.get(1).length()==0) {
+        if (idCard.get(0).length() == 0 || idCard.get(1).length() == 0) {
             obtain.obj = "还没有上传完身份证照片";
             handler.sendMessage(obtain);
             return;
@@ -196,35 +195,33 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
 
     private void showDialog() {
 
-            new AlertDialog.Builder(this)
-                    .setTitle("选择图片")
-                    .setPositiveButton("拍照", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(this)
+                .setTitle("选择图片")
+                .setPositiveButton("拍照", new DialogInterface.OnClickListener() {
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // TODO Auto-generated method stub
-                            dialog.dismiss();
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        dialog.dismiss();
 
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
-                            Log.e("file", tempFile.toString());
-                            startActivityForResult(intent, PHOTO_REQUEST_TAKEPHOTO);
-                        }
-                    })
-                    .setNegativeButton("相册", new DialogInterface.OnClickListener() {
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+                        Log.e("file", tempFile.toString());
+                        startActivityForResult(intent, PHOTO_REQUEST_TAKEPHOTO);
+                    }
+                })
+                .setNegativeButton("相册", new DialogInterface.OnClickListener() {
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // TODO Auto-generated method stub
-                            dialog.dismiss();
-                            Intent intent = new Intent(Intent.ACTION_PICK, null);
-                            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                            startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
-                        }
-                    }).show();
-        }
-
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Intent intent = new Intent(Intent.ACTION_PICK, null);
+                        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                        startActivityForResult(intent, PHOTO_REQUEST_GALLERY);
+                    }
+                }).show();
+    }
 
 
     @Override
@@ -308,7 +305,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     private void upload(File file) {
         showWaitDialog();
 
-        OssUtils.initOss(this).asyncPutObject(OssUtils.putImage(file, Constant.IDCARD_KEYPATH+idSeparator), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+        OssUtils.initOss(this).asyncPutObject(OssUtils.putImage(file, Constant.IDCARD_KEYPATH + idSeparator), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
                 Message obtain = Message.obtain();

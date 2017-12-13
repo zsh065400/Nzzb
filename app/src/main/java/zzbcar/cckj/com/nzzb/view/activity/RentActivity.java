@@ -150,8 +150,6 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
         rvCarQuery.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvCarQuery.setLoadingMoreEnabled(false);
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
-
-
     }
 
     @Override
@@ -303,7 +301,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
         if (data == null || data.size() == 0) {
             Toast.makeText(mContext, "暂无数据", Toast.LENGTH_SHORT).show();
             return;
-        }else {
+        } else {
             ll_whole_brand.setVisibility(View.GONE);
         }
         if (queryAdapter == null) {
@@ -344,8 +342,6 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                     LogUtil.e(params.buildUrl() + "请求url");
                     doCarQuery(params.buildUrl());
                     ll_whole_brand.performClick();
-
-
 
 
                 }
@@ -469,8 +465,11 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
             /*价格选择完毕*/
             case R.id.tv_price_commit:
-                final float min = rsbPrices.getMin();
-                final float max = rsbPrices.getMax();
+                float min = rsbPrices.getMin();
+                float max = rsbPrices.getMax();
+                if (max == 10000){
+                    max = 200000000f;
+                }
                 params.setPrice(min + "~" + max);
                 doCarQuery(params.buildUrl());
                 ll_price.performClick();
