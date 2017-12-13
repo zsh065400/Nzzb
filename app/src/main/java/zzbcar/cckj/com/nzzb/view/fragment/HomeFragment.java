@@ -146,11 +146,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private AlertDialog.Builder builder;
     private AlertDialog alertDialog;
     private Intent callIntent;
-//
+
 //    private void initMarquee(List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
 //        List<String> marqueeText = new ArrayList<>();
 //        List<ImageView> marqueeImage = new ArrayList<>();
-//        for (MainPageBean.DataBean.MarqueeBean bean : marqueeDatas) {
+//         for (MainPageBean.DataBean.MarqueeBean bean : marqueeDatas) {
 //            marqueeText.add(bean.getTitle());
 //            ImageView imageView = new ImageView(mActivity);
 ////            Picasso.with(mActivity).load(bean.getPicUrl())

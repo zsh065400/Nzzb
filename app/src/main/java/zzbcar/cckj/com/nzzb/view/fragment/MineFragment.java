@@ -173,15 +173,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             initSignInfo();
         }
     }
-
     @Override
     public int getLayoutId() {
+
         return R.layout.fragment_mine;
     }
 
     @Override
     public void initDatas() {
-
         rl_my_card.setOnClickListener(this);
         rl_my_address.setOnClickListener(this);
         rl_my_account_bind.setOnClickListener(this);
@@ -388,19 +387,23 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
-
     private void toCollectView() {
-        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(getContext());
+        final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(getContext());
         OkGo.<String>get(Constant.PERSON_MESSAGE)
                 .params("userId", signInfo.getId())
-//                .params("userId", 1)
                 .params("token", SPUtils.getToken(mActivity))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        PeresonMessageBean permessBean = GsonUtil.parseJsonWithGson(response.body(), PeresonMessageBean.class);
-                        if (permessBean.getErrno() == 0)
-                            setViewInfo(permessBean.getData());
+                        if(signInfo!=null){
+                            PeresonMessageBean permessBean = GsonUtil.parseJsonWithGson(response.body(), PeresonMessageBean.class);
+                            if (permessBean.getErrno() == 0){
+                                setViewInfo(permessBean.getData());
+
+                            }
+
+                        }
+
 
                     }
                 });

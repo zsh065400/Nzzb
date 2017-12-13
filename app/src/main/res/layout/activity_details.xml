@@ -423,6 +423,36 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
+                            android:text="违约"
+                            android:textColor="#000000"
+                            android:textSize="12dp"/>
+
+                        <TextView
+
+                            android:id="@+id/tv_cancel_break_rule"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:ellipsize="marquee"
+                            android:text="null"
+                            android:textColor="#fe8285"
+                            android:textSize="12dp"/>
+
+
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
                             android:text="超时"
                             android:textColor="#000000"
                             android:textSize="12dp"/>

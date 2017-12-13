@@ -60,7 +60,7 @@
                 android:ellipsize="end"
                 android:gravity="center|center_vertical|left"
                 android:lines="1"
-                android:text="0.01/天"
+                android:text="￥0.01/天"
                 android:textColor="#e94237"
                 android:textSize="15dp"/>
 

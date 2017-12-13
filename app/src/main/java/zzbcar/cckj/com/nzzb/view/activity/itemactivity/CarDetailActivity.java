@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,6 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.relex.circleindicator.CircleIndicator;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.CarDetailBean;
 import zzbcar.cckj.com.nzzb.bean.SigninBean;
@@ -47,12 +51,14 @@ import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 
 
+
+
 /**
  * Created by Scout
  * Created on 2017/11/12 20:09.
  */
 
-public class CarDetailActivity extends BaseActivity implements View.OnClickListener {
+public class CarDetailActivity extends BaseActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     @BindView(R.id.tv_car_owner_name)
     TextView tvCarOwnerName;
@@ -88,11 +94,16 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     NestedScrollView scrollView_cardetail;
     @BindView(R.id.rl_cardetail_service_center)
     RelativeLayout rlCardetailServiceCenter;
+    @BindView(R.id.indicator_cardetail)
+    CircleIndicator indicatorCardetail;
+
 
     private CarDetailBean.DataBean carDetailBean;
     private String getAddress;
 
     private int collectFlag = 0;
+    private String[] mImageViews;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,11 +124,12 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected int getLayoutId() {
+
         return R.layout.activity_car_details;
     }
 
-    @BindView(R.id.iv_car_pic)
-    ImageView ivCarPic;
+    @BindView(R.id.vp_car_pic)
+    ViewPager vpCarPic;
 
     @BindView(R.id.tv_car_name)
     TextView tvCarName;
@@ -157,9 +169,9 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
-
     @Override
     protected void initListeners() {
+        vpCarPic.addOnPageChangeListener(this);
         tvCarRent.setOnClickListener(this);
         tvCarAddr.setOnClickListener(this);
         llCarPriceList.setOnClickListener(this);
@@ -177,12 +189,13 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onScrollChange(View view, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                   /*以图片为基准，超过图片高度则固定颜色*/
-                if (scrollY >= ivCarPic.getTop() + ivCarPic.getMeasuredHeight()) {
+
+                if (scrollY >= vpCarPic.getTop() + vpCarPic.getMeasuredHeight()) {
                     topBar.setBackgroundColor(Color.rgb(10, 27, 43));
                            /*其余情况动态计算百分比改变颜色*/
                 } else if (scrollY >= 0) {
                     //计算透明度，滑动到的距离（即当前滑动坐标）/图片高度（底部坐标）
-                    float persent = scrollY * 1f / (ivCarPic.getTop() + ivCarPic.getMeasuredHeight());
+                    float persent = scrollY * 1f / (vpCarPic.getTop() + vpCarPic.getMeasuredHeight());
                     //255==1，即不透明，计算动态透明度
                     int alpha = (int) (255 * persent);
                     //计算颜色值，将16进制颜色值转换为rgb颜色后填入
@@ -197,7 +210,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     private void collectCar() {
         SigninBean.DataBean.MemberBean signbean = SPUtils.getSignInfo(mContext);
         if (signbean != null) {
-            SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(this);
+            final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(this);
             OkGo.<String>get(Constant.COLLECT_CAR_URL)
                     .params("userId", signInfo.getId())
                     .params("token", SPUtils.getToken(mContext))
@@ -206,18 +219,21 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            collectFlag = (collectFlag == 0 ? 1 : 0);
-                            iv_cardetail_collect.setBackgroundResource(collectFlag == 0 ? R.drawable.collect : R.drawable.collect_normal);
+                            if (signInfo != null) {
+                                collectFlag = (collectFlag == 0 ? 1 : 0);
+                                iv_cardetail_collect.setBackgroundResource(collectFlag == 0 ? R.drawable.collect : R.drawable.collect_normal);
 
 
-                            Toast.makeText(mContext, collectFlag == 0 ? "收藏成功" : "取消收藏成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, collectFlag == 0 ? "收藏成功" : "取消收藏成功", Toast.LENGTH_SHORT).show();
+                            }
+
+
                         }
                     });
         } else {
             Toast.makeText(mContext, "请登录后再试", Toast.LENGTH_SHORT).show();
             toActivity(LoginActivity.class);
         }
-
 
     }
 
@@ -259,7 +275,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void getCollectStatus() {
-        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mContext);
+        final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mContext);
         if (signInfo != null) {
             OkGo.<String>get(Constant.COLLECT_CAR_ID_URL)
                     .params("userId", signInfo.getId())
@@ -267,15 +283,19 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                         @Override
                         public void onSuccess(Response<String> response) {
                             //解析数据获取收藏列表 collectList
-                            UserCollectBean userCollectBean = GsonUtil.parseJsonWithGson(response.body(), UserCollectBean.class);
-                            List<Integer> collectCarList = userCollectBean.getData();
-                            if (collectCarList.contains(new Integer(carDetailBean.getId()))) {
-                                collectFlag = 0;
-                                iv_cardetail_collect.setBackgroundResource(R.drawable.collect);
-                            } else {
-                                collectFlag = 1;
-                                iv_cardetail_collect.setBackgroundResource(R.drawable.collect_normal);
+                            if (signInfo != null) {
+                                UserCollectBean userCollectBean = GsonUtil.parseJsonWithGson(response.body(), UserCollectBean.class);
+                                List<Integer> collectCarList = userCollectBean.getData();
+                                if (collectCarList.contains(new Integer(carDetailBean.getId()))) {
+                                    collectFlag = 0;
+                                    iv_cardetail_collect.setBackgroundResource(R.drawable.collect);
+                                } else {
+                                    collectFlag = 1;
+                                    iv_cardetail_collect.setBackgroundResource(R.drawable.collect_normal);
+                                }
+
                             }
+
 
 
                         }
@@ -320,16 +340,17 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
-
     private void setViewInfo(CarDetailBean detailBean) {
         carDetailBean = detailBean.getData().get(0);
-        GlideApp
-                .with(mContext)
-                .load(carDetailBean.getPics())
-                .centerCrop()
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
-                .into(ivCarPic);
+        mImageViews = carDetailBean.getImgs().split(",");
+
+        //设置Adapter
+        vpCarPic.setAdapter(new CarDetailAdapter());
+        vpCarPic.setOnPageChangeListener(this);
+        //设置ViewPager的默认项, 设置为长度的100倍，这样子开始就能往左滑动
+        vpCarPic.setCurrentItem((mImageViews.length) * 100);
+
+
         GlideApp
                 .with(mContext)
                 .load(carDetailBean.getPics())
@@ -357,9 +378,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
 
         tv_cardrtail_handblock.setText(transmissionCase[carDetailBean.getTransmissionCase()] + "");
 
-
         tvCarAddr.setText(carDetailBean.getAddr());
-
 
         tv_cardetail_engineer.setText(carDetailBean.getEngineLiter());
         tvCarOwnerName.setText("车主" + carDetailBean.getOwnerName());
@@ -435,6 +454,7 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                     Toast.makeText(mContext, "请登录后再试", Toast.LENGTH_SHORT).show();
                     toActivity(LoginActivity.class);
                 }
+
 
 //                if (carDetailBean != null) {
 //                    Bundle bundle = new Bundle();
@@ -525,7 +545,55 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     };
 
     @Override
+
     protected void setStatusBar() {
         StatusBarUtil.setTransparentForImageViewInFragment(this, null);
     }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
+    }
+
+    class CarDetailAdapter extends PagerAdapter {
+
+
+        @Override
+        public int getCount() {
+
+            return Integer.MAX_VALUE;
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+
+            return view == object;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+
+            ImageView view = (ImageView) View.inflate(mContext, R.layout.vp_item, null);
+            GlideApp.with(mContext).load(mImageViews[position % mImageViews.length]).placeholder(R.mipmap.image1).error(R.mipmap.image4).into(view);
+            container.addView(view);
+            return view;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            container.removeView((View) object);
+        }
+    }
+
 }

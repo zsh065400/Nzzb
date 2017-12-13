@@ -20,6 +20,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="6dp"
         android:text="asjgdbajs"
-        android:textSize="15dp"/>
+        android:textSize="14dp"/>
 
 </LinearLayout>

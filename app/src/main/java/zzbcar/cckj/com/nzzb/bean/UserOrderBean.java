@@ -41,7 +41,7 @@ public class UserOrderBean implements Serializable {
     }
 
     public static class DataBean implements Serializable {
-        private int abolishMoney;
+        private double abolishMoney;
         private Object abolishTime;
         private CarBean car;
         private int carId;
@@ -51,7 +51,7 @@ public class UserOrderBean implements Serializable {
         private String endTime;
         private int exceedMoney;
         private int id;
-        private int lastReturnMoney;
+        private double lastReturnMoney;
         private double leasePrice;
         private double onlineAmount;
         private String orderNo;
@@ -71,15 +71,15 @@ public class UserOrderBean implements Serializable {
         private int takeHome;
         private String takeMapLocation;
         private String takeTime;
-        private int timeoutMoney;
+        private double timeoutMoney;
         private double totalAmount;
         private double trafficDepositMoney;
-        private int trafficPunlishMoney;
+        private double trafficPunlishMoney;
         private int type;
         private int userId;
         private String userName;
 
-        public int getAbolishMoney() {
+        public double getAbolishMoney() {
             return abolishMoney;
         }
 
@@ -159,7 +159,7 @@ public class UserOrderBean implements Serializable {
             this.id = id;
         }
 
-        public int getLastReturnMoney() {
+        public double getLastReturnMoney() {
             return lastReturnMoney;
         }
 
@@ -319,7 +319,7 @@ public class UserOrderBean implements Serializable {
             this.takeTime = takeTime;
         }
 
-        public int getTimeoutMoney() {
+        public double getTimeoutMoney() {
             return timeoutMoney;
         }
 
@@ -343,7 +343,7 @@ public class UserOrderBean implements Serializable {
             this.trafficDepositMoney = trafficDepositMoney;
         }
 
-        public int getTrafficPunlishMoney() {
+        public double getTrafficPunlishMoney() {
             return trafficPunlishMoney;
         }
 

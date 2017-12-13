@@ -32,12 +32,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
         android:layout_marginTop="11dp"
+        android:lines="1"
         android:gravity="left|center_horizontal"
         android:text="法拉利"
         android:textColor="#323232"
         android:textSize="13dp"/>
 
     <TextView
+        android:lines="1"
         android:id="@+id/iv_fresh_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

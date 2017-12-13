@@ -113,6 +113,7 @@ public class CarFriendIdentifiActivity extends BaseActivity implements View.OnCl
     }
 
     private void commitInfo(String name, String phone) {
+
         final  String url= OkHttpUtil.obtainGetUrl(Constant.API_ADD_OWNER,
                 "name",name,
                 "mobile",phone);

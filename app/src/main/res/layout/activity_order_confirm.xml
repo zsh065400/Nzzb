@@ -170,6 +170,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_confirm_quche"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="取车地址："
@@ -194,6 +195,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_confirm_huanche"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="还车地址："

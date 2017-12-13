@@ -80,6 +80,7 @@
     <color name="cc_btn_off">#ffdedede</color>
     <color name="cc_dot_orage">#fff08519</color>
     <color name="cc_dot_dark">#ffdcd3cb</color>
+    <color name="select_time_bg">#f5f5f5</color>
 
     <color name="cc_list_title_bk">#fff0f0f0</color>
 

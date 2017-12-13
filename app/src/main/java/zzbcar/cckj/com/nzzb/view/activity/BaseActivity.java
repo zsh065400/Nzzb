@@ -27,6 +27,7 @@ public abstract class BaseActivity extends FragmentActivity {
 
     protected Resources mResources;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +39,13 @@ public abstract class BaseActivity extends FragmentActivity {
 
         ButterKnife.bind(this);
         initViews();
+
+
         initListeners();
         initDatas();
         MyApplication.appManager.addActivity(this);
     }
+
 
 
     @Override
@@ -56,6 +60,8 @@ public abstract class BaseActivity extends FragmentActivity {
         mContext = null;
         mResources = null;
         MyApplication.appManager.finishActivity(this);
+
+
     }
 
     /**

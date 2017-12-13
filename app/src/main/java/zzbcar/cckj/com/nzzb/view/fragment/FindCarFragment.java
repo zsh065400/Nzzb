@@ -116,6 +116,7 @@ public class FindCarFragment extends BaseFragment {
                 Log.i("TAG", "onResponse: ====s=======>" + jsonObject.toString());
                 BrandCarBean brandCarBean = GsonUtil.parseJsonWithGson(String.valueOf(jsonObject), BrandCarBean.class);
                 brandList.addAll(brandCarBean.getData());
+                brandList.remove(0);
                 initCarBrand();
             }
         });
@@ -127,6 +128,7 @@ public class FindCarFragment extends BaseFragment {
         for (final List<BrandCarBean.DataBean> dataBeans : split) {
             GridItemAdapter itemAdapter = new GridItemAdapter(mActivity, dataBeans);
             GridView gridView = (GridView) mActivity.getLayoutInflater().inflate(R.layout.gridview, null, false);
+
             gridView.setAdapter(itemAdapter);
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override

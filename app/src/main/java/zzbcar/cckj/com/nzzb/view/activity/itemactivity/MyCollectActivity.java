@@ -47,14 +47,18 @@ public class MyCollectActivity extends BaseActivity {
 
     @Override
     protected void initDatas() {
-        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(this);
+        final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(this);
         OkGo.<String>get(Constant.MY_COLLECT_URL)
                 .params("userId",signInfo.getId())
 //                .params("userId",1)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        parseData(response.body());
+                        if(signInfo!=null){
+                            parseData(response.body());
+                        }
+
+
                     }
                 });
 
@@ -68,23 +72,34 @@ public class MyCollectActivity extends BaseActivity {
     }
 
     private void parseData(String body) {
-        dataList = GsonUtil.parseJsonWithGson(body, MyCollectBean.class).getData();
-        if (dataList.size()==0){
-            Toast.makeText(mContext, "还没有收藏可查询哦", Toast.LENGTH_SHORT).show();
+//        dataList = GsonUtil.parseJsonWithGson(body, MyCollectBean.class).getData();
+        MyCollectBean myCollectBean = GsonUtil.parseJsonWithGson(body, MyCollectBean.class);
+        int errno = myCollectBean.getErrno();
+        if (errno==0){
+            dataList = myCollectBean.getData();
+            if (dataList.size()==0){
+                Toast.makeText(mContext, "还没有收藏可查询哦!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            MyCollectAdapter myCollectAdapter = new MyCollectAdapter(mContext, dataList);
+            myCollectAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+
+
+                    final Intent intent = new Intent(mContext, CarDetailActivity.class);
+                    intent.putExtra("carid", dataList.get(position).getId());
+                    startActivity(intent);
+                }
+            });
+            rv_car_mycollect.setAdapter(myCollectAdapter);
+        }
+        else if (errno==101){
+            Toast.makeText(mContext, "会话超时,请重新登陆", Toast.LENGTH_SHORT).show();
+
             return;
         }
-        MyCollectAdapter myCollectAdapter = new MyCollectAdapter(mContext, dataList);
-        myCollectAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
 
-
-                final Intent intent = new Intent(mContext, CarDetailActivity.class);
-                intent.putExtra("carid", dataList.get(position).getId());
-                startActivity(intent);
-            }
-        });
-        rv_car_mycollect.setAdapter(myCollectAdapter);
 
     }
 }

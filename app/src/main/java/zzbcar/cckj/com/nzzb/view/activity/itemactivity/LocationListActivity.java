@@ -65,7 +65,7 @@ public class LocationListActivity extends BaseActivity {
 
     @Override
     protected void initDatas() {
-        new TitleBuilder(this).setTitleText("选择城市").setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
+        new TitleBuilder(this).setTitleText("选择城市").setLeftIco(R.mipmap.location_back).setLeftIcoListening(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

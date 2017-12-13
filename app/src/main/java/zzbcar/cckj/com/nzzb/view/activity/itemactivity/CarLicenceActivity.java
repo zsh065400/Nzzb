@@ -58,7 +58,6 @@ import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
 public class CarLicenceActivity extends BaseActivity implements View.OnClickListener {
 
 
-
     @BindView(R.id.tv_choose_date)
     TextView tvChooseDate;
     @BindView(R.id.iv_carlicence_up)
@@ -96,9 +95,10 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                     if (isUp) {
                         cardLicence.add(0, carLicence);
                     } else {
-                       if(cardLicence.size()==0){
-                           cardLicence.add(0,"");
-                       }
+                        if(cardItem.size()==0){
+                            cardLicence.add(0, "");
+                        }
+
                         cardLicence.add(1, carLicence);
                     }
                     LogUtil.e(carLicence);
@@ -169,9 +169,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                 // 这里回调过来的v,就是show()方法里面所添加的 View 参数，如果show的时候没有添加参数，v则为null
                 /*btn_Time.setText(getTime(date));*/
                 TextView tv = (TextView) v;
-               tv.setText(getTime(date));
-
-
+                tv.setText(getTime(date));
             }
         })
                 //年月日时分秒 的显示与否，不设置则默认全部显示
@@ -251,13 +249,10 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.tv_choose_date:
                 pvTime.show(view);
-
                 break;
-
             case R.id.iv_carlicence_up:
                 isUp = true;
                 showDialog();
-
                 break;
             case R.id.iv_carlicence_down:
                 isUp = false;
@@ -287,7 +282,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
             Toast.makeText(mContext, "请输入驾龄", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (cardLicence.get(0).length()==0&&cardLicence.get(1).length()==0) {
+        if (cardLicence.size() != 2) {
             Toast.makeText(mContext, "还没有上传完驾驶证", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -391,7 +386,6 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initListeners() {
-
         tvChooseDate.setOnClickListener(this);
         ivCarlicenceUp.setOnClickListener(this);
         ivCarlicenceDown.setOnClickListener(this);

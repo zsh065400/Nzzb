@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -59,10 +58,13 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     private static final int PHOTO_REQUEST_IDCAR_DOWN = 4;
     private boolean isUp = true;
     private String path = Environment.getExternalStorageDirectory().getPath() + File.separator + "zzbcar" + File.separator + "icon";
+    private String idSeparator;
     private ArrayList<String> idCard = new ArrayList<>();
     File tempFile = new File(Environment.getExternalStorageDirectory(), getPhotoFileName());
     private File cropfile;
     private ProgressDialog progressDialog;
+
+
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -73,14 +75,9 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
                     String idCardTemp = Constant.SERVER_PHOTO_HEAD + Constant.IDCARD_KEYPATH+idSeparator + cropfile.getName();
 
                     if (isUp) {
-                        idCard.add(0, idCardTemp);
+                        idCard.set(0, idCardTemp);
                     } else{
-                        if(idCard.size()==0){
-                            idCard.add(0, "");
-                        }
-                             idCard.add(1, idCardTemp);
-
-
+                             idCard.set(1, idCardTemp);
                     }
                     LogUtil.e(idCardTemp);
                     break;
@@ -95,16 +92,19 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
             }
         }
     };
-    private String idSeparator;
+
 
     @Override
     protected int getLayoutId() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return R.layout.activity_car_identifi1;
+
+
     }
 
     @Override
     protected void initViews() {
+
         bt_identicar_nest = (Button) findViewById(R.id.bt_identicar_nest);
         iv_identificar_idcar_up = (ImageView) findViewById(R.id.iv_identificar_idcar_up);
         iv_identificar_idcar_down = (ImageView) findViewById(R.id.iv_identificar_idcar_down);
@@ -114,6 +114,10 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void initDatas() {
+
+        idCard.add(0, "");
+        idCard.add(1, "");
+
         LogUtil.e(SPUtils.getToken(mContext));
         bt_identicar_nest.setOnClickListener(this);
         iv_identificar_idcar_down.setOnClickListener(this);
@@ -121,6 +125,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
 
         new TitleBuilder(this).setTitleText("车友认证").setLeftIco(R.mipmap.row_back).setLeftIcoListening(leftReturnListener);
         idSeparator = SPUtils.getSignInfo(mContext).getId()+"/";
+
     }
 
 
@@ -172,11 +177,11 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
             handler.sendMessage(obtain);
             return;
         }
-        if (idCard.get(0).length()==0 && idCard.get(1).length()==0) {
+
+        if (idCard.get(0).length()==0 || idCard.get(1).length()==0) {
             obtain.obj = "还没有上传完身份证照片";
             handler.sendMessage(obtain);
             return;
-
         }
         Intent intent = new Intent(mContext, CarLicenceActivity.class);
         intent.putExtra("name", name);
@@ -226,14 +231,7 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PHOTO_REQUEST_TAKEPHOTO:
-                if (requestCode == PHOTO_REQUEST_TAKEPHOTO && resultCode == RESULT_OK) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-
-                        startPhotoZoom(Uri.fromFile(tempFile), 150);
-                    }
-
-                }
-
+                startPhotoZoom(Uri.fromFile(tempFile), 150);
                 break;
 
             case PHOTO_REQUEST_GALLERY:
@@ -272,11 +270,6 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
     private void startPhotoZoom(Uri uri, int size) {
         Log.e("zoom", "begin");
         Intent intent = new Intent("com.android.camera.action.CROP");
-
-        //这段代码判断，在安卓7.0以前版本是不需要的。特此注意。不然这里也会抛出异常
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        }
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
         intent.putExtra("scale", true);
@@ -285,8 +278,6 @@ public class CarIdentifiActivity extends BaseActivity implements View.OnClickLis
         if (!file.exists()) {
             file.mkdirs();
         }
-
-
         cropfile = new File(file.getPath(), System.currentTimeMillis() + ".jpg");
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cropfile));
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());

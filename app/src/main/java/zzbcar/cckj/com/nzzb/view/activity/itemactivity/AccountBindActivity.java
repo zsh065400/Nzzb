@@ -29,6 +29,7 @@ import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
+import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 
 public class AccountBindActivity extends BaseActivity implements View.OnClickListener {
 
@@ -140,19 +141,24 @@ public class AccountBindActivity extends BaseActivity implements View.OnClickLis
         OkGo.<String>get(url).tag(TAG).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                final BaseBean bean = GsonUtil.parseJsonWithGson(response.body(), BaseBean.class);
-                if (bean.getErrno() == 0) {
-                    asyncShowToast("绑定成功，下次可直接登录");
-                    if (type.equals("1")) {
-                        isQQBind = true;
-                        signInfo.setQqOpenId(param);
-                        changeStatus(type, isQQBind);
-                    } else {
-                        isWxBind = true;
-                        signInfo.setWxOpenId(param);
-                        changeStatus(type, isWxBind);
-                    }
-                } else asyncShowToast(bean.getMessage());
+                if(signInfo!=null){
+                    final BaseBean bean = GsonUtil.parseJsonWithGson(response.body(), BaseBean.class);
+                    if (bean.getErrno() == 0) {
+                        asyncShowToast("绑定成功，下次可直接登录");
+                        if (type.equals("1")) {
+                            isQQBind = true;
+                            signInfo.setQqOpenId(param);
+                            changeStatus(type, isQQBind);
+                        } else {
+                            isWxBind = true;
+                            signInfo.setWxOpenId(param);
+                            changeStatus(type, isWxBind);
+                        }
+                    } else asyncShowToast(bean.getMessage());
+                }else {
+                    toActivity(LoginActivity.class);
+                }
+
             }
 
             @Override
@@ -170,18 +176,22 @@ public class AccountBindActivity extends BaseActivity implements View.OnClickLis
         OkGo.<String>get(url).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
-                final String body = response.body();
-                final BaseBean baseBean = GsonUtil.parseJsonWithGson(body, BaseBean.class);
-                if (baseBean.getErrno() == 0) {
-                    asyncShowToast("解绑成功，将不能使用该方式登录");
-                    if (type.equals("1")) {
-                        isQQBind = false;
-                        changeStatus(type, isQQBind);
+                if(signInfo!=null){
+                    final String body = response.body();
+                    final BaseBean baseBean = GsonUtil.parseJsonWithGson(body, BaseBean.class);
+                    if (baseBean.getErrno() == 0) {
+                        asyncShowToast("解绑成功，将不能使用该方式登录");
+                        if (type.equals("1")) {
+                            isQQBind = false;
+                            changeStatus(type, isQQBind);
 
-                    } else {
-                        isWxBind = false;
-                        changeStatus(type, isWxBind);
-                    }
+                        } else {
+                            isWxBind = false;
+                            changeStatus(type, isWxBind);
+                        }
+                }
+
+
                 }
             }
         });

@@ -45,6 +45,7 @@ import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
+import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.customview.RoundImageView;
 
 /**
@@ -165,23 +166,28 @@ public class PersonDataActivity extends BaseActivity implements View.OnClickList
                                             .execute(new StringCallback() {
                                                 @Override
                                                 public void onSuccess(Response<String> response) {
-                                                    try {
-                                                        JSONObject jsonObject = new JSONObject(response.body());
-                                                        int errno = jsonObject.getInt("errno");
+                                                    if(signInfo!=null){
+                                                        try {
+                                                            JSONObject jsonObject = new JSONObject(response.body());
+                                                            int errno = jsonObject.getInt("errno");
 
-                                                        if (errno!=0) {
-                                                            Toast.makeText(mContext, "修改姓名失败", Toast.LENGTH_SHORT).show();
+                                                            if (errno!=0) {
+                                                                Toast.makeText(mContext, "修改姓名失败", Toast.LENGTH_SHORT).show();
 
-                                                        }else {
-                                                            tv_person_data_nickname.setText(input);
-                                                            SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mContext, "User", ""), SigninBean.class);
-                                                            user.getData().getMember().setName(input);
-                                                            SPUtils.saveString(mContext,"User",GsonUtil.getGson().toJson(user));
+                                                            }else {
+                                                                tv_person_data_nickname.setText(input);
+                                                                SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mContext, "User", ""), SigninBean.class);
+                                                                user.getData().getMember().setName(input);
+                                                                SPUtils.saveString(mContext,"User",GsonUtil.getGson().toJson(user));
 
+                                                            }
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
                                                         }
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
+                                                    }else {
+                                                        toActivity(LoginActivity.class);
                                                     }
+
                                                 }
                                             });
 
@@ -321,28 +327,33 @@ public class PersonDataActivity extends BaseActivity implements View.OnClickList
                     .execute(new StringCallback() {
                         @Override
                         public void onSuccess(Response<String> response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response.body());
-                                int errno = jsonObject.getInt("errno");
-                                if (errno != 0) {
-                                    handler.sendEmptyMessage(1);
-                                } else {
-                                    GlideApp
-                                            .with(mContext)
-                                            .load(Uri.fromFile(cropfile))
-                                            .centerCrop()
-                                            .placeholder(R.mipmap.ic_launcher)
-                                            .error(R.mipmap.ic_launcher)
-                                            .into(iv_person_data_pic);
+                            if(signInfo!=null){
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.body());
+                                    int errno = jsonObject.getInt("errno");
+                                    if (errno != 0) {
+                                        handler.sendEmptyMessage(1);
+                                    } else {
+                                        GlideApp
+                                                .with(mContext)
+                                                .load(Uri.fromFile(cropfile))
+                                                .centerCrop()
+                                                .placeholder(R.mipmap.ic_launcher)
+                                                .error(R.mipmap.ic_launcher)
+                                                .into(iv_person_data_pic);
 //                                    Picasso.with(mContext).load(Uri.fromFile(cropfile)).fit().into( iv_person_data_pic);
-                                    SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mContext, "User", ""), SigninBean.class);
-                                    user.getData().getMember().setAvatar(hearUrl);
+                                        SigninBean user = GsonUtil.parseJsonWithGson(SPUtils.getString(mContext, "User", ""), SigninBean.class);
+                                        user.getData().getMember().setAvatar(hearUrl);
 
-                                    SPUtils.saveString(mContext, "User", GsonUtil.getGson().toJson(user));
+                                        SPUtils.saveString(mContext, "User", GsonUtil.getGson().toJson(user));
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            }else {
+                                toActivity(LoginActivity.class);
                             }
+
                         }
                     });
     }

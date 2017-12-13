@@ -150,6 +150,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
         rvCarQuery.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvCarQuery.setLoadingMoreEnabled(false);
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
+
+
     }
 
     @Override
@@ -186,6 +188,12 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                     @Override
                     public void onCheckedChanged(RadioGroup group, int checkedId) {
                 /*暂时用不到*/
+
+//                for (int i=0;i<rbTransmissionIds.length;i++){
+//                    if(checkedId==rbTransmissionIds[i]){
+//
+//                    }
+//                }
                     }
                 });
 
@@ -240,6 +248,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initDatas() {
+
+
         initTimePicker();
         final Intent intent = getIntent();
         carListDatas = (List<MainPageBean.DataBean.CarListBean>) intent.getSerializableExtra("carlist");
@@ -293,6 +303,8 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
         if (data == null || data.size() == 0) {
             Toast.makeText(mContext, "暂无数据", Toast.LENGTH_SHORT).show();
             return;
+        }else {
+            ll_whole_brand.setVisibility(View.GONE);
         }
         if (queryAdapter == null) {
             queryAdapter = new CarQueryAdapter(mContext, data);
@@ -306,6 +318,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
             });
             rvCarQuery.setAdapter(queryAdapter);
         } else {
+
             queryAdapter.refresh(data);
         }
         rvCarQuery.refreshComplete();
@@ -332,12 +345,13 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
                     doCarQuery(params.buildUrl());
                     ll_whole_brand.performClick();
 
-                    ll_whole_brand.setVisibility(View.INVISIBLE);
+
 
 
                 }
             });
         } else {
+
             carSeriesAdapter.reset(data);
         }
     }
@@ -351,6 +365,7 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
     private void parseBrandData(String result) {
         CarBean bean = GsonUtil.parseJsonWithGson(result, CarBean.class);
         brandData = bean.getData();
+        brandData.remove(0);
         carBrandAdapter = new CarBrandAdapter(brandData, this);
         lv_car_brand.setAdapter(carBrandAdapter);
         lv_car_brand.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.CarDetailBean;
 import zzbcar.cckj.com.nzzb.bean.OrderBean;
@@ -68,6 +69,12 @@ public class OrderConfirmActivity extends BaseActivity {
     TextView tvOrderAllMoney;
     @BindView(R.id.iv_order_connect_us)
     ImageView ivOrderConnectUs;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.tv_confirm_quche)
+    TextView tvConfirmQuche;
+    @BindView(R.id.tv_confirm_huanche)
+    TextView tvConfirmHuanche;
 //    @BindView(R.id.tv_order_really_time)
 //    TextView tvOrderReallyTime;
 
@@ -81,10 +88,13 @@ public class OrderConfirmActivity extends BaseActivity {
     private ImageView iv_order_car_pic;
     private String getAddress;
     private String sendAddress;
+    private String selfGetAddress;
+    private String selfRepayAddress;
     private double amount;
     private Bundle bundle;
     private SigninBean bean;
     private AlertDialog alertDialog;
+    private CarDetailBean.DataBean carDetailBean;
 
     @Override
     protected int getLayoutId() {
@@ -109,12 +119,19 @@ public class OrderConfirmActivity extends BaseActivity {
                 }
             }
         });
-        setBackButon(R.id.iv_back);
+
 
         ivOrderConnectUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ConnectUs();
+            }
+        });
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
@@ -155,11 +172,13 @@ public class OrderConfirmActivity extends BaseActivity {
         cardetail = (CarDetailBean.DataBean) bundle.getSerializable("cardetail");
         startTime = getFormatTime(bundle.getString("getTime") + ":00");
         endTime = getFormatTime(bundle.getString("backTime") + ":00");
-
-
-
         getAddress = bundle.getString("getAddress");
         sendAddress = bundle.getString("sendAddress");
+
+        selfGetAddress = bundle.getString("selfGetAddress");
+        selfRepayAddress = bundle.getString("selfRepayAddress");
+
+
         final String userJson = SPUtils.getString(mContext, "User", "");
         if (userJson != "") {
             bean = GsonUtil.parseJsonWithGson(userJson, SigninBean.class);
@@ -198,7 +217,7 @@ public class OrderConfirmActivity extends BaseActivity {
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-      try {
+        try {
             Date end = sdf.parse(endTime);
             Date start = sdf.parse(startTime);
             long nd = 1000 * 24 * 60 * 60;
@@ -234,6 +253,9 @@ public class OrderConfirmActivity extends BaseActivity {
         tvOrderNumber.setText(cardetail.getPlateNo());
         tvOrderGetaddrTime.setText(getAddress + "\n" + bundle.getString("getTime"));
         tvOrderBackaddrTime.setText(sendAddress + "\n" + bundle.getString("backTime"));
+        tvConfirmQuche.setText(selfGetAddress);
+        tvConfirmHuanche.setText(selfRepayAddress);
+
         tvOrderDeposit.setText(bean.getData().getSysdata().getTrafficDeposit() + "元");
 
         tvCarPrice.setText(amount + "元");
@@ -273,6 +295,7 @@ public class OrderConfirmActivity extends BaseActivity {
 
     /*开单*/
     private void openOrder(double amount, String time) {
+
         final String url = OkHttpUtil.obtainGetUrl(Constant.API_ADD_ORDER,
                 "carId", String.valueOf(cardetail.getId()),
                 "userId", String.valueOf(userId),
@@ -297,6 +320,7 @@ public class OrderConfirmActivity extends BaseActivity {
         OkGo.<String>get(url).execute(new StringCallback() {
             @Override
             public void onSuccess(Response<String> response) {
+
                 final String body = response.body();
                 final OrderBean orderBean = GsonUtil.parseJsonWithGson(body, OrderBean.class);
                 if (orderBean.getErrno() == 0) {
@@ -340,5 +364,12 @@ public class OrderConfirmActivity extends BaseActivity {
             e.printStackTrace();
         }
         return sdf.format(parse);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

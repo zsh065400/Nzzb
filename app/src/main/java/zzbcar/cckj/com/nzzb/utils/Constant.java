@@ -35,6 +35,8 @@ public class Constant {
     public static final String VERTIFY_IDENTI_URL = SERVE_URL + "zzb/app/member/authInfo ";
     /*下单*/
     public static final String API_ADD_ORDER = SERVE_URL + "zzb/app/order/doOrder";
+    /* 撤销订单*/
+    public static final String  BACK_OUT_ORDER=SERVE_URL+"zzb/app/order/calcAbolish";
 
     /*主页*/
     public static final String API_MAIN_PAGE = SERVE_URL + "zzb/app/compound/mainpage";
@@ -134,10 +136,8 @@ public class Constant {
     public static final String IDCARD_KEYPATH = "zzbcar/auth/";
     public static final String CARLICENCE_KEYPATH = "zzbcar/auth/";
     public static final String SERVER_PHOTO_HEAD = "http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/";
-
     public static final String HEAD_KEYPATH = "zzbcar/headimg/";
     public static final String NiCK_NAME_KEYPATH = "zzbcar/nickname/";
-
     //加载的网页链接
     //用户协议
     public static final String MASTER_PROTOCOL = "http://app.zzbcar.com/zzb/helpcenter/protocol.html";

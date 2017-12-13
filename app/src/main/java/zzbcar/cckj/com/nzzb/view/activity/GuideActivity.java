@@ -97,11 +97,13 @@ public class GuideActivity extends BaseActivity {
         private List<View> views;
 
         public GuidePagerAdapter(List<View> views) {
+
             this.views = views;
         }
 
         @Override
         public int getCount() {
+
             return views != null ? views.size() : 0;
         }
 

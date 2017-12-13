@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView_cardetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,13 +22,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="235dp">
 
-                <ImageView
-                    android:id="@+id/iv_car_pic"
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_car_pic"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/first"/>
+
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/indicator_cardetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="20dp"
+                    app:ci_drawable="@drawable/point_red_selected"
+                    app:ci_drawable_unselected="@drawable/point_red_unselected"
+                    app:ci_height="6dp"
+                    app:ci_width="6dp">
+                </me.relex.circleindicator.CircleIndicator>
 
             </RelativeLayout>
 
@@ -165,10 +185,20 @@
                     android:text="可租用时间"
                     android:textColor="#302f2f"
                     android:textSize="18sp"/>
+<Button
+    android:layout_centerVertical="true"
+    android:layout_marginRight="5dp"
+    android:layout_toLeftOf="@+id/tv_half_time_rent"
+    android:background="@mipmap/half_day"
+    android:layout_width="15dp"
+    android:layout_height="15dp" />
+
 
                 <TextView
+
+                   android:id="@+id/tv_half_time_rent"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15sp"
