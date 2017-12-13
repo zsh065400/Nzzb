@@ -17,6 +17,7 @@ import java.util.Calendar;
 
 import de.greenrobot.event.EventBus;
 import zzbcar.cckj.com.nzzb.R;
+import zzbcar.cckj.com.nzzb.bean.MonthPriceBean;
 
 import static zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelectTimeActivity.startDay;
 import static zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelectTimeActivity.stopDay;
@@ -29,13 +30,13 @@ import static zzbcar.cckj.com.nzzb.view.activity.itemactivity.SelectTimeActivity
 public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
 
     public interface onItemClickListener {
-        void onItemCallback(View view, int position);
+        void onItemCallback(View view, int position, MonthPriceBean.DataBean time);
 
-        void onStartClick(View view, int position);
+        void onStartClick(View view, int position, MonthPriceBean.DataBean time);
 
-        void onReChoose(View view, int position);
+        void onReChoose(View view, int position, MonthPriceBean.DataBean time);
 
-        void onSameDay(View view, int position);
+        void onSameDay(View view, int position, MonthPriceBean.DataBean time);
     }
 
     onItemClickListener mOnItemClickListener;
@@ -71,6 +72,7 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
     @Override
     public void onBindViewHolder(final DayTimeViewHolder holder, final int position) {
         final DayTimeEntity dayTimeEntity = days.get(position);
+        final MonthPriceBean.DataBean priceBean = dayTimeEntity.getPriceBean();
         //显示日期
         if (dayTimeEntity.getDay() != 0) {
             holder.select_txt_day.setText(dayTimeEntity.getDay() + "");
@@ -86,24 +88,21 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                     holder.select_txt_day.setText("今天");
                     currentDay = 1;
                 }
-                // TODO: 2017/12/5 设置价钱
                 holder.select_txt_day.setTextColor(Color.parseColor("#555555"));
                 holder.select_ly_day.setEnabled(true);
-                holder.select_txt_price.setText(String.valueOf(dayTimeEntity.getPrice()));
+                holder.select_txt_price.setText(String.valueOf(priceBean.getPrice()));
             }
-
         } else {
             holder.select_ly_day.setEnabled(false);
         }
 
 
-//            if(isPreferences.getSp().getInt("start_month_position" , -1)!=-1 && isPreferences.getSp().getInt("start_day_position" , -1)!=-1
-//                    && isPreferences.getSp().getInt("end_month_position" , -1) !=-1 && isPreferences.getSp().getInt("end_month_position" , -1)!=-1){
-//
-//                EventBus.getDefault().post(new UpdataCalendar()); // 发消息刷新适配器，目的为了显示日历上各个日期的背景颜色
+//        if (isPreferences.getSp().getInt("start_month_position", -1) != -1 && isPreferences.getSp().getInt("start_day_position", -1) != -1
+//                && isPreferences.getSp().getInt("end_month_position", -1) != -1 && isPreferences.getSp().getInt("end_month_position", -1) != -1) {
+//            EventBus.getDefault().post(new UpdataCalendar()); // 发消息刷新适配器，目的为了显示日历上各个日期的背景颜色
 //
 //                holder.select_ly_day.setBackgroundResource(R.color.blue);
-//            }
+//        }
 
 
         holder.select_ly_day.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +139,7 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                     startDay.setMonth(dayTimeEntity.getMonth());
                     startDay.setYear(dayTimeEntity.getYear());
                     startDay.setMonthPosition(dayTimeEntity.getMonthPosition());
-                    mOnItemClickListener.onStartClick(holder.itemView, position);
+                    mOnItemClickListener.onStartClick(holder.itemView, position, priceBean);
                 } else if (startDay.getYear() > 0 && stopDay.getYear() == -1) {      //已经点击了开始 ，点击结束位置，（默认结束位置-1,-1,-1,-1 说明还没有点击结束位置）
                     if (dayTimeEntity.getYear() > startDay.getYear()) {
                         //如果选中的年份大于开始的年份，说明结束日期肯定大于开始日期 ，合法的 ，将该item的天数的 信息  赋给 结束日期
@@ -149,7 +148,7 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                         stopDay.setYear(dayTimeEntity.getYear());
                         stopDay.setMonthPosition(dayTimeEntity.getMonthPosition());
                         stopDay.setDayPosition(position);
-                        mOnItemClickListener.onItemCallback(holder.itemView, position);
+                        mOnItemClickListener.onItemCallback(holder.itemView, position, priceBean);
                     } else if (dayTimeEntity.getYear() == startDay.getYear()) {
                         //如果选中的年份 等于 选中的年份
                         if (dayTimeEntity.getMonth() > startDay.getMonth()) {
@@ -160,7 +159,7 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                             stopDay.setMonthPosition(dayTimeEntity.getMonthPosition());
                             stopDay.setDayPosition(position);
 
-                            mOnItemClickListener.onItemCallback(holder.itemView, position);
+                            mOnItemClickListener.onItemCallback(holder.itemView, position, priceBean);
 
                         } else if (dayTimeEntity.getMonth() == startDay.getMonth()) {
                             //年份月份 都相等
@@ -171,14 +170,14 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                                 stopDay.setYear(dayTimeEntity.getYear());
                                 stopDay.setMonthPosition(dayTimeEntity.getMonthPosition());
                                 stopDay.setDayPosition(position);
-                                mOnItemClickListener.onItemCallback(holder.itemView, position);
+                                mOnItemClickListener.onItemCallback(holder.itemView, position, priceBean);
                             } else if (dayTimeEntity.getDay() == startDay.getDay()) {
                                 stopDay.setDay(dayTimeEntity.getDay());
                                 stopDay.setMonth(dayTimeEntity.getMonth());
                                 stopDay.setYear(dayTimeEntity.getYear());
                                 stopDay.setMonthPosition(dayTimeEntity.getMonthPosition());
                                 stopDay.setDayPosition(position);
-                                mOnItemClickListener.onSameDay(holder.itemView, position);
+                                mOnItemClickListener.onSameDay(holder.itemView, position, priceBean);
                             } else {
                                 //天数小与初始  从新选择开始  ，结束日期重置，开始日期为当前的位置的天数的信息
                                 startDay.setDay(dayTimeEntity.getDay());
@@ -191,7 +190,7 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                                 stopDay.setYear(-1);
                                 stopDay.setMonthPosition(-1);
                                 stopDay.setDayPosition(-1);
-                                mOnItemClickListener.onReChoose(holder.itemView, position);
+                                mOnItemClickListener.onReChoose(holder.itemView, position, priceBean);
                             }
                         } else {
                             //选中的月份 比开始日期的月份还小，说明 结束位置不合法，结束日期重置，开始日期为当前的位置的天数的信息
@@ -205,7 +204,7 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                             stopDay.setYear(-1);
                             stopDay.setMonthPosition(-1);
                             stopDay.setDayPosition(-1);
-                            mOnItemClickListener.onReChoose(holder.itemView, position);
+                            mOnItemClickListener.onReChoose(holder.itemView, position, priceBean);
                         }
                     } else {
                         //选中的年份 比开始日期的年份还小，说明 结束位置不合法，结束日期重置，开始日期为当前的位置的天数的信息
@@ -219,7 +218,7 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                         stopDay.setYear(-1);
                         stopDay.setMonthPosition(-1);
                         stopDay.setDayPosition(-1);
-                        mOnItemClickListener.onReChoose(holder.itemView, position);
+                        mOnItemClickListener.onReChoose(holder.itemView, position, priceBean);
                     }
                 } else if (startDay.getYear() > 0 && startDay.getYear() > 1) {      //已经点击开始和结束   第三次点击 ，重新点击开始
                     startDay.setDay(dayTimeEntity.getDay());
@@ -232,12 +231,11 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                     stopDay.setYear(-1);
                     stopDay.setMonthPosition(-1);
                     stopDay.setDayPosition(-1);
-                    mOnItemClickListener.onReChoose(holder.itemView, position);
+                    mOnItemClickListener.onReChoose(holder.itemView, position, priceBean);
                 }
                 EventBus.getDefault().post(new UpdataCalendar()); // 发消息刷新适配器，目的为了显示日历上各个日期的背景颜色
             }
         });
-
 
         if (isPreferences.getSp().getInt("start_month_position", -1) != -1 && isPreferences.getSp().getInt("start_day_position", -1) != -1
                 && isPreferences.getSp().getInt("end_month_position", -1) != -1 && isPreferences.getSp().getInt("end_day_position", -1) != -1) {
@@ -255,10 +253,9 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
             stopDay.setDayPosition(isPreferences.getSp().getInt("end_day_position", -1));
 
 
-            EventBus.getDefault().post(new UpdataCalendar()); // 发消息刷新适配器，目的为了显示日历上各个日期的背景颜色
+//            EventBus.getDefault().post(new UpdataCalendar()); // 发消息刷新适配器，目的为了显示日历上各个日期的背景颜色
 
         }
-
 
         if (startDay.getYear() == dayTimeEntity.getYear() && startDay.getMonth() == dayTimeEntity.getMonth() && startDay.getDay() == dayTimeEntity.getDay()
                 && stopDay.getYear() == dayTimeEntity.getYear() && stopDay.getMonth() == dayTimeEntity.getMonth() && stopDay.getDay() == dayTimeEntity.getDay()) {
@@ -287,6 +284,14 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                     holder.select_ly_day.setBackgroundColor(Color.parseColor("#FDEBEB"));
                 } else {
                     holder.select_ly_day.setBackgroundResource(R.color.white);
+                    if (priceBean.getOccupyAllDay() == 1) {
+                        holder.select_txt_day.setTextColor(Color.parseColor("#B5B5B5"));
+                        holder.select_ly_day.setEnabled(false);
+                        holder.select_txt_price.setText("");
+                    } else {
+                        if (priceBean.getOrderIn() == 1)
+                            holder.select_ly_day.setBackgroundResource(R.drawable.bg_half_time);
+                    }
                 }
             } else if (startDay.getMonthPosition() != stopDay.getMonthPosition()) {
                 // 日期和 开始 不是一个月份
@@ -304,13 +309,27 @@ public class DayTimeAdapter extends RecyclerView.Adapter<DayTimeViewHolder> {
                     holder.select_ly_day.setBackgroundColor(Color.parseColor("#FDEBEB"));
                 } else {
                     holder.select_ly_day.setBackgroundResource(R.color.white);
+                    if (priceBean.getOccupyAllDay() == 1) {
+                        holder.select_txt_day.setTextColor(Color.parseColor("#B5B5B5"));
+                        holder.select_ly_day.setEnabled(false);
+                        holder.select_txt_price.setText("");
+                    } else {
+                        if (priceBean.getOrderIn() == 1)
+                            holder.select_ly_day.setBackgroundResource(R.drawable.bg_half_time);
+                    }
                 }
             }
-
         } else {
             holder.select_ly_day.setBackgroundResource(R.color.white);
+            if (priceBean.getOccupyAllDay() == 1) {
+                holder.select_txt_day.setTextColor(Color.parseColor("#B5B5B5"));
+                holder.select_ly_day.setEnabled(false);
+                holder.select_txt_price.setText("");
+            } else {
+                if (priceBean.getOrderIn() == 1)
+                    holder.select_ly_day.setBackgroundResource(R.drawable.bg_half_time);
+            }
         }
-
     }
 
     @Override

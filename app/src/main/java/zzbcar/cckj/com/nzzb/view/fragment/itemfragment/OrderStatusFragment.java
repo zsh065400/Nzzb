@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -133,15 +134,23 @@ public class OrderStatusFragment extends BaseFragment {
 //                    .params("status", queryStatus)
 //                    .params("token", SPUtils.getToken(mActivity))
                     .execute(new StringCallback() {
-                        @Override
-                        public void onSuccess(Response<String> response) {
-                            UserOrderBean orderBean = GsonUtil.parseJsonWithGson(response.body(), UserOrderBean.class);
-                            final int errno = orderBean.getErrno();
-                            Log.d(TAG, "onSuccess: " + response.body());
-                            if (errno == 0) {
-                                final List<UserOrderBean.DataBean> data = orderBean.getData();
-                                initOrderList(data);
-                            }
+                                @Override
+                                public void onSuccess(Response<String> response) {
+                                    if(signInfo!=null){
+                                        UserOrderBean orderBean = GsonUtil.parseJsonWithGson(response.body(), UserOrderBean.class);
+                                        final int errno = orderBean.getErrno();
+                                        Log.d(TAG, "onSuccess: " + response.body());
+                                        if (errno == 0) {
+                                            final List<UserOrderBean.DataBean> data = orderBean.getData();
+
+                                            initOrderList(data);
+                                        }else if (errno==101){
+                                            Toast.makeText(mActivity, "会话超时,请重新登陆", Toast.LENGTH_SHORT).show();
+
+                                            return;
+                                        }
+
+                                    }
                         }
                     });
         } else {
@@ -158,7 +167,6 @@ public class OrderStatusFragment extends BaseFragment {
         }
         empty.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
-
         this.orderBean = data;
         Log.e(TAG, "initOrderList: data" + data);
         orderStatusAdapter = new OrderStatusAdapter(mActivity, orderBean);

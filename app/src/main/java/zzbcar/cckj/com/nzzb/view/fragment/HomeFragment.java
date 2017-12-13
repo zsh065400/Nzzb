@@ -68,6 +68,7 @@ import zzbcar.cckj.com.nzzb.view.activity.MainActivity;
 import zzbcar.cckj.com.nzzb.view.activity.RentActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BrandCarActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarDetailActivity;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HomeMessageActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.LocationListActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MarriedActivity;
@@ -149,7 +150,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //    private void initMarquee(List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
 //        List<String> marqueeText = new ArrayList<>();
 //        List<ImageView> marqueeImage = new ArrayList<>();
-//        for (MainPageBean.DataBean.MarqueeBean bean : marqueeDatas) {
+//         for (MainPageBean.DataBean.MarqueeBean bean : marqueeDatas) {
 //            marqueeText.add(bean.getTitle());
 //            ImageView imageView = new ImageView(mActivity);
 ////            Picasso.with(mActivity).load(bean.getPicUrl())
@@ -294,8 +295,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
 //                initMarquee(marqueeDatas);
-                initMarquee();
 
+                initMarquee();
             }
 
             @Override
@@ -437,7 +438,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.tv_business:
                 intent = new Intent(mActivity, RentActivity.class);
                 intent.putExtra("carlist", (Serializable) carDatas);
-                // TODO: 2017/11/15 商务用车为2
                 intent.putExtra("useType", 2);
                 startActivity(intent);
                 break;
@@ -445,16 +445,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 intent = new Intent(mActivity, MarriedActivity.class);
                 startActivity(intent);
                 break;
-
             case R.id.tv_xinxian_all://暂时替代
-                toFindFragment();
+                intent = new Intent(mActivity, CarListActivity.class);
+               intent.putExtra("carlist", (Serializable) carDatas);
+                   startActivity(intent);
+                break;
             case R.id.tv_chaozhi_all://暂时替代
-                toFindFragment();
+                intent = new Intent(mActivity, CarListActivity.class);
+                intent.putExtra("carlist", (Serializable) carDatas);
+                startActivity(intent);
+                break;
             case R.id.tv_chexing_all:
-//                intent = new Intent(mActivity, CarListActivity.class);
-//                intent.putExtra("carlist", (Serializable) carDatas);
                 toFindFragment();
-
                 break;
             case R.id.tv_location:
                 intent = new Intent(mActivity, LocationListActivity.class);

@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="使用剩余时间"
-                    android:textColor="#807d7d" />
+                    android:textColor="#807d7d"/>
 
                 <TextView
                     android:id="@+id/tv_time_Surplus"
@@ -82,7 +82,7 @@
                     android:layout_marginTop="8dp"
                     android:text="29:59"
                     android:textColor="#f53131"
-                    android:textSize="26sp" />
+                    android:textSize="26sp"/>
             </LinearLayout>
 
             <!--第一部分-->
@@ -109,7 +109,7 @@
                         android:layout_marginTop="20dp"
                         android:text="订单号:"
                         android:textColor="#212121"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"/>
 
                     <TextView
                         android:id="@+id/tv_order_id"
@@ -118,11 +118,11 @@
                         android:layout_marginTop="20dp"
                         android:text="12313213"
                         android:textColor="#767676"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"/>
 
                 </LinearLayout>
 
-                <include layout="@layout/default_line_1dp" />
+                <include layout="@layout/default_line_1dp"/>
 
                 <!--车辆信息-->
                 <LinearLayout
@@ -140,7 +140,7 @@
                         android:layout_width="115dp"
                         android:layout_height="84dp"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@mipmap/ic_launcher"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -154,7 +154,7 @@
                             android:layout_height="wrap_content"
                             android:text="奥迪R8"
                             android:textColor="#000000"
-                            android:textSize="20dp" />
+                            android:textSize="20dp"/>
 
                         <TextView
                             android:id="@+id/tv_order_type"
@@ -166,7 +166,7 @@
                             android:padding="2dp"
                             android:text="自 驾"
                             android:textColor="#59aaf4"
-                            android:textSize="10dp" />
+                            android:textSize="10dp"/>
 
                         <TextView
                             android:id="@+id/tv_order_number"
@@ -175,7 +175,7 @@
                             android:layout_marginTop="1dp"
                             android:text="浙A****J"
                             android:textColor="#989898"
-                            android:textSize="12dp" />
+                            android:textSize="12dp"/>
 
                         <TextView
                             android:id="@+id/tv_order_mark"
@@ -183,13 +183,13 @@
                             android:layout_height="wrap_content"
                             android:text="2016款 | 4座 | 自动"
                             android:textColor="#989898"
-                            android:textSize="12dp" />
+                            android:textSize="12dp"/>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <include layout="@layout/default_line_1dp" />
+                <include layout="@layout/default_line_1dp"/>
 
                 <!--租赁信息-->
                 <LinearLayout
@@ -211,7 +211,7 @@
                             android:layout_height="wrap_content"
                             android:text="自行取车："
                             android:textColor="#000000"
-                            android:textSize="12dp" />
+                            android:textSize="12dp"/>
 
                         <TextView
                             android:id="@+id/tv_order_getaddrTime"
@@ -220,7 +220,7 @@
                             android:ellipsize="marquee"
                             android:text="杭州市科技时代卡上打随机的是官方自提\n\n2017年10月14日 15:30"
                             android:textColor="#989898"
-                            android:textSize="12dp" />
+                            android:textSize="12dp"/>
 
                     </LinearLayout>
 
@@ -235,7 +235,7 @@
                             android:layout_height="wrap_content"
                             android:text="自行还车："
                             android:textColor="#000000"
-                            android:textSize="12dp" />
+                            android:textSize="12dp"/>
 
                         <TextView
                             android:id="@+id/tv_order_backaddrTime"
@@ -244,7 +244,7 @@
                             android:ellipsize="marquee"
                             android:text="杭州市科技时代卡上打随机的是官方自提\n\n2017年10月14日 15:30"
                             android:textColor="#989898"
-                            android:textSize="12dp" />
+                            android:textSize="12dp"/>
 
                     </LinearLayout>
 
@@ -259,7 +259,7 @@
                             android:layout_height="wrap_content"
                             android:text="租赁时长："
                             android:textColor="#000000"
-                            android:textSize="12dp" />
+                            android:textSize="12dp"/>
 
                         <TextView
                             android:id="@+id/tv_order_allTime"
@@ -268,7 +268,16 @@
                             android:ellipsize="marquee"
                             android:text="18小时"
                             android:textColor="#989898"
-                            android:textSize="12dp" />
+                            android:textSize="12dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_order_really_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="(实际使用时间：22小时)"
+                            android:textColor="#ff4146"
+                            android:textSize="12dp"/>
 
                     </LinearLayout>
 
@@ -292,7 +301,7 @@
                     android:layout_height="wrap_content"
                     android:text="费用明细"
                     android:textColor="#000000"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"/>
 
                 <!--租金-->
                 <RelativeLayout
@@ -308,7 +317,7 @@
                         android:layout_alignParentLeft="true"
                         android:text="车辆租金"
                         android:textColor="#000000"
-                        android:textSize="12dp" />
+                        android:textSize="12dp"/>
 
                     <TextView
                         android:id="@+id/tv_car_price"
@@ -318,7 +327,7 @@
                         android:ellipsize="marquee"
                         android:text="7000元"
                         android:textColor="#000000"
-                        android:textSize="12dp" />
+                        android:textSize="12dp"/>
 
                     <!--<TextView-->
                     <!--android:layout_width="wrap_content"-->
@@ -346,7 +355,7 @@
                         android:layout_alignParentLeft="true"
                         android:text="违章押金"
                         android:textColor="#000000"
-                        android:textSize="12dp" />
+                        android:textSize="12dp"/>
 
                     <TextView
                         android:id="@+id/tv_order_deposit"
@@ -356,7 +365,7 @@
                         android:ellipsize="marquee"
                         android:text="7000元"
                         android:textColor="#000000"
-                        android:textSize="12dp" />
+                        android:textSize="12dp"/>
 
                 </RelativeLayout>
 
@@ -376,7 +385,7 @@
                         android:layout_alignParentLeft="true"
                         android:text="车辆保证金"
                         android:textColor="#000000"
-                        android:textSize="12dp" />
+                        android:textSize="12dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -384,7 +393,7 @@
                         android:layout_toRightOf="@id/tv_car_zj"
                         android:text="(线下支付)"
                         android:textColor="#989898"
-                        android:textSize="12dp" />
+                        android:textSize="12dp"/>
 
                     <TextView
                         android:id="@+id/tv_order_bzj"
@@ -394,10 +403,161 @@
                         android:ellipsize="marquee"
                         android:text="100000元"
                         android:textColor="#989898"
-                        android:textSize="12dp" />
+                        android:textSize="12dp"/>
                 </RelativeLayout>
 
-                <include layout="@layout/default_line_1dp" />
+                <LinearLayout
+                    android:id="@+id/ll_break_rules"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="违约"
+                            android:textColor="#000000"
+                            android:textSize="12dp"/>
+
+                        <TextView
+
+                            android:id="@+id/tv_cancel_break_rule"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:ellipsize="marquee"
+                            android:text="null"
+                            android:textColor="#fe8285"
+                            android:textSize="12dp"/>
+
+
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="超时"
+                            android:textColor="#000000"
+                            android:textSize="12dp"/>
+
+                        <TextView
+
+                            android:id="@+id/tv_car_overtime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:ellipsize="marquee"
+                            android:text="null"
+                            android:textColor="#fe8285"
+                            android:textSize="12dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/tv_car_overtime"
+                            android:ellipsize="marquee"
+                            android:text="627元 × 1小时"
+                            android:textColor="#989898"
+                            android:textSize="12dp"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="7dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="超里程"
+                            android:textColor="#000000"
+                            android:textSize="12dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_car_super_mileage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:ellipsize="marquee"
+                            android:text="null"
+                            android:textColor="#fe8285"
+                            android:textSize="12dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_toLeftOf="@id/tv_car_super_mileage"
+                            android:ellipsize="marquee"
+                            android:text="10元 × 1公里"
+                            android:textColor="#989898"
+                            android:textSize="12dp"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="7dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="违章"
+                            android:textColor="#000000"
+                            android:textSize="12dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_car_break_rules"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:ellipsize="marquee"
+                            android:text="null"
+                            android:textColor="#fe8285"
+                            android:textSize="12dp"/>
+
+
+                        <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:layout_toLeftOf="@id/tv_car_price"-->
+                        <!--android:ellipsize="marquee"-->
+                        <!--android:text="7000元 × 1天"-->
+                        <!--android:textColor="#989898"-->
+                        <!--android:textSize="12dp" />-->
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <include layout="@layout/default_line_1dp"/>
+
 
                 <TextView
                     android:id="@+id/tv_order_allMoney"
@@ -407,9 +567,10 @@
                     android:layout_marginTop="14dp"
                     android:text="合计:777元"
                     android:textColor="#ff4146"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"/>
 
                 <LinearLayout
+                    android:id="@+id/ll_two_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -426,7 +587,7 @@
                         android:text="取消订单"
                         android:textColor="@color/black"
                         android:textSize="16dp"
-                        android:visibility="gone" />
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/tv_car_status"
@@ -438,11 +599,24 @@
                         android:gravity="center"
                         android:text="我要还车"
                         android:textColor="#fff"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"/>
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tv_jurney_realy_refund"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right|center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:text="实际退款：80元"
+                    android:textColor="#fe8285"
+                    android:textSize="18sp"
+                    android:visibility="gone"/>
             </LinearLayout>
+
+
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

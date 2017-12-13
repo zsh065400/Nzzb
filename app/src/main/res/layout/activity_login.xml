@@ -22,7 +22,7 @@
                 android:gravity="center"
                 android:text="验证手机号"
                 android:textColor="#111111"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                     android:hint="手机号"
                     android:phoneNumber="true"
                     android:textColorHint="#c6c6cc"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="#c6c6cc"/>
+                    android:background="#c6c6cc" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                         android:password="true"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColorHint="#c6c6cc"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                     <View
                         android:layout_width="1dip"
@@ -79,7 +79,7 @@
                         android:layout_marginBottom="5dp"
                         android:layout_marginRight="10dp"
                         android:layout_toLeftOf="@+id/tv_get_code"
-                        android:background="#c6c6cc"/>
+                        android:background="#c6c6cc" />
 
                     <TextView
                         android:id="@+id/tv_get_code"
@@ -94,7 +94,7 @@
                         android:enabled="true"
                         android:gravity="center"
                         android:text="获取验证码"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
                 </RelativeLayout>
 
                 <View
@@ -103,7 +103,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="#c6c6cc"/>
+                    android:background="#c6c6cc" />
 
                 <TextView
                     android:id="@+id/tv_signin"
@@ -116,10 +116,12 @@
                     android:gravity="center"
                     android:text="确认"
                     android:textColor="#fff"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/tv_protocol"
                         android:layout_width="wrap_content"
@@ -127,9 +129,10 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="25dp"
-                        android:textSize="12sp"
-                        android:lineSpacingExtra="2dp"/>
+                        android:lineSpacingExtra="2dp"
+                        android:textSize="12sp" />
                 </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -142,9 +145,9 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginTop="10dp"
+                        android:lineSpacingExtra="2dp"
                         android:text="如需帮助可拨打至尊宝豪车共享服务热线"
-                        android:textSize="12sp"
-                        android:lineSpacingExtra="2dp"/>
+                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -152,7 +155,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="130dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -172,12 +175,12 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:background="#c6c6cc"/>
+                        android:background="#c6c6cc" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="其他登录方式"/>
+                        android:text="其他登录方式" />
 
                     <View
                         android:layout_width="50dp"
@@ -185,7 +188,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:background="#c6c6cc"/>
+                        android:background="#c6c6cc" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -201,13 +204,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="40dp"
-                        android:src="@mipmap/iv_wx"/>
+                        android:src="@mipmap/iv_wx" />
 
                     <ImageView
                         android:id="@+id/iv_qq_signin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/iv_qq"/>
+                        android:src="@mipmap/iv_qq" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

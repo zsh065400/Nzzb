@@ -25,16 +25,28 @@ public class MonthTimeAdapter extends RecyclerView.Adapter<MonthTimeViewHolder> 
     private Context context;
 
     public interface OnDayItemClickListener {
-        void OnDayItemClick(View view, int position);
+        void OnDayItemClick(View view, int position, MonthPriceBean.DataBean time);
 
-        void onStartClick(View view, int position);
+        void onStartClick(View view, int position, MonthPriceBean.DataBean time);
 
-        void onReChoose(View view, int position);
+        void onReChoose(View view, int position, MonthPriceBean.DataBean time);
 
-        void onSameDay(View view, int position);
+        void onSameDay(View view, int position, MonthPriceBean.DataBean time);
     }
 
-    OnDayItemClickListener mOnDayItemClickListener;
+    private OnLeftRightButtonListener mOnLeftRightButtonListener;
+
+    public void setOnLeftRightButtonListener(OnLeftRightButtonListener onLeftRightButtonListener) {
+        mOnLeftRightButtonListener = onLeftRightButtonListener;
+    }
+
+    public interface OnLeftRightButtonListener {
+        void onLeftClick();
+
+        void onRightClick();
+    }
+
+    private OnDayItemClickListener mOnDayItemClickListener;
 
     public void setOnDayItemClickListener(OnDayItemClickListener onDayItemClickListener) {
         this.mOnDayItemClickListener = onDayItemClickListener;
@@ -69,12 +81,12 @@ public class MonthTimeAdapter extends RecyclerView.Adapter<MonthTimeViewHolder> 
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);             //得到该月份第一天 是星期几
         ArrayList<DayTimeEntity> days = new ArrayList<DayTimeEntity>();
         for (int i = 0; i < dayOfWeek - 1; i++) {                          //
-            days.add(new DayTimeEntity(0, monthTimeEntity.getMonth(), monthTimeEntity.getYear(), position, priceBean.getPrice()));
+            days.add(new DayTimeEntity(0, monthTimeEntity.getMonth(), monthTimeEntity.getYear(), position, priceBean));
         }
         calendar.add(Calendar.MONTH, 1);// 加一个月，变为下月的1号
         calendar.add(Calendar.DATE, -1);// 减去一天，变为当月最后一天
         for (int i = 1; i <= calendar.get(Calendar.DAY_OF_MONTH); i++) {     //添加 该月份的天数   一号 到 该月的最后一天
-            days.add(new DayTimeEntity(i, monthTimeEntity.getMonth(), monthTimeEntity.getYear(), position, priceBean.getPrice()));
+            days.add(new DayTimeEntity(i, monthTimeEntity.getMonth(), monthTimeEntity.getYear(), position, priceBean));
         }
 
         DayTimeAdapter adapter = new DayTimeAdapter(days, context);
@@ -82,27 +94,43 @@ public class MonthTimeAdapter extends RecyclerView.Adapter<MonthTimeViewHolder> 
 
         adapter.setOnItemCliCkListener(new DayTimeAdapter.onItemClickListener() {
             @Override
-            public void onItemCallback(View view, int position) {
+            public void onItemCallback(View view, int position, MonthPriceBean.DataBean time) {
                 if (mOnDayItemClickListener != null)
-                    mOnDayItemClickListener.OnDayItemClick(holder.itemView, position);
+                    mOnDayItemClickListener.OnDayItemClick(holder.itemView, position, time);
             }
 
             @Override
-            public void onStartClick(View view, int position) {
+            public void onStartClick(View view, int position, MonthPriceBean.DataBean time) {
                 if (mOnDayItemClickListener != null)
-                    mOnDayItemClickListener.onStartClick(holder.itemView, position);
+                    mOnDayItemClickListener.onStartClick(holder.itemView, position, time);
             }
 
             @Override
-            public void onReChoose(View view, int position) {
+            public void onReChoose(View view, int position, MonthPriceBean.DataBean time) {
                 if (mOnDayItemClickListener != null)
-                    mOnDayItemClickListener.onReChoose(holder.itemView, position);
+                    mOnDayItemClickListener.onReChoose(holder.itemView, position, time);
             }
 
             @Override
-            public void onSameDay(View view, int position) {
+            public void onSameDay(View view, int position, MonthPriceBean.DataBean time) {
                 if (mOnDayItemClickListener != null)
-                    mOnDayItemClickListener.onSameDay(holder.itemView, position);
+                    mOnDayItemClickListener.onSameDay(holder.itemView, position, time);
+            }
+        });
+
+        final View left = holder.itemView.findViewById(R.id.iv_previous);
+        final View right = holder.itemView.findViewById(R.id.iv_next);
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnLeftRightButtonListener != null) mOnLeftRightButtonListener.onLeftClick();
+            }
+        });
+
+        right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnLeftRightButtonListener != null) mOnLeftRightButtonListener.onRightClick();
             }
         });
     }

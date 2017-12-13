@@ -14,6 +14,7 @@ import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 public class MarqueenMessageAdapter extends BaseRecycleViewAdapter<MainPageBean.DataBean.MarqueeBean> {
 
     public MarqueenMessageAdapter(Context context, List datas) {
+
         super(context, datas);
     }
 

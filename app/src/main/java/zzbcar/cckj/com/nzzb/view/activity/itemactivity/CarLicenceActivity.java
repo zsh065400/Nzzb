@@ -95,6 +95,10 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                     if (isUp) {
                         cardLicence.add(0, carLicence);
                     } else {
+                        if(cardItem.size()==0){
+                            cardLicence.add(0, "");
+                        }
+
                         cardLicence.add(1, carLicence);
                     }
                     LogUtil.e(carLicence);
@@ -112,6 +116,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
     private File cropfile;
     private ProgressDialog progressDialog;
     private String idSeparator;
+    private SigninBean.DataBean.MemberBean signInfo;
 
     @Override
     protected int getLayoutId() {
@@ -128,6 +133,7 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initDatas() {
+        signInfo = SPUtils.getSignInfo(mContext);
         initTimePicker();
         getCardData();
         initCustomOptionPicker();
@@ -285,8 +291,10 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
         HashMap<String, String> params = new HashMap<>();
         params.put("userId",signInfo.getId()+"");
         params.put("idcard1", idCardUp);
+
         params.put("idcard1", idCardUp);
         params.put("idcard2", idCardDown);
+
         params.put("idno", idCardNumber);
         params.put("name", name);
         params.put("licenseDate", carDate);
@@ -296,13 +304,17 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
         params.put("drvPic2", cardLicence.get(1));
         OkGo.<String>post(Constant.USER_AUTH)
                 .params(params)
+                .params("token",SPUtils.getToken(mContext))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
 
-                        Intent intent = new Intent(mContext, IdentiCompleteActivity.class);
-                        startActivity(intent);
-                        finish();
+
+                       Log.e("哼 出错啦。。", response.body().toString());
+
+                            showBuilderToast();
+
+                  //    finish();
                     }
 
                     @Override
@@ -313,6 +325,25 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                         finish();
                     }
                 });
+    }
+
+    private void showBuilderToast() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog alertDialog = builder.setMessage("您的资料已提交，请耐心等候并随时留意审核状态")
+                .setTitle("提示")
+                .setCancelable(false)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                      finish();
+
+
+                    }
+                }).create();
+        alertDialog.show();
+
     }
 
     private void showDialog() {
@@ -387,12 +418,15 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                     if (isUp) {
                         setIdCarUPToView(data);
                     } else {
+
                         setIdCarDownToView(data);
                     }
                 }
 
                 break;
+
         }
+
     }
 
     private void setIdCarDownToView(Intent data) {

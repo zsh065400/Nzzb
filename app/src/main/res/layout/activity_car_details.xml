@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-    <ScrollView
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView_cardetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,42 +22,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="235dp">
 
-                <ImageView
-                    android:id="@+id/iv_car_pic"
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp_car_pic"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
-                    android:src="@mipmap/first"/>
 
-                <RelativeLayout
-                    android:id="@+id/top_bar"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/indicator_cardetail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="?android:attr/actionBarSize"
-                        android:padding="15dp">
-
-                        <ImageView
-                            android:id="@+id/iv_back"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentLeft="true"
-                            android:scaleType="fitCenter"
-                            android:src="@mipmap/row_back"/>
-
-                        <ImageView
-                            android:id="@+id/iv_share"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentRight="true"
-                            android:scaleType="fitCenter"
-                            android:src="@mipmap/icon_share"/>
-
-                    </RelativeLayout>
-                </RelativeLayout>
+                    android:layout_height="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="20dp"
+                    app:ci_drawable="@drawable/point_red_selected"
+                    app:ci_drawable_unselected="@drawable/point_red_unselected"
+                    app:ci_height="6dp"
+                    app:ci_width="6dp">
+                </me.relex.circleindicator.CircleIndicator>
 
             </RelativeLayout>
 
@@ -160,18 +153,19 @@
             <TextView
                 android:id="@+id/tv_car_addr"
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:drawableLeft="@mipmap/ic_locate"
                 android:drawablePadding="5dp"
-                android:drawableRight="@drawable/ic_chevron_right_black_36dp"
+                android:drawableRight="@mipmap/arrow_right"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
+                android:layout_marginRight="10dp"
                 android:lines="1"
                 android:text="杭州市余杭区打卡机辅导费似懂非懂是"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -191,10 +185,20 @@
                     android:text="可租用时间"
                     android:textColor="#302f2f"
                     android:textSize="18sp"/>
+<Button
+    android:layout_centerVertical="true"
+    android:layout_marginRight="5dp"
+    android:layout_toLeftOf="@+id/tv_half_time_rent"
+    android:background="@mipmap/half_day"
+    android:layout_width="15dp"
+    android:layout_height="15dp" />
+
 
                 <TextView
+
+                   android:id="@+id/tv_half_time_rent"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="15dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15sp"
@@ -416,7 +420,7 @@
                 android:layout_height="5dp"
                 android:background="#ededed"></LinearLayout>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -472,4 +476,48 @@
         </LinearLayout>
     </LinearLayout>
 
+
+
+
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/row_back"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="车辆详情"
+                android:textColor="@color/Zzb_BG"
+                android:textSize="20dp"/>
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/icon_share"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

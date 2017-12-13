@@ -1,13 +1,17 @@
 package zzbcar.cckj.com.nzzb.view.activity.itemactivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
@@ -18,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import zzbcar.cckj.com.nzzb.R;
 import zzbcar.cckj.com.nzzb.bean.BaseBean;
@@ -30,6 +35,8 @@ import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
+
+import static zzbcar.cckj.com.nzzb.R.id.tv_order_allTime;
 
 /**
  * Created by liling on 2017/11/24.
@@ -46,6 +53,34 @@ public class OrderStatusActivity extends BaseActivity {
     RelativeLayout topBar;
     @BindView(R.id.tv_car_zj)
     TextView tvCarZj;
+
+    /*超时*/
+    @BindView(R.id.tv_car_overtime)
+    TextView tvCarOvertime;
+    /*超里程*/
+    @BindView(R.id.tv_car_super_mileage)
+    TextView tvCarSuperMileage;
+    /*违章*/
+    @BindView(R.id.tv_car_break_rules)
+    TextView tvCarBreakRules;
+    /*实际使用时长*/
+    @BindView(R.id.tv_order_really_time)
+    TextView tvOrderReallyTime;
+    /*实际退款*/
+    @BindView(R.id.tv_jurney_realy_refund)
+    TextView tvJurneyRealyRefund;
+
+    @BindView(R.id.ll_break_rules)
+    LinearLayout llBreakRuls;
+    @BindView(R.id.tv_cancel_break_rule)
+    TextView tvCancelBreakRule;
+//    @BindView(R.id.tv_car_overtime)
+//    TextView tvCarOvertime;
+//    @BindView(R.id.tv_car_super_mileage)
+//    TextView tvCarSuperMileage;
+//    @BindView(R.id.tv_car_break_rules)
+//    TextView tvCarBreakRules;
+
     private UserOrderBean.DataBean databean;
     private int status;
 
@@ -107,7 +142,7 @@ public class OrderStatusActivity extends BaseActivity {
     TextView tvOrderGetAddrTime;/*取车时间和地址*/
     @BindView(R.id.tv_order_backaddrTime)
     TextView tvOrderBackAddrTime;/*还车时间和地址*/
-    @BindView(R.id.tv_order_allTime)
+    @BindView(tv_order_allTime)
     TextView tvOrderAllTime;/*还车时间*/
     @BindView(R.id.tv_car_price)
     TextView tvCarPrice;/*车辆租金*/
@@ -127,6 +162,8 @@ public class OrderStatusActivity extends BaseActivity {
     @BindView(R.id.ll_count_down_time)
     View vCountDownTime;
 
+    @BindView(R.id.ll_two_btn)
+    LinearLayout llTwoButtons;
 
     @BindView(R.id.tv_time_Surplus)
     TextView tvSurplus;
@@ -135,12 +172,11 @@ public class OrderStatusActivity extends BaseActivity {
 
 
     private String[] useType = {"自驾", "商务", "", "婚庆"};
-    private String[] transmissionCase = {"双离合", "手自动一体", "ISR", "AMT", "自动"};
+
     private void initOrderInfo() {
         tvOrderId.setText(String.valueOf(databean.getOrderNo()));
         UserOrderBean.DataBean.CarBean car = databean.getCar();
-
-//        Picasso.with(this).load(car.getPics()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).fit().into(ivCarPic);
+        /*加载界面数据*/
         GlideApp
                 .with(mContext)
                 .load(car.getPics())
@@ -153,16 +189,100 @@ public class OrderStatusActivity extends BaseActivity {
         tvOrderNumber.setText(car.getPlateNo());
         tvCarPrice.setText(databean.getLeasePrice() + "");
         tvOrderBzj.setText(carBean.getDeposit() + "");
-
-
         tvOrderDeposit.setText(databean.getTrafficDepositMoney() + "");
-
         tvOrderAllMoney.setText(databean.getOnlineAmount() + "");
         tvOrderGetAddrTime.setText(databean.getTakeAddress() + "\n\n" + databean.getStartTime() + "");
         tvOrderBackAddrTime.setText(databean.getReturnAddress() + "\n\n" + databean.getEndTime() + "");
 
-        final int payStatus = databean.getPayStatus();
 
+
+        /*实际使用时间*/
+        String endTime = databean.getEndTime();
+        String startTime = databean.getStartTime();
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date end = sdf.parse(endTime);
+            Date start = sdf.parse(startTime);
+            long nd = 1000 * 24 * 60 * 60;
+            long betweentime = end.getTime() - start.getTime();
+            final long betweenDay = betweentime / nd;
+            if (betweenDay != 0) {
+                tvOrderAllTime.setText(betweenDay + "天");
+            } else {
+                long nh = 1000 * 60 * 60;
+                final long betweenHour = betweentime % nd / nh;
+                if (betweenHour != 0) {
+                    tvOrderAllTime.setText(betweenHour + "小时");
+                } else {
+                    long nm = 1000 * 60;
+                    final long betweenMinu = betweentime % nd % nh / nm;
+                    tvOrderAllTime.setText(betweenMinu + "分钟");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String returnTime = (String) databean.getReturnTime();
+        String createTime = databean.getCreateTime();
+        try {
+            Date end = sdf.parse(returnTime);
+            Date start = sdf.parse(createTime);
+            long nd = 1000 * 24 * 60 * 60;
+            long betweentime = end.getTime() - start.getTime();
+            final long betweenDay = betweentime / nd;
+            if (betweenDay != 0) {
+
+
+                tvOrderReallyTime.setText("实际使用时间：" + betweenDay + "天");
+            } else {
+                long nh = 1000 * 60 * 60;
+                final long betweenHour = betweentime % nd / nh;
+                if (betweenHour != 0) {
+                    tvOrderReallyTime.setText("实际使用时间：" + betweenHour + "小时");
+                } else {
+                    long nm = 1000 * 60;
+                    final long betweenMinu = betweentime % nd % nh / nm;
+                    tvOrderReallyTime.setText("实际使用时间：" + betweenMinu + "分钟");
+                }
+            }
+        } catch (Exception e) {
+            tvOrderReallyTime.setVisibility(View.GONE);
+            Log.d(TAG, "initOrderInfo: 还车时间数据不存在");
+            e.printStackTrace();
+        }
+
+
+        //已完成状态违章设置
+        if (databean.getStatus() == 10) {
+            /*隐藏部分状态*/
+            tvOrderAllMoney.setVisibility(View.GONE);
+            llTwoButtons.setVisibility(View.VISIBLE);
+            tvCarStatus.setVisibility(View.GONE);
+
+
+            final double timeoutMoney = databean.getTimeoutMoney();
+            final double exceedMoney = databean.getExceedMoney();
+            final double trafficPunlishMoney = databean.getTrafficPunlishMoney();
+            final double lastReturnMoney = databean.getLastReturnMoney();
+            final double AbolishMoney = databean.getAbolishMoney();
+            if (timeoutMoney == 0 && exceedMoney == 0 && lastReturnMoney == 0) {
+                llBreakRuls.setVisibility(View.GONE);
+            } else {
+                /*如果有违章就全部显示*/
+                llBreakRuls.setVisibility(View.VISIBLE);
+                tvCarOvertime.setText(String.format("-%s", timeoutMoney));
+                tvCarSuperMileage.setText(String.format("-%s", exceedMoney));
+                tvCarBreakRules.setText(String.format("-%s", trafficPunlishMoney));
+                tvCancelBreakRule.setText(String.format("-%s", AbolishMoney));
+            }
+            /*实际退款*/
+            tvJurneyRealyRefund.setVisibility(View.VISIBLE);
+            tvJurneyRealyRefund.setText(String.format("%s", lastReturnMoney));
+        }
+
+        final int payStatus = databean.getPayStatus();
 
 
         switch (status) {
@@ -290,27 +410,62 @@ public class OrderStatusActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 撤销订单
+     */
     @OnClick(R.id.tv_order_cancel)
     public void cancelOrder() {
         // TODO: 2017/12/4 违约需添加逻辑
-        if (databean.getStatus() == 2) {
-            Toast.makeText(OrderStatusActivity.this, "已接单需添加违约逻辑", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        final String url = OkHttpUtil.obtainGetUrl(Constant.API_CANCEL_ORDER,
-                "orderId", String.valueOf(databean.getId()),
-                "token", SPUtils.getToken(this));
-        OkGo.<String>get(url).execute(new StringCallback() {
-            @Override
-            public void onSuccess(Response<String> response) {
-                final String body = response.body();
-                final BaseBean baseBean = GsonUtil.parseJsonWithGson(body, BaseBean.class);
-                if (baseBean.getErrno() == 0) {
-                    asyncShowToast("取消订单成功");
-                    finish();
-                }
-            }
-        });
+        OkGo.<String>get(Constant.BACK_OUT_ORDER)
+                .params("orderId", databean.getId())
+                .params("token", SPUtils.getToken(mContext))
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(Response<String> response) {
+                        final String body = response.body();
+                        Log.d(TAG, "onSuccess: " + body);
+                        final BaseBean baseBean = GsonUtil.parseJsonWithGson(body, BaseBean.class);
+                        if (baseBean.getErrno() == 0) {
+                            doCancel(Integer.parseInt(baseBean.getData()));
+                        } else {
+                            asyncShowToast(baseBean.getMessage());
+                        }
+                    }
+                });
+    }
+
+    private void doCancel(int money) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        AlertDialog alertDialog = builder.setMessage("1：交易开始72小时内，需扣除订单租金的的50%，交易开始后取消订单, 扣除租金的100%，最高上限3000。此次扣除" + money + "元违约金")
+                .setTitle("您确定要取消订单么?")
+                .setCancelable(false)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        final String url = OkHttpUtil.obtainGetUrl(Constant.API_CANCEL_ORDER,
+                                "orderId", String.valueOf(databean.getId()),
+                                "token", SPUtils.getToken(mContext));
+                        OkGo.<String>get(url).execute(new StringCallback() {
+                            @Override
+                            public void onSuccess(Response<String> response) {
+                                final String body = response.body();
+                                final BaseBean baseBean = GsonUtil.parseJsonWithGson(body, BaseBean.class);
+                                if (baseBean.getErrno() == 0) {
+                                    asyncShowToast("取消订单成功");
+                                    finish();
+                                }
+                            }
+                        });
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+
+                }).create();
+        alertDialog.show();
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY);
     }
 
     @OnClick(R.id.iv_details)
@@ -342,6 +497,7 @@ public class OrderStatusActivity extends BaseActivity {
             }
         });
     }
+
 
     private void convertOrderInfo() {
         OrderBean.DataBean payInfo = new OrderBean.DataBean();
@@ -378,4 +534,10 @@ public class OrderStatusActivity extends BaseActivity {
         finish();
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

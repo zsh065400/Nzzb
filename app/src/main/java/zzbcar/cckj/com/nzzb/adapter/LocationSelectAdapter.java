@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class LocationSelectAdapter extends RecyclerView.Adapter<LocationSelectAd
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, final int i) {
            myViewHolder.tv_location_city_item.setText(data.get(i).getName());
-        myViewHolder.tv_location_city_item.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.ll_location_city_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.OnRecycleItemClick(view,data.get(i));
@@ -56,10 +57,12 @@ public class LocationSelectAdapter extends RecyclerView.Adapter<LocationSelectAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
        private TextView tv_location_city_item;
+       private LinearLayout ll_location_city_item;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_location_city_item = itemView.findViewById(R.id.tv_location_city_item);
+            ll_location_city_item = itemView.findViewById(R.id.ll_location_city_item);
 
         }
     }

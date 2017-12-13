@@ -1,6 +1,8 @@
 package zzbcar.cckj.com.nzzb.base;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.multidex.MultiDexApplication;
 
 import com.lzy.okgo.OkGo;
@@ -13,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
+import zzbcar.cckj.com.nzzb.utils.AppManager;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 
 /**
@@ -26,6 +29,7 @@ public class MyApplication extends MultiDexApplication {
 
     private static IWXAPI SWXAPI;
     private static MyApplication SINSTANCE;
+    public static AppManager appManager;
 
     public static MyApplication getMyApplicaiton() {
         return SINSTANCE;
@@ -52,6 +56,13 @@ public class MyApplication extends MultiDexApplication {
 //        api.sendReq(req);// 调用支付
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+
+        appManager = AppManager.getAppManager();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+        }
     }
 
     private void initOkGo() {

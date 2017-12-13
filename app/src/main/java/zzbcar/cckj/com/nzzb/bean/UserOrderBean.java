@@ -12,13 +12,6 @@ public class UserOrderBean implements Serializable {
 
     private static final long serialVersionUID = -1370481167658443335L;
 
-
-    /**
-     * errno : 0
-     * data : [{"abolishMoney":0,"abolishTime":null,"car":{"addr":"杭州市庆春路58号","age":5,"brand":18,"brandLogo":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/brand/Audi.png","brandName":"奥迪","carName":"奥迪R8","collectCount":1,"createTime":"2017-10-12 11:59:03","deposit":20000,"distance":0,"engineLiter":"V6","id":2,"imgs":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg","latitude":30.278001,"longitude":120.168069,"mileage":50000,"model":9,"modelName":"R8","modelYear":2016,"name":"奥迪 S8 2016款 4.0 TFSI quattro","onShelfTime":"2017-11-10 14:41:55","orderCount":"61","owner":5,"ownerAvatar":"https://zzb-2017.oss-cn-hangzhou.aliyuncs.com/1511698798ios.jpg","ownerName":"21","pics":"http://living-2016.oss-cn-hangzhou.aliyuncs.com/7f40bce7e9992e64a3197d2082f4acc8.png","plateNo":"浙AK136A","price":0.01,"receivePercent":0.25,"remark":"测试车辆","seatNum":2,"series":13,"seriesName":"R8","status":1,"transmissionCase":0,"useCity":"重庆市,杭州市,北京市","useType":1},"carId":2,"city":3,"createTime":"2017-12-02 10:33:25","detail":"自尊宝自驾 奥迪R8 (2017-12-04 10:32:00~2017-12-09 10:32:00)自主取车","endTime":"2017-12-09 10:32:00","id":202,"leasePrice":0.06,"onlineAmount":0.06999999999999999,"orderNo":"ZJ112020000020000140BYJ","payStatus":1,"remark":"","returnAddrId":0,"returnAddress":"杭州市庆春路58号","returnHome":0,"returnMapLocation":"120.168069,30.278001","returnTime":null,"rtdepositTime":null,"startTime":"2017-12-04 10:32:00","status":0,"subject":"自尊宝自驾 奥迪R8","takeAddrId":0,"takeAddress":"杭州市庆春路58号","takeHome":0,"takeMapLocation":"120.168069,30.278001","takeTime":null,"totalAmount":20000.07,"trafficDepositMoney":0.01,"trafficPunlishMoney":0,"type":1,"userId":14,"userName":""}]
-     * message : 请求成功
-     */
-
     private int errno;
     private String message;
     private List<DataBean> data;
@@ -47,45 +40,8 @@ public class UserOrderBean implements Serializable {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable{
-        /**
-         * abolishMoney : 0
-         * abolishTime : null
-         * car : {"addr":"杭州市庆春路58号","age":5,"brand":18,"brandLogo":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/brand/Audi.png","brandName":"奥迪","carName":"奥迪R8","collectCount":1,"createTime":"2017-10-12 11:59:03","deposit":20000,"distance":0,"engineLiter":"V6","id":2,"imgs":"http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg","latitude":30.278001,"longitude":120.168069,"mileage":50000,"model":9,"modelName":"R8","modelYear":2016,"name":"奥迪 S8 2016款 4.0 TFSI quattro","onShelfTime":"2017-11-10 14:41:55","orderCount":"61","owner":5,"ownerAvatar":"https://zzb-2017.oss-cn-hangzhou.aliyuncs.com/1511698798ios.jpg","ownerName":"21","pics":"http://living-2016.oss-cn-hangzhou.aliyuncs.com/7f40bce7e9992e64a3197d2082f4acc8.png","plateNo":"浙AK136A","price":0.01,"receivePercent":0.25,"remark":"测试车辆","seatNum":2,"series":13,"seriesName":"R8","status":1,"transmissionCase":0,"useCity":"重庆市,杭州市,北京市","useType":1}
-         * carId : 2
-         * city : 3
-         * createTime : 2017-12-02 10:33:25
-         * detail : 自尊宝自驾 奥迪R8 (2017-12-04 10:32:00~2017-12-09 10:32:00)自主取车
-         * endTime : 2017-12-09 10:32:00
-         * id : 202
-         * leasePrice : 0.06
-         * onlineAmount : 0.06999999999999999
-         * orderNo : ZJ112020000020000140BYJ
-         * payStatus : 1
-         * remark :
-         * returnAddrId : 0
-         * returnAddress : 杭州市庆春路58号
-         * returnHome : 0
-         * returnMapLocation : 120.168069,30.278001
-         * returnTime : null
-         * rtdepositTime : null
-         * startTime : 2017-12-04 10:32:00
-         * status : 0
-         * subject : 自尊宝自驾 奥迪R8
-         * takeAddrId : 0
-         * takeAddress : 杭州市庆春路58号
-         * takeHome : 0
-         * takeMapLocation : 120.168069,30.278001
-         * takeTime : null
-         * totalAmount : 20000.07
-         * trafficDepositMoney : 0.01
-         * trafficPunlishMoney : 0
-         * type : 1
-         * userId : 14
-         * userName :
-         */
-
-        private int abolishMoney;
+    public static class DataBean implements Serializable {
+        private double abolishMoney;
         private Object abolishTime;
         private CarBean car;
         private int carId;
@@ -93,7 +49,9 @@ public class UserOrderBean implements Serializable {
         private String createTime;
         private String detail;
         private String endTime;
+        private int exceedMoney;
         private int id;
+        private double lastReturnMoney;
         private double leasePrice;
         private double onlineAmount;
         private String orderNo;
@@ -103,7 +61,7 @@ public class UserOrderBean implements Serializable {
         private String returnAddress;
         private int returnHome;
         private String returnMapLocation;
-        private Object returnTime;
+        private String returnTime;
         private Object rtdepositTime;
         private String startTime;
         private int status;
@@ -112,15 +70,16 @@ public class UserOrderBean implements Serializable {
         private String takeAddress;
         private int takeHome;
         private String takeMapLocation;
-        private Object takeTime;
+        private String takeTime;
+        private double timeoutMoney;
         private double totalAmount;
         private double trafficDepositMoney;
-        private int trafficPunlishMoney;
+        private double trafficPunlishMoney;
         private int type;
         private int userId;
         private String userName;
 
-        public int getAbolishMoney() {
+        public double getAbolishMoney() {
             return abolishMoney;
         }
 
@@ -184,12 +143,28 @@ public class UserOrderBean implements Serializable {
             this.endTime = endTime;
         }
 
+        public int getExceedMoney() {
+            return exceedMoney;
+        }
+
+        public void setExceedMoney(int exceedMoney) {
+            this.exceedMoney = exceedMoney;
+        }
+
         public int getId() {
             return id;
         }
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        public double getLastReturnMoney() {
+            return lastReturnMoney;
+        }
+
+        public void setLastReturnMoney(int lastReturnMoney) {
+            this.lastReturnMoney = lastReturnMoney;
         }
 
         public double getLeasePrice() {
@@ -264,11 +239,11 @@ public class UserOrderBean implements Serializable {
             this.returnMapLocation = returnMapLocation;
         }
 
-        public Object getReturnTime() {
+        public String getReturnTime() {
             return returnTime;
         }
 
-        public void setReturnTime(Object returnTime) {
+        public void setReturnTime(String returnTime) {
             this.returnTime = returnTime;
         }
 
@@ -336,12 +311,20 @@ public class UserOrderBean implements Serializable {
             this.takeMapLocation = takeMapLocation;
         }
 
-        public Object getTakeTime() {
+        public String getTakeTime() {
             return takeTime;
         }
 
-        public void setTakeTime(Object takeTime) {
+        public void setTakeTime(String takeTime) {
             this.takeTime = takeTime;
+        }
+
+        public double getTimeoutMoney() {
+            return timeoutMoney;
+        }
+
+        public void setTimeoutMoney(int timeoutMoney) {
+            this.timeoutMoney = timeoutMoney;
         }
 
         public double getTotalAmount() {
@@ -360,7 +343,7 @@ public class UserOrderBean implements Serializable {
             this.trafficDepositMoney = trafficDepositMoney;
         }
 
-        public int getTrafficPunlishMoney() {
+        public double getTrafficPunlishMoney() {
             return trafficPunlishMoney;
         }
 
@@ -394,47 +377,49 @@ public class UserOrderBean implements Serializable {
 
         public static class CarBean implements Serializable{
             /**
-             * addr : 杭州市庆春路58号
-             * age : 5
-             * brand : 18
-             * brandLogo : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/brand/Audi.png
-             * brandName : 奥迪
-             * carName : 奥迪R8
+             * addr : 杭州市五常街道
+             * age : 6
+             * applyCity : ,1,2,3,10,
+             * brand : 21
+             * brandLogo : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/brand/NISSAN.png
+             * brandName : 日产
+             * carName : 日产GTR
              * collectCount : 1
              * createTime : 2017-10-12 11:59:03
              * deposit : 20000
              * distance : 0
              * engineLiter : V6
-             * id : 2
+             * id : 1
              * imgs : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/111.jpg,http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzbcar/222.jpg
              * latitude : 30.278001
              * longitude : 120.168069
-             * mileage : 50000
-             * model : 9
-             * modelName : R8
+             * mileage : 30001
+             * model : 11
+             * modelName : GTR
              * modelYear : 2016
-             * name : 奥迪 S8 2016款 4.0 TFSI quattro
-             * onShelfTime : 2017-11-10 14:41:55
-             * orderCount : 61
-             * owner : 5
-             * ownerAvatar : https://zzb-2017.oss-cn-hangzhou.aliyuncs.com/1511698798ios.jpg
-             * ownerName : 21
-             * pics : http://living-2016.oss-cn-hangzhou.aliyuncs.com/7f40bce7e9992e64a3197d2082f4acc8.png
-             * plateNo : 浙AK136A
+             * name : 测试车辆
+             * onShelfTime : 2017-11-10 14:45:08
+             * orderCount : 57
+             * owner : 4
+             * ownerAvatar :
+             * ownerName :
+             * pics : http://zzb-2017.oss-cn-hangzhou.aliyuncs.com/zzb/car/car_car/20120809135707632.jpg
+             * plateNo : 沪C1CU76
              * price : 0.01
-             * receivePercent : 0.25
+             * receivePercent : 0.36
              * remark : 测试车辆
              * seatNum : 2
-             * series : 13
-             * seriesName : R8
+             * series : 16
+             * seriesName : GTR
              * status : 1
              * transmissionCase : 0
-             * useCity : 重庆市,杭州市,北京市
+             * useCity : 重庆市,杭州市,北京市,温州市
              * useType : 1
              */
 
             private String addr;
             private int age;
+            private String applyCity;
             private int brand;
             private String brandLogo;
             private String brandName;
@@ -485,6 +470,14 @@ public class UserOrderBean implements Serializable {
 
             public void setAge(int age) {
                 this.age = age;
+            }
+
+            public String getApplyCity() {
+                return applyCity;
+            }
+
+            public void setApplyCity(String applyCity) {
+                this.applyCity = applyCity;
             }
 
             public int getBrand() {

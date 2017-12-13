@@ -25,7 +25,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/delete_img"/>
+                android:src="@mipmap/row_back"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -67,7 +67,7 @@
                 android:layout_marginRight="3dp"
                 android:text="取车时间"
                 android:textColor="#b71212"
-                android:textSize="16sp" />
+                android:textSize="16sp"/>
 
             <LinearLayout
                 android:layout_width="20dp"
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="3dp"
                 android:text="还车时间"
                 android:textColor="#b71212"
-                android:textSize="14dp" />
+                android:textSize="14dp"/>
         </LinearLayout>
 
         <TextView
@@ -136,6 +136,7 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -247,10 +248,10 @@
                 app:lineColorEdge="@color/colorSeekBarDefault"
                 app:lineColorSelected="@color/colorAccent"
                 app:markTextArray="@array/markArray"
-                app:max="100"
+                app:max="10000"
                 app:min="0"
-                app:progressHintMode="alwaysShow"
-                app:reserve="10"
+                app:progressHintMode="alwaysHide"
+                app:reserve="200"
                 app:seekBarMode="range"
                 app:textPadding="15dp"
                 app:thumbResId="@drawable/seekbar_thumb"
@@ -272,6 +273,9 @@
             android:id="@+id/ll_type_pick"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:background="#fff"
             android:orientation="vertical"
             android:visibility="invisible">

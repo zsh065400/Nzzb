@@ -14,4 +14,8 @@ public class ScreenUtils {
         return density * dp;
     }
 
+    public static final int getScreenWidth(){
+        final int widthPixels = Resources.getSystem().getDisplayMetrics().widthPixels;
+        return widthPixels;
+    }
 }

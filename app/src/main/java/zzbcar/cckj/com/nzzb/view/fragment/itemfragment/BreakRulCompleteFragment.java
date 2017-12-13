@@ -24,6 +24,7 @@ import zzbcar.cckj.com.nzzb.bean.TicketBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
 
 /**
@@ -47,16 +48,20 @@ public class BreakRulCompleteFragment extends BaseFragment {
     }
 
     private void getData() {
-        SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mActivity);
+        final SigninBean.DataBean.MemberBean signInfo = SPUtils.getSignInfo(mActivity);
         OkGo.<String>get(Constant.QUERRY_TICKET)
-//                .params("userId",signInfo.getId())
-                .params("userId",1)
+               .params("userId",signInfo.getId())
                 .params("status",1)
                 .params("token",SPUtils.getToken(mActivity))
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(Response<String> response) {
-                        parseData(response.body());
+                        if(signInfo!=null){
+                            parseData(response.body());
+                        }else {
+                            toActivity(LoginActivity.class);
+                        }
+
                     }
                 });
     }

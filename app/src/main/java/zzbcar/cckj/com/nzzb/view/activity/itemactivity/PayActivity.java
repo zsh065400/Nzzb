@@ -16,6 +16,10 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import zzbcar.cckj.com.nzzb.R;
@@ -38,6 +42,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
     private int minute = 29;
     private int second = 59;
     private static final int SENDING = -1;
+    private boolean canPay = true;
 
     /*接受订单信息*/
 
@@ -46,6 +51,10 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SENDING:
+                    if (minute == 0 && second == 0) {
+                        canPay = false;
+                        return;
+                    }
                     if (second >= 10) {
                         tv_time_remain.setText(minute + ":" + second);
                     } else {
@@ -69,6 +78,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
                     }
                     System.out.println(msg.obj);
                     finish();
+                    MyApplication.appManager.finishActivity(CarDetailActivity.class);
                     break;
             }
             super.handleMessage(msg);
@@ -98,7 +108,6 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
                 final String body = response.body();
                 final WxPayInfoBean wxPayInfoBean = GsonUtil.parseJsonWithGson(body, WxPayInfoBean.class);
                 if (wxPayInfoBean.getErrno() == 0) {
-                    // TODO: 2017/11/13 微信支付金额不能过小
                     final WxPayInfoBean.DataBean data = wxPayInfoBean.getData();
                     System.out.println(data);
                     excuteRealWxPay(data);
@@ -189,38 +198,83 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
         mAlipay.setOnClickListener(this);
         mWxPay.setOnClickListener(this);
         mSureCommit.setOnClickListener(this);
-        initTime();
         StatusBarUtil.setViewTopPadding(this, R.id.top_bar);
     }
 
+    /**
+     * 计算两个日期之间相差的小时数
+     *
+     * @param smdate 较小的时间
+     * @param bdate  较大的时间
+     * @return 相差分钟
+     * @throws ParseException
+     */
+    public static int daysBetween(Date smdate, Date bdate, int type) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        smdate = sdf.parse(sdf.format(smdate));
+        bdate = sdf.parse(sdf.format(bdate));
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(smdate);
+        long time1 = cal.getTimeInMillis();
+        cal.setTime(bdate);
+        long time2 = cal.getTimeInMillis();
+        long between_days = 0;
+        if (type == 1) {//分钟
+            between_days = (time2 - time1) / (1000 * 60);//改动此处计算相差周期
+        } else if (type == 2) {//秒
+            between_days = (time2 - time1) % (1000 * 60) / 1000;
+        }
+        return Integer.parseInt(String.valueOf(between_days));
+    }
+
     private void initTime() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (; minute >= 0; minute--) {
-                    for (; second >= -1; second--) {
-                        if (second == -1 && minute >= 0) {
+        try {
+            final Date createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(payInfo.getCreateTime());
+            final Date date = new Date();
+            /*计算时间*/
+            final int betweenMinute = daysBetween(createTime, date, 1);//分钟
+            final int betweenSecond = daysBetween(createTime, date, 2);//秒
+            if (betweenMinute > 30 || betweenMinute == 30 && betweenSecond == 0) {
+                minute = 0;
+                second = 0;
+                canPay = false;
+                return;
+            }
+            minute = 30 - betweenMinute;
+            second = betweenSecond;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (; minute >= 0; minute--) {
+                        for (; second >= -1; second--) {
+                            if (second == -1 && minute >= 0) {
+                                mHandler.sendEmptyMessage(-1);
+                                second = 59;
+                                minute--;
+                            }
+                            SystemClock.sleep(1000);
                             mHandler.sendEmptyMessage(-1);
-                            second = 59;
-                            minute--;
                         }
-                        SystemClock.sleep(1000);
-                        mHandler.sendEmptyMessage(-1);
                     }
                 }
-            }
-        }) {
+            }).start();
 
-        }.start();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected void initDatas() {
         payInfo = (OrderBean.DataBean) getIntent().getExtras().getSerializable("payinfo");
-        tv_rend_car_money.setText("¥ "+payInfo.getLeasePrice());
+        double leasePrice = payInfo.getLeasePrice();
+        double trafficDepositMoney = payInfo.getTrafficDepositMoney();
+        double TotalMoney = leasePrice + trafficDepositMoney;
+        tv_rend_car_money.setText("¥ " + TotalMoney);
         alipay_iv.setEnabled(true);
         wxpay_iv.setEnabled(false);
         setBackButon(R.id.iv_back);
+        initTime();
     }
 
     @Override
@@ -230,7 +284,7 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.rl_alipay:
                 alipay_iv.setEnabled(true);
                 wxpay_iv.setEnabled(false);
@@ -240,11 +294,14 @@ public class PayActivity extends BaseActivity implements View.OnClickListener {
                 wxpay_iv.setEnabled(true);
                 break;
             case R.id.ll_sure_pay:
-                if(alipay_iv.isEnabled()){
-                    doAlipay();
-                }else{
-                    doWxPay();
-                }
+                if (canPay)
+                    if (alipay_iv.isEnabled()) {
+                        doAlipay();
+                    } else {
+                        doWxPay();
+                    }
+                else
+                    Toast.makeText(PayActivity.this, "已超时，不可支付", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

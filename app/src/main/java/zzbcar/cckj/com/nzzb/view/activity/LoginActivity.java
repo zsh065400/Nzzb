@@ -30,6 +30,7 @@ import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
+import java.util.Date;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -44,6 +45,7 @@ import zzbcar.cckj.com.nzzb.utils.NoLineClickSpan;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
+import zzbcar.cckj.com.nzzb.view.activity.itemactivity.ProtocolActivity;
 
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -145,7 +147,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         NoLineClickSpan clickSpan2 = new NoLineClickSpan("#ff4049") {
             @Override
             public void onClick(View widget) {
-                Toast.makeText(LoginActivity.this, "至尊宝豪车共享服务协议", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "至尊宝豪车共享服务协议", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, ProtocolActivity.class);
+                intent.putExtra("title", "平台服务协议");
+                intent.putExtra("url", Constant.PTGZ);
+                startActivity(intent);
+
             }
         };
 
@@ -269,6 +276,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             bindThird(thirdType, openId, bean);
                         else if (TextUtils.isEmpty(member.getWxOpenId()) && thirdType != null && thirdType.equals("2"))
                             bindThird(thirdType, openId, bean);
+                        final int serverTime = bean.getData().getSysdata().getNow();
+                        final Date date = new Date();
+                        final long currentTime = date.getTime() / 1000;
+                        SPUtils.saveInt(LoginActivity.this, "Between", (int) (serverTime - currentTime));
                         asyncShowToast("登陆成功");
                         /*登陆成功后跳转*/
                         toNextActivity();
@@ -278,6 +289,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         asyncShowToast("请在当前页面使用手机登陆即可自动绑定");
                         changeSignStatus(0);
                     } else {
+
                         asyncShowToast(bean.getMessage());
                     }
                 }
@@ -358,7 +370,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 if (bean.getErrno() == 0) {
                     asyncShowToast("绑定成功,使用该手机号或该第三方即可登录");
                     changeSignStatus(1);
-                } else asyncShowToast(bean.getMessage());
+                } else {
+                    asyncShowToast(bean.getMessage());
+                }
             }
 
             @Override
