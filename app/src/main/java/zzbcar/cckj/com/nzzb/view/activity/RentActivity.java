@@ -163,7 +163,6 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
         ll_self_activity_selelct_time.setOnClickListener(this);
         iv_rentcar_sorder.setOnClickListener(this);
         tv_rent_address.setOnClickListener(this);
-
         tvSeatsCommit.setOnClickListener(this);
         tvPriceCommit.setOnClickListener(this);
         tvStartTime.setOnClickListener(this);
@@ -209,6 +208,12 @@ public class RentActivity extends BaseActivity implements View.OnClickListener {
         popWindow.setItemListener(new PopWindow.OnPopItemClickListener()
 
         {
+            @Override
+            public void onAllSort() {
+                doCarQuery(params.buildUrl());
+
+            }
+
             @Override
             public void onLocationNearSort() {
                 /*依据距离定位*/

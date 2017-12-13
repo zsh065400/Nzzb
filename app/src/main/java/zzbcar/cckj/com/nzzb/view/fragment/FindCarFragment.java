@@ -222,6 +222,14 @@ public class FindCarFragment extends BaseFragment {
 
         {
             @Override
+            public void onAllSort() {
+                //综合排序
+
+                doCarQuery(params.buildUrl());
+
+            }
+
+            @Override
             public void onLocationNearSort() {
                 /*依据距离定位*/
 //                asyncShowToast("暂未开发");

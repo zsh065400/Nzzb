@@ -79,8 +79,8 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
     ImageView ivBack;
     @BindView(R.id.iv_share)
     ImageView ivShare;
-    @BindView(R.id.tv_full_lose)
-    TextView tvFullLose;
+//    @BindView(R.id.tv_full_lose)
+//    TextView tvFullLose;
     @BindView(R.id.tv_accept_order)
     TextView tvAcceptOrder;
     @BindView(R.id.imageView)
@@ -189,7 +189,9 @@ public class CarDetailActivity extends BaseActivity implements View.OnClickListe
                   /*以图片为基准，超过图片高度则固定颜色*/
 
                 if (scrollY >= vpCarPic.getTop() + vpCarPic.getMeasuredHeight()) {
+//                    topBar.setBackgroundColor(Color.rgb(10, 27, 43));
                     topBar.setBackgroundColor(Color.rgb(10, 27, 43));
+
                            /*其余情况动态计算百分比改变颜色*/
                 } else if (scrollY >= 0) {
                     //计算透明度，滑动到的距离（即当前滑动坐标）/图片高度（底部坐标）

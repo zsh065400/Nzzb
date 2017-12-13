@@ -54,6 +54,7 @@ import zzbcar.cckj.com.nzzb.utils.OssUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
+import zzbcar.cckj.com.nzzb.view.activity.MainActivity;
 
 public class CarLicenceActivity extends BaseActivity implements View.OnClickListener {
 
@@ -337,10 +338,12 @@ public class CarLicenceActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                      finish();
-
+                        MainActivity mActivity = MainActivity.getMainActivity();
+                        mActivity.setViewPager(3);
 
                     }
+
+
                 }).create();
         alertDialog.show();
 

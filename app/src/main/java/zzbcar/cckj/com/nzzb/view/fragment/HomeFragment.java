@@ -59,6 +59,7 @@ import zzbcar.cckj.com.nzzb.adapter.main.GridItemAdapter;
 import zzbcar.cckj.com.nzzb.adapter.main.NewCarAdapter;
 import zzbcar.cckj.com.nzzb.bean.MainPageBean;
 import zzbcar.cckj.com.nzzb.utils.Constant;
+import zzbcar.cckj.com.nzzb.utils.GlideApp;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.ListUtils;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
@@ -147,29 +148,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private AlertDialog alertDialog;
     private Intent callIntent;
 
-//    private void initMarquee(List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
-//        List<String> marqueeText = new ArrayList<>();
-//        List<ImageView> marqueeImage = new ArrayList<>();
-//         for (MainPageBean.DataBean.MarqueeBean bean : marqueeDatas) {
-//            marqueeText.add(bean.getTitle());
-//            ImageView imageView = new ImageView(mActivity);
-////            Picasso.with(mActivity).load(bean.getPicUrl())
-////                    .placeholder(R.mipmap.ic_launcher)
-////                    .error(R.mipmap.ic_launcher)
-////                    .fit()
-////                    .into(imageView);
-//            GlideApp
-//                    .with(mActivity)
-//                    .load(bean.getPicUrl())
-//                    .centerCrop()
+    private void initMarquee(List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
+        List<String> marqueeText = new ArrayList<>();
+        List<ImageView> marqueeImage = new ArrayList<>();
+         for (MainPageBean.DataBean.MarqueeBean bean : marqueeDatas) {
+            marqueeText.add(bean.getTitle());
+            ImageView imageView = new ImageView(mActivity);
+//            Picasso.with(mActivity).load(bean.getPicUrl())
 //                    .placeholder(R.mipmap.ic_launcher)
 //                    .error(R.mipmap.ic_launcher)
+//                    .fit()
 //                    .into(imageView);
-//            marqueeImage.add(imageView);
-//        }
-//        marqueeView.startWithList(marqueeText);
-//        gradient.setImageViews(marqueeImage);
-//    }
+            GlideApp
+                    .with(mActivity)
+                    .load(bean.getPicUrl())
+                    .centerCrop()
+                    .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher)
+                    .into(imageView);
+            marqueeImage.add(imageView);
+        }
+        marqueeView.startWithList(marqueeText);
+        gradient.setImageViews(marqueeImage);
+    }
 
     /**
      * 汽车类型
@@ -294,9 +295,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
 
-//                initMarquee(marqueeDatas);
+             initMarquee(marqueeDatas);
 
-                initMarquee();
             }
 
             @Override
@@ -311,24 +311,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
 
-    private void initMarquee() {
-        //创建imageview
-        ImageView imageView = new ImageView(mActivity);
-        imageView.setImageResource(R.mipmap.image1);
-        ImageView imageView2 = new ImageView(mActivity);
-        imageView2.setImageResource(R.mipmap.image2);
-        ImageView imageView3 = new ImageView(mActivity);
-        imageView3.setImageResource(R.mipmap.image3);
-        ImageView imageView4 = new ImageView(mActivity);
-        imageView4.setImageResource(R.mipmap.image4);
-        List<ImageView> list = new ArrayList<>();
-        list.add(imageView);
-        list.add(imageView2);
-        list.add(imageView3);
-        list.add(imageView4);
-        //设置图片即可
-        gradient.setImageViews(list);
-    }
 
     @TargetApi(Build.VERSION_CODES.M)
     private void initLocation() {

@@ -42,6 +42,17 @@ public class PopWindow extends PopupWindow {
         // 设置SelectPicPopupWindow弹出窗体动画效果
         this.setAnimationStyle(R.style.AnimationPreview);
 
+        conentView.findViewById(R.id.pop_sorder_all).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                //do something you need here
+                if (itemListener != null) itemListener.onAllSort();
+                PopWindow.this.dismiss();
+            }
+        });
+
+
         conentView.findViewById(R.id.pop_loc_near).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -101,6 +112,7 @@ public class PopWindow extends PopupWindow {
     }
 
     public interface OnPopItemClickListener{
+        void onAllSort();
         void onLocationNearSort();
 
         void onPriceLowerSort();
