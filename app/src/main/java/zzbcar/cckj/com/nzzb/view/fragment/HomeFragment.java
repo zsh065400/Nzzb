@@ -147,18 +147,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private AlertDialog.Builder builder;
     private AlertDialog alertDialog;
     private Intent callIntent;
+    private List<MainPageBean.DataBean.MessageBean> messageDatas;
 
-    private void initMarquee(List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
-        List<String> marqueeText = new ArrayList<>();
+    private void initMarquee(final List<MainPageBean.DataBean.MarqueeBean> marqueeDatas) {
+
         List<ImageView> marqueeImage = new ArrayList<>();
          for (MainPageBean.DataBean.MarqueeBean bean : marqueeDatas) {
-            marqueeText.add(bean.getTitle());
             ImageView imageView = new ImageView(mActivity);
-//            Picasso.with(mActivity).load(bean.getPicUrl())
-//                    .placeholder(R.mipmap.ic_launcher)
-//                    .error(R.mipmap.ic_launcher)
-//                    .fit()
-//                    .into(imageView);
             GlideApp
                     .with(mActivity)
                     .load(bean.getPicUrl())
@@ -168,8 +163,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     .into(imageView);
             marqueeImage.add(imageView);
         }
-        marqueeView.startWithList(marqueeText);
         gradient.setImageViews(marqueeImage);
+
+
     }
 
     /**
@@ -287,14 +283,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 brandDatas = data.getBrand();
                 /*车辆*/
                 carDatas = data.getCarList();
+               /*跳动的消息*/
+                messageDatas = data.getMessage();
                 initGoodExperence(activityDatas);
                 initFreshCarType(newCarDatas);
                 initCarTypeList(brandDatas);
                 initCarType(carDatas);
-
-
-
-
+               initMessage(messageDatas);
              initMarquee(marqueeDatas);
 
             }
@@ -308,8 +303,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         initLocation();
     }
 
+    private void initMessage(List<MainPageBean.DataBean.MessageBean> messageList) {
+        List<String> marqueeText = new ArrayList<>();
+        for (MainPageBean.DataBean.MessageBean messageBean : messageList){
+            marqueeText.add(messageBean.getTitle());
+
+        }
+        marqueeView.startWithList(marqueeText);
 
 
+    }
 
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -362,6 +365,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
             }
         });
+
+
 
 
 
@@ -446,9 +451,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.tv_home_clicktosee_detail:
                 intent = new Intent(mActivity, HomeMessageActivity.class);
-                intent = intent.putExtra("marquee", marqueeDatas.get(1));
                 startActivity(intent);
                 break;
+
+
 
         }
 

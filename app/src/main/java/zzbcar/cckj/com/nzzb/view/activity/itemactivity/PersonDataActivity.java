@@ -109,7 +109,7 @@ public class PersonDataActivity extends BaseActivity implements View.OnClickList
     protected void initDatas() {
         ll_person_data_pic.setOnClickListener(this);
         ll_person_data_name.setOnClickListener(this);
-        new TitleBuilder(this).setTitleText("个人资料").setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
+        new TitleBuilder(this).setTitleText("个人资料").setLeftIco(R.drawable.ic_keyboard_arrow_left_black_36dp).setLeftIcoListening(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -350,9 +350,10 @@ public class PersonDataActivity extends BaseActivity implements View.OnClickList
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                            }else {
-                                toActivity(LoginActivity.class);
                             }
+//                            else {
+//                                toActivity(LoginActivity.class);
+//                            }
 
                         }
                     });

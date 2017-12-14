@@ -493,13 +493,13 @@
             android:background="@android:color/transparent"
             android:padding="15dp">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/row_back"/>
+               android:background="@drawable/ic_keyboard_arrow_left_black_36dp"/>
 
             <TextView
                 android:layout_width="wrap_content"

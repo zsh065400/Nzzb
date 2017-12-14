@@ -62,7 +62,7 @@ public class AccountBindActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void initDatas() {
-        new TitleBuilder(this).setTitleText("账号绑定").setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
+        new TitleBuilder(this).setTitleText("账号绑定").setLeftIco(R.drawable.ic_keyboard_arrow_left_black_36dp).setLeftIcoListening(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

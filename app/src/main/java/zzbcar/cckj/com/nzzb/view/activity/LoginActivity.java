@@ -282,7 +282,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         SPUtils.saveInt(LoginActivity.this, "Between", (int) (serverTime - currentTime));
                         asyncShowToast("登陆成功");
                         /*登陆成功后跳转*/
-                        toNextActivity();
+//                       toNextActivity();
                         finish();
                         /*此处判断可改换成更加稳妥的*/
                     } else if ((type.equals("1") || type.equals("2")) && errno == 3) {
@@ -406,16 +406,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        mTencent.login(LoginActivity.this, "all", new BaseUiListener());
     }
 
-    /**
-     * 跳转
-     */
-    protected void toNextActivity() {
-        if (MyApplication.next != null) {
-            toActivity(MyApplication.next, MyApplication.nextBundle);
-            MyApplication.next = null;
-            MyApplication.nextBundle = null;
-        }
-    }
+//    /**
+//     * 跳转
+//     */
+//    protected void toNextActivity() {
+//        if (MyApplication.next != null) {
+//            toActivity(MyApplication.next, MyApplication.nextBundle);
+//            MyApplication.next = null;
+//            MyApplication.nextBundle = null;
+//        }
+//        else {
+//            MainActivity mMainActivity = MainActivity.getMainActivity();
+//            mMainActivity.setViewPager(3);
+//        }
+//    }
 
     private TimerHandler handler = new TimerHandler();
 

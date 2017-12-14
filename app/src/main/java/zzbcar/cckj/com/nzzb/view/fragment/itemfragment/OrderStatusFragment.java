@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lzy.okgo.OkGo;
@@ -26,6 +27,7 @@ import zzbcar.cckj.com.nzzb.utils.Constant;
 import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.OkHttpUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
+import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 import zzbcar.cckj.com.nzzb.view.activity.MainActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.OrderStatusActivity;
 import zzbcar.cckj.com.nzzb.view.fragment.BaseFragment;
@@ -75,7 +77,14 @@ public class OrderStatusFragment extends BaseFragment {
     private SigninBean.DataBean.MemberBean signInfo;
 
     private String url = Constant.API_GET_USER_ORDER + "?status=";
-
+    private TextView tv_sure_get_car;
+    //    private Bundle bundle;
+//    private CarDetailBean.DataBean cardetail;
+//
+//    private String selfGetAddress;
+//    private String selfRepayAddress;
+//    private TextView tv_journey_sendcar_address;
+//    private TextView tv_journey_backcar_address;
     /*
     * 实现逻辑
     * 1 请求每种不同的状态，显示到指定页面（已完成）
@@ -97,6 +106,8 @@ public class OrderStatusFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         signInfo = SPUtils.getSignInfo(mActivity);
+
+
         queryUserOrder();
     }
 
@@ -119,6 +130,10 @@ public class OrderStatusFragment extends BaseFragment {
     @Override
     public void initDatas() {
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+
+
+
+
     }
 
     /*查询订单*/
@@ -146,7 +161,7 @@ public class OrderStatusFragment extends BaseFragment {
                                             initOrderList(data);
                                         }else if (errno==101){
                                             Toast.makeText(mActivity, "会话超时,请重新登陆", Toast.LENGTH_SHORT).show();
-
+                                            toActivity(LoginActivity.class);
                                             return;
                                         }
 
@@ -180,8 +195,14 @@ public class OrderStatusFragment extends BaseFragment {
                 toActivity(OrderStatusActivity.class, bundle);
             }
         });
+
         recyclerView.setAdapter(orderStatusAdapter);
+
+
+
     }
+
+
 
     @Override
     public void initViews(View view) {

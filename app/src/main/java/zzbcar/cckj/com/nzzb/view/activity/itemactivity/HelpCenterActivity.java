@@ -45,7 +45,7 @@ public class HelpCenterActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initDatas() {
-        new TitleBuilder(this).setTitleText("帮助中心").setLeftIco(R.mipmap.row_back).setLeftIcoListening(new View.OnClickListener() {
+        new TitleBuilder(this).setTitleText("帮助中心").setLeftIco(R.drawable.ic_keyboard_arrow_left_black_36dp).setLeftIcoListening(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();

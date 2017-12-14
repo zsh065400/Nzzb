@@ -23,6 +23,7 @@ import zzbcar.cckj.com.nzzb.utils.GsonUtil;
 import zzbcar.cckj.com.nzzb.utils.SPUtils;
 import zzbcar.cckj.com.nzzb.utils.StatusBarUtil;
 import zzbcar.cckj.com.nzzb.view.activity.BaseActivity;
+import zzbcar.cckj.com.nzzb.view.activity.LoginActivity;
 
 /**
  * Created by Admin on 2017/11/20.
@@ -96,7 +97,7 @@ public class MyCollectActivity extends BaseActivity {
         }
         else if (errno==101){
             Toast.makeText(mContext, "会话超时,请重新登陆", Toast.LENGTH_SHORT).show();
-
+            toActivity(LoginActivity.class);
             return;
         }
 

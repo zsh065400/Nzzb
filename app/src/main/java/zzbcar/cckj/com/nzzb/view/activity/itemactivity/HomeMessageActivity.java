@@ -78,15 +78,15 @@ public class HomeMessageActivity extends BaseActivity {
 
                     private void parseData(String body) {
                         final MainPageBean.DataBean dataList = GsonUtil.parseJsonWithGson(body, MainPageBean.class).getData();
-                        final List<MainPageBean.DataBean.MarqueeBean> marqueeMessage = dataList.getMarquee();
-                        MarqueenMessageAdapter marqueenMessageAdapter = new MarqueenMessageAdapter(mContext, marqueeMessage);
+                        final List<MainPageBean.DataBean.MessageBean> messageList = dataList.getMessage();
+                        MarqueenMessageAdapter marqueenMessageAdapter = new MarqueenMessageAdapter(mContext, messageList);
                         marqueenMessageAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(View v, int position) {
                                 //跳转消息详情页面
                              final Intent intent=new Intent(mContext,ProtocolActivity.class);
-                              intent.putExtra("title",marqueeMessage.get(position).getTitle());
-                              intent.putExtra("url",marqueeMessage.get(position).getContent());
+                              intent.putExtra("title",messageList.get(position).getTitle());
+                              intent.putExtra("url",messageList.get(position).getContent());
                                 startActivity(intent);
 
                             }

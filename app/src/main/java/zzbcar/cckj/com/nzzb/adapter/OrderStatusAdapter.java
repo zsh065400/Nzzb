@@ -14,11 +14,15 @@ import zzbcar.cckj.com.nzzb.adapter.base.BaseRecycleViewAdapter;
 import zzbcar.cckj.com.nzzb.bean.UserOrderBean;
 import zzbcar.cckj.com.nzzb.utils.GlideApp;
 
+import static zzbcar.cckj.com.nzzb.R.id.tv_journey_backcar_address;
+import static zzbcar.cckj.com.nzzb.R.id.tv_journey_sendcar_address;
+import static zzbcar.cckj.com.nzzb.R.id.tv_sure_get_car;
+
 /**
  * Created by Admin on 2017/11/6.
  */
 
-public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.DataBean> {
+public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.DataBean>{
 
     /*
     * 订单状态：
@@ -106,13 +110,32 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
         holder.setText(R.id.tv_rec_time, dataBean.getEndTime() + "");
         holder.setText(R.id.tv_car_detail, car.getModelYear() + "款 " + "|" + car.getSeatNum() + "座位 " + "|" + transmissionCase[car.getTransmissionCase()] + "");
         holder.setText(R.id.tv_car_address, car.getAddr());
-        TextView view = holder.getView(R.id.tv_sure_get_car);
+
+        if (dataBean.getTakeHome()==0){
+            holder.setText(R.id.tv_journey_sendcar_address, "自行取车");
+        }else {
+            holder.setText(R.id.tv_journey_sendcar_address, "送车上门");
+        }
+        if(dataBean.getReturnHome()==0){
+
+            holder.setText(tv_journey_backcar_address, "自行还车");
+        }else {
+            holder.setText(tv_journey_sendcar_address, "上门收车");
+        }
+
+
+
+
+        TextView view = holder.getView(tv_sure_get_car);
         switch (status) {
             case 0:
                 if (payStatus == 0)
                     view.setText("确定支付");
-                else
+
+                else{
                     view.setVisibility(View.GONE);
+                }
+
                 break;
             case 2:
                 view.setText("确定取车");
@@ -140,6 +163,9 @@ public class OrderStatusAdapter extends BaseRecycleViewAdapter<UserOrderBean.Dat
 
     @Override
     protected int getItemView() {
+
         return R.layout.order_status_item;
     }
+
+
 }

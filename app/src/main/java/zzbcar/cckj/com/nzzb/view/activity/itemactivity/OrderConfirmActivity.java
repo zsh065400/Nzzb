@@ -130,7 +130,7 @@ public class OrderConfirmActivity extends BaseActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                  finish();
             }
         });
 
@@ -256,6 +256,8 @@ public class OrderConfirmActivity extends BaseActivity {
         tvOrderNumber.setText(cardetail.getPlateNo());
         tvOrderGetaddrTime.setText(getAddress + "\n" + bundle.getString("getTime"));
         tvOrderBackaddrTime.setText(sendAddress + "\n" + bundle.getString("backTime"));
+
+
         tvConfirmQuche.setText(selfGetAddress);
         tvConfirmHuanche.setText(selfRepayAddress);
 

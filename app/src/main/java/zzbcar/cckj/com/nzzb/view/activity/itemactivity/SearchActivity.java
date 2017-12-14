@@ -84,7 +84,7 @@ public class SearchActivity extends BaseActivity {
         rvSearchHistory.setNestedScrollingEnabled(false);
 
         rvSearchFire.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        rvSearchFire.addItemDecoration(new SpacesItemDecoration(new SpaceSize(20, 10, 20, 10)));
+        rvSearchFire.addItemDecoration(new SpacesItemDecoration(new SpaceSize(20, 12, 20, 12)));
 
         rvSearchHistory.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         rvSearchHistory.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
@@ -96,8 +96,15 @@ public class SearchActivity extends BaseActivity {
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tvCancel.getText().equals("取消")) finish();
-                else doSearch();
+                if (tvCancel.getText().equals("取消")) {
+                    finish();
+                }
+                else {
+                    if (tvCancel.getText().equals("搜索")){
+                        doSearch();
+                    }
+
+                }
             }
         });
 
@@ -165,6 +172,8 @@ public class SearchActivity extends BaseActivity {
                     queryResult = queryBean.getData();
                     if(queryResult.size()!=0){
                         showResultView();
+
+
                     }else{
                         Toast.makeText(mContext, "没有找到您想要的车辆", Toast.LENGTH_SHORT).show();
                     }

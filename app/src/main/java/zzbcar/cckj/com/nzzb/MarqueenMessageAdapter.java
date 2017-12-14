@@ -11,7 +11,7 @@ import zzbcar.cckj.com.nzzb.bean.MainPageBean;
  * Created by Admin on 2017/11/29.
  */
 
-public class MarqueenMessageAdapter extends BaseRecycleViewAdapter<MainPageBean.DataBean.MarqueeBean> {
+public class MarqueenMessageAdapter extends BaseRecycleViewAdapter<MainPageBean.DataBean.MessageBean> {
 
     public MarqueenMessageAdapter(Context context, List datas) {
 
@@ -21,8 +21,8 @@ public class MarqueenMessageAdapter extends BaseRecycleViewAdapter<MainPageBean.
 
 
     @Override
-    protected void convert(MyViewHolder holder, int position, MainPageBean.DataBean.MarqueeBean marqueeBean) {
-   holder.setText(R.id.tv_marquee_message,marqueeBean.getTitle());
+    protected void convert(MyViewHolder holder, int position, MainPageBean.DataBean.MessageBean messageBean) {
+    holder.setText(R.id.tv_marquee_message,messageBean.getTitle());
     }
 
     @Override

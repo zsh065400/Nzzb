@@ -26,12 +26,12 @@ public class MyApplication extends MultiDexApplication {
 
     public static Class<?> next = null;
     public static Bundle nextBundle = null;
-
     private static IWXAPI SWXAPI;
     private static MyApplication SINSTANCE;
     public static AppManager appManager;
 
     public static MyApplication getMyApplicaiton() {
+
         return SINSTANCE;
     }
 

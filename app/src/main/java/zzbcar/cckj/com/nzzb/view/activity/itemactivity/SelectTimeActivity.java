@@ -167,7 +167,7 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
 
     @Override
     protected void initListeners() {
-        new TitleBuilder(this).setTitleText("选择时间").setLeftIco(R.mipmap.row_back).setLeftIcoListening(
+        new TitleBuilder(this).setTitleText("选择时间").setLeftIco(R.drawable.ic_keyboard_arrow_left_black_36dp).setLeftIcoListening(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -360,7 +360,11 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
             if (!bundle.getString("getAddress").equals("请点击设置送车上门地址")) {
                 swh_status_sendcar.setChecked(true);
                 tvSelectGetAddress.setText(bundle.getString("getAddress"));
+
+
             }
+
+
         } else {
             if (!bundle.getString("getAddress").equals("请点击设置送车上门地址")) {
                 swh_status_sendcar.setChecked(true);
@@ -448,6 +452,16 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
             Toast.makeText(this, "请设置还车时间", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(tvSelectGetAddress.getText().equals("请点击设置送车上门地址")){
+            Toast.makeText(this, "请选择送车上门地址", Toast.LENGTH_SHORT).show();
+            return;
+        }
+    if(tvSelectSendAddress.getText().equals("请点击设置上门收车地址")){
+            Toast.makeText(this, "请选择上门收车地址", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         final SimpleDateFormat origin = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         final SimpleDateFormat target = new SimpleDateFormat("yyyyMMddHHmmss");
         try {
@@ -474,8 +488,6 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
                         bundle.putString("sendAddress", sendAddress);
                         bundle.putString("selfGetAddress", selfGetAddress);
                         bundle.putString("selfRepayAddress", selfRepayAddress);
-
-
                         bundle.putSerializable("cardetail", cardetail);
                         asyncShowToast("登陆超时，请重新登录");
                         toActivity(OrderConfirmActivity.class, bundle, true);
@@ -505,12 +517,13 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
         bundle.putString("selfRepayAddress", selfRepayAddress);
         if (type.equals(RENT_KEY)) {
             setResult(RESULT_OK, new Intent().putExtras(bundle));
+            finish();
         } else {
             bundle.putSerializable("cardetail", cardetail);
             toActivity(OrderConfirmActivity.class, bundle, true);
             //Toast.makeText(mContext, "租车逻辑", Toast.LENGTH_SHORT).show();
         }
-        finish();
+
     }
 
     private void initTimePicker() {
@@ -731,11 +744,11 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
             case R.id.swh_status_pullcar:
                 tvSelectSendAddress.setEnabled(b);
                 if (b) {
-                    tvSetSelfRepaycarAddress.setText("上门收车地址");
+                    tvSetSelfRepaycarAddress.setText("上门收车地址：");
                     tvSelectSendAddress.setText("请点击设置上门收车地址");
                 } else {
 
-                    tvSetSelfRepaycarAddress.setText("自行还车地址");
+                    tvSetSelfRepaycarAddress.setText("自行还车地址：");
                     tvSelectSendAddress.setText("华源创意工长48幢");
                 }
                 break;
@@ -743,10 +756,10 @@ public class SelectTimeActivity extends BaseActivity implements View.OnClickList
             case R.id.swh_status_sendcar:
                 tvSelectGetAddress.setEnabled(b);
                 if (!b) {
-                    tvSetSelfGetcarAddress.setText("自行取车地址");
+                    tvSetSelfGetcarAddress.setText("自行取车地址：");
                     tvSelectGetAddress.setText("华源创意工长48幢");
                 } else {
-                    tvSetSelfGetcarAddress.setText("送车上门地址");
+                    tvSetSelfGetcarAddress.setText("送车上门地址：");
                     tvSelectGetAddress.setText("请点击设置送车上门地址");
                 }
                 break;

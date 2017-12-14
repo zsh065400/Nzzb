@@ -58,7 +58,6 @@ import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AboutUsActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.AccountBindActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.BreakRuleActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CarIdentifiActivity;
-import zzbcar.cckj.com.nzzb.view.activity.itemactivity.CommonAddressActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.HelpCenterActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.IdentiCompleteActivity;
 import zzbcar.cckj.com.nzzb.view.activity.itemactivity.MyCarActivity;
@@ -182,7 +181,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void initDatas() {
         rl_my_card.setOnClickListener(this);
-        rl_my_address.setOnClickListener(this);
+//        rl_my_address.setOnClickListener(this);
         rl_my_account_bind.setOnClickListener(this);
         rl_my_break_rules.setOnClickListener(this);
         rl_my_invite_friends.setOnClickListener(this);
@@ -252,7 +251,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         ll_my_collect = (LinearLayout) view.findViewById(R.id.ll_my_collect);
 
         rl_my_card = (RelativeLayout) view.findViewById(R.id.rl_my_card);
-        rl_my_address = (RelativeLayout) view.findViewById(R.id.rl_my_address);
+        //我的地址
+//        rl_my_address = (RelativeLayout) view.findViewById(R.id.rl_my_address);
         rl_my_account_bind = (RelativeLayout) view.findViewById(R.id.rl_my_account_bind);
         rl_my_break_rules = (RelativeLayout) view.findViewById(R.id.rl_my_break_rules);
         rl_my_invite_friends = (RelativeLayout) view.findViewById(R.id.rl_my_invite_friends);
@@ -288,9 +288,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 intent = new Intent(mActivity, MyCarActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.rl_my_address:
-                toActivity(CommonAddressActivity.class, true);
-                break;
+//            case R.id.rl_my_address:
+//                toActivity(CommonAddressActivity.class, true);
+//                break;
             case R.id.rl_my_account_bind:
                 toActivity(AccountBindActivity.class, true);
                 break;

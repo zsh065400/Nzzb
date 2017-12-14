@@ -10,9 +10,9 @@
 
     <RelativeLayout
         android:id="@+id/top_bar"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:imeOptions="actionSend"
                 android:lines="1"
                 android:paddingLeft="5dp"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_cancel"
@@ -45,7 +45,7 @@
                 android:background="@color/white"
                 android:gravity="center"
                 android:text="取消"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
         </LinearLayout>
     </RelativeLayout>

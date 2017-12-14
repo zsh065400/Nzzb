@@ -20,7 +20,6 @@ public class ListItemAdapter extends BaseRecycleViewAdapter<QueryBean.DataBean> 
         super(context, datas);
     }
 
-    @Override
     protected void convert(BaseRecycleViewAdapter<QueryBean.DataBean>.MyViewHolder holder, int position, QueryBean.DataBean dataBean) {
         holder.setText(R.id.tv_item_car, dataBean.getCarName());
         holder.setText(R.id.tv_item_price, String.format("￥%s/天", dataBean.getPrice()));
